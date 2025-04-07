@@ -1,26 +1,37 @@
+/* Set default font and margin/padding */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background: #fafafa;
-    color: #333;
-  }
-  
-  header {
-    background: #8f4f2a;
-    color: white;
+    background: #000000; /* Black background */
+    color: #FFA500; /* Orange text */
+}
+
+/* Header styling */
+header {
+    background: #333333; /* Dark grey header background */
+    color: #FFA500; /* Orange text in the header */
     padding: 1rem;
     text-align: center;
-  }
-  
-  main {
+}
+
+/* Logo styling */
+header img {
+    max-width: 100%;  /* Make logo responsive */
+    height: auto;     /* Maintain aspect ratio */
+    max-height: 200px; /* Limit the max height */
+}
+
+/* Main content area styling */
+main {
     padding: 2rem;
-  }
-  
-  footer {
-    background: #eee;
+}
+
+/* Footer styling */
+footer {
+    background: #222222; /* Dark footer background */
     text-align: center;
     padding: 1rem;
     font-size: 0.9rem;
-  }
-  
+    color: #FFA500; /* Orange text in footer */
+}
