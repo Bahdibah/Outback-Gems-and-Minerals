@@ -35,3 +35,34 @@ footer {
     padding: 1rem;
     font-size: 0.9rem;
 }
+/* Menu Bar Styles */
+nav {
+    background-color: #222; /* Dark background for the menu */
+    padding: 0.5rem 0;
+  }
+  
+  nav ul {
+    list-style-type: none; /* Remove default list bullets */
+    padding: 0;
+    margin: 0;
+    text-align: center; /* Center align the items */
+  }
+  
+  nav ul li {
+    display: inline; /* Make list items inline */
+    margin-right: 20px; /* Space between menu items */
+  }
+  
+  nav ul li a {
+    text-decoration: none; /* Remove the underline */
+    color: orange; /* Menu text color */
+    font-size: 1.1rem;
+  }
+  
+  nav ul li a:hover {
+    color: #fff; /* Change color on hover */
+    background-color: #444; /* Add background on hover */
+    padding: 0.5rem;
+    border-radius: 5px; /* Rounded corners on hover */
+  }
+  
