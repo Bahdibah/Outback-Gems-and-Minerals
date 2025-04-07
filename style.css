@@ -1,37 +1,35 @@
-/* Set default font and margin/padding */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background: #000000; /* Black background */
-    color: #FFA500; /* Orange text */
+    background-color: black; /* Set background to black */
+    color: orange; /* Set text color to orange */
 }
 
-/* Header styling */
 header {
-    background: #333333; /* Dark grey header background */
-    color: #FFA500; /* Orange text in the header */
+    text-align: center; /* Center the header content */
     padding: 1rem;
-    text-align: center;
+    background-color: #333; /* Dark background for header */
 }
 
-/* Logo styling */
 header img {
-    max-width: 100%;  /* Make logo responsive */
-    height: auto;     /* Maintain aspect ratio */
-    max-height: 200px; /* Limit the max height */
+    max-width: 100%; /* Make sure the logo is responsive */
+    height: auto;
 }
 
-/* Main content area styling */
+h1, p {
+    margin: 0;
+    padding: 0.5rem;
+}
+
 main {
     padding: 2rem;
+    text-align: center; /* Center the main content */
 }
 
-/* Footer styling */
 footer {
-    background: #222222; /* Dark footer background */
+    background-color: #222; /* Dark footer background */
     text-align: center;
     padding: 1rem;
     font-size: 0.9rem;
-    color: #FFA500; /* Orange text in footer */
 }
