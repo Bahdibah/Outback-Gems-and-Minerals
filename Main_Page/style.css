@@ -13,7 +13,9 @@ header {
 }
 
 header img {
-    max-width: 100%; /* Make sure the logo is responsive */
+    display: block; /* Removes extra space below the image */
+    margin: 0 auto; /* Centers the logo */
+    max-width: 100%; /* Makes sure the logo is responsive */
     height: auto;
 }
 
