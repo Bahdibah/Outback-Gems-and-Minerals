@@ -1,70 +1,76 @@
 body {
+    background-color: #2e2e2e; /* Dark grey */
+    color: #cc5500; /* Burnt orange */
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: black; /* Set background to black */
-    color: orange; /* Set text color to orange */
 }
 
 header {
-    text-align: center; /* Center the header content */
-    padding: 1rem;
-    background-color: #333; /* Dark background for header */
+    background-color: #1e1e1e;
+    padding: 20px;
 }
 
-header img {
-    display: block; /* Removes extra space below the image */
-    margin: 0 auto; /* Centers the logo */
-    max-width: 100%; /* Makes sure the logo is responsive */
-    height: auto;
+.header-content {
+    display: flex;
+    align-items: center;
+    gap: 20px;
 }
 
-h1, p {
+.logo {
+    height: 60px;
+    width: auto;
+}
+
+h1 {
     margin: 0;
-    padding: 0.5rem;
-}
-
-main {
-    padding: 2rem;
-    text-align: center; /* Center the main content */
-}
-
-footer {
-    background-color: #222; /* Dark footer background */
-    text-align: center;
-    padding: 1rem;
-    font-size: 0.9rem;
-}
-
-/* Menu Bar Styles */
-nav {
-    background-color: #222; /* Dark background for the menu */
-    padding: 1rem 0; /* Add padding above and below the menu */
+    font-size: 2rem;
 }
 
 nav ul {
-    list-style-type: none; /* Remove default list bullets */
+    list-style: none;
+    display: flex;
+    justify-content: center;
     padding: 0;
-    margin: 0;
-    display: flex; /* Flexbox layout for the menu */
-    justify-content: center; /* Center align the items */
-}
-
-nav ul li {
-    margin: 0 15px; /* Space between menu items */
+    margin: 20px 0 0 0;
+    gap: 20px;
 }
 
 nav ul li a {
-    text-decoration: none; /* Remove the underline */
-    color: orange; /* Menu text color */
-    font-size: 1.1rem;
-    padding: 10px 20px; /* Add padding to the links */
-    border-radius: 5px; /* Round the corners of the link */
-    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition on hover */
+    color: #cc5500;
+    text-decoration: none;
+    font-weight: bold;
 }
 
 nav ul li a:hover {
-    color: #fff; /* Change color to white on hover */
-    background-color: #444; /* Add a background color on hover */
-    transform: scale(1.1); /* Slightly enlarge the link on hover */
+    text-decoration: underline;
+}
+
+section {
+    padding: 20px;
+}
+
+form input,
+form textarea,
+form button {
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #444;
+    color: #fff;
+    border: 1px solid #cc5500;
+}
+
+form button {
+    background-color: #cc5500;
+    color: #fff;
+    cursor: pointer;
+}
+
+footer {
+    background-color: #1e1e1e;
+    text-align: center;
+    padding: 10px;
+    margin-top: 20px;
 }
