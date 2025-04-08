@@ -1,4 +1,4 @@
-/* Global Styles */
+
 body {
     background-color: #2e2e2e;
     color: #cc5500;
@@ -11,23 +11,40 @@ section {
     padding: 60px 20px;
 }
 
-/* Header Styling */
 header {
     background-color: #1e1e1e;
     padding: 20px;
     display: flex;
-    justify-content: space-between; /* Space between logo/content and menu */
+    flex-direction: column;
     align-items: center;
+    position: relative;
 }
 
 .logo {
     height: 100px;
     width: auto;
+    margin-bottom: 10px;
+}
+
+.header-content {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    padding-bottom: 10px;
+}
+
+.welcome-message {
+    font-size: 2.5rem;
+    color: #cc5500;
+    margin: 0 20px;
 }
 
 nav {
     width: 100%;
-    background-color: #1c1c1c;
+    background-color: grad(cc5500, 1c1c1c);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
     border-top: 2px solid #cc5500;
     position: sticky;
@@ -65,49 +82,101 @@ nav ul li a:active {
     background-color: #ff7f33;
 }
 
-/* Account and Cart Menu (Top-Right) */
-.menu {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-}
-
-.menu ul {
-    list-style: none;
-    display: flex;
-    gap: 20px;
-    padding: 0;
-    margin: 0;
-}
-
-.menu ul li a {
-    color: #cc5500;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 1.1rem;
-    padding: 12px 20px;
-    display: block;
-    transition: background 0.3s ease, color 0.3s ease;
-    border-radius: 5px;
-}
-
-.menu ul li a:hover {
-    background-color: #cc5500;
-    color: #1e1e1e;
-}
-
-.menu ul li a:active {
-    background-color: #ff7f33;
-}
-
-/* Hero Section Styling */
 #home {
     background: url('Banner 2.jpg') no-repeat center center/cover;
     color: #fff;
     text-align: center;
-    padding: 80px 20px;
+    padding: 80px 20px; /* Reduced padding for a smaller image */
     position: relative;
 }
 
 .hero-overlay {
-    background-color: rgba(0, 0, 0, 0.
+    background-color: rgba(0, 0, 0, 0.7); /* Darker overlay */
+    padding: 30px 24px;  /* Adjusted padding for a smaller box */
+    border-radius: 15px;
+    display: inline-block;
+    max-width: 51%; /* Reduced to 80% smaller by 20% */
+    margin: 0 auto; /* Centers the overlay */
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.5); /* Adds shadow for more depth */
+    font-family: 'Georgia', serif; /* Elegant font */
+}
+
+.hero-overlay h2 {
+    font-size: 2rem; /* Slightly reduced font size */
+    font-weight: bold;
+    margin-bottom: 15px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7); /* Adds a subtle text shadow */
+}
+
+.hero-overlay p {
+    font-size: 1rem; /* Slightly reduced font size */
+    line-height: 1.6;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7); /* Adds a subtle text shadow */
+}
+
+/* Gallery Styling */
+.gallery-preview {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.gallery-preview img {
+    width: 200px;
+    border-radius: 10px;
+    border: 2px solid #cc5500;
+}
+
+/* Button Styles */
+button, .button {
+    background-color: #cc5500;
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s ease;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+button:hover, .button:hover {
+    background-color: #ff7f33;
+    transform: translateY(-2px);
+}
+
+button:active, .button:active {
+    background-color: #b34700;
+}
+
+/* Form Elements */
+form label {
+    margin-top: 15px;
+    font-weight: bold;
+    display: block;
+}
+
+form input,
+form textarea {
+    display: block;
+    width: 100%;
+    margin-top: 5px;
+    padding: 10px;
+    background-color: #444;
+    color: #fff;
+    border: 1px solid #cc5500;
+    border-radius: 5px;
+}
+
+/* Footer Styling */
+footer {
+    background-color: #1e1e1e;
+    text-align: center;
+    padding: 10px;
+    margin-top: 20px;
+    color: #888;
+}
