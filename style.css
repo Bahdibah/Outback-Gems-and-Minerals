@@ -9,22 +9,32 @@ body {
 header {
     background-color: #1e1e1e;
     padding: 20px;
+    position: relative;
+    text-align: center;
 }
 
-.header-content {
+header .header-content {
     display: flex;
     align-items: center;
+    justify-content: left;
     gap: 20px;
 }
 
 .logo {
-    height: 60px;
+    height: 200px; /* Double the size */
     width: auto;
 }
 
-h1 {
-    margin: 0;
-    font-size: 2rem;
+.welcome-container {
+    margin-top: 10px;
+}
+
+.welcome-message {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: #cc5500;
 }
 
 nav ul {
