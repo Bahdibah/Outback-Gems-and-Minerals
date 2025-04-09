@@ -33,6 +33,7 @@ header {
     justify-content: center;
     text-align: center;
     width: 100%;
+    padding-top: 60px;
     padding-bottom: 10px;
 }
 
@@ -45,22 +46,28 @@ header {
 
 nav {
     width: 100%;
-    background-color: grad(cc5500, 1c1c1c);
+    height: 65px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(to right, #cc5500, #1c1c1c);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
     border-top: 2px solid #cc5500;
-    position: sticky;
+    position: fixed;
     top: 0;
     z-index: 1000;
 }
 
 nav ul {
-    list-style: none;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
+    gap: 20px;
+    list-style: none;    
     justify-content: center;
     padding: 0;
     margin: 20px 0 0 0;
-    gap: 20px;
-    flex-wrap: wrap;
 }
 
 nav ul li a {
@@ -79,12 +86,35 @@ nav ul li a:hover {
     color: #1e1e1e;
 }
 
-nav ul li a:active {
-    background-color: #ff7f33;
+nav ul li a.active {
+    background-color: #cc5500;
+    color: #1e1e1e;
+}
+
+nav div.options {
+    position: absolute;
+    right: 0px; /* Pushes icons to the right edge */
+    top: 0px; /* Pushes icons to the top edge */
+    display: flex;
+    gap: 10px;
+    background-color: white;    /* White background */
+    padding: 10px 15px;         /* Padding around the icons */       /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Soft shadow for depth */
+    height: 15px;               /* Match the height to the icon size */
+    width: 80px;
+    display: flex;
+    align-items: center;        /* Vertically center icons inside the box */
+    z-index: 1;                 /* Ensure the icons stay above the box */
+}
+
+nav div.options img {
+    max-height: 15px;  /* Adjust size of icons to fit inside the box */
+    width: auto;
+    cursor: pointer;
 }
 
 #home {
-    background: url('Banner 1.jpg') no-repeat center center/cover;
+    background: url('images/Banner 1.jpg') no-repeat center center/cover;
     color: #fff;
     text-align: center;
     padding: 80px 20px;

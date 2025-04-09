@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Outback Gems</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Parisienne&display=swap" rel="stylesheet" />
+  <style>
+    #home {
+      background: url('images/Banner 1.jpg') no-repeat center center/cover;
+      color: #fff;
+      text-align: center;
+      padding: 80px 20px;
+      position: relative;
+      transition: background-image 1s ease-in-out;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-content">
+    <img src="images/logo.png" alt="Outback Gems Logo" class="logo" />
+    <h1 class="welcome-message">Outback Gems & Minerals</h1>
+  </div>
+  <nav>
+    <ul>
+      <li><a href="#home" class="active">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#products">Products</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#contact">Contact Us</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section id="home">
+  <div class="hero-overlay">
+    <h2>Your Destination for Premium Faceting Rough and Australian Gems & Minerals</h2>
+    <p>Explore our collection of rough stones, precision-cut pieces, and high-quality synthetic rough, perfect for faceting enthusiasts and collectors alike.</p>
+  </div>
+</section>
+
+<section id="about">
+  <h2>About Us</h2>
+  <p>At Outback Gems, we specialize in sourcing high-quality gemstones from across Australia’s rugged landscapes. Our collection features a wide range of stones, from sparkling sapphires to stunning opals.</p>
+</section>
+
+<section id="products">
+  <h2>Our Gems</h2>
+  <p>Browse our collection of Australian gems, each carefully selected for its unique beauty and quality.</p>
+  <ul>
+    <li><strong>Sapphires:</strong> Gorgeous, high-quality sapphires in various cuts and colors.</li>
+    <li><strong>Opals:</strong> Unique opals with beautiful play of color, sourced from the outback.</li>
+    <li><strong>Garnets:</strong> Deep red garnets that shimmer in the light.</li>
+  </ul>
+</section>
+
+<section id="gallery">
+  <h2>Gallery</h2>
+  <p>Here's a sneak peek at our gem collection:</p>
+  <div class="gallery-preview">
+    <img src="images/gem1.jpg" alt="Sapphire" />
+    <img src="images/gem2.jpg" alt="Opal" />
+    <img src="images/gem3.jpg" alt="Garnet" />
+  </div>
+</section>
+
+<section id="contact">
+  <h2>Contact Us</h2>
+  <p>If you’re ready to add a beautiful gemstone to your collection or need more information, get in touch with us!</p>
+  <form action="#" method="post">
+    <label for="name">Your Name:</label>
+    <input type="text" id="name" name="name" placeholder="e.g. Mick Dundee" required />
+
+    <label for="email">Your Email:</label>
+    <input type="email" id="email" name="email" placeholder="you@example.com" required />
+
+    <label for="message">Your Message:</label>
+    <textarea id="message" name="message" rows="4" placeholder="Let us know what you're looking for..." required></textarea>
+
+    <button type="submit">Send Message</button>
+  </form>
+</section>
+
+<footer>
+  <p>&copy; 2025 Outback Gems & Minerals. All rights reserved.</p>
+</footer>
+
+<script>
+  const images = ["images/Banner 1.jpg", "images/Banner 2.jpg", "images/Banner 3.jpg", "images/Banner 4.jpg",];
+  let current = 0;
+
+  setInterval(() => {
+    current = (current + 1) % images.length;
+    document.getElementById("home").style.backgroundImage = `url('${images[current]}')`;
+  }, 15000); // Change image every 15 seconds
+</script>
+
+</body>
+</html>

@@ -8,7 +8,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Parisienne&display=swap" rel="stylesheet" />
   <style>
     #home {
-      background: url('Banner 1.jpg') no-repeat center center/cover;
+      background: url('images/Banner 1.jpg') no-repeat center center/cover;
       color: #fff;
       text-align: center;
       padding: 80px 20px;
@@ -21,17 +21,30 @@
 
 <header>
   <div class="header-content">
-    <img src="logo.png" alt="Outback Gems Logo" class="logo" />
+    <img src="images/logo.png" alt="Outback Gems Logo" class="logo" />
     <h1 class="welcome-message">Outback Gems & Minerals</h1>
   </div>
   <nav>
     <ul>
-      <li><a href="#home">Home</a></li>
+      <li><a href="#home" class="active">Home</a></li>
       <li><a href="#about">About</a></li>
       <li><a href="#products">Products</a></li>
       <li><a href="#gallery">Gallery</a></li>
       <li><a href="#contact">Contact Us</a></li>
     </ul>
+    <div class="options">
+      <ul>
+        <li>
+          <img src="images/Account.png" alt="Outback Gems Logo" class="logo" />
+        </li>
+        <li>
+          <img src="images/Cart.png" alt="Outback Gems Logo" class="logo" />
+        </li>
+        <li>
+          <img src="images/Settings.png" alt="Outback Gems Logo" class="logo" />
+        </li>
+      </ul>
+    </div>
   </nav>
 </header>
 
@@ -61,9 +74,9 @@
   <h2>Gallery</h2>
   <p>Here's a sneak peek at our gem collection:</p>
   <div class="gallery-preview">
-    <img src="gem1.jpg" alt="Sapphire" />
-    <img src="gem2.jpg" alt="Opal" />
-    <img src="gem3.jpg" alt="Garnet" />
+    <img src="images/gem1.jpg" alt="Sapphire" />
+    <img src="images/gem2.jpg" alt="Opal" />
+    <img src="images/gem3.jpg" alt="Garnet" />
   </div>
 </section>
 
@@ -89,7 +102,7 @@
 </footer>
 
 <script>
-  const images = ["Banner 1.jpg", "Banner 2.jpg", "Banner 3.jpg", "Banner 4.jpg",];
+  const images = ["images/Banner 1.jpg", "images/Banner 2.jpg", "images/Banner 3.jpg", "images/Banner 4.jpg",];
   let current = 0;
 
   setInterval(() => {
