@@ -37,8 +37,9 @@ header {
 }
 
 .welcome-message {
+    font-family: 'Parisienne', cursive;
     font-size: 2.5rem;
-    color: #cc5500;
+    color: 	#cc5500;
     margin: 0 20px;
 }
 
@@ -63,7 +64,7 @@ nav ul {
 }
 
 nav ul li a {
-    color: #cc5500;
+    color: 	#cc5500;
     text-decoration: none;
     font-weight: bold;
     font-size: 1.1rem;
@@ -74,7 +75,7 @@ nav ul li a {
 }
 
 nav ul li a:hover {
-    background-color: #cc5500;
+    background-color:  	#cc5500;
     color: #1e1e1e;
 }
 
@@ -83,11 +84,12 @@ nav ul li a:active {
 }
 
 #home {
-    background: url('Banner 2.jpg') no-repeat center center/cover;
+    background: url('Banner 1.jpg') no-repeat center center/cover;
     color: #fff;
     text-align: center;
-    padding: 80px 20px; /* Reduced padding for a smaller image */
+    padding: 80px 20px;
     position: relative;
+    transition: background-image 1s ease-in-out;
 }
 
 .hero-overlay {
