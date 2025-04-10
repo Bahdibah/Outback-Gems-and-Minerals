@@ -10,16 +10,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Allura&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Satisfy&display=swap" rel="stylesheet">
-  <style>
-    #home {
-      background: url('images/Banner 1.jpg') no-repeat center center/cover;
-      color: #fff;
-      text-align: center;
-      padding: 80px 20px;
-      position: relative;
-      transition: background-image 1s ease-in-out;
-    }
-  </style>
 </head>
 <body>
 
@@ -108,57 +98,48 @@
       <p>Description of product 3.</p>
       <button class="product-button">Buy Now</button>
     </div>
-
-    <!-- Second Row -->
     <div class="product-card">
       <img src="images/Rough 1.jpg" alt="Product 4" style="width: 75%; height: auto;" />
       <h3>Product Name 4</h3>
       <p>Description of product 4.</p>
       <button class="product-button">Buy Now</button>
     </div>
+  </div>
+</section>
+
+<section id="whats-new" class="product-section">
+  <div class="bestselling-header-box"> <!-- Wrapper for header with box styling -->
+    <h2 class="bestselling-header">What's New</h2>
+  </div>
+
+  <div class="product-grid">
+    <!-- First Row -->
     <div class="product-card">
-      <img src="images/Rough 1.jpg" alt="Product 5" style="width: 75%; height: auto;" />
-      <h3>Product Name 5</h3>
-      <p>Description of product 5.</p>
+      <img src="images/Rough 1.jpg" alt="Product 1" style="width: 75%; height: auto;" /> 
+      <h3>Product Name 1</h3>
+      <p>Description of product 1.</p>
       <button class="product-button">Buy Now</button>
     </div>
     <div class="product-card">
-      <img src="images/Rough 1.jpg" alt="Product 6" style="width: 75%; height: auto;" />
-      <h3>Product Name 6</h3>
-      <p>Description of product 6.</p>
+      <img src="images/Rough 1.jpg" alt="Product 2" style="width: 75%; height: auto;" />
+      <h3>Product Name 2</h3>
+      <p>Description of product 2.</p>
+      <button class="product-button">Buy Now</button>
+    </div>
+    <div class="product-card">
+      <img src="images/Rough 1.jpg" alt="Product 3" style="width: 75%; height: auto;" />
+      <h3>Product Name 3</h3>
+      <p>Description of product 3.</p>
+      <button class="product-button">Buy Now</button>
+    </div>
+    <div class="product-card">
+      <img src="images/Rough 1.jpg" alt="Product 4" style="width: 75%; height: auto;" />
+      <h3>Product Name 4</h3>
+      <p>Description of product 4.</p>
       <button class="product-button">Buy Now</button>
     </div>
   </div>
 </section>
-
-
-
-<section id="about">
-  <h2>About Us</h2>
-  <p>At Outback Gems, we specialize in sourcing high-quality gemstones from across Australia’s rugged landscapes. Our collection features a wide range of stones, from sparkling sapphires to stunning opals.</p>
-</section>
-
-<section id="products">
-  <h2>Our Gems</h2>
-  <p>Browse our collection of Australian gems, each carefully selected for its unique beauty and quality.</p>
-  <ul>
-    <li><strong>Sapphires:</strong> Gorgeous, high-quality sapphires in various cuts and colors.</li>
-    <li><strong>Opals:</strong> Unique opals with beautiful play of color, sourced from the outback.</li>
-    <li><strong>Garnets:</strong> Deep red garnets that shimmer in the light.</li>
-  </ul>
-</section>
-
-<section id="gallery">
-  <h2>Gallery</h2>
-  <p>Here's a sneak peek at our gem collection:</p>
-  <div class="gallery-preview">
-    <img src="images/gem1.jpg" alt="Sapphire" />
-    <img src="images/gem2.jpg" alt="Opal" />
-    <img src="images/gem3.jpg" alt="Garnet" />
-  </div>
-</section>
-
-
 
 <section id="contact">
   <h2>Contact Us</h2>
@@ -187,7 +168,7 @@
 
   setInterval(() => {
     current = (current + 1) % images.length;
-    document.getElementById("home").style.backgroundImage = url('${images[current]}');
+    document.getElementById("home").style.backgroundImage = `url('${images[current]}')`;
   }, 15000); // Change image every 15 seconds
 </script>
 
