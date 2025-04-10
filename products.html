@@ -6,34 +6,29 @@
   <title>Outback Gems</title>
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Parisienne&display=swap" rel="stylesheet" />
-  <style>
-    #home {
-      background: url('images/Banner 1.jpg') no-repeat center center/cover;
-      color: #fff;
-      text-align: center;
-      padding: 80px 20px;
-      position: relative;
-      transition: background-image 1s ease-in-out;
-    }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Allura&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Satisfy&display=swap" rel="stylesheet">
 </head>
 <body>
 
 <header>
-  <div class="header-content">
-    <img src="images/logo.png" alt="Outback Gems Logo" class="logo" />
-    <h1 class="welcome-message">Outback Gems & Minerals</h1>
-  </div>
-  <nav>
+  <nav>    
+    <div class="header-content">
+      <img src="images/logo.png" alt="Outback Gems Logo" class="logo" />
+      <h1 class="welcome-message">Outback Gems & Minerals</h1>
+    </div>
     <ul>
-      <li><a href="#home" class="active">Home</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#products">Products</a></li>
-      <li><a href="#gallery">Gallery</a></li>
-      <li><a href="#contact">Contact Us</a></li>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="products.html" class="active">Products</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="contact.html">Contact Us</a></li>
     </ul>
   </nav>
 </header>
+
 
 <section id="home">
   <div class="hero-overlay">
@@ -42,46 +37,72 @@
   </div>
 </section>
 
-<section id="about">
-  <h2>About Us</h2>
-  <p>At Outback Gems, we specialize in sourcing high-quality gemstones from across Australia’s rugged landscapes. Our collection features a wide range of stones, from sparkling sapphires to stunning opals.</p>
-</section>
+<section id="bestsellers">
+  <div class="bestselling-header-box"> <!-- Wrapper for header with box styling -->
+    <h2 class="bestselling-header">Bestselling Items</h2>
+  </div>
 
-<section id="products">
-  <h2>Our Gems</h2>
-  <p>Browse our collection of Australian gems, each carefully selected for its unique beauty and quality.</p>
-  <ul>
-    <li><strong>Sapphires:</strong> Gorgeous, high-quality sapphires in various cuts and colors.</li>
-    <li><strong>Opals:</strong> Unique opals with beautiful play of color, sourced from the outback.</li>
-    <li><strong>Garnets:</strong> Deep red garnets that shimmer in the light.</li>
-  </ul>
-</section>
-
-<section id="gallery">
-  <h2>Gallery</h2>
-  <p>Here's a sneak peek at our gem collection:</p>
-  <div class="gallery-preview">
-    <img src="images/gem1.jpg" alt="Sapphire" />
-    <img src="images/gem2.jpg" alt="Opal" />
-    <img src="images/gem3.jpg" alt="Garnet" />
+  <div class="product-grid">
+    <!-- First Row -->
+    <div class="product-card">
+      <img src="images/Rough 1.jpg" alt="Product 1" style="width: 75%; height: auto;" /> 
+      <h3>Product Name 1</h3>
+      <p>Description of product 1.</p>
+      <button class="product-button">Buy Now</button>
+    </div>
+    <div class="product-card">
+      <img src="images/Rough 1.jpg" alt="Product 2" style="width: 75%; height: auto;" />
+      <h3>Product Name 2</h3>
+      <p>Description of product 2.</p>
+      <button class="product-button">Buy Now</button>
+    </div>
+    <div class="product-card">
+      <img src="images/Rough 1.jpg" alt="Product 3" style="width: 75%; height: auto;" />
+      <h3>Product Name 3</h3>
+      <p>Description of product 3.</p>
+      <button class="product-button">Buy Now</button>
+    </div>
+    <div class="product-card">
+      <img src="images/Rough 1.jpg" alt="Product 4" style="width: 75%; height: auto;" />
+      <h3>Product Name 4</h3>
+      <p>Description of product 4.</p>
+      <button class="product-button">Buy Now</button>
+    </div>
   </div>
 </section>
 
-<section id="contact">
-  <h2>Contact Us</h2>
-  <p>If you’re ready to add a beautiful gemstone to your collection or need more information, get in touch with us!</p>
-  <form action="#" method="post">
-    <label for="name">Your Name:</label>
-    <input type="text" id="name" name="name" placeholder="e.g. Mick Dundee" required />
+<section id="whats-new" class="product-section">
+  <div class="bestselling-header-box"> <!-- Wrapper for header with box styling -->
+    <h2 class="bestselling-header">What's New</h2>
+  </div>
 
-    <label for="email">Your Email:</label>
-    <input type="email" id="email" name="email" placeholder="you@example.com" required />
-
-    <label for="message">Your Message:</label>
-    <textarea id="message" name="message" rows="4" placeholder="Let us know what you're looking for..." required></textarea>
-
-    <button type="submit">Send Message</button>
-  </form>
+  <div class="product-grid">
+    <!-- First Row -->
+    <div class="product-card">
+      <img src="images/Rough 1.jpg" alt="Product 1" style="width: 75%; height: auto;" /> 
+      <h3>Product Name 1</h3>
+      <p>Description of product 1.</p>
+      <button class="product-button">Buy Now</button>
+    </div>
+    <div class="product-card">
+      <img src="images/Rough 1.jpg" alt="Product 2" style="width: 75%; height: auto;" />
+      <h3>Product Name 2</h3>
+      <p>Description of product 2.</p>
+      <button class="product-button">Buy Now</button>
+    </div>
+    <div class="product-card">
+      <img src="images/Rough 1.jpg" alt="Product 3" style="width: 75%; height: auto;" />
+      <h3>Product Name 3</h3>
+      <p>Description of product 3.</p>
+      <button class="product-button">Buy Now</button>
+    </div>
+    <div class="product-card">
+      <img src="images/Rough 1.jpg" alt="Product 4" style="width: 75%; height: auto;" />
+      <h3>Product Name 4</h3>
+      <p>Description of product 4.</p>
+      <button class="product-button">Buy Now</button>
+    </div>
+  </div>
 </section>
 
 <footer>
