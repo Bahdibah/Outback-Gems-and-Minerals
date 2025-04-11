@@ -203,57 +203,50 @@ footer {
     margin-top: 20px;
     color: #888;
 }
+
 /*Added in About Us Section*/
 .about-us {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 60px 20px;
-    font-family: 'Georgia', serif;
+  display: flex;
+  flex-wrap: wrap; /* Makes it responsive */
+  justify-content: center;
+  gap: 20px; /* Spacing between boxes */
+  padding: 60px 20px;
+  font-family: 'Georgia', serif;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.about-us h2 {
-    font-size: 2.2rem;
-    color: #bfbfbfd2;
-    margin-bottom: 20px;
-    border-bottom: 2px solid #cc5500;
-    display: inline-block;
-}
-
-.about-us p, 
-.about-us ul {
-    font-size: 1.15rem;
-    line-height: 1.8;
-    color: #bfbfbfd2;
-}
-
-.about-us ul li {
-    margin-bottom: 12px;
-}
-
-/* Assuming the product background color is #f5f5f5, adjust if needed */
 .about-us > div {
-  background-color: #ff5f5f5; /* Same background color as the products */
-  border: 2px solid #; /* Light border color */
-  border-radius: 8px; /* Rounded corners */
-  padding: 20px; /* Padding inside the box */
-  margin-bottom: 20px; /* Space between boxes */
+  background-color: #444;
+  border: 2px solid #cc5500;
+  border-radius: 8px;
+  padding: 20px;
+  flex: 1 1 30%; /* Flex-grow, flex-shrink, flex-basis */
+  min-width: 280px; /* Helps on smaller screens */
+  max-width: 32%;
+  box-sizing: border-box;
 }
 
-/* Optional: styling for section headings */
 .about-us h2 {
-  font-size: 1.5rem;
-  color: #cc5500;
-  margin-bottom: 10px;
+font-size: 1.5rem;
+color: #cc5500;
+margin-bottom: 10px;
 }
 
-/* Optional: style the list under 'What We Offer' */
+.about-us p,
 .about-us ul {
-  list-style-type: disc;
-  padding-left: 20px;
+font-size: 1.2rem;
+color: #bfbfbfd2;
+margin-bottom: 10px;
+}
+
+.about-us ul {
+list-style-type: disc;
+padding-left: 20px;
 }
 
 .about-us ul li {
-  margin-bottom: 5px;
+margin-bottom: 5px;
 }
 
 /* Bestselling Section */
