@@ -209,7 +209,7 @@ footer {
   flex-wrap: wrap; /* Makes it responsive */
   justify-content: center;
   gap: 20px; /* Spacing between boxes */
-  padding: 60px 20px;
+  padding: 50px 15px;
   font-family: 'Georgia', serif;
   max-width: 1200px;
   margin: 0 auto;
@@ -219,11 +219,10 @@ footer {
   background-color: #444;
   border: 2px solid #cc5500;
   border-radius: 8px;
-  padding: 20px;
-  flex: 1 1 30%; /* Flex-grow, flex-shrink, flex-basis */
-  min-width: 280px; /* Helps on smaller screens */
+  flex: 1 1 30%;
   max-width: 32%;
-  box-sizing: border-box;
+  padding: 15px 20px; /* reduce top & bottom padding */
+  box-sizing: border-box; /* Ensures padding is included in width */
 }
 
 .about-us h2 {
