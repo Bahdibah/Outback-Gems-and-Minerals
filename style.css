@@ -24,7 +24,7 @@ header {
     width: auto;
 }
 
-.header-content {
+.main-logo {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -349,4 +349,18 @@ margin-bottom: 5px;
 
 .product-button:active {
   background-color: #b34700;
+}
+
+.contact-container {
+  background-color: #444;
+  border: 2px solid #cc5500;
+  padding: 40px;
+  width: 50%;
+  margin: 0 auto;
+  border-radius: 15px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.6);
+}
+
+.contact-container h2 {
+  margin-top: 0;
 }

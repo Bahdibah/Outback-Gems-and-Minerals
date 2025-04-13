@@ -15,7 +15,7 @@
 
 <header>
   <nav>    
-    <div class="header-content">
+    <div class="main-logo">
       <img src="images/logo.png" alt="Outback Gems Logo" class="logo" />
       <h1 class="welcome-message">Outback Gems & Minerals</h1>
     </div>
@@ -26,6 +26,19 @@
       <li><a href="gallery.html">Gallery</a></li>
       <li><a href="contact.html" class="active">Contact Us</a></li>
     </ul>
+    <div class="options">
+      <ul>
+        <li>
+          <img src="images/Account.png" alt="Account" class="icon" />
+        </li>
+        <li>
+          <img src="images/Cart.png" alt="Cart" class="icon" />
+        </li>
+        <li>
+          <img src="images/Settings.png" alt="Settings" class="icon" />
+        </li>
+      </ul>
+    </div>
   </nav>
 </header>
 
@@ -38,20 +51,21 @@
 </section>
 
 <section id="contact">
-  <h2>Contact Us</h2>
-  <p>If you’re ready to add a beautiful gemstone to your collection or need more information, get in touch with us!</p>
-  <form action="form-to-email.php" method="post" name="contact-form" >
-    <label for="name">Your Name:</label>
-    <input type="text" id="name" name="name" placeholder="e.g. Mick Dundee" required />
+  <div class="contact-container">
+    <h2>Contact Us</h2>
+    <form action="form-to-email.php" method="post" name="contact-form">
+      <label for="name">Your Name:</label>
+      <input type="text" id="name" name="name" placeholder="e.g. Mick Dundee" required />
 
-    <label for="email">Your Email:</label>
-    <input type="email" id="email" name="email" placeholder="you@example.com" required />
+      <label for="email">Your Email:</label>
+      <input type="email" id="email" name="email" placeholder="you@example.com" required />
 
-    <label for="message">Your Message:</label>
-    <textarea id="message" name="message" rows="4" placeholder="Let us know what you're looking for..." required></textarea>
+      <label for="message">Your Message:</label>
+      <textarea id="message" name="message" rows="4" placeholder="Let us know what you're looking for..." required></textarea>
 
-    <button type="submit">Send Message</button>
-  </form>
+      <button type="submit">Send Message</button>
+    </form>
+  </div>
 </section>
 
 <footer>
