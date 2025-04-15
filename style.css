@@ -33,21 +33,19 @@ nav {
 }
 
 .logo {
-    max-height: 50px;
-    width: auto;
-    object-fit: contain;
+  max-height: 50px;
+  width: auto;
+  object-fit: contain;
+  flex-shrink: 0;
+  display: block;
 }
 
 .main-logo {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: left;
-    text-align: center;
-    width: 100%;
-    padding: 20px;
-    margin-bottom: 20px;
-    gap: 7px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-left: 20px;
+  height: 100%; 
 }
 
 .welcome-message {
@@ -57,7 +55,6 @@ nav {
     font-weight: bold;
 }
 
-/*Media query to adapt to small screens*/
 @media (max-width: 600px) {
   .main-logo {
     flex-direction: column;
@@ -104,72 +101,77 @@ nav ul li a {
     object-fit: contain;
 }
 
-/* Hover state for all links */
 nav ul li a:hover {
-    background-color: #cc5500; /* Orange background on hover */
-    color: #1e1e1e; /* Dark text on hover */
+    background-color: #cc5500; 
+    color: #1e1e1e; 
 }
 
-/* Active state for clicked links */
 nav ul li a.active {
-    background-color: #cc5500; /* Orange background for active link */
-    color: #1e1e1e; /* Dark text for active link */
+    background-color: #cc5500; 
+    color: #1e1e1e; 
 }
 
 nav div.options {
     position: absolute;
-    right: 0px; /* Pushes icons to the right edge */
-    top: 0px; /* Pushes icons to the top edge */
+    right: 0px; 
+    top: 0px; 
     display: flex;
     gap: 10px;
-    padding: 10px 15px;         /* Padding around the icons */       /* Rounded corners */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Soft shadow for depth */
-    height: 15px;               /* Match the height to the icon size */
+    padding: 10px 15px;         
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+    height: 15px;               
     width: 80px;
     display: flex;
-    align-items: center;        /* Vertically center icons inside the box */
-    z-index: 1;                 /* Ensure the icons stay above the box */
+    align-items: center;        
+    z-index: 1;                 
 }
 
 nav div.options.icon {
-    max-height: 15px;  /* Adjust size of icons to fit inside the box */
+    max-height: 15px;  
     width: auto;
     cursor: pointer;
     object-fit: contain;
 }
 
 #home {
-    background: url('images/Banner 1.jpg') no-repeat center center/cover;
-    color: #fff;
-    text-align: center;
-    padding: 80px 20px;
-    position: relative;
-    transition: background-image 1s ease-in-out;
+  background: url('images/Banner 1.jpg') no-repeat center center/cover;
+  color: #fff;
+  text-align: center;
+  position: relative;
+  padding: 56px 20px; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 280px; 
+  transition: background-image 1s ease-in-out;
 }
 
 .hero-overlay {
-    background-color: rgba(0, 0, 0, 0.7); /* Darker overlay */
-    padding: 30px 24px;  /* Adjusted padding for a smaller box */
-    border-radius: 15px;
-    display: inline-block;
-    max-width: 51%; /* Reduced to 80% smaller by 20% */
-    margin: 0 auto; /* Centers the overlay */
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.5); /* Adds shadow for more depth */
-    font-family: 'Georgia', serif; /* Elegant font */
+  background-color: rgba(0, 0, 0, 0.7); 
+  padding: 30px 24px; 
+  border-radius: 15px;
+  display: flex; 
+  flex-direction: column; 
+  justify-content: center; 
+  max-width: 51%; 
+  margin: 80px auto 0; 
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.5); 
+  font-family: 'Georgia', serif; 
 }
 
 .hero-overlay h2 {
-    font-size: 2rem; /* Slightly reduced font size */
-    font-weight: bold;
-    margin-bottom: 15px;
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7); /* Adds a subtle text shadow */
+  font-size: 2rem; 
+  font-weight: bold;
+  margin-bottom: 15px;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7); 
 }
 
 .hero-overlay p {
-    font-size: 1rem; /* Slightly reduced font size */
-    line-height: 1.6;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7); /* Adds a subtle text shadow */
+  font-size: 1rem; 
+  line-height: 1.6;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7); 
 }
+
 
 /* Button Styles */
 button, .button {
