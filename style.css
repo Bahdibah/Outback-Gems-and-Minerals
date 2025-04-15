@@ -69,7 +69,6 @@ nav .options {
   align-items: center;
   gap: 10px;
   padding: 10px 15px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   height: 15px;
   width: 80px;
   z-index: 1;
@@ -83,7 +82,7 @@ nav .options.icon {
 
 .nav-search {
   position: absolute;
-  right: 13%;
+  right: 10%;
   display: flex;
   align-items: center;
   gap: 5px;
@@ -394,26 +393,35 @@ margin-bottom: 5px;
 }
 
 .product-button:active {
-  background-color: #b34700;
+  background-color: #b34700;  
 }
 .faq-container  {
   background-color: #444;
   border: 2px solid #cc5500;
-  padding: 40px;
-  width: 75%;
+  padding: 35px;
+  padding-top: 0px;
+  text-align: center;
+  width: 80%;
   margin: 0 auto;
   border-radius: 15px;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.6);
   color: #bfbfbfd2; /* Body text color */
 }
 
+.faq-container h3 {
+  color: #cc5500;
+font-size: 2.5rem;
+margin: 2% 2% 2% 2%;
+}
+
 .faq-container h2 {
   color: #cc5500;
+  
 }
 
 .faq-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 columns */
+  grid-template-columns: repeat(4, 1fr); /* 3 columns */
   gap: 20px; /* Horizontal gap */
   row-gap: 40px; /* Increased vertical gap between rows */
   margin-top: 20px;
