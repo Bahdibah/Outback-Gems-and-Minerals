@@ -239,6 +239,10 @@ button:active, .button:active {
     background-color: #b34700;
 }
 
+.view-all-button {
+  margin-top: 40px; /* More space above */
+  padding: 16px 40px; /* Slightly chunkier button */
+}
 
 /* Footer Styling */
 footer {
@@ -294,24 +298,27 @@ margin-bottom: 5px;
 
 /* Bestselling Section */
 #bestsellers {
-  background-color: #333;
-  padding: 20px; /* Unified padding */
+  margin-left: 10%;
+  width: 80%;
+  padding: 20px 0;
   text-align: center;
+  background-color: #333; /* Match "What's New" background */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6), 0 4px 6px rgba(0, 0, 0, 0.4); /* Match the shadow */
+  border-radius: 15px;
 }
 
-/* Box for Bestselling Items Header */
+/* Box for Bestselling Items */
 .bestselling-header-box {
-  width: 80%;
-  margin-left: 10%;
-  margin-top: 40px; /* Space above header */
-  margin-bottom: 60px; /* ✅ Space between header and product grid */
+  width: 100%;
+  margin: 40px auto 40px auto;
   padding: 15px;
   background-color: #444;
   border-radius: 10px;
   text-align: center;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.6);
   border: none;
   outline: none;
+  box-sizing: border-box;
 }
 
 /* Styling the Bestselling Items Header */
@@ -323,6 +330,7 @@ margin-bottom: 5px;
   letter-spacing: 1px;
 }
 
+
 /* Styling the H2 (Bestselling Items) */
 #bestsellers h2 {
   font-size: 1.8rem;
@@ -331,26 +339,57 @@ margin-bottom: 5px;
   border: none;
   outline: none;
 }
-.whats-new-carousel {
+
+/* Product Grid Layout */
+.product-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3  columns */
+  gap: 5px;
+  margin: 20px auto 0 auto; /* Center the grid */
+  padding: 2% 0;
+  justify-items: center;
+}
+
+.content-wrapper {
+  margin-left: 10%;
+  width: 80%;
+}
+
+/* Styling the "What's New" Section Main Container*/
+.whats-new-carousel { 
+  margin-top: 60px;
   margin-left: 10%;
   width: 80%;
   padding: 20px 0;
   text-align: center;
   background-color: #333;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6), 0 4px 6px rgba(0, 0, 0, 0.4); /* Subtler shadow */
+  border-radius: 15px;
 }
 
-/* Product Grid Layout */
-.product-grid {
-  margin-left: 10%;
-  width: 80%;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3  columns */
-  gap: 5px;
-  margin-top: 20px; 
-  padding: 2% 0;
-  justify-items: center;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6), 0 4px 6px rgba(0, 0, 0, 0.4); /* Subtler shadow */
+/* New header box styling */
+.whats-new-header-box {
+  width: 80%; 
+  margin: 40px auto 60px auto;
+  padding: 15px;
+  background-color: #444;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.6);
+  border: none;
+  outline: none;
+  box-sizing: border-box; /* Ensure padding and border are included in width */
+}
+
+/* New header text styling */
+.whats-new-header {
+  font-size: 2rem; /* Customize font size */
+  color: #fff; /* Adjust text color */
+  margin: 0;
+  padding: 0;
+  font-weight: bold; /* Optional styling */
+  text-transform: uppercase; /* Optional styling */
 }
 
 .new-product-grid {
