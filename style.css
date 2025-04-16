@@ -301,6 +301,8 @@ margin-bottom: 5px;
 
 /* Box for Bestselling Items Header */
 .bestselling-header-box {
+  width: 80%;
+  margin-left: 10%;
   margin-top: 40px; /* Space above header */
   margin-bottom: 60px; /* ✅ Space between header and product grid */
   padding: 15px;
@@ -335,9 +337,7 @@ margin-bottom: 5px;
   padding: 20px 0;
   text-align: center;
   background-color: #333;
-  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
-  border: 3px solid #cc5500;  
-  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6), 0 4px 6px rgba(0, 0, 0, 0.4); /* Subtler shadow */
 }
 
 /* Product Grid Layout */
@@ -350,9 +350,7 @@ margin-bottom: 5px;
   margin-top: 20px; 
   padding: 2% 0;
   justify-items: center;
-  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
-  border: 3px solid #cc5500;  
-  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6), 0 4px 6px rgba(0, 0, 0, 0.4); /* Subtler shadow */
 }
 
 .new-product-grid {
