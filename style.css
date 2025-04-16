@@ -74,6 +74,10 @@ nav ul {
   margin: 20px 0 0 0;
 }
 
+.nav-links li {
+  position: relative; /* This anchors dropdown to each link */
+}
+
 nav ul li a {
   color: #cc5500;
   text-decoration: none;
@@ -139,6 +143,7 @@ nav .options.icon {
   color: #1e1e1e;
   box-shadow: 0px 4px 12px rgba(204, 85, 0, 0.7); /* Highlighted shadow on focus */
 }
+
 .nav-search button {
   padding: 8px 12px;
   background-color: #cc5500;
@@ -160,6 +165,7 @@ nav .options.icon {
   position: relative;
 }
 
+/* Style for dropdown menu alignment */
 .nav-links li.dropdown {
   position: relative;
 }
@@ -167,10 +173,10 @@ nav .options.icon {
 .dropdown-menu {
   display: none;
   position: absolute;
-  top: 100%;
-  left: 0;
+  left: 50%;
+  transform: translateX(-15%);
+  min-width: 180px; /* Optional: Prevents dropdown from being too small */
   background-color: #2e2e2e;
-  min-width: 180px;
   border-radius: 5px;
   padding: 0;
   margin: 0;
@@ -178,10 +184,34 @@ nav .options.icon {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
 }
 
-.dropdown-menu li {
-  width: 100%;
+/* Make dropdown appear when hovering over the parent item */
+.nav-links li.dropdown:hover .dropdown-menu {
+  display: block;
 }
 
+.nav-links li a {
+  padding: 12px 20px;
+  display: block;
+  color: #cc5500;
+  font-weight: bold;
+  font-size: 1.1rem;
+  transition: background 0.3s ease, color 0.3s ease;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+.nav-links li a:hover,
+nav ul li a.active {
+  background-color: #cc5500;
+  color: #1e1e1e;
+}
+
+/* Ensure that the dropdown aligns with the parent */
+.nav-links li.dropdown:hover .dropdown-menu {
+  left: 0; /* This makes sure the dropdown aligns with the button */
+}
+
+/* Style for dropdown menu items */
 .dropdown-menu li a {
   padding: 12px 20px;
   display: block;
@@ -195,24 +225,24 @@ nav .options.icon {
   color: #1e1e1e;
 }
 
-
-
 .nav-links li.dropdown:hover .dropdown-menu {
   display: block;
 }
 
 .dropdown-header {
   display: block;
-  font-weight: bold;
+  font-family: 'Roboto', sans-serif; /* Or your selected font */
+  font-weight: 700;
   background-color: #cc5500;
-  color: #1e1e1e;
-  padding: 8px 20px;
+  color: #000000 !important;
+  padding: 12px 20px;
   text-transform: uppercase;
-  font-size: 0.9rem;
-  letter-spacing: 1px;
+  font-size: 1.1rem;
+  text-align: center;
+  letter-spacing: 1.5px;
   border-radius: 4px;
-  margin: 8px 10px 4px;
 }
+
 
 .logo {
   max-height: 50px;
