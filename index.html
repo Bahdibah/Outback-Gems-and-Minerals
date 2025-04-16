@@ -113,47 +113,54 @@
       <p>Description of product 3.</p>
       <button class="product-button">Buy Now</button>
     </div>
-    <div class="product-card">
-      <img src="images/Rough 1.jpg" alt="Product 4" style="width: 75%; height: auto;" />
-      <h3>Product Name 4</h3>
-      <p>Description of product 4.</p>
-      <button class="product-button">Buy Now</button>
-    </div>
-  </div>
+    <div> </div> <!--Empty div to set button location-->
+    <button>View All Products</button>
+  </div>  
 </section>
 
 <section id="whats-new" class="product-section">
   <div class="bestselling-header-box"> <!-- Wrapper for header with box styling -->
     <h2 class="bestselling-header">What's New</h2>
   </div>
+</section> 
 
-  <div class="product-grid">
-    <!-- First Row -->
-    <div class="product-card">
-      <img src="images/Rough 1.jpg" alt="Product 1" style="width: 75%; height: auto;" /> 
-      <h3>Product Name 1</h3>
-      <p>Description of product 1.</p>
-      <button class="product-button">Buy Now</button>
+<section class="whats-new-carousel">
+  <div class="new-product-grid">
+    <div class="carousel-track">
+      <!-- First Row -->
+      <div class="new-product-card">
+        <img src="images/Rough 1.jpg" alt="Product 1" style="width: 75%; height: auto;" /> 
+        <h3>Product Name 1</h3>
+        <p>Description of product 1.</p>
+        <button class="product-button">Buy Now</button>
+      </div>
+      <div class="new-product-card">
+        <img src="images/Rough 1.jpg" alt="Product 2" style="width: 75%; height: auto;" />
+        <h3>Product Name 2</h3>
+        <p>Description of product 2.</p>
+        <button class="product-button">Buy Now</button>
+      </div>
+      <div class="new-product-card">
+        <img src="images/Rough 1.jpg" alt="Product 3" style="width: 75%; height: auto;" />
+        <h3>Product Name 3</h3>
+        <p>Description of product 3.</p>
+        <button class="product-button">Buy Now</button>
+      </div>
+      <div class="new-product-card">
+        <img src="images/Rough 1.jpg" alt="Product 4" style="width: 75%; height: auto;" />
+        <h3>Product Name 4</h3>
+        <p>Description of product 4.</p>
+        <button class="product-button">Buy Now</button>
+      </div>
+      <div class="new-product-card">
+        <img src="images/Rough 1.jpg" alt="Product 4" style="width: 75%; height: auto;" />
+        <h3>Product Name 5</h3>
+        <p>Description of product 5 .</p>
+        <button class="product-button">Buy Now</button>
+      </div>
     </div>
-    <div class="product-card">
-      <img src="images/Rough 1.jpg" alt="Product 2" style="width: 75%; height: auto;" />
-      <h3>Product Name 2</h3>
-      <p>Description of product 2.</p>
-      <button class="product-button">Buy Now</button>
     </div>
-    <div class="product-card">
-      <img src="images/Rough 1.jpg" alt="Product 3" style="width: 75%; height: auto;" />
-      <h3>Product Name 3</h3>
-      <p>Description of product 3.</p>
-      <button class="product-button">Buy Now</button>
-    </div>
-    <div class="product-card">
-      <img src="images/Rough 1.jpg" alt="Product 4" style="width: 75%; height: auto;" />
-      <h3>Product Name 4</h3>
-      <p>Description of product 4.</p>
-      <button class="product-button">Buy Now</button>
-    </div>
-  </div>
+    <button>View All Products</button>
 </section>
 
 <footer>
@@ -161,13 +168,36 @@
 </footer>
 
 <script>
-  const images = ["images/Banner 1.jpg", "images/Banner 2.jpg", "images/Banner 3.jpg", "images/Banner 4.jpg",];
-  let current = 0;
+  const track = document.querySelector('.carousel-track');
+  const products = document.querySelectorAll('.new-product-card');
+  const visibleCount = 3;
+  let index = 0;
+
+  // Clone first `visibleCount` cards and append to the end
+  for (let i = 0; i < visibleCount; i++) {
+    const clone = products[i].cloneNode(true);
+    track.appendChild(clone);
+  }
+
+  const totalCards = document.querySelectorAll('.new-product-card').length;
+
+
+  const cardWidth = 100 / totalCards;
 
   setInterval(() => {
-    current = (current + 1) % images.length;
-    document.getElementById("home").style.backgroundImage = `url('${images[current]}')`;
-  }, 15000); // Change image every 15 seconds
+    index++;
+    track.style.transition = 'transform 0.7s ease-in-out';
+    track.style.transform = `translateX(-${index * (100 / visibleCount)}%)`;
+
+    // Reset position after animation if clone limit reached
+    if (index === products.length) {
+      setTimeout(() => {
+        track.style.transition = 'none';
+        track.style.transform = `translateX(0%)`;
+        index = 0;
+      }, 700); // match with the transition duration
+    }
+  }, 7000); // Rotate every 7 seconds
 </script>
 
 </body>
