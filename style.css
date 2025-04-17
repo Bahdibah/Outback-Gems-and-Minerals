@@ -322,7 +322,7 @@ nav ul li a.active {
 }
 
 .hero-overlay p {
-  font-size: 1rem; 
+  font-size: 1.3rem; 
   line-height: 1.6;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7); 
 }
@@ -335,40 +335,60 @@ footer {
     margin-top: 20px;
     color: #888;
 }
-/*Added in About Us Section*/
+
+/* About Us Section */
 .about-us {
   display: flex;
-  flex-wrap: wrap; /* Makes it responsive */
+  flex-wrap: wrap;
   justify-content: center;
-  gap: 20px; /* Spacing between boxes */
-  padding: 50px 15px;
+  gap: 24px;
+  padding: 60px 20px;
   font-family: 'Georgia', serif;
   max-width: 1200px;
   margin: 0 auto;
 }
 
 .about-us > div {
-  background-color: #444;
-  border: 2px solid #cc5500;
-  border-radius: 8px;
+  background-color: #444; /* Original background color */
+  border: 4px solid #cc5500; /* Original border color */
+  border-radius: 8px; /* Original border radius */
   flex: 1 1 30%;
   max-width: 32%;
-  padding: 15px 20px; /* reduce top & bottom padding */
-  box-sizing: border-box; /* Ensures padding is included in width */
+  padding: 20px 24px;
+  box-sizing: border-box;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease, filter 0.3s ease; /* Added transition for the glow */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+}
+
+.about-us > div:hover {
+  transform: translateY(-5px); /* Slight lift effect */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3); /* Larger shadow on hover for depth */
+  border: 2px solid #cc5500; /* Keep the original border color on hover */
+  filter: blur(0px) brightness(1.1) drop-shadow(0 0 8px #ffa94d); /* Soft glow effect */
 }
 
 .about-us h2 {
-font-size: 1.5rem;
-color: #cc5500;
-margin-bottom: 10px;
+  font-size: 1.6rem;
+  color: #cc5500; /* Original header color */
+  margin-bottom: 12px;
 }
 
 .about-us p,
 .about-us ul {
-font-size: 1.2rem;
-color: #bfbfbfd2;
-margin-bottom: 10px;
+  font-size: 1.15rem;
+  color: #bfbfbfd2; /* Original text color */
 }
+
+.about-us ul {
+  list-style-type: disc;
+  padding-left: 20px;
+}
+
+.about-us ul li {
+  margin-bottom: 5px;
+}
+
+
 
 .about-us ul {
 list-style-type: disc;
@@ -392,7 +412,7 @@ margin-bottom: 5px;
 
 /* Box for Bestselling Items */
 .bestselling-header-box {
-  width: 100%;
+  width: 80%;
   margin: 40px auto 40px auto;
   padding: 15px;
   background-color: #444;
@@ -423,17 +443,16 @@ margin-bottom: 5px;
   outline: none;
 }
 
-/* Product Grid Layout */
 .product-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Adjust the min width here for larger cards */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 20px;
-  margin-top: 40px;
 }
 
 .content-wrapper {
-  margin-left: 10%;
-  width: 80%;
+  margin: 0 auto;
+  width: 100%;
 }
 
 /* Styling the "What's New" Section Main Container*/
