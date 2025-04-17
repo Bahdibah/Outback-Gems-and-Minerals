@@ -76,6 +76,44 @@
   </div>
 </section>
 
+
+<div class="banner-slider">
+  <div class="banner">
+    <div class="banner-item"><p>Free Shipping On Orders Over $100</p></div>
+    <div class="banner-item"><p>Express Shipping From $14.45</p></div>
+    <div class="banner-item"><p>Winter Sale: 50% Off All Synthetic Rough</p></div>
+  </div>
+</div>
+
+<script>
+  const track = document.querySelector('.banner');
+  const items = document.querySelectorAll('.banner-item');
+  const visibleCount = 1;
+  let index = 0;
+
+  // Clone first item(s) and append to end
+  for (let i = 0; i < visibleCount; i++) {
+    const clone = items[i].cloneNode(true);
+    track.appendChild(clone);
+  }
+
+  const totalItems = document.querySelectorAll('.banner-item').length;
+
+  setInterval(() => {
+    index++;
+    track.style.transition = 'transform 0.7s ease-in-out';
+    track.style.transform = `translateX(-${index * 100}%)`;
+
+    if (index === totalItems - visibleCount) {
+      setTimeout(() => {
+        track.style.transition = 'none';
+        track.style.transform = `translateX(0%)`;
+        index = 0;
+      }, 700); // Match the transition duration
+    }
+  }, 5000);
+</script>
+
 <section class="about-us">
 
   <div class="who-we-are">

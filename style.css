@@ -327,6 +327,31 @@ nav ul li a.active {
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7); 
 }
 
+.banner-slider {
+  width: 100%;
+  overflow: hidden;
+  background-color: black;
+  display: flex;
+  align-items: center;
+  position: relative;
+  font-size: 1.5rem;
+}
+
+.banner {
+  display: flex;
+  width: max-content;
+  transition: transform 0.7s ease-in-out;
+  width: 100%;
+}
+
+.banner-item {
+  flex: 0 0 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 100%;
+}
+
 /* Footer Styling */
 footer {
     background-color: #1e1e1e;
