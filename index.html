@@ -85,35 +85,6 @@
   </div>
 </div>
 
-<script>
-  const track = document.querySelector('.banner');
-  const items = document.querySelectorAll('.banner-item');
-  const visibleCount = 1;
-  let index = 0;
-
-  // Clone first item(s) and append to end
-  for (let i = 0; i < visibleCount; i++) {
-    const clone = items[i].cloneNode(true);
-    track.appendChild(clone);
-  }
-
-  const totalItems = document.querySelectorAll('.banner-item').length;
-
-  setInterval(() => {
-    index++;
-    track.style.transition = 'transform 0.7s ease-in-out';
-    track.style.transform = `translateX(-${index * 100}%)`;
-
-    if (index === totalItems - visibleCount) {
-      setTimeout(() => {
-        track.style.transition = 'none';
-        track.style.transform = `translateX(0%)`;
-        index = 0;
-      }, 700); // Match the transition duration
-    }
-  }, 5000);
-</script>
-
 <section class="about-us">
 
   <div class="who-we-are">
@@ -275,15 +246,44 @@
 </footer>
 
 <script>
-  const track = document.querySelector('.carousel-track');
+  /*Banner carousel Script*/
+  const itemTrack = document.querySelector('.banner');
+  const items = document.querySelectorAll('.banner-item');
+  const visibleMessages = 1;
+  let itemIndex = 0;
+
+  // Clone first item(s) and append to end
+  for (let i = 0; i < visibleMessages; i++) {
+    const clone = items[i].cloneNode(true);
+    itemTrack.appendChild(clone);
+  }
+
+  const totalItems = document.querySelectorAll('.banner-item').length;
+
+  setInterval(() => {
+    itemIndex++;
+    itemTrack.style.transition = 'transform 0.7s ease-in-out';
+    itemTrack.style.transform = `translateX(-${itemIndex * 100}%)`;
+
+    if (itemIndex === totalItems - visibleMessages) {
+      setTimeout(() => {
+        itemTrack.style.transition = 'none';
+        itemTrack.style.transform = `translateX(0%)`;
+        itemIndex = 0;
+      }, 700); // Match the transition duration
+    }
+  }, 5000); 
+
+  /*Whats new carousel script*/
+  const productTrack = document.querySelector('.carousel-track');
   const products = document.querySelectorAll('.new-product-card');
   const visibleCount = 3;
-  let index = 0;
+  let productIndex = 0;
 
-  // Clone first `visibleCount` cards and append to the end
+  // Clone first visibleCount cards and append to the end
   for (let i = 0; i < visibleCount; i++) {
     const clone = products[i].cloneNode(true);
-    track.appendChild(clone);
+    productTrack.appendChild(clone);
   }
 
   const totalCards = document.querySelectorAll('.new-product-card').length;
@@ -292,16 +292,16 @@
   const cardWidth = 100 / totalCards;
 
   setInterval(() => {
-    index++;
-    track.style.transition = 'transform 0.7s ease-in-out';
-    track.style.transform = `translateX(-${index * (100 / visibleCount)}%)`;
+    productIndex++;
+    productTrack.style.transition = 'transform 0.7s ease-in-out';
+    productTrack.style.transform = `translateX(-${productIndex * (100 / visibleCount)}%)`;
 
     // Reset position after animation if clone limit reached
-    if (index === products.length) {
+    if (productIndex === products.length) {
       setTimeout(() => {
-        track.style.transition = 'none';
-        track.style.transform = `translateX(0%)`;
-        index = 0;
+        productTrack.style.transition = 'none';
+        productTrack.style.transform = `translateX(0%)`;
+        productIndex = 0;
       }, 700); // match with the transition duration
     }
   }, 7000); // Rotate every 7 seconds
