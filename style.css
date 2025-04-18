@@ -11,28 +11,32 @@ button, .button {
   background-color: #cc5500;
   color: #fff;
   font-weight: bold;
-  border: none;
-  padding: 12px 30px;
-  font-size: 1.1rem;
+  border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border stays */
+  padding: 14px 32px;
+  font-size: 1.25rem;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s, transform 0.3s ease;
+  transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
   display: inline-block;
   margin-top: 10px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
 button:hover, .button:hover {
   background-color: #ff7f33;
-  transform: translateY(-2px);
+  transform: scale(1.04) translateY(-1px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.35), 0 0 8px rgba(255, 127, 51, 0.5);
 }
 
 button:active, .button:active {
   background-color: #b34700;
+  transform: scale(0.98) translateY(0);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .view-all-button {
 margin-top: 40px; /* More space above */
-padding: 16px 40px; /* Slightly chunkier button */
+padding: 16px 40px;
 }
 
 
