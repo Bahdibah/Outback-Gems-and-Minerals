@@ -285,19 +285,26 @@
   </footer>
 
   <script>
-    // <!-- #region banner carousel script -->
+    // #region banner carousel script
     const itemTrack = document.querySelector('.banner');
     const items = document.querySelectorAll('.banner-item');
     const visibleMessages = 1;
     let itemIndex = 0;
-
-    // Clone first item(s) and append to end
-    for (let i = 0; i < visibleMessages; i++) { const clone = items[i].cloneNode(true); itemTrack.appendChild(clone); }
-    const totalItems = document.querySelectorAll('.banner-item').length; setInterval(() => {
+  
+    // Clone first item(s) and append to end only if there are enough items
+    if (items.length > visibleMessages) {
+      for (let i = 0; i < visibleMessages; i++) {
+        const clone = items[i].cloneNode(true);
+        itemTrack.appendChild(clone);
+      }
+    }
+  
+    const totalItems = document.querySelectorAll('.banner-item').length;
+    setInterval(() => {
       itemIndex++;
       itemTrack.style.transition = 'transform 0.7s ease-in-out';
       itemTrack.style.transform = `translateX(-${itemIndex * 100}%)`;
-
+  
       if (itemIndex === totalItems - visibleMessages) {
         setTimeout(() => {
           itemTrack.style.transition = 'none';
@@ -306,93 +313,59 @@
         }, 700); // Match the transition duration
       }
     }, 5000);
-
-
-    // <!-- #endregion -->
-
-    // <!-- #region whats new carousel script-- >
+    // #endregion
+  
+    // #region whats new carousel script
     const productTrack = document.querySelector('.carousel-track');
     const products = document.querySelectorAll('.new-product-card');
     const visibleCount = 3;
     let productIndex = 0;
-
-    // Clone first visibleCount cards and append to the end
-    for (let i = 0; i < visibleCount; i++) { const clone = products[i].cloneNode(true); productTrack.appendChild(clone); }
-    const totalCards = document.querySelectorAll('.new-product-card').length; const cardWidth = 100 / totalCards;
+  
+    // Clone first visibleCount cards and append to the end only if there are enough cards
+    if (products.length > visibleCount) {
+      for (let i = 0; i < visibleCount; i++) {
+        const clone = products[i].cloneNode(true);
+        productTrack.appendChild(clone);
+      }
+    }
+  
+    const totalCards = document.querySelectorAll('.new-product-card').length;
+    const cardWidth = 100 / totalCards;
     setInterval(() => {
       productIndex++;
       productTrack.style.transition = 'transform 0.7s ease-in-out';
       productTrack.style.transform = `translateX(-${productIndex * (100 / visibleCount)}%)`;
-
+  
       // Reset position after animation if clone limit reached
       if (productIndex === products.length) {
         setTimeout(() => {
           productTrack.style.transition = 'none';
           productTrack.style.transform = `translateX(0%)`;
           productIndex = 0;
-        }, 700); // match with the transition duration
+        }, 700); // Match the transition duration
       }
     }, 7000); // Rotate every 7 seconds
-
-    // <!-- #endregion -->
-
-      // <!-- #region hero overlay rotation script-- >
-        const images = ["images/Banner 1.jpg", "images/Banner 2.jpg", "images/Banner 3.jpg", "images/Banner 4.jpg",];
-    let current = 0;
-    setInterval(() => {
-      current = (current + 1) % images.length;
-      document.getElementById("home").style.backgroundImage = `url('${images[current]}')`;
-    }, 15000); // Change image every 15 seconds
-
-        // <!-- #endregion -->
-
-    // <!-- #region API Intergration Script-- >
-
+    // #endregion
   
-  const inventoryUrl = "https://script.google.com/macros/s/AKfycbyCY8VW0D1A7AFJiU7X6tN5-RTrnYxQIV4QCzmFprxYrCVv2o4uKWnmKfJ6Xh40H4uqXA/exec"; 
+      // Newsletter form validation
+  document.querySelector('.newsletter-container form').addEventListener('submit', function (e) {
+    e.preventDefault(); // Prevent the default form submission
 
-  // Set this to a specific material like 'syntheticspinel' or leave as 'all' to display everything
-  const materialToShow = 'all';
+    const emailInput = document.querySelector('input[name="email"]');
+    const email = emailInput.value.trim();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Basic email validation regex
 
-  fetch(inventoryUrl)
-    .then(response => response.json())
-    .then(data => {
-      const container = document.getElementById('dynamic-product-container'); // Change if your container has a different ID
+    if (!emailRegex.test(email)) {
+      alert('Please enter a valid email address.');
+      return;
+    }
 
-      const filtered = materialToShow === 'all'
-        ? data
-        : data.filter(item =>
-            item.material &&
-            item.material.toLowerCase().trim() === materialToShow.toLowerCase().trim()
-          );
-
-      filtered.forEach(product => {
-        const card = document.createElement('div');
-        card.classList.add('product-card'); // You can style this class however you want
-
-        card.innerHTML = `
-          <img src="${product['image url']}" alt="${product['product name']}" />
-          <h3>${product['product name']}</h3>
-          <p>${product.description}</p>
-          <p>Weight: ${product.weight} ${product.unit}</p>
-          <p>Price: $${product['total price']}</p>
-          <button onclick="addToCart('${product['product id']}')">Add to Cart</button>
-        `;
-
-        container.appendChild(card);
-      });
-    })
-    .catch(error => {
-      console.error('Error loading inventory:', error);
-    });
-
-  function addToCart(productId) {
-    alert(`Added ${productId} to cart!`);
-    // Hook this into your actual cart system here
-  }
-
+    // Simulate successful submission
+    alert('Thank you for subscribing!');
+    emailInput.value = ''; // Clear the input field
+  });
+  
   </script>
-
 </body>
 
 </html>

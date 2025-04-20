@@ -506,7 +506,7 @@ margin-bottom: 5px;
 }
 
 /* Styling the Bestselling Items Header */
-.bestselling-header {
+.bestselling-header, .dynamic-product-header-title {
   font-size: 1.8rem; /* 20% larger font size */
   color: #cc5500;
   margin: 0;
@@ -713,18 +713,23 @@ margin-bottom: 5px;
   border-radius: 15px;
 }
 
-/* Box for Product Header */
-.dynamic-product-header-box {
-  width: 80%;
-  margin: 40px auto 40px auto;
-  padding: 15px;
-  background-color: #444;
-  border-radius: 10px;
-  text-align: center;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.6);
-  border: none;
-  outline: none;
-  box-sizing: border-box;
+.dynamic-product-header-container {
+  flex: 0 0 100%;
+  margin-bottom: 20px;
+}
+
+.dynamic-product-header-title {
+width: 80%;
+margin: 40px auto 40px auto;
+padding: 15px;
+background-color: #444;
+border-radius: 10px;
+text-align: center;
+box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.6);
+border: none;
+outline: none;
+box-sizing: border-box;
+font-weight: bold;
 }
 
 /* Dynamic Product Card Styling */
@@ -1146,4 +1151,29 @@ form textarea {
 /* Add some space to the side menu */
 .side-menu > ul {
   margin-bottom: 20px;
+}
+
+/* Product details container */
+.view-product-container {
+  margin-left: 10%;
+  width: 80%;
+  padding: 20px 0;
+  background-color: #333; /* Dark background to match main theme */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6), 0 4px 6px rgba(0, 0, 0, 0.4); /* Consistent shadow */
+  border-radius: 15px; /* Rounded corners for consistency */
+  box-sizing: border-box;
+  margin-bottom: 30px; /* Spacing to separate from other elements */
+}
+
+/* Product details section */
+.view-product-detail {
+  width: 80%;
+  margin: 0 auto;
+  padding: 15px;
+  background-color: #444; /* Slightly lighter background than container */
+  border-radius: 10px;
+  text-align: center;
+  border: none;
+  outline: none;
+  box-sizing: border-box;
 }
