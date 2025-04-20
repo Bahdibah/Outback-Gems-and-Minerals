@@ -142,7 +142,6 @@
     const productId = urlParams.get('productid');
   
     let currentProduct = null;
-    let variations = [];
   
     const productDetailsContainer = document.getElementById('view-product-details');
   
@@ -150,36 +149,77 @@
       // Show loading indicator
       productDetailsContainer.innerHTML = '<p>Loading product details...</p>';
   
-      fetch(`https://script.google.com/macros/s/AKfycbyCY8VW0D1A7AFJiU7X6tN5-RTrnYxQIV4QCzmFprxYrCVv2o4uKWnmKfJ6Xh40H4uqXA/exec`)
-        .then(response => response.json())
+      // Fetch product details from the API
+      fetch('https://script.google.com/macros/s/AKfycbyCY8VW0D1A7AFJiU7X6tN5-RTrnYxQIV4QCzmFprxYrCVv2o4uKWnmKfJ6Xh40H4uqXA/exec')
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Failed to fetch product details.');
+          }
+          return response.json();
+        })
         .then(data => {
           currentProduct = data.find(item => item['product id'] === productId);
   
           if (currentProduct) {
-            // Display main product details
+            // Find all products in the same category
+            const variations = data.filter(item => item.category === currentProduct.category);
+  
+            // Render product details
             const imageUrl = currentProduct['image url'] || 'images/placeholder.png'; // Fallback for missing image URL
+  
             productDetailsContainer.innerHTML = `
               <h1 id="product-name">${currentProduct['product name']}</h1>
               <img id="product-image" src="${imageUrl}" alt="${currentProduct['product name']}" />
               <p id="product-description">${currentProduct.description}</p>
-              <p id="product-price">$${currentProduct['price per unit']} per ${currentProduct.unit}</p>
+              <p id="product-price">Price: $${currentProduct['price per unit']} per ${currentProduct.unit}</p>
+              <label for="quantity">Quantity:</label>
+              <input type="number" id="quantity" name="quantity" min="1" value="1" />
               <button id="add-to-cart">Add to Cart</button>
             `;
   
-            // Insert total price and qty in stock immediately
+            // Create variation selector if there are multiple variations
+            if (variations.length > 1) {
+              createVariationSelector(variations, currentProduct['product id']);
+            }
+  
+            // Add event listener for "Add to Cart" button
+            document.getElementById('add-to-cart').addEventListener('click', () => {
+              const quantity = parseInt(document.getElementById('quantity').value, 10);
+              const stock = parseInt(currentProduct.stock, 10) || 0; // Ensure stock is a valid number
+              const cart = JSON.parse(localStorage.getItem('cart')) || [];
+              const existingItem = cart.find(item => item.id === currentProduct['product id']);
+              const quantityInCart = existingItem ? existingItem.quantity : 0;
+              const remainingStock = stock - quantityInCart;
+  
+              if (quantity > remainingStock) {
+                alert(`Only ${remainingStock} units are available in stock.`);
+                return;
+              }
+  
+              if (existingItem) {
+                existingItem.quantity += quantity;
+              } else {
+                cart.push({
+                  id: currentProduct['product id'],
+                  name: currentProduct['product name'],
+                  price: parseFloat(currentProduct['price per unit']),
+                  image: currentProduct['image url'] || 'images/placeholder.png',
+                  quantity: quantity
+                });
+              }
+  
+              localStorage.setItem('cart', JSON.stringify(cart));
+              alert(`${quantity} x ${currentProduct['product name']} has been added to your cart!`);
+              updateStockQty(currentProduct); // Update stock display after adding to cart
+            });
+  
+            // Insert stock and total price information
             insertTotalPriceElement();
             insertStockQtyElement();
             updateTotalPrice(currentProduct);
             updateStockQty(currentProduct);
-  
-            // Find all products in the same category
-            variations = data.filter(item => item.category === currentProduct.category);
-  
-            if (variations.length > 1) {
-              createVariationSelector(variations, currentProduct['product id']);
-            }
           } else {
-            // Product not found
+            console.error('Product not found');
             productDetailsContainer.innerHTML = `
               <p style="color: red;">Product not found. Please check the URL or try again later.</p>
               <img src="images/placeholder.png" alt="Placeholder Image" style="width: 100%; max-width: 300px; margin-top: 20px;" />
@@ -194,7 +234,7 @@
           `;
         });
     } else {
-      // No product ID in URL
+      console.error('No product ID in URL');
       productDetailsContainer.innerHTML = `
         <p style="color: red;">No product selected. Please go back and choose a product.</p>
         <img src="images/placeholder.png" alt="Placeholder Image" style="width: 100%; max-width: 300px; margin-top: 20px;" />
@@ -239,16 +279,12 @@
       select.addEventListener('change', (e) => {
         const selectedProduct = variations.find(p => p['product id'] === e.target.value);
         if (selectedProduct) {
-          // Update product details
-          const imageUrl = selectedProduct['image url'] || 'images/placeholder.png'; // Fallback for missing image URL
+          currentProduct = selectedProduct; // Update the current product
           document.getElementById('product-name').textContent = selectedProduct['product name'];
-          document.getElementById('product-image').src = imageUrl;
-          document.getElementById('product-image').alt = selectedProduct['product name'];
+          document.getElementById('product-image').src = selectedProduct['image url'];
           document.getElementById('product-description').textContent = selectedProduct.description;
-          document.getElementById('product-price').textContent = `$${selectedProduct['price per unit']} per ${selectedProduct.unit}`;
-  
-          updateTotalPrice(selectedProduct);
-          updateStockQty(selectedProduct);
+          document.getElementById('product-price').textContent = `Price: $${selectedProduct['price per unit']} per ${selectedProduct.unit}`;
+          updateStockQty(selectedProduct); // Update stock display for the selected variation
         }
       });
   
@@ -296,13 +332,18 @@
   
     function updateStockQty(product) {
       const stockQtyElement = document.getElementById('stock-qty');
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const existingItem = cart.find(item => item.id === product['product id']);
+      const quantityInCart = existingItem ? existingItem.quantity : 0;
+      const remainingStock = (product.stock || 0) - quantityInCart;
+  
       if (stockQtyElement) {
-        stockQtyElement.textContent = `Qty in stock: ${product.stock || 0}`;
+        stockQtyElement.textContent = `Qty in stock: ${remainingStock}`;
       }
     }
   </script>
   
-   </div> <!-- End of page-wrapper -->
+     </div> <!-- End of page-wrapper -->
   <footer>
     <div class="footer-left">
       <p><a href="Privacy Policy.docx" target="_blank">Privacy Policy</a></p>
