@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Outback Gems</title>
+  <title>Products - Outback Gems</title>
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Parisienne&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
@@ -14,164 +14,149 @@
 </head>
 <body>
   <div id="page-wrapper">
-  <header>
-    <nav>    
-        <div class="main-logo">
-          <img src="images/logo.png" alt="Outback Gems Logo" class="logo" />
-          <h1 class="welcome-message">Outback Gems & Minerals</h1>
-        </div>
-  
-        <ul class="nav-links">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="about.html">About</a></li>
-          <li class="dropdown">
-            <a href="products.html" class="active">Products</a>
-            <ul class="dropdown-menu">
-              <!-- Rough Section Header (linked) -->
-              <li><a href="rough-section.html" class="dropdown-header">Rough</a></li>
-              <li><a href="rough-sapphire.html">Sapphire</a></li>
-              <li><a href="rough-cz.html">Cubic Zirconia</a></li>
-              <li><a href="rough-spinel.html">Spinel Rough</a></li>
-              <li><a href="rough-zircon.html">Zircon</a></li>
-          
-              <!-- Other Items Section Header (linked) -->
-              <li><a href="other-items.html" class="dropdown-header">Other Items</a></li>
-              <li><a href="wash-bags.html">Fossicking Wash Bags</a></li>
-              <li><a href="thunder-eggs.html">Agate Thunder Eggs</a></li>
-              <li><a href="meteorites.html">Meteorites</a></li>
-              <li><a href="fluorescents.html">Fluorescent Minerals</a></li>
-              <li><a href="mystery-boxes.html">Mystery Mineral Boxes</a></li>
-            </ul>
-          </li>
-          <li><a href="gallery.html">Gallery</a></li>
-          <li><a href="contact.html">Contact Us</a></li>
-        </ul>
+    <header>
+      <!-- Navbar will be dynamically loaded here -->
+    </header>
 
-        <div class="nav-search">
-          <input type="text" placeholder="Search..." />
-          <button><i class="fa fa-search" aria-hidden="true"></i></button>
-        </div>
-  
-        <div class="options">
-          <ul>
-            <li>
-              <i class="fa fa-user-o icon" aria-hidden="true" style="color:white"></i>
-            </li>
-            <li>
-              <i class="fa fa-shopping-basket" aria-hidden="true" style="color:white"></i>
-            </li>
-            <li>
-              <i class="fa fa-cog" aria-hidden="true" style="color:white"></i>
-            </li>
+    <div class="page-layout">
+      <div class="side-menu">
+        <!-- Lab-Grown Rough Section -->
+        <div class="side-menu-heading">Lab-Grown Rough</div>
+
+        <!-- Sapphire Subsection -->
+        <div class="side-menu-container">
+          <div class="side-menu-toggle">Sapphire</div>
+          <ul class="side-menu-sublist">
+            <li><a href="#">Blue Sapphire</a></li>
+            <li><a href="#">Pink Sapphire</a></li>
+            <li><a href="#">Yellow Sapphire</a></li>
+            <li><a href="#">Green Sapphire</a></li>
+            <li><a href="#">Orange Sapphire</a></li>
+            <li><a href="#">Teal Sapphire</a></li>
           </ul>
         </div>
-    </nav>
-  </header>
 
-  <div class="page-layout">
+        <!-- Spinel Subsection -->
+        <div class="side-menu-container">
+          <div class="side-menu-toggle">Spinel</div>
+          <ul class="side-menu-sublist">
+            <li><a href="#">Red Spinel</a></li>
+            <li><a href="#">Pink Spinel</a></li>
+            <li><a href="#">Blue Spinel</a></li>
+            <li><a href="#">Lavender Spinel</a></li>
+            <li><a href="#">Green Spinel</a></li>
+            <li><a href="#">Orange Spinel</a></li>
+          </ul>
+        </div>
 
-  <div class="side-menu">
-    <!-- Lab-Grown Rough Section -->
-    <div class="side-menu-heading">Lab-Grown Rough</div>
-  
-    <!-- Sapphire Subsection -->
-    <div class="side-menu-container">
-    <div class="side-menu-toggle">Sapphire</div>
-    <ul class="side-menu-sublist">
-      <li><a href="#">Blue Sapphire</a></li>
-      <li><a href="#">Pink Sapphire</a></li>
-      <li><a href="#">Yellow Sapphire</a></li>
-      <li><a href="#">Green Sapphire</a></li>
-      <li><a href="#">Orange Sapphire</a></li>
-      <li><a href="#">Teal Sapphire</a></li>
-    </ul>
-    </div>
-  
-    <!-- Spinel Subsection -->
-    <div class="side-menu-container">
-    <div class="side-menu-toggle">Spinel</div>
-    <ul class="side-menu-sublist">
-      <li><a href="#">Red Spinel</a></li>
-      <li><a href="#">Pink Spinel</a></li>
-      <li><a href="#">Blue Spinel</a></li>
-      <li><a href="#">Lavender Spinel</a></li>
-      <li><a href="#">Green Spinel</a></li>
-      <li><a href="#">Orange Spinel</a></li>
-    </ul>
-    </div>
-  
-    <!-- Cubic Zirconia Subsection -->
-    <div class="side-menu-container">
-    <div class="side-menu-toggle">Cubic Zirconia</div>
-    <ul class="side-menu-sublist">
-      <li><a href="#">White CZ</a></li>
-      <li><a href="#">Pink CZ</a></li>
-      <li><a href="#">Champagne CZ</a></li>
-      <li><a href="#">Green CZ</a></li>
-      <li><a href="#">Lavender CZ</a></li>
-      <li><a href="#">Orange CZ</a></li>
-    </ul>
-    </div>
-  
-    <!-- Natural Rough Section -->
-    <div class="side-menu-heading">Natural Rough</div>
-  
-    <!-- Sapphire Subsection -->
-    <div class="side-menu-container">
-    <div class="side-menu-toggle">Sapphire</div>
-    <ul class="side-menu-sublist">
-      <li><a href="#">Blue Sapphire</a></li>
-      <li><a href="#">Green Sapphire</a></li>
-      <li><a href="#">Yellow Sapphire</a></li>
-      <li><a href="#">Teal Sapphire</a></li>
-      <li><a href="#">Parti Sapphire</a></li>
-      <li><a href="#">Pink Sapphire</a></li>
-    </ul>
-  </div>
-  
-    <!-- Other Natural Subsection -->
-    <div class="side-menu-toggle">Topaz</div>
-    <div class="side-menu-toggle">Garnet</div>
-    <div class="side-menu-toggle">Spinel</div>
-    <div class="side-menu-toggle">Zircon</div>
-    <div class="side-menu-toggle">Quartz</div>
-    <div class="side-menu-toggle">Peridot</div>
-    <div class="side-menu-toggle">Tourmaline</div>
-    <div class="side-menu-toggle">Beryl</div>
-    <div class="side-menu-toggle">Opal</div>
-  
-    <!-- Extra Links -->
-    <div class="side-menu-heading">Other items</div>
-      <div class="side-menu-toggle">Fossicking Wash Bags</div>
-      <div class="side-menu-toggle">Agate Thunder Eggs</div>
-      <div class="side-menu-toggle">Meteorites</div>
-      <div class="side-menu-toggle">Fluorescent Minerals</div>
-      <div class="side-menu-toggle">Mystery Boxes</div>
-  </div>
+        <!-- Cubic Zirconia Subsection -->
+        <div class="side-menu-container">
+          <div class="side-menu-toggle">Cubic Zirconia</div>
+          <ul class="side-menu-sublist">
+            <li><a href="#">White CZ</a></li>
+            <li><a href="#">Pink CZ</a></li>
+            <li><a href="#">Champagne CZ</a></li>
+            <li><a href="#">Green CZ</a></li>
+            <li><a href="#">Lavender CZ</a></li>
+            <li><a href="#">Orange CZ</a></li>
+          </ul>
+        </div>
 
-  <div id="dynamic-product-container" class="product-container">
-    <div class="dynamic-product-header-container">
-      <div class="dynamic-product-header-title">Product Header</div>
+        <!-- Natural Rough Section -->
+        <div class="side-menu-heading">Natural Rough</div>
+
+        <!-- Sapphire Subsection -->
+        <div class="side-menu-container">
+          <div class="side-menu-toggle">Sapphire</div>
+          <ul class="side-menu-sublist">
+            <li><a href="#">Blue Sapphire</a></li>
+            <li><a href="#">Green Sapphire</a></li>
+            <li><a href="#">Yellow Sapphire</a></li>
+            <li><a href="#">Teal Sapphire</a></li>
+            <li><a href="#">Parti Sapphire</a></li>
+            <li><a href="#">Pink Sapphire</a></li>
+          </ul>
+        </div>
+
+        <!-- Other Natural Subsection -->
+        <div class="side-menu-toggle">Topaz</div>
+        <div class="side-menu-toggle">Garnet</div>
+        <div class="side-menu-toggle">Spinel</div>
+        <div class="side-menu-toggle">Zircon</div>
+        <div class="side-menu-toggle">Quartz</div>
+        <div class="side-menu-toggle">Peridot</div>
+        <div class="side-menu-toggle">Tourmaline</div>
+        <div class="side-menu-toggle">Beryl</div>
+        <div class="side-menu-toggle">Opal</div>
+
+        <!-- Extra Links -->
+        <div class="side-menu-heading">Other items</div>
+        <div class="side-menu-toggle">Fossicking Wash Bags</div>
+        <div class="side-menu-toggle">Agate Thunder Eggs</div>
+        <div class="side-menu-toggle">Meteorites</div>
+        <div class="side-menu-toggle">Fluorescent Minerals</div>
+        <div class="side-menu-toggle">Mystery Boxes</div>
+      </div>
+
+      <div id="dynamic-product-container" class="product-container">
+        <div class="dynamic-product-header-container">
+          <div class="dynamic-product-header-title">Product Header</div>
+        </div>
+        <!-- Product cards will be dynamically inserted here -->
+      </div>
     </div>
-    <!-- Product cards will be dynamically inserted here -->
-  </div>
-  </div>
+
+    <footer>
+      <div class="footer-left">
+        <p><a href="Privacy Policy.docx" target="_blank">Privacy Policy</a></p>
+        <p><a href="Terms of Use.docx" target="_blank">Terms Of Use</a></p>
+      </div>
+      <div class="footer-middle">
+        <p>&copy; 2025 Outback Gems & Minerals. All rights reserved.</p>
+        <P>ABN: 0123456789</P>
+      </div>
+      <div class="footer-right">
+        <p><a href="outbackgems@outlook.com"><i class="fa fa-envelope" aria-hidden="true" style="color:white"></i></a></p>
+        <p><a href="https://www.facebook.com/"><i class="fa fa-facebook-square" aria-hidden="true" style="color:white"></i></a></p>
+      </div>
+    </footer>
+  </div> <!-- End of page-wrapper -->
+
+  <script>
+    // Dynamically load the shared navbar
+    document.addEventListener('DOMContentLoaded', () => {
+      fetch('navbar.html') // Ensure the file path is correct
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`Failed to load navbar. Status: ${response.status}`);
+          }
+          return response.text();
+        })
+        .then(data => {
+          document.querySelector('header').innerHTML = data;
+        })
+        .catch(error => {
+          console.error('Error loading navbar:', error);
+          document.querySelector('header').innerHTML = '<p style="color: red;">Failed to load navbar. Please try again later.</p>';
+        });
+    });
+  </script>
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       const productContainer = document.getElementById('dynamic-product-container');
       const productHeader = document.querySelector('.dynamic-product-header-container');
-  
+
       // Ensure the product header remains intact
       if (productHeader) {
         productHeader.style.display = 'block';
       }
-  
+
       // Show loading indicator below the product header
       const loadingIndicator = document.createElement('p');
       loadingIndicator.textContent = 'Loading products...';
       productContainer.appendChild(loadingIndicator);
-  
+
       fetch('https://script.google.com/macros/s/AKfycbyCY8VW0D1A7AFJiU7X6tN5-RTrnYxQIV4QCzmFprxYrCVv2o4uKWnmKfJ6Xh40H4uqXA/exec')
         .then(response => response.json())
         .then(data => {
@@ -179,11 +164,11 @@
             // Clear loading indicator
             productContainer.innerHTML = '';
             productContainer.appendChild(productHeader); // Reattach the product header
-  
+
             data.forEach(product => {
               const productCard = document.createElement('div');
               productCard.classList.add('dynamic-product-card');
-  
+
               // Image
               const imageContainer = document.createElement('div');
               imageContainer.classList.add('image-container');
@@ -191,19 +176,19 @@
               img.src = product['image url'];
               img.alt = product['product name'] || 'Product Image';
               imageContainer.appendChild(img);
-  
+
               // Product name
               const productName = document.createElement('h3');
               productName.textContent = product['product name'];
-  
+
               // Description
               const productDescription = document.createElement('p');
               productDescription.textContent = product.description;
-  
+
               // Price per unit and unit (same line)
               const priceLine = document.createElement('p');
               priceLine.textContent = `$${product['price per unit']} per ${product.unit}`;
-  
+
               // Button with link to view-product.html?productid=XYZ
               const productButton = document.createElement('button');
               productButton.classList.add('dynamic-product-button');
@@ -211,14 +196,14 @@
               productButton.onclick = () => {
                 window.location.href = `view-product.html?productid=${encodeURIComponent(product['product id'])}`;
               };
-  
+
               // Assemble card
               productCard.appendChild(imageContainer);
               productCard.appendChild(productName);
               productCard.appendChild(productDescription);
               productCard.appendChild(priceLine);
               productCard.appendChild(productButton);
-  
+
               productContainer.appendChild(productCard);
             });
           } else {
@@ -232,24 +217,5 @@
         });
     });
   </script>
-  
-  <footer>
-    <div class="footer-left">
-      <p><a href="Privacy Policy.docx" target="_blank">Privacy Policy</a></p>
-      <p><a href="Terms of Use.docx" target="_blank">Terms Of Use</a></p>
-    </div>
-    <div class="footer-middle">
-      <p>&copy; 2025 Outback Gems & Minerals. All rights reserved.</p>
-      <P>ABN: 0123456789</P>
-    </div>
-    <div class="footer-right">
-      <p><a href="outbackgems@outlook.com"><i class="fa fa-envelope" aria-hidden="true" style="color:white"></i></a></p>
-      <p><a href="https://www.facebook.com/"><i class="fa fa-facebook-square" aria-hidden="true"
-            style="color:white"></i></a></p>
-    </div>
-  </footer>
-
-  </div> <!-- End of page-wrapper -->
-  
 </body>
 </html>

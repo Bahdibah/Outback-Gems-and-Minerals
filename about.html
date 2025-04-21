@@ -15,60 +15,8 @@
 <body>
 
   <header>
-    <nav>    
-        <div class="main-logo">
-          <img src="images/logo.png" alt="Outback Gems Logo" class="logo" />
-          <h1 class="welcome-message">Outback Gems & Minerals</h1>
-        </div>
-  
-        <ul class="nav-links">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="about.html" class="active">About</a></li>
-          <li class="dropdown">
-            <a href="products.html">Products</a>
-            <ul class="dropdown-menu">
-              <!-- Rough Section Header (linked) -->
-              <li><a href="rough-section.html" class="dropdown-header">Rough</a></li>
-              <li><a href="rough-sapphire.html">Sapphire</a></li>
-              <li><a href="rough-cz.html">Cubic Zirconia</a></li>
-              <li><a href="rough-spinel.html">Spinel Rough</a></li>
-              <li><a href="rough-zircon.html">Zircon</a></li>
-          
-              <!-- Other Items Section Header (linked) -->
-              <li><a href="other-items.html" class="dropdown-header">Other Items</a></li>
-              <li><a href="wash-bags.html">Fossicking Wash Bags</a></li>
-              <li><a href="thunder-eggs.html">Agate Thunder Eggs</a></li>
-              <li><a href="meteorites.html">Meteorites</a></li>
-              <li><a href="fluorescents.html">Fluorescent Minerals</a></li>
-              <li><a href="mystery-boxes.html">Mystery Mineral Boxes</a></li>
-            </ul>
-          </li> 
-          <li><a href="gallery.html">Gallery</a></li>
-          <li><a href="contact.html">Contact Us</a></li>
-        </ul>
-        
-  
-        <div class="nav-search">
-          <input type="text" placeholder="Search..." />
-          <button><i class="fa fa-search" aria-hidden="true"></i></button>
-        </div>
-
-        <div class="options">
-          <ul>
-            <li>
-              <i class="fa fa-user-o icon" aria-hidden="true" style="color:white"></i>
-            </li>
-            <li>
-              <i class="fa fa-shopping-basket" aria-hidden="true" style="color:white"></i>
-            </li>
-            <li>
-              <i class="fa fa-cog" aria-hidden="true" style="color:white"></i>
-            </li>
-          </ul>
-        </div>
-    </nav>
+    <!-- Navbar will be dynamically loaded here -->
   </header>
-
 
 <section id="home">
   <div class="hero-overlay">
@@ -89,11 +37,6 @@
       <p>Our passion lies in uncovering rare and beautiful gemstones from remote and iconic Australian locations. Every stone we offer is carefully selected, ethically sourced, and handled with respect for both its natural origin and future craftsmanship.</p>
   </div>
 
-    <!-- <div class="Why-Choose-Usr"> Possibly add in as a Fourth Box 
-      <h2>Why Choose Us</h2>
-      <p>With firsthand experience in fossicking and faceting, we know what makes quality rough. We handpick stock that delivers both beauty and value to cutters and collectors alike.</p>
-  </div> -->
-
   <div class="what-we-offer">
       <h2>What We Offer</h2>
       <ul>
@@ -105,7 +48,6 @@
   </div>
 
 </section>
-
 
 <footer>
   <div class="footer-left">
@@ -122,7 +64,23 @@
 </footer>
 
 <script>
-  const images = ["images/Banner 1.jpg", "images/Banner 2.jpg", "images/Banner 3.jpg", "images/Banner 4.jpg",];
+  // Dynamically load the shared navbar
+  document.addEventListener('DOMContentLoaded', () => {
+    fetch('navbar.html') // Use the correct lowercase file name
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`Failed to load navbar. Status: ${response.status}`);
+        }
+        return response.text();
+      })
+      .then(data => {
+        document.querySelector('header').innerHTML = data;
+      })
+      .catch(error => console.error('Error loading navbar:', error));
+  });
+
+  // Background image rotation
+  const images = ["images/Banner 1.jpg", "images/Banner 2.jpg", "images/Banner 3.jpg", "images/Banner 4.jpg"];
   let current = 0;
 
   setInterval(() => {

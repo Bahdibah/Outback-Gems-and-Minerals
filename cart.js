@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const shippingOptionsContainer = document.getElementById('shipping-options'); // Shipping options container
   const stockApiUrl = 'https://script.google.com/macros/s/AKfycbyCY8VW0D1A7AFJiU7X6tN5-RTrnYxQIV4QCzmFprxYrCVv2o4uKWnmKfJ6Xh40H4uqXA/exec'; // Replace with your Apps Script URL
   const loadingMessage = document.getElementById('loading-message'); // Reference to the loading message element
+  const checkoutButton = document.getElementById('checkout-button');
 
   // Debounce utility function
   function debounce(func, delay) {
@@ -77,6 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
       shippingCostElement.textContent = 'Shipping: $0.00';
       totalPriceElement.textContent = 'Total Price: $0.00';
       shippingOptionsContainer.innerHTML = ''; // Clear shipping options
+      checkoutButton.disabled = true;
       return;
     }
 
@@ -131,6 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       subtotalElement.textContent = `Subtotal: $${subtotal.toFixed(2)}`;
       updateShippingAndTotal(subtotal);
+      checkoutButton.disabled = false;
     } catch (error) {
       console.error('Error loading cart:', error);
       cartTableBody.innerHTML = '<tr><td colspan="7">Failed to load cart items. Please try again later.</td></tr>';
@@ -340,4 +343,8 @@ document.addEventListener('DOMContentLoaded', () => {
       <img src="images/placeholder.png" alt="Placeholder Image" style="width: 100%; max-width: 300px; margin-top: 20px;" />
     `;
   }
+});
+
+document.getElementById('continue-shopping-button').addEventListener('click', () => {
+  window.location.href = 'products.html'; // Replace with your product listing page URL
 });

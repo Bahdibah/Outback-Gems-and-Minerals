@@ -15,57 +15,7 @@
 <body class="contact-page">
 
   <header>
-    <nav>    
-        <div class="main-logo">
-          <img src="images/logo.png" alt="Outback Gems Logo" class="logo" />
-          <h1 class="welcome-message">Outback Gems & Minerals</h1>
-        </div>
-  
-        <ul class="nav-links">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="about.html">About</a></li>
-          <li class="dropdown">
-            <a href="products.html">Products</a>
-            <ul class="dropdown-menu">
-              <!-- Rough Section Header (linked) -->
-              <li><a href="rough-section.html" class="dropdown-header">Rough</a></li>
-              <li><a href="rough-sapphire.html">Sapphire</a></li>
-              <li><a href="rough-cz.html">Cubic Zirconia</a></li>
-              <li><a href="rough-spinel.html">Spinel Rough</a></li>
-              <li><a href="rough-zircon.html">Zircon</a></li>
-          
-              <!-- Other Items Section Header (linked) -->
-              <li><a href="other-items.html" class="dropdown-header">Other Items</a></li>
-              <li><a href="wash-bags.html">Fossicking Wash Bags</a></li>
-              <li><a href="thunder-eggs.html">Agate Thunder Eggs</a></li>
-              <li><a href="meteorites.html">Meteorites</a></li>
-              <li><a href="fluorescents.html">Fluorescent Minerals</a></li>
-              <li><a href="mystery-boxes.html">Mystery Mineral Boxes</a></li>
-            </ul>
-          </li>
-          <li><a href="gallery.html">Gallery</a></li>
-          <li><a href="contact.html" class="active">Contact Us</a></li>
-        </ul>
-  
-        <div class="nav-search">
-          <input type="text" placeholder="Search..." />
-          <button><i class="fa fa-search" aria-hidden="true"></i></button>
-        </div>
-
-        <div class="options">
-          <ul>
-            <li>
-              <i class="fa fa-user-o icon" aria-hidden="true" style="color:white"></i>
-            </li>
-            <li>
-              <i class="fa fa-shopping-basket" aria-hidden="true" style="color:white"></i>
-            </li>
-            <li>
-              <i class="fa fa-cog" aria-hidden="true" style="color:white"></i>
-            </li>
-          </ul>
-        </div>
-    </nav>
+    <!-- Navbar will be dynamically loaded here -->
   </header>
 
 <section id="faq">
@@ -93,7 +43,6 @@
       </div>  
     </div> 
     <h4>Need more help or want to speak to us? Fill out the contact form below!</h4>
-
   </div>
 </section>
 
@@ -115,7 +64,6 @@
   </div>
 </section>
 
-
 <footer>
   <div class="footer-left">
     <p>Privacy Policy</p>
@@ -129,6 +77,23 @@
     <p><a href="https://www.facebook.com/"><i class="fa fa-facebook-square" aria-hidden="true" style="color:white"></i></a></p>
   </div> 
 </footer>
+
+<script>
+  // Dynamically load the shared navbar
+  document.addEventListener('DOMContentLoaded', () => {
+    fetch('navbar.html') // Ensure the file path is correct
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Failed to load navbar.');
+        }
+        return response.text();
+      })
+      .then(data => {
+        document.querySelector('header').innerHTML = data;
+      })
+      .catch(error => console.error('Error loading navbar:', error));
+  });
+</script>
 
 </body>
 </html>
