@@ -1,12 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
   const cartTableBody = document.getElementById('cart-items');
-  const subtotalElement = document.getElementById('subtotal'); // Subtotal element
-  const shippingCostElement = document.getElementById('shipping-cost'); // Shipping cost element
+  const subtotalElement = document.getElementById('subtotal');
+  const shippingCostElement = document.getElementById('shipping-cost');
   const totalPriceElement = document.getElementById('total-price');
-  const shippingOptionsContainer = document.getElementById('shipping-options'); // Shipping options container
-  const stockApiUrl = 'https://script.google.com/macros/s/AKfycbyCY8VW0D1A7AFJiU7X6tN5-RTrnYxQIV4QCzmFprxYrCVv2o4uKWnmKfJ6Xh40H4uqXA/exec'; // Replace with your Apps Script URL
-  const loadingMessage = document.getElementById('loading-message'); // Reference to the loading message element
+  const shippingOptionsContainer = document.getElementById('shipping-options');
+  const loadingMessage = document.getElementById('loading-message');
   const checkoutButton = document.getElementById('checkout-button');
+  const stockApiUrl = 'https://script.google.com/macros/s/AKfycbyCY8VW0D1A7AFJiU7X6tN5-RTrnYxQIV4QCzmFprxYrCVv2o4uKWnmKfJ6Xh40H4uqXA/exec';
 
   // Debounce utility function
   function debounce(func, delay) {
@@ -21,13 +21,10 @@ document.addEventListener('DOMContentLoaded', () => {
   function updateShippingAndTotal(subtotal) {
     let shippingCost = 0;
 
-    // Determine shipping cost based on subtotal
     if (subtotal >= 100) {
-      // Free shipping for orders over $100
       shippingCost = 0;
       shippingOptionsContainer.innerHTML = '<p>Free Shipping Applied</p>';
     } else {
-      // Show shipping options for orders under $100
       shippingOptionsContainer.innerHTML = `
         <label for="shipping-method">Shipping Method:</label>
         <select id="shipping-method">
@@ -36,7 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
         </select>
       `;
 
-      // Add event listener for shipping method selection
       const shippingMethodElement = document.getElementById('shipping-method');
       shippingMethodElement.addEventListener('change', () => {
         const selectedMethod = shippingMethodElement.value;
@@ -44,11 +40,9 @@ document.addEventListener('DOMContentLoaded', () => {
         updateTotalPrice(subtotal, shippingCost);
       });
 
-      // Default to standard shipping
-      shippingCost = 10.95;
+      shippingCost = 10.95; // Default to standard shipping
     }
 
-    // Update the total price display
     updateTotalPrice(subtotal, shippingCost);
   }
 
@@ -62,14 +56,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // Load cart items from localStorage and render them
   async function loadCart() {
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    const cartTableBody = document.getElementById('cart-items');
-    const subtotalElement = document.getElementById('subtotal');
-    const shippingCostElement = document.getElementById('shipping-cost');
-    const totalPriceElement = document.getElementById('total-price');
-    const shippingOptionsContainer = document.getElementById('shipping-options');
-    const loadingMessage = document.getElementById('loading-message');
-    const stockApiUrl = 'https://script.google.com/macros/s/AKfycbyCY8VW0D1A7AFJiU7X6tN5-RTrnYxQIV4QCzmFprxYrCVv2o4uKWnmKfJ6Xh40H4uqXA/exec';
-
     cartTableBody.innerHTML = ''; // Clear existing rows
 
     if (cart.length === 0) {
@@ -77,70 +63,39 @@ document.addEventListener('DOMContentLoaded', () => {
       subtotalElement.textContent = 'Subtotal: $0.00';
       shippingCostElement.textContent = 'Shipping: $0.00';
       totalPriceElement.textContent = 'Total Price: $0.00';
-      shippingOptionsContainer.innerHTML = ''; // Clear shipping options
+      shippingOptionsContainer.innerHTML = '';
       checkoutButton.disabled = true;
       return;
     }
 
     let subtotal = 0;
 
-    try {
-      // Show the loading message
-      loadingMessage.style.display = 'block';
+    for (const item of cart) {
+      const itemTotal = item.price * item.quantity;
+      subtotal += itemTotal;
 
-      // Fetch all product data in a single request
-      const response = await fetch(stockApiUrl);
-      if (!response.ok) {
-        throw new Error('Failed to fetch product data');
-      }
-      const productDataArray = await response.json();
-
-      // Process each item in the cart
-      for (const item of cart) {
-        // Find the matching product data for the current cart item
-        const productData = productDataArray.find(product => product['product id'] === item.id);
-        if (!productData) {
-          console.error(`Product with ID ${item.id} not found in API response.`);
-          continue; // Skip this item if the product is not found
-        }
-
-        const baseTotalPrice = parseFloat(productData['total price']); // Use 'total price' from API
-        const itemTotal = baseTotalPrice * item.quantity; // Multiply by quantity
-        subtotal += itemTotal;
-
-        const imageUrl = productData['image url'] || 'images/placeholder.png'; // Fallback for missing image URL
-        const weight = productData.weight || 'N/A';
-        const unit = productData.unit || '';
-
-        const row = document.createElement('tr');
-        row.innerHTML = `
-          <td><img src="${imageUrl}" alt="${productData['product name']}" style="width: 50px; height: 50px; object-fit: cover;" /></td>
-          <td>${item.name}</td>
-          <td>${weight} ${unit}</td>
-          <td>
-            <button class="decrease-quantity" data-index="${cart.indexOf(item)}">-</button>
-            <input type="number" value="${item.quantity}" min="1" data-index="${cart.indexOf(item)}" class="quantity-input" />
-            <button class="increase-quantity" data-index="${cart.indexOf(item)}">+</button>
-          </td>
-          <td>$${baseTotalPrice.toFixed(2)}</td>
-          <td>$${itemTotal.toFixed(2)}</td>
-          <td>
-            <button data-index="${cart.indexOf(item)}" class="remove-button">Remove</button>
-          </td>
-        `;
-        cartTableBody.appendChild(row);
-      }
-
-      subtotalElement.textContent = `Subtotal: $${subtotal.toFixed(2)}`;
-      updateShippingAndTotal(subtotal);
-      checkoutButton.disabled = false;
-    } catch (error) {
-      console.error('Error loading cart:', error);
-      cartTableBody.innerHTML = '<tr><td colspan="7">Failed to load cart items. Please try again later.</td></tr>';
-    } finally {
-      // Hide the loading message
-      loadingMessage.style.display = 'none';
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td><img src="${item.image}" alt="${item.name}" style="width: 50px; height: 50px; object-fit: cover;" /></td>
+        <td>${item.name}</td>
+        <td>${item.weight} ${item.unit}</td>
+        <td>
+          <button class="decrease-quantity" data-index="${cart.indexOf(item)}">-</button>
+          <input type="number" value="${item.quantity}" min="1" data-index="${cart.indexOf(item)}" class="quantity-input" />
+          <button class="increase-quantity" data-index="${cart.indexOf(item)}">+</button>
+        </td>
+        <td>$${item.price.toFixed(2)}</td>
+        <td>$${itemTotal.toFixed(2)}</td>
+        <td>
+          <button data-index="${cart.indexOf(item)}" class="remove-button">Remove</button>
+        </td>
+      `;
+      cartTableBody.appendChild(row);
     }
+
+    subtotalElement.textContent = `Subtotal: $${subtotal.toFixed(2)}`;
+    updateShippingAndTotal(subtotal);
+    checkoutButton.disabled = false;
   }
 
   // Verify cart items against stock availability
@@ -148,11 +103,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
 
     try {
-      // Show the loading message
       loadingMessage.style.display = 'block';
 
-      // Fetch all product data in a single request
-      const response = await fetch(`${stockApiUrl}`);
+      const response = await fetch(stockApiUrl);
       if (!response.ok) {
         throw new Error('Failed to fetch product data');
       }
@@ -176,7 +129,6 @@ document.addEventListener('DOMContentLoaded', () => {
     } catch (error) {
       console.error('Error verifying cart:', error);
     } finally {
-      // Hide the loading message
       loadingMessage.style.display = 'none';
     }
   }
@@ -194,12 +146,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
       item.quantity -= 1;
       localStorage.setItem('cart', JSON.stringify(cart));
-
-      const inputElement = cartTableBody.querySelector(`input[data-index="${index}"]`);
-      if (inputElement) {
-        inputElement.value = item.quantity;
-      }
-
       debouncedVerifyCart();
     }
 
@@ -211,12 +157,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
       item.quantity += 1;
       localStorage.setItem('cart', JSON.stringify(cart));
-
-      const inputElement = cartTableBody.querySelector(`input[data-index="${index}"]`);
-      if (inputElement) {
-        inputElement.value = item.quantity;
-      }
-
       debouncedVerifyCart();
     }
 

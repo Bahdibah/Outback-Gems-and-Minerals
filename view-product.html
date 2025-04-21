@@ -91,14 +91,38 @@
       <div class="view-product-container">
         <!-- Dynamic product details will be loaded here -->
         <div id="view-product-details" class="view-product-detail">
-          <h1 id="product-name">Product Name</h1>
+          <h1 id="product-name">Loading...</h1>
           <img id="product-image" src="" alt="Product Image" />
-          <p id="product-description">Product Description</p>
-          <p id="product-price">Price: $XX.XX per unit</p>
+          <p id="product-description">Loading product description...</p>
+          <!-- Dynamically added elements (variation selector, price, weight, stock) will go here -->
+          <input type="number" id="quantity" name="quantity" min="1" value="1" style="display: inline-block;" />
           <button id="add-to-cart">Add to Cart</button>
         </div>
       </div>
     </div> <!-- End of page-layout -->
+
+    <script src="view-product.js"></script>
+    <script>
+      // Dynamically load the navbar from navbar.html
+      document.addEventListener("DOMContentLoaded", () => {
+        const header = document.querySelector("header");
+        if (header) {
+          fetch("navbar.html")
+            .then(response => {
+              if (!response.ok) {
+                throw new Error("Failed to load navbar.");
+              }
+              return response.text();
+            })
+            .then(data => {
+              header.innerHTML = data;
+            })
+            .catch(error => {
+              console.error("Error loading navbar:", error);
+            });
+        }
+      });
+    </script>
 
     <footer>
       <div class="footer-left">
@@ -115,314 +139,5 @@
       </div>
     </footer>
   </div> <!-- End of page-wrapper -->
-
-  <script>
-    // Dynamically load the shared navbar
-    document.addEventListener('DOMContentLoaded', () => {
-      fetch('navbar.html') // Ensure the file path is correct
-        .then(response => {
-          if (!response.ok) {
-            throw new Error(`Failed to load navbar. Status: ${response.status}`);
-          }
-          return response.text();
-        })
-        .then(data => {
-          document.querySelector('header').innerHTML = data;
-        })
-        .catch(error => {
-          console.error('Error loading navbar:', error);
-          document.querySelector('header').innerHTML = '<p style="color: red;">Failed to load navbar. Please try again later.</p>';
-        });
-    });
-  </script>
-
-  <script>
-    const urlParams = new URLSearchParams(window.location.search);
-    const productId = urlParams.get('productid');
-  
-    let currentProduct = null;
-  
-    const productDetailsContainer = document.getElementById('view-product-details');
-  
-    if (productId) {
-      // Show loading indicator
-      productDetailsContainer.innerHTML = '<p>Loading product details...</p>';
-  
-      // Fetch product details from the API
-      fetch('https://script.google.com/macros/s/AKfycbyCY8VW0D1A7AFJiU7X6tN5-RTrnYxQIV4QCzmFprxYrCVv2o4uKWnmKfJ6Xh40H4uqXA/exec')
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Failed to fetch product details.');
-          }
-          return response.json();
-        })
-        .then(data => {
-          currentProduct = data.find(item => item['product id'] === productId);
-  
-          if (currentProduct) {
-            // Find all products in the same category
-            const variations = data.filter(item => item.category === currentProduct.category);
-  
-            // Render product details
-            const imageUrl = currentProduct['image url'] || 'images/placeholder.png'; // Fallback for missing image URL
-  
-            productDetailsContainer.innerHTML = `
-              <h1 id="product-name">${currentProduct['product name']}</h1>
-              <img id="product-image" src="${imageUrl}" alt="${currentProduct['product name']}" />
-              <p id="product-description">${currentProduct.description}</p>
-              <p id="product-price">Price: $${currentProduct['price per unit']} per ${currentProduct.unit}</p>
-              <label for="quantity">Quantity:</label>
-              <input type="number" id="quantity" name="quantity" min="1" value="1" />
-              <button id="add-to-cart">Add to Cart</button>
-            `;
-  
-            // Create variation selector if there are multiple variations
-            if (variations.length > 1) {
-              createVariationSelector(variations, currentProduct['product id']);
-            }
-  
-            // Add event listener for "Add to Cart" button
-            document.getElementById('add-to-cart').addEventListener('click', () => {
-              const quantity = parseInt(document.getElementById('quantity').value, 10);
-              const stock = parseInt(currentProduct.stock, 10) || 0; // Ensure stock is a valid number
-              const cart = JSON.parse(localStorage.getItem('cart')) || [];
-              const existingItem = cart.find(item => item.id === currentProduct['product id']);
-              const quantityInCart = existingItem ? existingItem.quantity : 0;
-              const remainingStock = stock - quantityInCart;
-
-              if (quantity > remainingStock) {
-                alert(`Only ${remainingStock} units are available in stock.`);
-                return;
-              }
-
-              if (existingItem) {
-                existingItem.quantity += quantity;
-              } else {
-                cart.push({
-                  id: currentProduct['product id'],
-                  name: currentProduct['product name'],
-                  price: parseFloat(currentProduct['price per unit']),
-                  image: currentProduct['image url'] || 'images/placeholder.png',
-                  quantity: quantity
-                });
-              }
-
-              localStorage.setItem('cart', JSON.stringify(cart));
-              console.log('Cart after adding item:', cart); // Debugging
-              alert(`${quantity} x ${currentProduct['product name']} has been added to your cart!`);
-              updateCartCount(); // Update cart count
-            });  
-            // Insert stock and total price information
-            insertTotalPriceElement();
-            insertStockQtyElement();
-            updateTotalPrice(currentProduct);
-            updateStockQty(currentProduct);
-          } else {
-            console.error('Product not found');
-            productDetailsContainer.innerHTML = `
-              <p style="color: red;">Product not found. Please check the URL or try again later.</p>
-              <img src="images/placeholder.png" alt="Placeholder Image" style="width: 100%; max-width: 300px; margin-top: 20px;" />
-            `;
-          }
-        })
-        .catch(error => {
-          console.error('Error fetching product details:', error);
-          productDetailsContainer.innerHTML = `
-            <p style="color: red;">Failed to load product details. Please try again later.</p>
-            <img src="images/placeholder.png" alt="Placeholder Image" style="width: 100%; max-width: 300px; margin-top: 20px;" />
-          `;
-        });
-    } else {
-      console.error('No product ID in URL');
-      productDetailsContainer.innerHTML = `
-        <p style="color: red;">No product selected. Please go back and choose a product.</p>
-        <img src="images/placeholder.png" alt="Placeholder Image" style="width: 100%; max-width: 300px; margin-top: 20px;" />
-      `;
-    }
-  
-    function createVariationSelector(variations, selectedId) {
-      const selectorContainer = document.createElement('div');
-      selectorContainer.classList.add('variation-selector');
-  
-      const label = document.createElement('label');
-      label.setAttribute('for', 'variation-select');
-      label.textContent = 'Choose a variation:';
-      label.style.color = 'white';
-      selectorContainer.appendChild(label);
-  
-      const select = document.createElement('select');
-      select.id = 'variation-select';
-      select.style.marginLeft = '10px';
-      select.style.padding = '5px';
-  
-      variations.forEach(product => {
-        const option = document.createElement('option');
-        option.value = product['product id'];
-  
-        const weight = product['weight'];
-        const unit = product['unit'];
-  
-        if (weight && unit) {
-          option.textContent = `${weight} ${unit}`;
-        } else {
-          option.textContent = unit || 'Option';
-        }
-  
-        if (product['product id'] === selectedId) {
-          option.selected = true;
-        }
-  
-        select.appendChild(option);
-      });
-  
-      select.addEventListener('change', (e) => {
-        const selectedProduct = variations.find(p => p['product id'] === e.target.value);
-        if (selectedProduct) {
-          currentProduct = selectedProduct; // Update the current product
-          document.getElementById('product-name').textContent = selectedProduct['product name'];
-          document.getElementById('product-image').src = selectedProduct['image url'];
-          document.getElementById('product-description').textContent = selectedProduct.description;
-          document.getElementById('product-price').textContent = `Price: $${selectedProduct['price per unit']} per ${selectedProduct.unit}`;
-          updateStockQty(selectedProduct); // Update stock display for the selected variation
-        }
-      });
-  
-      selectorContainer.appendChild(select);
-      document.getElementById('view-product-details').insertBefore(selectorContainer, document.getElementById('product-price'));
-    }
-  
-    function insertTotalPriceElement() {
-      let totalPriceElement = document.getElementById('total-price');
-      if (!totalPriceElement) {
-        totalPriceElement = document.createElement('div');
-        totalPriceElement.id = 'total-price';
-        totalPriceElement.style.marginTop = '10px';
-        totalPriceElement.style.color = 'white';
-        document.getElementById('product-price').after(totalPriceElement);
-      }
-    }
-  
-    
-
-    
-    function insertStockQtyElement() {
-      let stockQtyElement = document.getElementById('stock-qty');
-      if (!stockQtyElement) {
-        stockQtyElement = document.createElement('div');
-        stockQtyElement.id = 'stock-qty';
-        stockQtyElement.style.marginTop = '5px';
-        stockQtyElement.style.color = 'white';
-        document.getElementById('total-price').after(stockQtyElement);
-      }
-    }
-  
-    function updateTotalPrice(product) {
-  const totalPriceElement = document.getElementById('total-price');
-  if (totalPriceElement) {
-    // Use the total price from the product data
-    const totalPrice = parseFloat(product['total price']);
-    if (!isNaN(totalPrice)) {
-      totalPriceElement.textContent = `Total: $${totalPrice.toFixed(2)}`;
-    } else {
-      totalPriceElement.textContent = 'Total: $0.00'; // Fallback if total price is invalid
-    }
-  }
-}
-  
-    function updateStockQty(product) {
-      const stockQtyElement = document.getElementById('stock-qty');
-      const cart = JSON.parse(localStorage.getItem('cart')) || [];
-      const existingItem = cart.find(item => item.id === product['product id']);
-      const quantityInCart = existingItem ? existingItem.quantity : 0;
-      const remainingStock = (product.stock || 0) - quantityInCart;
-  
-      if (stockQtyElement) {
-        stockQtyElement.textContent = `Qty in stock: ${remainingStock}`;
-      }
-    }
-
-    async function loadCart() {
-      const cart = JSON.parse(localStorage.getItem('cart')) || [];
-      cartTableBody.innerHTML = ''; // Clear existing rows
-    
-      if (cart.length === 0) {
-        cartTableBody.innerHTML = '<tr><td colspan="6">Your cart is empty.</td></tr>';
-        subtotalElement.textContent = 'Subtotal: $0.00';
-        shippingCostElement.textContent = 'Shipping: $0.00';
-        totalPriceElement.textContent = 'Total Price: $0.00';
-        shippingOptionsContainer.innerHTML = ''; // Clear shipping options
-        return;
-      }
-    
-      let subtotal = 0;
-    
-      try {
-        // Show the loading message
-        loadingMessage.style.display = 'block';
-    
-        // Fetch all product data in a single request
-        const response = await fetch(`${stockApiUrl}`);
-        if (!response.ok) {
-          throw new Error('Failed to fetch product data');
-        }
-        const productDataArray = await response.json();
-    
-        // Process each item in the cart
-        for (const item of cart) {
-          // Find the matching product data for the current cart item
-          const productData = productDataArray.find(product => product['product id'] === item.id);
-          if (!productData) {
-            console.error(`Product with ID ${item.id} not found in API response.`);
-            continue; // Skip this item if the product is not found
-          }
-    
-          const baseTotalPrice = parseFloat(productData['price per unit']);
-          const itemTotal = baseTotalPrice * item.quantity;
-          subtotal += itemTotal;
-    
-          const imageUrl = productData['image url'] || 'images/placeholder.png'; // Fallback for missing image URL
-          const weight = productData.weight || 'N/A';
-          const unit = productData.unit || '';
-    
-          const row = document.createElement('tr');
-          row.innerHTML = `
-            <td><img src="${imageUrl}" alt="${productData['product name']}" style="width: 50px; height: 50px; object-fit: cover;" /></td>
-            <td>${item.name}</td>
-            <td>${weight} ${unit}</td>
-            <td>
-              <button class="decrease-quantity" data-index="${cart.indexOf(item)}">-</button>
-              <input type="number" value="${item.quantity}" min="1" data-index="${cart.indexOf(item)}" class="quantity-input" />
-              <button class="increase-quantity" data-index="${cart.indexOf(item)}">+</button>
-            </td>
-            <td>$${baseTotalPrice.toFixed(2)}</td>
-            <td>$${itemTotal.toFixed(2)}</td>
-            <td>
-              <button data-index="${cart.indexOf(item)}" class="remove-button">Remove</button>
-            </td>
-          `;
-          cartTableBody.appendChild(row);
-        }
-    
-        subtotalElement.textContent = `Subtotal: $${subtotal.toFixed(2)}`;
-        updateShippingAndTotal(subtotal);
-      } catch (error) {
-        console.error('Error loading cart:', error);
-        cartTableBody.innerHTML = '<tr><td colspan="6">Failed to load cart items. Please try again later.</td></tr>';
-      } finally {
-        // Hide the loading message
-        loadingMessage.style.display = 'none';
-      }
-    }
-
-    function updateCartCount() {
-      const cart = JSON.parse(localStorage.getItem('cart')) || [];
-      const cartCountElement = document.getElementById('cart-count');
-      const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-      cartCountElement.textContent = totalItems;
-    }
-    
-    // Call this function whenever the cart is updated
-    updateCartCount();
-  </script>
 </body>
 </html>
