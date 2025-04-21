@@ -51,9 +51,7 @@
 
         <div class="options">
           <ul>
-            <li><i class="fa fa-user-o icon" aria-hidden="true" style="color:white"></i></li>
-            <li><i class="fa fa-shopping-basket" aria-hidden="true" style="color:white"></i></li>
-            <li><i class="fa fa-cog" aria-hidden="true" style="color:white"></i></li>
+            <li><a href="cart.html" class="cart-link"><i class="fa fa-shopping-basket" aria-hidden="true" style="color:white"></i></a></li>
           </ul>
         </div>
     </nav>
@@ -190,12 +188,12 @@
               const existingItem = cart.find(item => item.id === currentProduct['product id']);
               const quantityInCart = existingItem ? existingItem.quantity : 0;
               const remainingStock = stock - quantityInCart;
-  
+
               if (quantity > remainingStock) {
                 alert(`Only ${remainingStock} units are available in stock.`);
                 return;
               }
-  
+
               if (existingItem) {
                 existingItem.quantity += quantity;
               } else {
@@ -207,12 +205,11 @@
                   quantity: quantity
                 });
               }
-  
+
               localStorage.setItem('cart', JSON.stringify(cart));
+              console.log('Cart after adding item:', cart); // Debugging
               alert(`${quantity} x ${currentProduct['product name']} has been added to your cart!`);
-              updateStockQty(currentProduct); // Update stock display after adding to cart
-            });
-  
+            });  
             // Insert stock and total price information
             insertTotalPriceElement();
             insertStockQtyElement();
@@ -303,6 +300,9 @@
       }
     }
   
+    
+
+    
     function insertStockQtyElement() {
       let stockQtyElement = document.getElementById('stock-qty');
       if (!stockQtyElement) {
@@ -315,20 +315,17 @@
     }
   
     function updateTotalPrice(product) {
-      const pricePerUnit = parseFloat(product['price per unit']);
-      const weight = parseFloat(product['weight']);
-  
-      let totalPrice = pricePerUnit;
-  
-      if (!isNaN(pricePerUnit) && !isNaN(weight)) {
-        totalPrice = pricePerUnit * weight;
-      }
-  
-      const totalPriceElement = document.getElementById('total-price');
-      if (totalPriceElement) {
-        totalPriceElement.textContent = `Total: $${totalPrice.toFixed(2)}`;
-      }
+  const totalPriceElement = document.getElementById('total-price');
+  if (totalPriceElement) {
+    // Use the total price from the product data
+    const totalPrice = parseFloat(product['total price']);
+    if (!isNaN(totalPrice)) {
+      totalPriceElement.textContent = `Total: $${totalPrice.toFixed(2)}`;
+    } else {
+      totalPriceElement.textContent = 'Total: $0.00'; // Fallback if total price is invalid
     }
+  }
+}
   
     function updateStockQty(product) {
       const stockQtyElement = document.getElementById('stock-qty');
@@ -339,6 +336,79 @@
   
       if (stockQtyElement) {
         stockQtyElement.textContent = `Qty in stock: ${remainingStock}`;
+      }
+    }
+
+    async function loadCart() {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      cartTableBody.innerHTML = ''; // Clear existing rows
+    
+      if (cart.length === 0) {
+        cartTableBody.innerHTML = '<tr><td colspan="6">Your cart is empty.</td></tr>';
+        subtotalElement.textContent = 'Subtotal: $0.00';
+        shippingCostElement.textContent = 'Shipping: $0.00';
+        totalPriceElement.textContent = 'Total Price: $0.00';
+        shippingOptionsContainer.innerHTML = ''; // Clear shipping options
+        return;
+      }
+    
+      let subtotal = 0;
+    
+      try {
+        // Show the loading message
+        loadingMessage.style.display = 'block';
+    
+        // Fetch all product data in a single request
+        const response = await fetch(`${stockApiUrl}`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch product data');
+        }
+        const productDataArray = await response.json();
+    
+        // Process each item in the cart
+        for (const item of cart) {
+          // Find the matching product data for the current cart item
+          const productData = productDataArray.find(product => product['product id'] === item.id);
+          if (!productData) {
+            console.error(`Product with ID ${item.id} not found in API response.`);
+            continue; // Skip this item if the product is not found
+          }
+    
+          const baseTotalPrice = parseFloat(productData['price per unit']);
+          const itemTotal = baseTotalPrice * item.quantity;
+          subtotal += itemTotal;
+    
+          const imageUrl = productData['image url'] || 'images/placeholder.png'; // Fallback for missing image URL
+          const weight = productData.weight || 'N/A';
+          const unit = productData.unit || '';
+    
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td><img src="${imageUrl}" alt="${productData['product name']}" style="width: 50px; height: 50px; object-fit: cover;" /></td>
+            <td>${item.name}</td>
+            <td>${weight} ${unit}</td>
+            <td>
+              <button class="decrease-quantity" data-index="${cart.indexOf(item)}">-</button>
+              <input type="number" value="${item.quantity}" min="1" data-index="${cart.indexOf(item)}" class="quantity-input" />
+              <button class="increase-quantity" data-index="${cart.indexOf(item)}">+</button>
+            </td>
+            <td>$${baseTotalPrice.toFixed(2)}</td>
+            <td>$${itemTotal.toFixed(2)}</td>
+            <td>
+              <button data-index="${cart.indexOf(item)}" class="remove-button">Remove</button>
+            </td>
+          `;
+          cartTableBody.appendChild(row);
+        }
+    
+        subtotalElement.textContent = `Subtotal: $${subtotal.toFixed(2)}`;
+        updateShippingAndTotal(subtotal);
+      } catch (error) {
+        console.error('Error loading cart:', error);
+        cartTableBody.innerHTML = '<tr><td colspan="6">Failed to load cart items. Please try again later.</td></tr>';
+      } finally {
+        // Hide the loading message
+        loadingMessage.style.display = 'none';
       }
     }
   </script>
