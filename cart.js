@@ -125,6 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       localStorage.setItem('cart', JSON.stringify(cart));
+      updateCartCount();
       loadCart();
     } catch (error) {
       console.error('Error verifying cart:', error);
@@ -146,6 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       item.quantity -= 1;
       localStorage.setItem('cart', JSON.stringify(cart));
+      updateCartCount();
       debouncedVerifyCart();
     }
 
@@ -157,6 +159,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       item.quantity += 1;
       localStorage.setItem('cart', JSON.stringify(cart));
+      updateCartCount();
       debouncedVerifyCart();
     }
 
@@ -165,6 +168,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const cart = JSON.parse(localStorage.getItem('cart')) || [];
       cart.splice(index, 1);
       localStorage.setItem('cart', JSON.stringify(cart));
+      updateCartCount();
       debouncedVerifyCart();
     }
   });
@@ -179,6 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (newQuantity > 0) {
         item.quantity = newQuantity;
         localStorage.setItem('cart', JSON.stringify(cart));
+        updateCartCount();
         debouncedVerifyCart();
       } else {
         alert('Quantity must be at least 1.');
@@ -259,6 +264,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
             alert(`${quantity} x ${currentProduct['product name']} has been added to your cart!`);
           });
         } else {
@@ -288,3 +294,19 @@ document.addEventListener('DOMContentLoaded', () => {
 document.getElementById('continue-shopping-button').addEventListener('click', () => {
   window.location.href = 'products.html'; // Replace with your product listing page URL
 });
+
+function updateCartCount() {
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+  localStorage.setItem("cartCount", totalItems); // Store the cart count in localStorage
+}
+
+function updateCart() {
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+  localStorage.setItem("cartCount", totalItems);
+
+  // Dispatch a custom event to notify other parts of the app
+  const cartUpdatedEvent = new CustomEvent("cartUpdated", { detail: { totalItems } });
+  document.dispatchEvent(cartUpdatedEvent);
+}

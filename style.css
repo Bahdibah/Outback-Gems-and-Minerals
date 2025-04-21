@@ -1177,3 +1177,12 @@ form textarea {
   outline: none;
   box-sizing: border-box;
 }
+
+.suggestion-container {
+  display: flex;
+  flex-wrap: wrap; /* Allow wrapping for responsiveness */
+  gap: 3%; /* Same gap as the main product grid */
+  justify-content: center; /* Center the suggested products */
+  width: 100%; /* Match the width of the main container */
+  margin-top: 20px; /* Add spacing above the suggestions */
+}

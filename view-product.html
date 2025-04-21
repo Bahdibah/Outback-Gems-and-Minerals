@@ -14,9 +14,7 @@
 </head>
 <body>
   <div id="page-wrapper">
-    <header>
-      <!-- Navbar will be dynamically loaded here -->
-    </header>
+    <header id="navbar-container"></header>
 
     <div class="page-layout">
       <div class="side-menu">
@@ -103,24 +101,44 @@
 
     <script src="view-product.js"></script>
     <script>
-      // Dynamically load the navbar from navbar.html
-      document.addEventListener("DOMContentLoaded", () => {
-        const header = document.querySelector("header");
-        if (header) {
-          fetch("navbar.html")
-            .then(response => {
-              if (!response.ok) {
-                throw new Error("Failed to load navbar.");
-              }
-              return response.text();
-            })
-            .then(data => {
-              header.innerHTML = data;
-            })
-            .catch(error => {
-              console.error("Error loading navbar:", error);
-            });
+      function updateCartCount() {
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+        const cartCountElement = document.getElementById("cart-count");
+        if (cartCountElement) {
+          cartCountElement.textContent = totalItems;
         }
+      }
+
+      // Dynamically load the navbar
+      document.addEventListener("DOMContentLoaded", () => {
+        fetch("navbar.html")
+          .then(response => {
+            if (!response.ok) {
+              throw new Error(`Failed to load navbar. Status: ${response.status}`);
+            }
+            return response.text();
+          })
+          .then(html => {
+            const navbarContainer = document.querySelector("header") || document.getElementById("navbar-container");
+            if (navbarContainer) {
+              navbarContainer.innerHTML = html;
+
+              // Update the cart count after the navbar is loaded
+              updateCartCount();
+
+              // Listen for the custom "cartUpdated" event
+              document.addEventListener("cartUpdated", (event) => {
+                const cartCountElement = document.getElementById("cart-count");
+                if (cartCountElement) {
+                  cartCountElement.textContent = event.detail.totalItems;
+                }
+              });
+            }
+          })
+          .catch(error => {
+            console.error("Error loading navbar:", error);
+          });
       });
     </script>
 

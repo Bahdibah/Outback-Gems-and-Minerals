@@ -69,6 +69,13 @@ async function fetchProductDetails() {
       // Update the max attribute for the quantity input field
       quantityInputElement.setAttribute("max", availableStock);
       quantityInputElement.value = 1; // Reset quantity input
+
+      // Update price dynamically based on quantity
+      quantityInputElement.addEventListener("input", () => {
+        const quantity = parseInt(quantityInputElement.value, 10) || 1; // Default to 1 if input is invalid
+        const totalPrice = selectedVariation["total price"] * quantity;
+        productPriceElement.textContent = `Price: $${totalPrice.toFixed(2)}`;
+      });
     }
 
     // Initialize with the first variation
@@ -121,6 +128,7 @@ async function fetchProductDetails() {
 
       // Save the updated cart to localStorage
       localStorage.setItem("cart", JSON.stringify(cart));
+      updateCartCount();
 
       // Update the stock display
       const newStock = selectedVariation.stock - quantity;
@@ -141,6 +149,24 @@ async function fetchProductDetails() {
     productNameElement.textContent = "Error loading product";
     productDescriptionElement.textContent = "Please try again later.";
   }
+}
+
+// Function to update the cart count in the navbar
+function updateCartCount() {
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+  localStorage.setItem("cartCount", totalItems); // Store the cart count in localStorage
+}
+
+// Function to update the cart and dispatch a custom event
+function updateCart() {
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+  localStorage.setItem("cartCount", totalItems);
+
+  // Dispatch a custom event to notify other parts of the app
+  const cartUpdatedEvent = new CustomEvent("cartUpdated", { detail: { totalItems } });
+  document.dispatchEvent(cartUpdatedEvent);
 }
 
 // Initialize the page

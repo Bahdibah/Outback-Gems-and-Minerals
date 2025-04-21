@@ -17,9 +17,7 @@
 
 <body>
 
-  <header>
-    <!-- Navbar will be dynamically loaded here -->
-  </header>
+  <header id="navbar-container"></header>
 
   <section id="home">
     <div class="hero-overlay">
@@ -332,6 +330,39 @@
           document.querySelector('header').innerHTML = '<p style="color: red;">Failed to load navbar. Please try again later.</p>';
         });
     });
+  
+  // Dynamically load the navbar
+  document.addEventListener("DOMContentLoaded", () => {
+    fetch("navbar.html")
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`Failed to load navbar. Status: ${response.status}`);
+        }
+        return response.text();
+      })
+      .then(html => {
+        document.getElementById("navbar-container").innerHTML = html;
+
+        // Update the cart count after the navbar is loaded
+        const cartCount = localStorage.getItem("cartCount") || 0;
+        const cartCountElement = document.getElementById("cart-count");
+        if (cartCountElement) {
+          cartCountElement.textContent = cartCount;
+        }
+      })
+      .catch(error => {
+        console.error("Error loading navbar:", error);
+      });
+  });
+  
+  function updateCartCount() {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    const cartCountElement = document.getElementById("cart-count");
+    if (cartCountElement) {
+      cartCountElement.textContent = totalItems;
+    }
+  }
   
   </script>
 </body>

@@ -14,9 +14,7 @@
 </head>
 <body>
 
-  <header>
-    <!-- Navbar will be dynamically loaded here -->
-  </header>
+  <header id="navbar-container"></header>
 
 <section id="home">
   <div class="hero-overlay">
@@ -64,20 +62,45 @@
 </footer>
 
 <script>
-  // Dynamically load the shared navbar
-  document.addEventListener('DOMContentLoaded', () => {
-    fetch('navbar.html') // Use the correct lowercase file name
+  // Dynamically load the navbar
+  document.addEventListener("DOMContentLoaded", () => {
+    fetch("navbar.html")
       .then(response => {
         if (!response.ok) {
           throw new Error(`Failed to load navbar. Status: ${response.status}`);
         }
         return response.text();
       })
-      .then(data => {
-        document.querySelector('header').innerHTML = data;
+      .then(html => {
+        const navbarContainer = document.querySelector("header") || document.getElementById("navbar-container");
+        if (navbarContainer) {
+          navbarContainer.innerHTML = html;
+
+          // Update the cart count after the navbar is loaded
+          updateCartCount();
+
+          // Listen for the custom "cartUpdated" event
+          document.addEventListener("cartUpdated", (event) => {
+            const cartCountElement = document.getElementById("cart-count");
+            if (cartCountElement) {
+              cartCountElement.textContent = event.detail.totalItems;
+            }
+          });
+        }
       })
-      .catch(error => console.error('Error loading navbar:', error));
+      .catch(error => {
+        console.error("Error loading navbar:", error);
+      });
   });
+
+  function updateCartCount() {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    const cartCountElement = document.getElementById("cart-count");
+    if (cartCountElement) {
+      cartCountElement.textContent = totalItems;
+    }
+  }
 
   // Background image rotation
   const images = ["images/Banner 1.jpg", "images/Banner 2.jpg", "images/Banner 3.jpg", "images/Banner 4.jpg"];

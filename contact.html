@@ -14,9 +14,7 @@
 </head>
 <body class="contact-page">
 
-  <header>
-    <!-- Navbar will be dynamically loaded here -->
-  </header>
+  <header id="navbar-container"></header>
 
 <section id="faq">
   <div class="faq-container">
@@ -79,19 +77,44 @@
 </footer>
 
 <script>
-  // Dynamically load the shared navbar
-  document.addEventListener('DOMContentLoaded', () => {
-    fetch('navbar.html') // Ensure the file path is correct
+  function updateCartCount() {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    const cartCountElement = document.getElementById("cart-count");
+    if (cartCountElement) {
+      cartCountElement.textContent = totalItems;
+    }
+  }
+
+  // Dynamically load the navbar
+  document.addEventListener("DOMContentLoaded", () => {
+    fetch("navbar.html")
       .then(response => {
         if (!response.ok) {
-          throw new Error('Failed to load navbar.');
+          throw new Error(`Failed to load navbar. Status: ${response.status}`);
         }
         return response.text();
       })
-      .then(data => {
-        document.querySelector('header').innerHTML = data;
+      .then(html => {
+        const navbarContainer = document.querySelector("header") || document.getElementById("navbar-container");
+        if (navbarContainer) {
+          navbarContainer.innerHTML = html;
+
+          // Update the cart count after the navbar is loaded
+          updateCartCount();
+
+          // Listen for the custom "cartUpdated" event
+          document.addEventListener("cartUpdated", (event) => {
+            const cartCountElement = document.getElementById("cart-count");
+            if (cartCountElement) {
+              cartCountElement.textContent = event.detail.totalItems;
+            }
+          });
+        }
       })
-      .catch(error => console.error('Error loading navbar:', error));
+      .catch(error => {
+        console.error("Error loading navbar:", error);
+      });
   });
 </script>
 

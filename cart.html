@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Shopping Cart - Outback Gems</title>
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Parisienne&family=Dancing+Script&family=Sacramento&family=Allura&family=Satisfy&display=swap" rel="stylesheet">
 </head>
 <body>
   <div id="page-wrapper">
-    <header>
-      <!-- Navbar will be dynamically loaded here -->
-    </header>
+    <header id="navbar-container"></header>
 
     <div id="loading-message" style="display: none; text-align: center; font-weight: bold;">
       Updating your cart...
@@ -44,23 +44,45 @@
   </div>
 
   <script>
-    // Dynamically load the shared navbar
-    document.addEventListener('DOMContentLoaded', () => {
-      fetch('navbar.html') // Ensure the file path is correct
+    // Dynamically load the navbar
+    document.addEventListener("DOMContentLoaded", () => {
+      fetch("navbar.html")
         .then(response => {
           if (!response.ok) {
             throw new Error(`Failed to load navbar. Status: ${response.status}`);
           }
           return response.text();
         })
-        .then(data => {
-          document.querySelector('header').innerHTML = data;
+        .then(html => {
+          const navbarContainer = document.querySelector("header") || document.getElementById("navbar-container");
+          if (navbarContainer) {
+            navbarContainer.innerHTML = html;
+
+            // Update the cart count after the navbar is loaded
+            updateCartCount();
+
+            // Listen for the custom "cartUpdated" event
+            document.addEventListener("cartUpdated", (event) => {
+              const cartCountElement = document.getElementById("cart-count");
+              if (cartCountElement) {
+                cartCountElement.textContent = event.detail.totalItems;
+              }
+            });
+          }
         })
         .catch(error => {
-          console.error('Error loading navbar:', error);
-          document.querySelector('header').innerHTML = '<p style="color: red;">Failed to load navbar. Please try again later.</p>';
+          console.error("Error loading navbar:", error);
         });
     });
+
+    function updateCartCount() {
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+      const cartCountElement = document.getElementById("cart-count");
+      if (cartCountElement) {
+        cartCountElement.textContent = totalItems;
+      }
+    }
   </script>
 
   <script src="cart.js"></script>

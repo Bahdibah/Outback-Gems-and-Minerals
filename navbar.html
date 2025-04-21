@@ -43,3 +43,26 @@
     </ul>
   </div>
 </nav>
+
+<script>
+  // Function to update the cart count in the navbar
+  function updateCartCount() {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    const cartCountElement = document.getElementById("cart-count");
+    if (cartCountElement) {
+      cartCountElement.textContent = totalItems;
+    }
+  }
+
+  // Update the cart count on page load
+  updateCartCount();
+
+  // Listen for the custom "cartUpdated" event
+  document.addEventListener("cartUpdated", (event) => {
+    const cartCountElement = document.getElementById("cart-count");
+    if (cartCountElement) {
+      cartCountElement.textContent = event.detail.totalItems;
+    }
+  });
+</script>
