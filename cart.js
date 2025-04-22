@@ -145,10 +145,17 @@ document.addEventListener('DOMContentLoaded', () => {
       const item = cart[index];
       if (!item || item.quantity <= 1) return;
 
+      // Update quantity immediately in the UI
       item.quantity -= 1;
+      const quantityInput = target.closest('tr').querySelector('.quantity-input');
+      if (quantityInput) {
+        quantityInput.value = item.quantity;
+      }
+
+      // Save to localStorage and debounce the cart update
       localStorage.setItem('cart', JSON.stringify(cart));
-      updateCartCount();
-      debouncedVerifyCart();
+      updateCartCount(); // Update cart count immediately
+      debouncedVerifyCart(); // Debounced cart verification
     }
 
     if (target.classList.contains('increase-quantity')) {
@@ -157,10 +164,17 @@ document.addEventListener('DOMContentLoaded', () => {
       const item = cart[index];
       if (!item) return;
 
+      // Update quantity immediately in the UI
       item.quantity += 1;
+      const quantityInput = target.closest('tr').querySelector('.quantity-input');
+      if (quantityInput) {
+        quantityInput.value = item.quantity;
+      }
+
+      // Save to localStorage and debounce the cart update
       localStorage.setItem('cart', JSON.stringify(cart));
-      updateCartCount();
-      debouncedVerifyCart();
+      updateCartCount(); // Update cart count immediately
+      debouncedVerifyCart(); // Debounced cart verification
     }
 
     if (target.classList.contains('remove-button')) {
@@ -299,6 +313,16 @@ function updateCartCount() {
   const cart = JSON.parse(localStorage.getItem("cart")) || [];
   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
   localStorage.setItem("cartCount", totalItems); // Store the cart count in localStorage
+
+  // Update the cart count in the navbar
+  const cartCountElement = document.getElementById("cart-count");
+  if (cartCountElement) {
+    cartCountElement.textContent = totalItems;
+  }
+
+  // Dispatch a custom event to notify other parts of the app
+  const cartUpdatedEvent = new CustomEvent("cartUpdated", { detail: { totalItems } });
+  document.dispatchEvent(cartUpdatedEvent);
 }
 
 function updateCart() {
