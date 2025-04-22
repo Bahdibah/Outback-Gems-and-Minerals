@@ -127,6 +127,10 @@ document.addEventListener('DOMContentLoaded', () => {
       localStorage.setItem('cart', JSON.stringify(cart));
       updateCartCount();
       loadCart();
+
+      // Dispatch the cartUpdated event
+      const cartUpdatedEvent = new CustomEvent("cartUpdated", { detail: { totalItems: cart.reduce((sum, item) => sum + item.quantity, 0) } });
+      document.dispatchEvent(cartUpdatedEvent);
     } catch (error) {
       console.error('Error verifying cart:', error);
     } finally {
@@ -152,10 +156,14 @@ document.addEventListener('DOMContentLoaded', () => {
         quantityInput.value = item.quantity;
       }
 
-      // Save to localStorage and debounce the cart update
+      // Save to localStorage and dispatch the cartUpdated event
       localStorage.setItem('cart', JSON.stringify(cart));
-      updateCartCount(); // Update cart count immediately
-      debouncedVerifyCart(); // Debounced cart verification
+      updateCartCount();
+      debouncedVerifyCart();
+
+      // Dispatch the cartUpdated event
+      const cartUpdatedEvent = new CustomEvent("cartUpdated", { detail: { totalItems: cart.reduce((sum, item) => sum + item.quantity, 0) } });
+      document.dispatchEvent(cartUpdatedEvent);
     }
 
     if (target.classList.contains('increase-quantity')) {
@@ -171,19 +179,27 @@ document.addEventListener('DOMContentLoaded', () => {
         quantityInput.value = item.quantity;
       }
 
-      // Save to localStorage and debounce the cart update
+      // Save to localStorage and dispatch the cartUpdated event
       localStorage.setItem('cart', JSON.stringify(cart));
-      updateCartCount(); // Update cart count immediately
-      debouncedVerifyCart(); // Debounced cart verification
+      updateCartCount();
+      debouncedVerifyCart();
+
+      // Dispatch the cartUpdated event
+      const cartUpdatedEvent = new CustomEvent("cartUpdated", { detail: { totalItems: cart.reduce((sum, item) => sum + item.quantity, 0) } });
+      document.dispatchEvent(cartUpdatedEvent);
     }
 
     if (target.classList.contains('remove-button')) {
       const index = target.getAttribute('data-index');
       const cart = JSON.parse(localStorage.getItem('cart')) || [];
-      cart.splice(index, 1);
+      cart.splice(index, 1); // Remove the item from the cart
       localStorage.setItem('cart', JSON.stringify(cart));
       updateCartCount();
       debouncedVerifyCart();
+
+      // Dispatch the cartUpdated event
+      const cartUpdatedEvent = new CustomEvent("cartUpdated", { detail: { totalItems: cart.reduce((sum, item) => sum + item.quantity, 0) } });
+      document.dispatchEvent(cartUpdatedEvent);
     }
   });
 
@@ -199,6 +215,10 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('cart', JSON.stringify(cart));
         updateCartCount();
         debouncedVerifyCart();
+
+        // Dispatch the cartUpdated event
+        const cartUpdatedEvent = new CustomEvent("cartUpdated", { detail: { totalItems: cart.reduce((sum, item) => sum + item.quantity, 0) } });
+        document.dispatchEvent(cartUpdatedEvent);
       } else {
         alert('Quantity must be at least 1.');
         loadCart();
@@ -279,6 +299,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
             localStorage.setItem('cart', JSON.stringify(cart));
             updateCartCount();
+
+            // Dispatch the cartUpdated event
+            const cartUpdatedEvent = new CustomEvent("cartUpdated", { detail: { totalItems: cart.reduce((sum, item) => sum + item.quantity, 0) } });
+            document.dispatchEvent(cartUpdatedEvent);
+
             alert(`${quantity} x ${currentProduct['product name']} has been added to your cart!`);
           });
         } else {
@@ -323,14 +348,142 @@ function updateCartCount() {
   // Dispatch a custom event to notify other parts of the app
   const cartUpdatedEvent = new CustomEvent("cartUpdated", { detail: { totalItems } });
   document.dispatchEvent(cartUpdatedEvent);
+  console.log("cartUpdated event dispatched:", cartUpdatedEvent.detail); // Debugging log
 }
 
 function updateCart() {
   const cart = JSON.parse(localStorage.getItem("cart")) || [];
-  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-  localStorage.setItem("cartCount", totalItems);
+  const totalItems = cart.reduce((sum, item) => sum + (item.cancount || 1), 0);
+  localStorage.setItem("cart", JSON.stringify(cart)); // Save the updated cart to localStorage
 
-  // Dispatch a custom event to notify other parts of the app
+  // Dispatch the custom "cartUpdated" event
   const cartUpdatedEvent = new CustomEvent("cartUpdated", { detail: { totalItems } });
   document.dispatchEvent(cartUpdatedEvent);
+  console.log("cartUpdated event dispatched:", cartUpdatedEvent.detail); // Debugging log
 }
+
+function updateCartDropdown() {
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+  const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+  console.log("Cart data:", cart); // Debugging log
+  console.log("Total items:", totalItems); // Debugging log
+  console.log("Subtotal:", subtotal); // Debugging log
+
+  // Update cart count in the navbar
+  const cartCountElement = document.getElementById("cart-count");
+  if (cartCountElement) {
+    cartCountElement.textContent = totalItems;
+    console.log("Cart count updated in the DOM."); // Debugging log
+  }
+
+  // Update cart dropdown details
+  const cartMessage = document.getElementById("cart-message");
+  const cartSubtotal = document.getElementById("cart-subtotal");
+  const cartTotal = document.getElementById("cart-total");
+
+  if (cartMessage) {
+    cartMessage.textContent = `You currently have ${totalItems} items in your cart`;
+    console.log("Cart message updated in the DOM."); // Debugging log
+  }
+  if (cartSubtotal) {
+    cartSubtotal.textContent = `$${subtotal.toFixed(2)}`;
+    console.log("Cart subtotal updated in the DOM."); // Debugging log
+  }
+  if (cartTotal) {
+    cartTotal.textContent = `$${subtotal.toFixed(2)}`;
+    console.log("Cart total updated in the DOM."); // Debugging log
+  }
+
+  // Update cart items list
+  const cartItemsList = document.getElementById("cart-items-list");
+  if (cartItemsList) {
+    cartItemsList.innerHTML = ""; // Clear existing items
+
+    cart.forEach(item => {
+      console.log("Adding item to dropdown:", item); // Debugging log
+      const cartItem = document.createElement("div");
+      cartItem.classList.add("cart-item");
+
+      cartItem.innerHTML = `
+        <img src="${item.image}" alt="${item.name}" style="width: 50px; height: 50px; object-fit: cover; margin-right: 10px;">
+        <div class="cart-item-details">
+          <span class="product-name">${item.name}</span>
+          <span class="product-code">Code: ${item.id}</span>
+          <span class="product-quantity">Qty: ${item.quantity}</span>
+        </div>
+        <div class="cart-item-price">$${(item.price * item.quantity).toFixed(2)}</div>
+      `;
+
+      cartItemsList.appendChild(cartItem);
+    });
+  }
+}
+
+function addToCart(item) {
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  // Check if the item already exists in the cart
+  const existingItem = cart.find(cartItem => cartItem.id === item.id);
+  if (existingItem) {
+    existingItem.quantity = (existingItem.quantity || 1) + 1; // Increment quantity
+  } else {
+    item.quantity = 1; // Set initial quantity
+    cart.push(item);
+  }
+
+  // Save the updated cart to localStorage
+  localStorage.setItem("cart", JSON.stringify(cart));
+
+  // Dispatch the cartUpdated event
+  const cartUpdatedEvent = new CustomEvent("cartUpdated", { detail: { totalItems: cart.reduce((sum, item) => sum + item.quantity, 0) } });
+  document.dispatchEvent(cartUpdatedEvent);
+
+  console.log("Item added to cart:", item);
+  console.log("Updated cart:", cart);
+}
+
+function updateItemQuantity(itemId, newQuantity) {
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  // Find the item and update its quantity
+  const item = cart.find(cartItem => cartItem.id === itemId);
+  if (item) {
+    item.quantity = newQuantity;
+  }
+
+  // Save the updated cart to localStorage
+  localStorage.setItem("cart", JSON.stringify(cart));
+
+  // Dispatch the cartUpdated event
+  const cartUpdatedEvent = new CustomEvent("cartUpdated", { detail: { totalItems: cart.reduce((sum, item) => sum + item.quantity, 0) } });
+  document.dispatchEvent(cartUpdatedEvent);
+
+  console.log("Item quantity updated:", item);
+  console.log("Updated cart:", cart);
+}
+
+function removeFromCart(itemId) {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  // Remove the item from the cart
+  cart = cart.filter(item => item.id !== itemId);
+
+  // Save the updated cart to localStorage
+  localStorage.setItem("cart", JSON.stringify(cart));
+
+  // Dispatch the cartUpdated event
+  const cartUpdatedEvent = new CustomEvent("cartUpdated", { detail: { totalItems: cart.reduce((sum, item) => sum + item.quantity, 0) } });
+  document.dispatchEvent(cartUpdatedEvent);
+
+  console.log("Item removed from cart:", itemId);
+  console.log("Updated cart:", cart);
+}
+
+document.addEventListener("cartUpdated", (event) => {
+  console.log("cartUpdated event received:", event.detail);
+
+  // Update the cart dropdown
+  updateCartDropdown();
+});
