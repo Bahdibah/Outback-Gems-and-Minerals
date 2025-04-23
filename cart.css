@@ -1,0 +1,181 @@
+/* General Styles */
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #2e2e2e; /* Dark grey background for the page and container */
+  color: #cc5500; /* Orange text color for consistency */
+}
+
+.cart-container {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #444; /* Same as the page background */
+  border-radius: 8px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6); /* Stronger shadow for depth */
+}
+
+/* Heading */
+.cart-heading {
+  font-size: 24px;
+  font-weight: bold;
+  color: #cc5500; /* Orange for the heading */
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #444; /* Subtle divider */
+  padding-bottom: 10px;
+}
+
+/* Shipping Options */
+.shipping-options {
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+.shipping-options p {
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #cc5500; /* Orange for shipping text */
+}
+
+.shipping-options label {
+  display: block;
+  margin-bottom: 5px;
+  cursor: pointer;
+  color: #ccc; /* Light grey for labels */
+}
+
+.shipping-options input[type="radio"] {
+  margin-right: 10px;
+}
+
+.free-shipping-note {
+  font-size: 14px;
+  color: #888; /* Subtle grey for the note */
+  margin-top: 10px;
+}
+
+/* Cart Table */
+#cart-table {
+  width: 100%;
+  border-collapse: separate; /* Use separate borders for rows */
+  border-spacing: 0 10px; /* Add spacing between rows */
+  margin-bottom: 20px;
+}
+
+#cart-table thead th {
+  color: #cc5500; /* Orange for the header text */
+  font-size: 16px;
+  font-weight: bold;
+  text-align: left;
+  padding: 12px;
+  border-bottom: 2px solid #444; /* Subtle divider under the header */
+}
+
+#cart-table tbody tr {
+  background-color: #333; /* Dark grey for rows */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5); /* Stronger shadow for raised effect */
+  border-radius: 8px; /* Round the corners of rows */
+  transition: transform 0.2s ease, box-shadow 0.2s ease; /* Smooth hover effect */
+}
+
+#cart-table tbody tr:hover {
+  transform: translateY(-4px); /* Slightly raise the row on hover */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6); /* Enhance shadow on hover */
+}
+
+#cart-table td {
+  padding: 12px;
+  vertical-align: middle;
+}
+
+.product-image img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+/* Product Details */
+.product-details {
+  display: flex;
+  flex-direction: column;
+  color: #ccc; /* Light grey for product details text */
+}
+
+.product-name {
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #cc5500; /* Orange for product name */
+}
+
+.product-weight,
+.product-code {
+  font-size: 14px;
+  color: #ccc; /* Light grey for weight and code */
+}
+
+.quantity-column,
+.price-column,
+.total-column {
+  text-align: center; /* Center-align numeric columns */
+}
+
+/* Totals Section */
+.cart-totals {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.cart-totals p {
+  display: flex;
+  justify-content: space-between;
+  margin: 5px 0;
+  color: #ccc; /* Light grey for totals text */
+}
+
+.cart-totals strong {
+  font-size: 18px;
+  color: #cc5500; /* Orange for totals */
+  text-align: right; /* Align the orange total to the right */
+  flex: 1; /* Ensure it aligns with the other totals */
+}
+
+/* Buttons */
+.cart-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.theme-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  color: #1e1e1e; /* Dark text for contrast */
+  background-color: #cc5500; /* Orange for buttons */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.theme-button:hover {
+  background-color: #ff7f33; /* Lighter orange for hover effect */
+  transform: translateY(-2px); /* Slightly raise the button on hover */
+}
+
+.theme-button.secondary {
+  background-color: #666; /* Slightly lighter grey for secondary buttons */
+  color: #fff; /* White text for contrast */
+  border: 2px solid #cc5500; /* Orange border to make it stand out */
+  transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
+}
+
+.theme-button.secondary:hover {
+  background-color: #444; /* Darker grey for hover effect */
+  border-color: #ff7f33; /* Lighter orange border on hover */
+  transform: translateY(-2px); /* Slightly raise the button on hover */
+}

@@ -101,16 +101,93 @@
 
     <script src="view-product.js"></script>
     <script>
+      // Function to add an item to the cart
+  function addToCart(item) {
+const cart = JSON.parse(localStorage.getItem("cart")) || [];
+const existingItem = cart.find(cartItem => cartItem.id === item.id);
+
+if (existingItem) {
+existingItem.quantity += item.quantity;
+} else {
+cart.push(item);
+}
+
+localStorage.setItem("cart", JSON.stringify(cart));
+
+// Dispatch the custom "cartUpdated" event
+const totalItems = cart.reduce((sum, cartItem) => sum + cartItem.quantity, 0);
+document.dispatchEvent(new CustomEvent("cartUpdated", { detail: { totalItems } }));
+console.log("cartUpdated event dispatched:", totalItems);
+
+// Explicitly update the dropdown after the cart is updated
+updateCartDropdown();
+
+}
+</script>
+    <script>
+      // Function to update the cart count
       function updateCartCount() {
         const cart = JSON.parse(localStorage.getItem("cart")) || [];
         const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
         const cartCountElement = document.getElementById("cart-count");
+
         if (cartCountElement) {
           cartCountElement.textContent = totalItems;
+        } else {
+          console.error("Cart count element not found in the navbar.");
         }
       }
 
-      // Dynamically load the navbar
+      // Function to update the cart dropdown
+      function updateCartDropdown() {
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+        const cartItemsList = document.getElementById("cart-items-list");
+        const cartMessage = document.getElementById("cart-message");
+        const cartSubtotal = document.getElementById("cart-subtotal");
+        const cartTotal = document.getElementById("cart-total");
+
+        if (!cartItemsList || !cartMessage || !cartSubtotal || !cartTotal) {
+          console.error("Cart dropdown elements not found in the DOM.");
+          return;
+        }
+
+        if (cart.length === 0) {
+          cartMessage.textContent = "Your cart is empty.";
+          cartItemsList.innerHTML = "";
+          cartSubtotal.textContent = "$0.00";
+          cartTotal.textContent = "$0.00";
+          return;
+        }
+
+        let subtotal = 0;
+        cartItemsList.innerHTML = ""; // Clear existing items
+
+        cart.forEach(item => {
+          const itemTotal = item.price * item.quantity;
+          subtotal += itemTotal;
+
+          const cartItem = document.createElement("div");
+          cartItem.classList.add("cart-item");
+
+          cartItem.innerHTML = `
+            <img src="${item.image}" alt="${item.name}" style="width: 50px; height: 50px; object-fit: cover; margin-right: 10px;">
+            <div class="cart-item-details">
+              <span class="product-name">${item.name}</span>
+              <span class="product-code">Code: ${item.id}</span>
+              <span class="product-quantity">Qty: ${item.quantity}</span>
+            </div>
+            <div class="cart-item-price">$${(item.price * item.quantity).toFixed(2)}</div>
+          `;
+
+          cartItemsList.appendChild(cartItem);
+        });
+
+        cartMessage.textContent = `You currently have ${cart.length} items in your cart.`;
+        cartSubtotal.textContent = `$${subtotal.toFixed(2)}`;
+        cartTotal.textContent = `$${subtotal.toFixed(2)}`;
+      }
+
+      // Attach the "Add to Cart" button functionality
       document.addEventListener("DOMContentLoaded", () => {
         fetch("navbar.html")
           .then(response => {
@@ -124,27 +201,58 @@
             if (navbarContainer) {
               navbarContainer.innerHTML = html;
 
-              // Update the cart count after the navbar is loaded
-              updateCartCount();
-
-              // Listen for the custom "cartUpdated" event
-              document.addEventListener("cartUpdated", (event) => {
-                const cartCountElement = document.getElementById("cart-count");
-                if (cartCountElement) {
-                  cartCountElement.textContent = event.detail.totalItems;
-                }
-              });
+              // Force update the cart dropdown after the navbar is loaded
+              updateCartCount(); // Update the cart count
+              updateCartDropdown(); // Update the cart dropdown
+              console.log("Cart dropdown and count updated after navbar load.");
             }
           })
           .catch(error => {
             console.error("Error loading navbar:", error);
           });
+
+        // Wait for the product details to load before attaching the event listener
+        const addToCartButton = document.getElementById("add-to-cart");
+        if (addToCartButton) {
+          addToCartButton.addEventListener("click", () => {
+            const productNameElement = document.getElementById("product-name");
+            const productPriceElement = document.getElementById("product-price");
+            const productImageElement = document.getElementById("product-image");
+            const quantityElement = document.getElementById("quantity");
+
+            // Ensure all required elements exist
+            if (!productNameElement || !productPriceElement || !productImageElement || !quantityElement) {
+              console.error("One or more product elements are missing in the DOM.");
+              return;
+            }
+
+            // Create the item object
+            const item = {
+              id: "1", // Replace with the actual product ID
+              name: productNameElement.textContent,
+              price: parseFloat(productPriceElement.textContent.replace("$", "")),
+              image: productImageElement.src,
+              quantity: parseInt(quantityElement.value, 10),
+            };
+
+            // Add the item to the cart
+            addToCart(item);
+          });
+        } else {
+          console.error("Add to Cart button not found in the DOM.");
+        }
       });
+
+      document.addEventListener("cartUpdated", (e) => {
+  updateCartCount();
+  updateCartDropdown();
+});
+
     </script>
 
     <footer>
       <div class="footer-left">
-        <p><a href="Privacy Policy.docx" target="_blank">Privacy Policy</a></p>
+  y      <p><a href="Privacy Policy.docx" target="_blank">Privacy Policy</a></p>
         <p><a href="Terms of Use.docx" target="_blank">Terms Of Use</a></p>
       </div>
       <div class="footer-middle">

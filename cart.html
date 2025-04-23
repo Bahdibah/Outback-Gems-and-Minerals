@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Shopping Cart - Outback Gems</title>
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="cart.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Parisienne&family=Dancing+Script&family=Sacramento&family=Allura&family=Satisfy&display=swap" rel="stylesheet">
 </head>
@@ -12,34 +13,68 @@
   <div id="page-wrapper">
     <header id="navbar-container"></header>
 
-    <div id="loading-message" style="display: none; text-align: center; font-weight: bold;">
-      Updating your cart...
-    </div>
+    <!-- Add this loading message element -->
+    <div id="loading-message" style="display: none;">Loading...</div>
 
     <div class="cart-container">
+      <h1 class="cart-heading">
+        <i class="fa fa-shopping-cart" aria-hidden="true"></i> My Shopping Cart
+      </h1>
+      
+      <!-- Shipping Options -->
+      <div class="shipping-options">
+        <p>How do you want this delivered?</p>
+        <label>
+          <input type="radio" name="shipping" value="standard" checked />
+          Standard Post
+        </label>
+        <label>
+          <input type="radio" name="shipping" value="express" />
+          Express Post
+        </label>
+        <p class="free-shipping-note">Free shipping is automatically applied for orders over $100.</p>
+      </div>
+
+      <!-- Cart Table -->
       <table id="cart-table">
         <thead>
           <tr>
-            <th style="display: none;">Thumbnail</th> <!-- Hide the Thumbnail header -->
-            <th>Product Name</th>
-            <th>Size</th>
+            <th colspan="3">Product</th> <!-- Spans the image and product details -->
             <th>Quantity</th>
             <th>Price</th>
             <th>Total</th>
-            <th>Action</th>
           </tr>
         </thead>
         <tbody id="cart-items">
-          <!-- Cart items will be dynamically inserted here -->
+          <!-- Example Row -->
+          <tr>
+            <td class="product-image">
+              <img src="example.jpg" alt="Product Image">
+            </td>
+            <td class="product-details">
+              <span class="product-name">Product Name</span>
+              <span class="product-weight">Weight: 500g</span>
+              <span class="product-code">Code: ABC123</span>
+            </td>
+            <td class="quantity-column">2</td>
+            <td class="price-column">$10.00</td>
+            <td class="total-column">$20.00</td>
+          </tr>
         </tbody>
       </table>
 
-      <p id="subtotal">Subtotal: $0.00</p>
-      <p id="shipping-cost">Shipping: $0.00</p>
-      <p id="total-price">Total Price: $0.00</p>
-      <div id="shipping-options"></div>
-      <button id="checkout-button">Checkout</button>
-      <button id="continue-shopping-button">Continue Shopping</button>
+      <!-- Totals Section -->
+      <div class="cart-totals">
+        <p><span>Subtotal:</span> <span id="subtotal">$0.00</span></p>
+        <p><span>Shipping:</span> <span id="shipping-cost">$0.00</span></p>
+        <p><strong><span>Total:</span> <span id="total-price">$0.00</span></strong></p>
+      </div>
+
+      <!-- Buttons -->
+      <div class="cart-buttons">
+        <button id="checkout-button" class="theme-button">Continue to Checkout</button>
+        <button id="continue-shopping-button" class="theme-button secondary">Continue Shopping</button>
+      </div>
     </div>
   </div>
 

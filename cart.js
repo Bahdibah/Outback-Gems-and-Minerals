@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const subtotalElement = document.getElementById('subtotal');
   const shippingCostElement = document.getElementById('shipping-cost');
   const totalPriceElement = document.getElementById('total-price');
-  const shippingOptionsContainer = document.getElementById('shipping-options');
+  const shippingOptionsContainer = document.querySelector('.shipping-options');  
   const loadingMessage = document.getElementById('loading-message');
   const checkoutButton = document.getElementById('checkout-button');
   const stockApiUrl = 'https://script.google.com/macros/s/AKfycbyCY8VW0D1A7AFJiU7X6tN5-RTrnYxQIV4QCzmFprxYrCVv2o4uKWnmKfJ6Xh40H4uqXA/exec';
@@ -223,6 +223,18 @@ document.addEventListener('DOMContentLoaded', () => {
         alert('Quantity must be at least 1.');
         loadCart();
       }
+    }
+  });
+
+  cartTableBody.addEventListener('click', (event) => {
+    if (event.target.classList.contains('increase-quantity') || event.target.classList.contains('decrease-quantity')) {
+      updateShippingAndTotal();
+    }
+  });
+
+  cartTableBody.addEventListener('input', (event) => {
+    if (event.target.classList.contains('quantity-input')) {
+      updateShippingAndTotal();
     }
   });
 
@@ -486,4 +498,89 @@ document.addEventListener("cartUpdated", (event) => {
 
   // Update the cart dropdown
   updateCartDropdown();
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const shippingOptionsContainer = document.querySelector(".shipping-options");
+  const subtotalElement = document.getElementById("subtotal");
+  const shippingCostElement = document.getElementById("shipping-cost");
+  const totalPriceElement = document.getElementById("total-price");
+
+  const STANDARD_SHIPPING_COST = 10.95;
+  const EXPRESS_SHIPPING_COST = 14.45;
+
+  // Function to calculate the subtotal
+  function calculateSubtotal() {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    return cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  }
+
+  // Function to update the shipping cost and total price
+  function updateShippingAndTotal() {
+    loadingMessage.style.display = "block"; // Show loading message
+
+    const subtotal = calculateSubtotal() || 0; // Ensure subtotal is a number
+    const selectedShipping = document.querySelector('input[name="shipping"]:checked')?.value;
+
+    let shippingCost = 0;
+
+    // Set default placeholder for total price while updating
+    totalPriceElement.textContent = "Calculating...";
+
+    if (subtotal > 100) {
+      shippingCost = 0; // Free shipping for orders over $100
+      shippingCostElement.textContent = "Free Standard Shipping";
+    } else if (selectedShipping === "standard") {
+      shippingCost = 10.95; // Standard shipping cost
+      shippingCostElement.textContent = `$${shippingCost.toFixed(2)}`;
+    } else if (selectedShipping === "express") {
+      shippingCost = 14.45; // Express shipping cost
+      shippingCostElement.textContent = `$${shippingCost.toFixed(2)}`;
+    }
+
+    // Update subtotal
+    subtotalElement.textContent = `$${subtotal.toFixed(2)}`;
+
+    // Update total price
+    const total = subtotal + shippingCost;
+    if (!isNaN(total)) {
+      totalPriceElement.textContent = `$${total.toFixed(2)}`;
+    } else {
+      totalPriceElement.textContent = "$0.00"; // Fallback value
+    }
+
+    loadingMessage.style.display = "none"; // Hide loading message
+  }
+
+  // Add event listener to shipping options
+  document.querySelectorAll('input[name="shipping"]').forEach(radio => {
+    radio.addEventListener("change", () => {
+      updateShippingAndTotal();
+    });
+  });
+
+  // Initial load
+  updateShippingAndTotal();
+});
+
+document.querySelectorAll('input[name="shipping"]').forEach(radio => {
+  radio.addEventListener("change", () => {
+    updateShippingAndTotal();
+  });
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  updateShippingAndTotal();
+});
+
+cartTableBody.addEventListener('click', (event) => {
+  if (event.target.classList.contains('increase-quantity') || event.target.classList.contains('decrease-quantity')) {
+    updateShippingAndTotal();
+  }
+});
+
+cartTableBody.addEventListener('input', (event) => {
+  if (event.target.classList.contains('quantity-input')) {
+    updateShippingAndTotal();
+  }
 });
