@@ -381,40 +381,6 @@ updateCartDropdown();
         cartSubtotal.textContent = `$${subtotal.toFixed(2)}`;
         cartTotal.textContent = `$${subtotal.toFixed(2)}`;
       }
-
-
-        // Wait for the product details to load before attaching the event listener
-        // Removed duplicate declaration of addToCartButton
-        if (addToCartButton) {
-          addToCartButton.addEventListener("click", () => {
-            const productNameElement = document.getElementById("product-name");
-            const productPriceElement = document.getElementById("product-price");
-            const productImageElement = document.getElementById("product-image");
-            const quantityElement = document.getElementById("quantity");
-
-            // Ensure all required elements exist
-            if (!productNameElement || !productPriceElement || !productImageElement || !quantityElement) {
-              console.error("One or more product elements are missing in the DOM.");
-              return;
-            }
-
-            // Create the item object
-            const item = {
-              id: "1", // Replace with the actual product ID
-              name: productNameElement.textContent,
-              price: parseFloat(productPriceElement.textContent.replace("$", "")),
-              image: productImageElement.src,
-              quantity: parseInt(quantityElement.value, 10),
-            };
-
-            // Add the item to the cart
-            addToCart(item);
-          });
-        } else {
-          console.error("Add to Cart button not found in the DOM.");
-        }
-      ;
-
       document.addEventListener("cartUpdated", (e) => {
   updateCartCount();
   updateCartDropdown();
@@ -496,11 +462,16 @@ updateCartDropdown();
           const selectedVariation = variations[selectedIndex];
           const quantity = parseInt(quantityInputElement.value, 10) || 1;
 
-          if (quantity > selectedVariation.stock || quantity <= 0) {
-            alert(`Only ${selectedVariation.stock} units are available.`);
+          // Get the displayed stock from the productStockElement
+          const displayedStock = parseInt(productStockElement.textContent.replace("Stock: ", ""), 10);
+
+          // Validate the quantity against the displayed stock
+          if (quantity > displayedStock || quantity <= 0) {
+            alert(`Only ${displayedStock} units are available.`);
             return;
           }
 
+          // Add the item to the cart
           const cart = JSON.parse(localStorage.getItem("cart")) || [];
           const existingItem = cart.find(
             item =>
@@ -533,6 +504,9 @@ updateCartDropdown();
           // Explicitly update the dropdown after the cart is updated
           updateCartDropdown();
 
+          // Force the stock display to recalculate and update
+          updateProductDetails(selectedVariation);
+
           alert(`${quantity} item(s) added to the cart.`);
         });
       } catch (error) {
@@ -543,28 +517,53 @@ updateCartDropdown();
     }
 
     function updateProductDetails(selectedVariation) {
-      const cart = JSON.parse(localStorage.getItem("cart")) || [];
-      const cartItem = cart.find(item => item["product id"] === productId && item.weight === selectedVariation.weight);
-      const cartQuantity = cartItem ? cartItem.quantity : 0;
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  console.log("Cart Contents During Update:", cart);
 
-      const availableStock = selectedVariation.stock - cartQuantity;
+  // Find the matching item in the cart for the selected variation
+  const cartItem = cart.find(
+    item =>
+      item.id === productId &&
+      item.weight === selectedVariation.weight &&
+      item.unit === selectedVariation.unit
+  );
+  console.log("Cart Item Found During Update:", cartItem);
 
-      productNameElement.textContent = selectedVariation["product name"];
-      productImageElement.src = selectedVariation["image url"] || "images/placeholder.png";
-      productDescriptionElement.textContent = selectedVariation.description;
-      productWeightElement.textContent = `Weight: ${selectedVariation.weight} ${selectedVariation.unit}`;
-      productStockElement.textContent = `Stock: ${availableStock}`;
-      productPriceElement.textContent = `Price: $${selectedVariation["total price"].toFixed(2)}`;
+  // Use the stock from the selected variation
+  const baseStock = selectedVariation.stock;
 
-      quantityInputElement.setAttribute("max", availableStock);
-      quantityInputElement.value = 1;
+  // Subtract the quantity of the specific variant in the cart
+  const cartQuantity = cartItem ? cartItem.quantity : 0;
+  const availableStock = baseStock - cartQuantity;
 
-      quantityInputElement.addEventListener("input", () => {
-        const quantity = parseInt(quantityInputElement.value, 10) || 1;
-        const totalPrice = selectedVariation["total price"] * quantity;
-        productPriceElement.textContent = `Price: $${totalPrice.toFixed(2)}`;
-      });
+  console.log("Available Stock:", availableStock);
+
+  // Update product details on the page
+  productNameElement.textContent = selectedVariation["product name"];
+  productImageElement.src = selectedVariation["image url"] || "images/placeholder.png";
+  productDescriptionElement.textContent = selectedVariation.description;
+  productWeightElement.textContent = `Weight: ${selectedVariation.weight} ${selectedVariation.unit}`;
+  productStockElement.textContent = `Stock: ${availableStock}`;
+  productPriceElement.textContent = `Price: $${selectedVariation["total price"].toFixed(2)}`;
+
+  // Update the quantity input to respect the displayed stock
+  quantityInputElement.setAttribute("max", availableStock);
+  quantityInputElement.value = 1;
+
+  // Prevent typing a value greater than the displayed stock
+  quantityInputElement.addEventListener("input", () => {
+    let quantity = parseInt(quantityInputElement.value, 10) || 1;
+    const displayedStock = parseInt(productStockElement.textContent.replace("Stock: ", ""), 10);
+
+    if (quantity > displayedStock) {
+      quantity = displayedStock;
+      quantityInputElement.value = displayedStock; // Reset to max stock
     }
+
+    const totalPrice = selectedVariation["total price"] * quantity;
+    productPriceElement.textContent = `Price: $${totalPrice.toFixed(2)}`;
+  });
+}
 
     // Fetch product details on page load
     fetchProductDetails();
