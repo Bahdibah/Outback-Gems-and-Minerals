@@ -14,7 +14,172 @@
 </head>
 <body>
   <div id="page-wrapper">
-    <header id="navbar-container"></header>
+    <header>
+      
+    </header><nav>
+      <div class="main-logo" >
+        <a href="index.html"><img src="images/logo.png" alt="Outback Gems Logo" class="logo" href="index.html"/></a>
+        <h1 class="welcome-message"><a href="index.html" class="welcome-message">Outback Gems & Minerals</a></h1>
+      </div>
+    
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li class="dropdown">
+          <a href="products.html">Products</a>
+          <ul class="dropdown-menu">
+            <li><a href="rough-section.html" class="dropdown-header">Rough</a></li>
+            <li><a href="rough-sapphire.html">Sapphire</a></li>
+            <li><a href="rough-cz.html">Cubic Zirconia</a></li>
+            <li><a href="rough-spinel.html">Spinel Rough</a></li>
+            <li><a href="rough-zircon.html">Zircon</a></li>
+            <li><a href="other-items.html" class="dropdown-header">Other Items</a></li>
+            <li><a href="wash-bags.html">Fossicking Wash Bags</a></li>
+            <li><a href="thunder-eggs.html">Agate Thunder Eggs</a></li>
+            <li><a href="meteorites.html">Meteorites</a></li>
+            <li><a href="fluorescents.html">Fluorescent Minerals</a></li>
+            <li><a href="mystery-boxes.html">Mystery Mineral Boxes</a></li>
+          </ul>
+        </li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+    
+      <div class="nav-search">
+        <input type="text" placeholder="Search..." />
+        <button><i class="fa fa-search" aria-hidden="true"></i></button>
+      </div>
+    
+      <div class="options">
+        <ul>
+          <li class="cart-dropdown">
+            <a href="cart.html" class="cart-link">
+              <i class="fa fa-shopping-cart" aria-hidden="true" style="color:white"></i>
+              <span id="cart-count" style="background-color: red; color: white; border-radius: 50%; padding: 2px 6px; font-size: 12px; position: absolute; top: 5px; right: 5px;">0</span>
+            </a>
+            <div class="cart-dropdown-panel">
+              <p id="cart-message">You currently have 0 items in your cart</p>
+              <div id="cart-items-list">
+                <!-- Cart items will be dynamically inserted here -->
+              </div>
+              <div class="cart-subtotal">
+                <span>Subtotal (inc GST):</span>
+                <span id="cart-subtotal">$0.00</span>
+              </div>
+              <div class="cart-total">
+                <span><strong>Total (inc GST):</strong></span>
+                <span id="cart-total" style="font-weight: bold;">$0.00</span>
+              </div>
+              <p style="font-size: 12px; color: gray;">Including GST</p>
+              <button id="checkout-button" class="theme-button">
+                VIEW CART & CHECKOUT
+              </button>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    
+    <script>
+      // Function to update the cart count in the navbar
+      function updateCartCount() {
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+        const cartCountElement = document.getElementById("cart-count");
+        if (cartCountElement) {
+          cartCountElement.textContent = totalItems;
+        }
+      }
+    
+      // Function to update the cart dropdown
+      function updateCartDropdown() {
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+        const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    
+        console.log("Cart data:", cart); // Debugging log
+        console.log("Total items:", totalItems); // Debugging log
+        console.log("Subtotal:", subtotal); // Debugging log
+    
+        // Update cart count in the navbar
+        const cartCountElement = document.getElementById("cart-count");
+        if (cartCountElement) {
+          cartCountElement.textContent = totalItems;
+        }
+    
+        // Update cart message
+        const cartMessage = document.getElementById("cart-message");
+        if (cartMessage) {
+          cartMessage.textContent = `You currently have ${totalItems} items in your cart`;
+        }
+    
+        // Update cart items list
+        const cartItemsList = document.getElementById("cart-items-list");
+        if (cartItemsList) {
+          cartItemsList.innerHTML = ""; // Clear existing items
+    
+          cart.forEach(item => {
+            console.log("Adding item to dropdown:", item); // Debugging log
+            const cartItem = document.createElement("div");
+            cartItem.classList.add("cart-item");
+    
+            cartItem.innerHTML = `
+              <img src="${item.image}" alt="${item.name}" style="width: 50px; height: 50px; object-fit: cover; margin-right: 10px;">
+              <div class="cart-item-details">
+                <span class="product-name">${item.name}</span>
+                <span class="product-code">Code: ${item.id}</span>
+                <span class="product-quantity">Qty: ${item.quantity}</span>
+              </div>
+              <div class="cart-item-price">$${(item.price * item.quantity).toFixed(2)}</div>
+            `;
+    
+            cartItemsList.appendChild(cartItem);
+          });
+        }
+    
+        // Update cart dropdown details
+        const cartSubtotal = document.getElementById("cart-subtotal");
+        const cartTotal = document.getElementById("cart-total");
+    
+        if (cartSubtotal) {
+          cartSubtotal.textContent = `$${subtotal.toFixed(2)}`;
+        }
+        if (cartTotal) {
+          cartTotal.textContent = `$${subtotal.toFixed(2)}`;
+        }
+      }
+    
+      // Update the cart count on page load
+      updateCartCount();
+    
+      // Update the cart dropdown on page load
+      updateCartDropdown();
+    
+      // Listen for the custom "cartUpdated" event
+      document.addEventListener("cartUpdated", (event) => {
+        const cartCountElement = document.getElementById("cart-count");
+        if (cartCountElement) {
+          cartCountElement.textContent = event.detail.totalItems;
+        }
+      });
+    
+      // Listen for the custom "cartUpdated" event
+      document.addEventListener("cartUpdated", () => {
+        updateCartDropdown();
+      });
+    
+      document.addEventListener("cartUpdated", (event) => {
+        console.log("cartUpdated event received:", event.detail); // Debugging log
+        updateCartDropdown(); // Update the dropdown
+      });
+    
+      document.addEventListener("cartUpdated", () => {
+        updateCartCount();
+        updateCartDropdown();
+      });
+      
+    </script>
+    </header>
 
     <div class="page-layout">
       <div class="side-menu">
@@ -92,14 +257,17 @@
           <h1 id="product-name">Loading...</h1>
           <img id="product-image" src="" alt="Product Image" />
           <p id="product-description">Loading product description...</p>
-          <!-- Dynamically added elements (variation selector, price, weight, stock) will go here -->
+          <select id="variation-selector"></select>
+          <p id="product-weight"></p>
+          <p id="product-stock"></p>
+          <p id="product-price"></p>
           <input type="number" id="quantity" name="quantity" min="1" value="1" style="display: inline-block;" />
           <button id="add-to-cart">Add to Cart</button>
+          <button id="continue-shopping-button" class="theme-button">Continue Shopping</button>
         </div>
       </div>
     </div> <!-- End of page-layout -->
 
-    <script src="view-product.js"></script>
     <script>
       // Function to add an item to the cart
   function addToCart(item) {
@@ -187,32 +355,9 @@ updateCartDropdown();
         cartTotal.textContent = `$${subtotal.toFixed(2)}`;
       }
 
-      // Attach the "Add to Cart" button functionality
-      document.addEventListener("DOMContentLoaded", () => {
-        fetch("navbar.html")
-          .then(response => {
-            if (!response.ok) {
-              throw new Error(`Failed to load navbar. Status: ${response.status}`);
-            }
-            return response.text();
-          })
-          .then(html => {
-            const navbarContainer = document.querySelector("header") || document.getElementById("navbar-container");
-            if (navbarContainer) {
-              navbarContainer.innerHTML = html;
-
-              // Force update the cart dropdown after the navbar is loaded
-              updateCartCount(); // Update the cart count
-              updateCartDropdown(); // Update the cart dropdown
-              console.log("Cart dropdown and count updated after navbar load.");
-            }
-          })
-          .catch(error => {
-            console.error("Error loading navbar:", error);
-          });
 
         // Wait for the product details to load before attaching the event listener
-        const addToCartButton = document.getElementById("add-to-cart");
+        // Removed duplicate declaration of addToCartButton
         if (addToCartButton) {
           addToCartButton.addEventListener("click", () => {
             const productNameElement = document.getElementById("product-name");
@@ -241,18 +386,166 @@ updateCartDropdown();
         } else {
           console.error("Add to Cart button not found in the DOM.");
         }
-      });
+      ;
 
       document.addEventListener("cartUpdated", (e) => {
   updateCartCount();
   updateCartDropdown();
 });
-
     </script>
+
+    <script>
+    const apiUrl = "https://script.googleusercontent.com/macros/echo?user_content_key=AehSKLjckrSmV4Q396r2J5437VHynXSLyUYow6iqkCoXEY7HrOg2cr_voo08MQL6qcMM04pBDpWPA1kgKDaTRUEOJBZ48B-SMN75SrRx86Pow9494AvOa4RBDe-WLCDnlG85PhU5LDk8GvqfMbrbDHzmS9kAs0tPivdOdAxqxdhgCnvUxPy8IKXdl6i92dL9O3GKWDjsSqKlqqa9bKbFxAnZn8oVEil2fg5qGD_Izy_rtBqgkVDTQpttRxrY86FnFn8373jngn3hJLR3QkHgvIWAzf2wa9cjBsGiOi70hv-IAu87d_WCywlb4vX0d2RHsA&lib=MreWV8qvFAXZ2-rISPaQS69qZewlWwj59";
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const productId = urlParams.get("productid");
+
+    const productNameElement = document.getElementById("product-name");
+    const productImageElement = document.getElementById("product-image");
+    const productDescriptionElement = document.getElementById("product-description");
+    const quantityInputElement = document.getElementById("quantity");
+    const addToCartButton = document.getElementById("add-to-cart");
+    const variationSelector = document.getElementById("variation-selector");
+    const productWeightElement = document.getElementById("product-weight");
+    const productStockElement = document.getElementById("product-stock");
+    const productPriceElement = document.getElementById("product-price");
+
+    async function fetchProductDetails() {
+      try {
+        const response = await fetch(apiUrl);
+        if (!response.ok) {
+          throw new Error(`Failed to fetch product details. Status: ${response.status}`);
+        }
+
+        const products = await response.json();
+
+        // Filter variations based on product id from the URL
+        const filteredByProductId = products.filter(item => item["product id"].trim() === productId.trim());
+
+        if (filteredByProductId.length === 0) {
+          productNameElement.textContent = "Product not found";
+          productDescriptionElement.textContent = "The product you are looking for does not exist.";
+          return;
+        }
+
+        // Further filter variations to include only unique weights
+        const uniqueWeights = new Set();
+        const variations = filteredByProductId.filter(item => {
+          if (uniqueWeights.has(item.weight)) {
+            return false; // Skip duplicate weights
+          }
+          uniqueWeights.add(item.weight);
+          return true;
+        });
+
+        console.log("Filtered Variations:", variations); // Debugging log
+
+        if (variations.length === 0) {
+          productNameElement.textContent = "No variations available";
+          productDescriptionElement.textContent = "No variations found for this product.";
+          return;
+        }
+
+        // Populate the dropdown with variations
+        variations.forEach((variation, index) => {
+          const option = document.createElement("option");
+          option.value = index;
+          option.textContent = `${variation.weight} ${variation.unit} - $${variation["total price"].toFixed(2)}`;
+          variationSelector.appendChild(option);
+        });
+
+        // Update product details for the first variation by default
+        updateProductDetails(variations[0]);
+
+        // Add event listener for dropdown changes
+        variationSelector.addEventListener("change", (event) => {
+          const selectedIndex = parseInt(event.target.value, 10);
+          updateProductDetails(variations[selectedIndex]);
+        });
+
+        // Add to cart functionality
+        addToCartButton.addEventListener("click", () => {
+          const selectedIndex = parseInt(variationSelector.value, 10);
+          const selectedVariation = variations[selectedIndex];
+          const quantity = parseInt(quantityInputElement.value, 10) || 1;
+
+          if (quantity > selectedVariation.stock || quantity <= 0) {
+            alert(`Only ${selectedVariation.stock} units are available.`);
+            return;
+          }
+
+          const cart = JSON.parse(localStorage.getItem("cart")) || [];
+          const existingItem = cart.find(
+            item =>
+              item.id === productId &&
+              item.weight === selectedVariation.weight &&
+              item.unit === selectedVariation.unit
+          );
+
+          if (existingItem) {
+            existingItem.quantity += quantity;
+          } else {
+            cart.push({
+              id: productId,
+              name: selectedVariation["product name"],
+              price: selectedVariation["total price"],
+              image: selectedVariation["image url"] || "images/placeholder.png",
+              weight: selectedVariation.weight,
+              unit: selectedVariation.unit,
+              quantity: quantity
+            });
+          }
+
+          localStorage.setItem("cart", JSON.stringify(cart));
+          console.log("Cart after adding item:", cart); // Debugging log
+
+          // Dispatch the custom "cartUpdated" event
+          const totalItems = cart.reduce((sum, cartItem) => sum + cartItem.quantity, 0);
+          document.dispatchEvent(new CustomEvent("cartUpdated", { detail: { totalItems } }));
+
+          // Explicitly update the dropdown after the cart is updated
+          updateCartDropdown();
+
+          alert(`${quantity} item(s) added to the cart.`);
+        });
+      } catch (error) {
+        console.error("Error fetching product details:", error);
+        productNameElement.textContent = "Error loading product";
+        productDescriptionElement.textContent = "Please try again later.";
+      }
+    }
+
+    function updateProductDetails(selectedVariation) {
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const cartItem = cart.find(item => item["product id"] === productId && item.weight === selectedVariation.weight);
+      const cartQuantity = cartItem ? cartItem.quantity : 0;
+
+      const availableStock = selectedVariation.stock - cartQuantity;
+
+      productNameElement.textContent = selectedVariation["product name"];
+      productImageElement.src = selectedVariation["image url"] || "images/placeholder.png";
+      productDescriptionElement.textContent = selectedVariation.description;
+      productWeightElement.textContent = `Weight: ${selectedVariation.weight} ${selectedVariation.unit}`;
+      productStockElement.textContent = `Stock: ${availableStock}`;
+      productPriceElement.textContent = `Price: $${selectedVariation["total price"].toFixed(2)}`;
+
+      quantityInputElement.setAttribute("max", availableStock);
+      quantityInputElement.value = 1;
+
+      quantityInputElement.addEventListener("input", () => {
+        const quantity = parseInt(quantityInputElement.value, 10) || 1;
+        const totalPrice = selectedVariation["total price"] * quantity;
+        productPriceElement.textContent = `Price: $${totalPrice.toFixed(2)}`;
+      });
+    }
+
+    // Fetch product details on page load
+    fetchProductDetails();
+  </script>
 
     <footer>
       <div class="footer-left">
-  y      <p><a href="Privacy Policy.docx" target="_blank">Privacy Policy</a></p>
+       <p><a href="Privacy Policy.docx" target="_blank">Privacy Policy</a></p>
         <p><a href="Terms of Use.docx" target="_blank">Terms Of Use</a></p>
       </div>
       <div class="footer-middle">

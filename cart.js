@@ -342,10 +342,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-document.getElementById('continue-shopping-button').addEventListener('click', () => {
-  window.location.href = 'products.html'; // Replace with your product listing page URL
-});
-
 function updateCartCount() {
   const cart = JSON.parse(localStorage.getItem("cart")) || [];
   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
@@ -573,14 +569,69 @@ document.addEventListener("DOMContentLoaded", () => {
   updateShippingAndTotal();
 });
 
-cartTableBody.addEventListener('click', (event) => {
-  if (event.target.classList.contains('increase-quantity') || event.target.classList.contains('decrease-quantity')) {
-    updateShippingAndTotal();
+document.addEventListener('DOMContentLoaded', () => {
+  const cartTableBody = document.getElementById('cart-items'); // Reference the cart table body element
+
+  if (cartTableBody) {
+    // Add event listener for click events (e.g., increase/decrease quantity)
+    cartTableBody.addEventListener('click', (event) => {
+      if (event.target.classList.contains('increase-quantity') || event.target.classList.contains('decrease-quantity')) {
+        updateShippingAndTotal();
+      }
+
+      if (event.target.classList.contains('remove-button')) {
+        const index = event.target.getAttribute('data-index');
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        cart.splice(index, 1); // Remove the item from the cart
+        localStorage.setItem('cart', JSON.stringify(cart));
+        updateCartCount();
+        loadCart();
+      }
+    });
+
+    // Add event listener for input events (e.g., quantity changes)
+    cartTableBody.addEventListener('input', (event) => {
+      if (event.target.classList.contains('quantity-input')) {
+        const index = event.target.getAttribute('data-index');
+        const newQuantity = parseInt(event.target.value, 10);
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const item = cart[index];
+
+        if (newQuantity > 0) {
+          item.quantity = newQuantity;
+          localStorage.setItem('cart', JSON.stringify(cart));
+          updateCartCount();
+          loadCart();
+        } else {
+          alert('Quantity must be at least 1.');
+          loadCart();
+        }
+      }
+    });
+  } else {
+    console.log("Cart table body not found. Skipping cart-related logic.");
   }
 });
 
-cartTableBody.addEventListener('input', (event) => {
-  if (event.target.classList.contains('quantity-input')) {
-    updateShippingAndTotal();
+document.addEventListener("DOMContentLoaded", () => {
+  const checkoutButton = document.getElementById("checkout-button");
+
+  if (checkoutButton) {
+    checkoutButton.addEventListener("click", () => {
+      console.log("Checkout button clicked");
+      // Add checkout logic here
+    });
+  } else {
+    console.error("Checkout button not found in the DOM.");
   }
 });
+
+const continueShoppingButton = document.getElementById('continue-shopping-button');
+
+if (continueShoppingButton) {
+  continueShoppingButton.addEventListener('click', () => {
+    window.location.href = 'products.html'; // Replace with your product listing page URL
+  });
+} else {
+  console.error("Continue Shopping button not found in the DOM.");
+}
