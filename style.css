@@ -15,7 +15,7 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  margin-top: 2%;
+  margin-top: 1%; /* Reduced from 2% to 1% */
   padding-top: var(--navbar-height); /* This adds space at the top for the fixed navbar */
 }
 
@@ -1216,7 +1216,7 @@ form textarea {
 /* Dropdown and quantity input styling */
 #variation-selector,
 #quantity {
-  width: 100%;
+  width: calc(100% - 20px); /* Adjust width to match other elements */
   padding: 12px;
   margin: 10px 0;
   border: 1px solid #cc5500;
@@ -1226,6 +1226,12 @@ form textarea {
   background-color: #f9f9f9;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   font-family: Arial, sans-serif; /* Reverted to standard font */
+}
+
+#variation-label, #quantity-label {
+  font-size: 1rem;
+  color: #cc5500; /* Matches the theme's accent color */
+  margin-bottom: 10px;
 }
 
 /* Buttons styling */
@@ -1445,4 +1451,13 @@ button {
 .image-placeholder:hover {
   transform: scale(1.05); /* Slight zoom effect */
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* More pronounced shadow on hover */
+}
+
+#product-image {
+  width: 80%; /* Reduce the width to 80% of its original size */
+  height: auto; /* Maintain the aspect ratio */
+  margin: 0 auto; /* Center the image horizontally */
+  display: block; /* Ensure proper centering */
+  border-radius: 10px; /* Optional: Add rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: Add a shadow for emphasis */
 }

@@ -257,12 +257,41 @@
       const productContainer = document.getElementById("dynamic-product-container");
       const productHeader = document.querySelector(".dynamic-product-header-title");
 
+      // Function to get the query parameter value
+      function getQueryParam(param) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(param);
+      }
+
+      // Get the category from the query parameter
+      const categoryKeyword = getQueryParam("category");
+
+      // Simulate a click on the corresponding side menu item if a category is provided
+      if (categoryKeyword) {
+        const sideMenuItem = document.querySelector(`.side-menu-toggle[data-category="${categoryKeyword}"]`);
+        if (sideMenuItem) {
+          // Trigger the click functionality
+          loadProductsByCategory(categoryKeyword);
+        } else {
+          console.warn(`No side menu item found for category: ${categoryKeyword}`);
+          loadProductsByCategory(); // Fallback to load all products
+        }
+      } else {
+        loadProductsByCategory(); // Load all products if no category is specified
+      }
+
       // Add event listeners to side menu toggles
       const sideMenuToggles = document.querySelectorAll(".side-menu-toggle");
       sideMenuToggles.forEach(toggle => {
         toggle.addEventListener("click", function () {
           const categoryKeyword = this.getAttribute("data-category"); // Get the keyword from the toggle
-          loadProductsByCategory(categoryKeyword); // Load products for the selected keyword
+
+          // Update the URL dynamically without reloading the page
+          const newUrl = `${window.location.pathname}?category=${encodeURIComponent(categoryKeyword)}`;
+          history.pushState({ category: categoryKeyword }, "", newUrl);
+
+          // Load products for the selected keyword
+          loadProductsByCategory(categoryKeyword);
         });
       });
 
@@ -450,9 +479,6 @@
         // Append the suggestion container to the product container
         productContainer.appendChild(suggestionContainer);
       }
-
-      // Load all products by default on page load
-      loadProductsByCategory();
     });
   </script>
 </body>

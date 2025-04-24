@@ -28,18 +28,28 @@
         <li class="dropdown">
           <a href="products.html">Products</a>
           <ul class="dropdown-menu">
-            <li><a href="rough-section.html" class="dropdown-header">Rough</a></li>
-            <li><a href="rough-sapphire.html">Sapphire</a></li>
-            <li><a href="rough-cz.html">Cubic Zirconia</a></li>
-            <li><a href="rough-spinel.html">Spinel Rough</a></li>
-            <li><a href="rough-zircon.html">Zircon</a></li>
-            <li><a href="other-items.html" class="dropdown-header">Other Items</a></li>
-            <li><a href="wash-bags.html">Fossicking Wash Bags</a></li>
-            <li><a href="thunder-eggs.html">Agate Thunder Eggs</a></li>
-            <li><a href="meteorites.html">Meteorites</a></li>
-            <li><a href="fluorescents.html">Fluorescent Minerals</a></li>
-            <li><a href="mystery-boxes.html">Mystery Mineral Boxes</a></li>
-          </ul>
+            <!-- Lab-Grown Rough Section -->
+            <li><a href="products.html?category=synthetic" class="dropdown-header">Lab-Grown Rough</a></li>
+            <li><a href="products.html?category=synthetic-sapphire">Sapphire</a></li>
+            <li><a href="products.html?category=synthetic-spinel">Spinel</a></li>
+            <li><a href="products.html?category=synthetic-cubic-zirconia">Cubic Zirconia</a></li>
+        
+            <!-- Natural Rough Section -->
+            <li><a href="products.html?category=natural" class="dropdown-header">Natural Rough</a></li>
+            <li><a href="products.html?category=natural-sapphire">Sapphire</a></li>
+            <li><a href="products.html?category=natural-topaz">Topaz</a></li>
+            <li><a href="products.html?category=natural-garnet">Garnet</a></li>
+            <li><a href="products.html?category=natural-spinel">Spinel</a></li>
+            <li><a href="products.html?category=natural-zircon">Zircon</a></li>
+            <li><a href="products.html?category=natural-quartz">Quartz</a></li>
+            <li><a href="products.html?category=natural-peridot">Peridot</a></li>
+            <li><a href="products.html?category=natural-tourmaline">Tourmaline</a></li>
+            <li><a href="products.html?category=natural-beryl">Beryl</a></li>
+            <li><a href="products.html?category=natural-opal">Opal</a></li>
+        
+            <!-- Other Items Section -->
+            <li><a href="products.html?category=other" class="dropdown-header">Other Items</a></li>
+              </ul>
         </li>
         <li><a href="gallery.html">Gallery</a></li>
         <li><a href="contact.html">Contact Us</a></li>
@@ -71,8 +81,9 @@
                 <span id="cart-total" style="font-weight: bold;">$0.00</span>
               </div>
               <p style="font-size: 12px; color: gray;">Including GST</p>
-              <button id="checkout-button" class="theme-button">
+              <button id="checkout-button" class="theme-button" onclick="window.location.href='cart.html'">
                 VIEW CART & CHECKOUT
+              </button>
               </button>
             </div>
           </li>
@@ -264,14 +275,22 @@
             <img class="image-placeholder" src="images/placeholder3.jpg" alt="Placeholder 3" />
           </div>
           
+          
+          <p id="variation-label" style="font-weight: bold; margin-bottom: 5px;">Select Size:</p>
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+            <select id="variation-selector" style="flex: 0 0 70%;"></select>
+            <p id="product-stock" style="font-size: 0.9rem; color: #ffcc80; margin-left: 10px;">Stock: Loading...</p>
+          </div>
           <p id="product-description">Loading product description...</p>
-          <select id="variation-selector"></select>
           <p id="product-weight"></p>
           <p id="product-stock"></p>
           <p id="product-price"></p>
+          <p id="quantity-label" style="font-weight: bold; margin-bottom: 5px;">Select Quantity:</p>
           <input type="number" id="quantity" name="quantity" min="1" value="1" style="display: inline-block;" />
           <button id="add-to-cart">Add to Cart</button>
-          <button id="continue-shopping-button" class="theme-button">Continue Shopping</button>
+          <button id="continue-shopping-button" class="theme-button" onclick="window.location.href='products.html'">
+            Continue Shopping
+          </button>
         </div>
       </div>
     </div> <!-- End of page-layout -->
