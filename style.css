@@ -1157,27 +1157,127 @@ form textarea {
 
 /* Product details container */
 .view-product-container {
-  margin-left: 10%;
-  width: 80%;
-  padding: 20px 0;
-  background-color: #333; /* Dark background to match main theme */
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6), 0 4px 6px rgba(0, 0, 0, 0.4); /* Consistent shadow */
-  border-radius: 15px; /* Rounded corners for consistency */
-  box-sizing: border-box;
-  margin-bottom: 30px; /* Spacing to separate from other elements */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+  background-color: #2e2e2e; /* Matches the dark theme */
+  border-radius: 15px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
+  margin: 20px auto;
+  max-width: 1200px;
 }
 
 /* Product details section */
 .view-product-detail {
-  width: 80%;
-  margin: 0 auto;
-  padding: 15px;
-  background-color: #444; /* Slightly lighter background than container */
-  border-radius: 10px;
+  width: 100%;
+  max-width: 800px;
+  background-color: #444444; /* Slightly lighter than the container */
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  font-family: Arial, sans-serif; /* Reverted to standard font */
+  color: #cc5500; /* Matches the theme's accent color */
+}
+
+/* Product name styling */
+#product-name {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #ffcc80; /* Warm accent color */
+  margin-bottom: 15px;
   text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-family: Arial, sans-serif; /* Reverted to standard font */
+}
+
+/* Product description styling */
+#product-description {
+  font-size: 1.2rem;
+  color: #e0e0e0; /* Light text for readability */
+  margin-bottom: 20px;
+  text-align: justify;
+  line-height: 1.6;
+  font-family: Arial, sans-serif; /* Reverted to standard font */
+}
+
+/* Product details (weight, stock, price) */
+.view-product-detail p {
+  font-size: 1.1rem;
+  color: #ffcc80; /* Accent color */
+  margin: 10px 0;
+  font-family: Arial, sans-serif; /* Reverted to standard font */
+}
+
+/* Dropdown and quantity input styling */
+#variation-selector,
+#quantity {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px solid #cc5500;
+  border-radius: 5px;
+  font-size: 1rem;
+  color: #333333;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif; /* Reverted to standard font */
+}
+
+/* Buttons styling */
+button {
+  padding: 12px 20px;
+  font-size: 1.2rem;
   border: none;
-  outline: none;
-  box-sizing: border-box;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  font-family: Arial, sans-serif; /* Reverted to standard font */
+}
+
+#add-to-cart {
+  background-color: #cc5500; /* Primary button color */
+  color: #ffffff;
+  margin-top: 15px;
+}
+
+#add-to-cart:hover {
+  background-color: #ff7f33; /* Lighter shade on hover */
+  transform: translateY(-2px);
+}
+
+#continue-shopping-button {
+  background-color: #28a745; /* Secondary button color */
+  color: #ffffff;
+  margin-top: 10px;
+}
+
+#continue-shopping-button:hover {
+  background-color: #1e7e34; /* Darker shade on hover */
+  transform: translateY(-2px);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .view-product-detail {
+    padding: 15px;
+  }
+
+  #product-name {
+    font-size: 2rem;
+  }
+
+  #product-description {
+    font-size: 1rem;
+  }
+
+  button {
+    font-size: 1rem;
+  }
 }
 
 .suggestion-container {
@@ -1319,4 +1419,30 @@ form textarea {
 
 .theme-button:hover {
   background-color: #0056b3; /* Darker shade for hover */
+}
+
+/* Container for the placeholder images */
+#image-placeholder-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px; /* Space between placeholders */
+  margin-top: 15px; /* Space between the main image and placeholders */
+}
+
+/* Styling for each placeholder image */
+.image-placeholder {
+  width: 80px; /* Adjust width as needed */
+  height: 80px; /* Adjust height as needed */
+  border-radius: 5px;
+  object-fit: cover;
+  background-color: #f0f0f0; /* Light gray background for placeholders */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover effect for placeholders */
+.image-placeholder:hover {
+  transform: scale(1.05); /* Slight zoom effect */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* More pronounced shadow on hover */
 }
