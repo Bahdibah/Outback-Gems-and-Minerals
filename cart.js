@@ -21,10 +21,36 @@ document.addEventListener('DOMContentLoaded', () => {
   function updateShippingAndTotal(subtotal) {
     let shippingCost = 0;
 
+    const shippingCostElement = document.getElementById('shipping-cost');
+    const totalPriceElement = document.getElementById('total-price');
+    const shippingOptionsContainer = document.querySelector('.shipping-options');
+
+    // Retrieve the previously selected shipping method from local storage
+    const savedShippingMethod = localStorage.getItem('selectedShippingMethod') || 'standard';
+
     if (subtotal >= 100) {
-      shippingCost = 0;
-      shippingOptionsContainer.innerHTML = '<p>Free Shipping Applied</p>';
+      // Free standard shipping for orders over $100
+      shippingOptionsContainer.innerHTML = `
+        <label for="shipping-method">Shipping Method:</label>
+        <select id="shipping-method">
+          <option value="standard">Free Standard Shipping</option>
+          <option value="express">Express Shipping ($5.00)</option>
+        </select>
+      `;
+
+      const shippingMethodElement = document.getElementById('shipping-method');
+      shippingMethodElement.value = savedShippingMethod; // Reapply the saved shipping method
+
+      shippingMethodElement.addEventListener('change', () => {
+        const selectedMethod = shippingMethodElement.value;
+        localStorage.setItem('selectedShippingMethod', selectedMethod); // Save the selected method
+        shippingCost = selectedMethod === 'standard' ? 0 : 5.00;
+        updateTotalPrice(subtotal, shippingCost);
+      });
+
+      shippingCost = savedShippingMethod === 'standard' ? 0 : 5.00; // Default to the saved method
     } else {
+      // Standard and express shipping for orders under $100
       shippingOptionsContainer.innerHTML = `
         <label for="shipping-method">Shipping Method:</label>
         <select id="shipping-method">
@@ -34,21 +60,29 @@ document.addEventListener('DOMContentLoaded', () => {
       `;
 
       const shippingMethodElement = document.getElementById('shipping-method');
+      shippingMethodElement.value = savedShippingMethod; // Reapply the saved shipping method
+
       shippingMethodElement.addEventListener('change', () => {
         const selectedMethod = shippingMethodElement.value;
+        localStorage.setItem('selectedShippingMethod', selectedMethod); // Save the selected method
         shippingCost = selectedMethod === 'standard' ? 10.95 : 14.45;
         updateTotalPrice(subtotal, shippingCost);
       });
 
-      shippingCost = 10.95; // Default to standard shipping
+      shippingCost = savedShippingMethod === 'standard' ? 10.95 : 14.45; // Default to the saved method
     }
 
     updateTotalPrice(subtotal, shippingCost);
   }
 
-  // Update the total price display
   function updateTotalPrice(subtotal, shippingCost) {
+    const shippingCostElement = document.getElementById('shipping-cost');
+    const totalPriceElement = document.getElementById('total-price');
+
+    // Update the shipping cost display
     shippingCostElement.textContent = `Shipping: $${shippingCost.toFixed(2)}`;
+
+    // Calculate and update the total price
     const total = subtotal + shippingCost;
     totalPriceElement.textContent = `Total Price: $${total.toFixed(2)}`;
   }
@@ -334,11 +368,7 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
       });
   } else {
-    // No product ID in URL
-    productDetailsContainer.innerHTML = `
-      <p style="color: red;">No product selected. Please go back and choose a product.</p>
-      <img src="images/placeholder.png" alt="Placeholder Image" style="width: 100%; max-width: 300px; margin-top: 20px;" />
-    `;
+    
   }
 });
 
@@ -513,7 +543,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Function to update the shipping cost and total price
   function updateShippingAndTotal() {
-    loadingMessage.style.display = "block"; // Show loading message
 
     const subtotal = calculateSubtotal() || 0; // Ensure subtotal is a number
     const selectedShipping = document.querySelector('input[name="shipping"]:checked')?.value;
@@ -544,16 +573,7 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
       totalPriceElement.textContent = "$0.00"; // Fallback value
     }
-
-    loadingMessage.style.display = "none"; // Hide loading message
   }
-
-  // Add event listener to shipping options
-  document.querySelectorAll('input[name="shipping"]').forEach(radio => {
-    radio.addEventListener("change", () => {
-      updateShippingAndTotal();
-    });
-  });
 
   // Initial load
   updateShippingAndTotal();
@@ -563,10 +583,6 @@ document.querySelectorAll('input[name="shipping"]').forEach(radio => {
   radio.addEventListener("change", () => {
     updateShippingAndTotal();
   });
-});
-
-document.addEventListener("DOMContentLoaded", () => {
-  updateShippingAndTotal();
 });
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -601,7 +617,6 @@ document.addEventListener('DOMContentLoaded', () => {
           item.quantity = newQuantity;
           localStorage.setItem('cart', JSON.stringify(cart));
           updateCartCount();
-          loadCart();
         } else {
           alert('Quantity must be at least 1.');
           loadCart();

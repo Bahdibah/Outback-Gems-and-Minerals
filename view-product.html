@@ -108,10 +108,6 @@
         const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
         const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
     
-        console.log("Cart data:", cart); // Debugging log
-        console.log("Total items:", totalItems); // Debugging log
-        console.log("Subtotal:", subtotal); // Debugging log
-    
         // Update cart count in the navbar
         const cartCountElement = document.getElementById("cart-count");
         if (cartCountElement) {
@@ -130,7 +126,6 @@
           cartItemsList.innerHTML = ""; // Clear existing items
     
           cart.forEach(item => {
-            console.log("Adding item to dropdown:", item); // Debugging log
             const cartItem = document.createElement("div");
             cartItem.classList.add("cart-item");
     
@@ -180,7 +175,6 @@
       });
     
       document.addEventListener("cartUpdated", (event) => {
-        console.log("cartUpdated event received:", event.detail); // Debugging log
         updateCartDropdown(); // Update the dropdown
       });
     
@@ -312,7 +306,6 @@ localStorage.setItem("cart", JSON.stringify(cart));
 // Dispatch the custom "cartUpdated" event
 const totalItems = cart.reduce((sum, cartItem) => sum + cartItem.quantity, 0);
 document.dispatchEvent(new CustomEvent("cartUpdated", { detail: { totalItems } }));
-console.log("cartUpdated event dispatched:", totalItems);
 
 // Explicitly update the dropdown after the cart is updated
 updateCartDropdown();
@@ -431,8 +424,6 @@ updateCartDropdown();
           return true;
         });
 
-        console.log("Filtered Variations:", variations); // Debugging log
-
         if (variations.length === 0) {
           productNameElement.textContent = "No variations available";
           productDescriptionElement.textContent = "No variations found for this product.";
@@ -495,7 +486,6 @@ updateCartDropdown();
           }
 
           localStorage.setItem("cart", JSON.stringify(cart));
-          console.log("Cart after adding item:", cart); // Debugging log
 
           // Dispatch the custom "cartUpdated" event
           const totalItems = cart.reduce((sum, cartItem) => sum + cartItem.quantity, 0);
@@ -518,7 +508,6 @@ updateCartDropdown();
 
     function updateProductDetails(selectedVariation) {
   const cart = JSON.parse(localStorage.getItem("cart")) || [];
-  console.log("Cart Contents During Update:", cart);
 
   // Find the matching item in the cart for the selected variation
   const cartItem = cart.find(
@@ -527,7 +516,6 @@ updateCartDropdown();
       item.weight === selectedVariation.weight &&
       item.unit === selectedVariation.unit
   );
-  console.log("Cart Item Found During Update:", cartItem);
 
   // Use the stock from the selected variation
   const baseStock = selectedVariation.stock;
@@ -535,8 +523,6 @@ updateCartDropdown();
   // Subtract the quantity of the specific variant in the cart
   const cartQuantity = cartItem ? cartItem.quantity : 0;
   const availableStock = baseStock - cartQuantity;
-
-  console.log("Available Stock:", availableStock);
 
   // Update product details on the page
   productNameElement.textContent = selectedVariation["product name"];
