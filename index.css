@@ -1,0 +1,1024 @@
+:root {
+  --navbar-height: 70px;
+}
+body {
+  
+    background-color: #2e2e2e;
+    color: #cc5500;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+#page-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin-top: 1%; /* Reduced from 2% to 1% */
+  padding-top: var(--navbar-height); /* This adds space at the top for the fixed navbar */
+}
+
+/* page layout for main products page (body container)*/
+.page-layout {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  width: 100%;
+}
+
+button, .button {
+  background-color: #cc5500;
+  color: #fff;
+  font-weight: bold;
+  border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border stays */
+  padding: 14px 32px;
+  font-size: 1.25rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  display: inline-block;
+  margin-top: 10px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+button:hover, .button:hover {
+  background-color: #ff7f33;
+  transform: scale(1.04) translateY(-1px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.35), 0 0 8px rgba(255, 127, 51, 0.5);
+}
+
+button:active, .button:active {
+  background-color: #b34700;
+  transform: scale(0.98) translateY(0);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.view-all-button {
+margin-top: 40px; /* More space above */
+padding: 16px 40px;
+}
+
+
+section {
+    padding: 60px 20px;
+}
+
+header {
+     width: 100%;
+    background-color: #1e1e1e;
+    display: flex;
+    align-items: center;
+    position: relative;
+    justify-content: space-between;
+}
+
+nav {
+  width: 100%;
+  height: var(--navbar-height);
+  display: flex;
+  justify-content: space-between;
+  background: linear-gradient(to left, #2e2e2e 0%, #cc5500 10%, #1c1c1c 40%, #444444 100%);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  border-top: 2px solid #cc5500;
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+}
+
+nav ul {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 20px;
+  list-style: none;
+  justify-content: center;
+  padding: 0;
+  margin: 20px 0 0 0;
+}
+
+.nav-links li {
+  position: relative; /* This anchors dropdown to each link */
+}
+
+nav ul li a {
+  color: #cc5500;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1.1rem;
+  padding: 12px 20px;
+  display: block;
+  transition: background 0.3s ease, color 0.3s ease;
+  border-radius: 5px;
+}
+
+nav ul li a:hover,
+nav ul li a.active {
+  background-color: #cc5500;
+  color: #1e1e1e;
+}
+
+nav .options {
+  position: absolute;
+  right: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 15px;
+  height: 15px;
+  width: 80px;
+  z-index: 1;
+}
+
+nav .options.icon {
+  max-height: 15px;
+  width: auto;
+  cursor: pointer;
+}
+
+.nav-search {
+  position: absolute;
+  right: 10%;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background-color: transparent;  /* Make the background transparent */
+  border-radius: 5px;  /* Keep the rounded corners */
+  padding: 5px 10px;  /* Add some spacing inside */
+}
+
+.nav-search input {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  background-color: #444444;
+  color: #ccc;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); /* Subtle shadow around the input */
+  margin-top: 9px
+}
+
+.nav-search input:focus {
+  outline: none;
+  background-color: #cc5500;
+  color: #1e1e1e;
+  box-shadow: 0px 4px 12px rgba(204, 85, 0, 0.7); /* Highlighted shadow on focus */
+}
+
+.nav-search button {
+  padding: 8px 12px;
+  background-color: #cc5500;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #fff;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); /* Subtle shadow for the button */
+}
+
+.nav-search button:hover {
+  background-color: #ff7700;
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.4); /* Slightly more pronounced shadow on hover */
+}
+
+.nav-search button i {
+  color: #fff;
+  position: relative;
+}
+
+/* Style for dropdown menu alignment */
+.nav-links li.dropdown {
+  position: relative;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-15%);
+  min-width: 180px; /* Optional: Prevents dropdown from being too small */
+  background-color: #444444;
+  border-radius: 5px;
+  padding: 0;
+  margin: 0;
+  z-index: 999;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+/* Make dropdown appear when hovering over the parent item */
+.nav-links li.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+.nav-links li a {
+  padding: 12px 20px;
+  display: block;
+  color: #cc5500;
+  font-weight: bold;
+  font-size: 1.1rem;
+  transition: background 0.3s ease, color 0.3s ease;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+.nav-links li a:hover,
+nav ul li a.active {
+  background-color: #cc5500;
+  color: #1e1e1e;
+}
+
+/* Ensure that the dropdown aligns with the parent */
+.nav-links li.dropdown:hover .dropdown-menu {
+  left: 0; /* This makes sure the dropdown aligns with the button */
+}
+
+/* Style for dropdown menu items */
+.dropdown-menu li a {
+  padding: 12px 20px;
+  display: block;
+  color: #cc5500;
+  font-weight: normal;
+  border-bottom: 1px solid #333;
+}
+
+.dropdown-menu li a:hover:not(.dropdown-header) {
+  background-color: #cc5500;
+  color: #1e1e1e;
+}
+
+.nav-links li.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+.dropdown-header {
+  display: block;
+  font-family: 'Roboto', sans-serif; /* Or your selected font */
+  font-weight: 700;
+  background-color: #ff7f33;
+  color: white !important;
+  padding: 12px 20px;
+  text-transform: uppercase;
+  font-size: 1.1rem;
+  text-align: center;
+  letter-spacing: 1.5px;
+  border-radius: 4px;
+}
+
+
+.logo {
+  max-height: 50px;
+  width: auto;
+  object-fit: contain;
+  flex-shrink: 0;
+  display: block;
+}
+
+.main-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-left: 20px;
+  height: 100%; 
+  cursor: pointer;
+}
+
+.welcome-message {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.2rem;
+    color: 	#cc5500;
+    font-weight: bold;
+    text-decoration: none
+}
+
+@media (max-width: 600px) {
+  .main-logo {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .welcome-message {
+    font-size: 1.6rem;
+  }
+
+  nav {
+    flex-direction: column;
+    height: auto;
+    padding: 10px;
+  }
+
+  .options .icon {
+    height: 20px;
+  }
+}
+
+#home {
+  background: url('images/Banner 1.jpg') no-repeat center center/cover;
+  color: #fff;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-image 1s ease-in-out;
+  margin: calc(var(--navbar-height)) auto 0;
+  Max-width: 100%;
+}
+
+.hero-overlay {
+  background-color: rgba(0, 0, 0, 0.7); 
+  padding: 30px 24px; 
+  border-radius: 15px;
+  display: flex; 
+  flex-direction: column; 
+  justify-content: center; 
+  align-content: center;
+  max-width: 51%; 
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.5); 
+  font-family: 'Georgia', serif; 
+  border: #cc5500 3px solid;
+  text-align: center;
+}
+.hero-overlay h2 {
+  font-size: 2rem; 
+  font-weight: bold;
+  margin-bottom: 15px;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7); 
+}
+
+.hero-overlay p {
+  font-size: 1.3rem; 
+  line-height: 1.6;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7); 
+}
+
+.banner-slider {
+  width: 100%;
+  overflow: hidden;
+  background-color: black;
+  display: flex;
+  align-items: center;
+  position: relative;
+  font-size: 1.5rem;
+}
+
+.banner {
+  display: flex;
+  width: max-content;
+  transition: transform 0.7s ease-in-out;
+  width: 100%;
+}
+
+.banner-item {
+  flex: 0 0 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 100%;
+}
+
+/* Footer Styling */
+footer {
+    background-color: #1e1e1e;
+    color: #888;
+    display: flex;
+    flex-direction: row;
+    gap: 5%;
+    width: 100%;
+}
+
+footer >div{
+  width: 33%;
+  display: flex;
+  flex-direction: row;
+}
+
+.footer-left {
+  gap: 5%;
+  padding-left: 1%;
+  align-items: center;
+}
+
+.footer-middle {
+  justify-content: center;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-middle p {
+  margin: 0.5%;
+}
+
+.footer-right {
+  justify-content: right;
+  gap: 4%;
+  padding-right: 1%;
+  font-size: 1.5rem;  
+  align-items: center;
+}
+
+/* About Us Section */
+.about-us {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+  padding: 60px 20px;
+  font-family: 'Georgia', serif;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.about-us > div {
+  background-color: #444; /* Original background color */
+  border: 4px solid #cc5500; /* Original border color */
+  border-radius: 8px; /* Original border radius */
+  flex: 1 1 30%;
+  max-width: 32%;
+  padding: 20px 24px;
+  box-sizing: border-box;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease, filter 0.3s ease; /* Added transition for the glow */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+}
+
+.about-us > div:hover {
+  transform: translateY(-5px); /* Slight lift effect */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3); /* Larger shadow on hover for depth */
+  border: 2px solid #cc5500; /* Keep the original border color on hover */
+  filter: blur(0px) brightness(1.1) drop-shadow(0 0 8px #ffa94d); /* Soft glow effect */
+}
+
+.about-us h2 {
+  font-size: 1.6rem;
+  color: #cc5500; /* Original header color */
+  margin-bottom: 12px;
+}
+
+.about-us p,
+.about-us ul {
+  font-size: 1.15rem;
+  color: #bfbfbfd2; /* Original text color */
+}
+
+.about-us ul {
+  list-style-type: disc;
+  padding-left: 20px;
+}
+
+.about-us ul li {
+  margin-bottom: 5px;
+}
+
+
+
+.about-us ul {
+list-style-type: disc;
+padding-left: 20px;
+}
+
+.about-us ul li {
+margin-bottom: 5px;
+}
+
+/* Bestselling Section */
+#bestsellers {
+  margin-left: 10%;
+  width: 80%;
+  padding: 20px 0;
+  text-align: center;
+  background-color: #333; /* Match "What's New" background */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6), 0 4px 6px rgba(0, 0, 0, 0.4); /* Match the shadow */
+  border-radius: 15px;
+}
+
+/* Box for Bestselling Items */
+.bestselling-header-box {
+  width: 80%;
+  margin: 40px auto 40px auto;
+  padding: 15px;
+  background-color: #444;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.6);
+  border: none;
+  outline: none;
+  box-sizing: border-box;
+}
+
+/* Styling the Bestselling Items Header */
+.bestselling-header, .dynamic-product-header-title {
+  font-size: 1.8rem; /* 20% larger font size */
+  color: #cc5500;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+
+/* Styling the H2 (Bestselling Items) */
+#bestsellers h2 {
+  font-size: 1.8rem;
+  color: #cc5500;
+  margin: 0;
+  border: none;
+  outline: none;
+}
+
+.product-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.content-wrapper {
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Styling the "What's New" Section Main Container*/
+.whats-new-carousel { 
+  margin-top: 60px;
+  margin-left: 10%;
+  width: 80%;
+  padding: 20px 0;
+  text-align: center;
+  background-color: #333;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6), 0 4px 6px rgba(0, 0, 0, 0.4); /* Subtler shadow */
+  border-radius: 15px;
+}
+
+/* New header box styling */
+.whats-new-header-box {
+  width: 80%; 
+  margin: 40px auto 60px auto;
+  padding: 15px;
+  background-color: #444;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.6);
+  border: none;
+  outline: none;
+  box-sizing: border-box; /* Ensure padding and border are included in width */
+}
+
+/* New header text styling */
+.whats-new-header {
+  font-size: 2rem; /* Customize font size */
+  color: #fff; /* Adjust text color */
+  margin: 0;
+  padding: 0;
+  font-weight: bold; /* Optional styling */
+  text-transform: uppercase; /* Optional styling */
+}
+
+.product-details {
+  margin: 12px 0;
+}
+
+.rating {
+  color: #ffd700; /* Gold color */
+  font-size: 0.9rem;
+}
+
+.price {
+  color: #cc5500;
+  font-size: 1.3rem;
+  margin: 8px 0;
+}
+
+.weight {
+  font-size: 0.8rem;
+  color: #999;
+}
+
+.new-product-grid {
+    overflow: hidden;
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+  width: fit-content;
+  gap: 1%;
+}
+
+/* Product Card Styling */
+.product-card {
+  background-color: #444;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  max-width: 300px; /* Increased width to match the new card size */
+  margin: 0 auto;
+  border: 3px solid #cc5500;
+}
+.new-product-card p,
+.product-card p {
+  font-size: 1rem;
+  color: #bfbfbfd2;
+  margin-bottom: 12px;
+}
+
+.new-product-card {
+  flex: 0 0 30%;  
+  background-color: #444;
+  border-radius: 10px;
+  padding: 12px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  margin: 0 auto;
+  border: 3px solid #cc5500;
+}
+
+/* Product Image Styling */
+.product-card img {
+  width: 90%;
+  height: auto;
+  border-radius: 10px;
+  margin-bottom: 12px;
+}
+
+/* Product Name Styling */
+.product-card h3 {
+  font-size: 1.2rem;
+  color: #cc5500;
+  margin-bottom: 8px;
+}
+
+/* Product Button Styling */
+.product-button {
+  background-color: #cc5500;
+  color: #fff;
+  font-weight: bold;
+  border: none;
+  padding: 10px 25px;
+  font-size: 1.1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s ease;
+  display: inline-block;
+}
+
+/* Hover and Active States for Product Button */
+.product-button:hover {
+  background-color: #ff7f33;
+  transform: translateY(-2px);
+}
+
+.product-button:active {
+  background-color: #b34700;  
+}
+
+.product-card .image-container,
+.new-product-card .image-container {
+  width: 100%;
+  height: 250px; /* Fixed height */
+  overflow: hidden;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+.product-card img,
+.new-product-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover img,
+.new-product-card:hover img {
+  transform: scale(1.05);
+}
+
+/* Product Button Styling */
+.product-button {
+  background-color: #cc5500;
+  color: #fff;
+  font-weight: bold;
+  border: none;
+  padding: 10px 25px;
+  font-size: 1.1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s ease;
+  display: inline-block;
+}
+
+.product-button:hover {
+  background-color: #ff7f33;
+  transform: translateY(-2px);
+}
+
+.product-button:active {
+  background-color: #b34700;
+}
+
+/* Product Button Styling */
+.product-button {
+  background-color: #cc5500;
+  color: #fff;
+  font-weight: bold;
+  border: none;
+  padding: 10px 25px;
+  font-size: 1.1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s ease;
+  display: inline-block;
+}
+
+.product-button:hover {
+  background-color: #ff7f33;
+  transform: translateY(-2px);
+}
+
+.product-button:active {
+  background-color: #b34700;
+}
+
+form label {
+  margin-top: 15px;
+  font-weight: bold;
+  display: block;
+  font-size: 1rem
+}
+
+form input,
+form textarea {
+  display: block;
+  width: 100%;
+  margin-top: 5px;
+  padding: 10px;
+  background-color: #444;
+  color: #fff;
+  border: 2px solid #cc5500;
+  border-radius: 5px;
+}
+
+form textarea {
+  height: 75px; /* Adjust height to make the message box taller */
+}
+
+.newsletter-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: wrap; 
+  width: 100%;  
+}
+
+.newsletter-container h2 {
+  color: #cc5500; /* Header color */
+  margin-top: 0;
+  font-size: 2.5rem;
+}
+
+.newsletter-container p {
+  color: #bfbfbfd2; /* Header color */
+  margin-top: -20px;
+  font-size: 1.2rem;
+  width: 65%;
+  display: flex;
+  text-align: center;
+}
+
+.newsletter-container form {
+  width: 50%;
+  display: flex;
+  gap: 5%;  
+  padding: 10px;
+  justify-content: center;
+}
+
+.newsletter-container form input[type='email'] {
+  flex: 1;
+  min-width: 250px;
+  padding: 14px;
+  font-size: 1.1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.newsletter-container form button { 
+   background-color: #cc5500;
+  color: #fff;
+  font-weight: bold;
+  border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border stays */
+  padding: 14px 32px;
+  font-size: 1.25rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  display: inline-block;
+  margin-top: 0px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Product name styling */
+#product-name {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #ffcc80; /* Warm accent color */
+  margin-bottom: 15px;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-family: Arial, sans-serif; /* Reverted to standard font */
+}
+
+/* Buttons styling */
+button {
+  padding: 12px 20px;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  font-family: Arial, sans-serif; /* Reverted to standard font */
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+   #product-name {
+    font-size: 2rem;
+  }
+
+  button {
+    font-size: 1rem;
+  }
+}
+
+/* Cart dropdown container */
+.cart-dropdown {
+  position: relative;
+}
+
+/* Dropdown panel styling */
+.cart-dropdown-panel {
+  display: none; /* Hidden by default */
+  position: absolute;
+  top: 100%; /* Position below the cart icon */
+  right: 0;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  width: 300px;
+  z-index: 1000;
+  border-radius: 5px;
+}
+
+/* Show the dropdown panel on hover */
+.cart-dropdown:hover .cart-dropdown-panel {
+  display: block;
+}
+
+/* Subtotal and total rows */
+.cart-subtotal,
+.cart-total {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+}
+
+/* Checkout button styling */
+#checkout-button {
+  display: block;
+  width: 100%;
+  text-align: center;
+  margin-top: 10px;
+}
+
+/* Cart dropdown panel */
+.cart-dropdown-panel {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  width: 300px;
+  z-index: 1000;
+  border-radius: 5px;
+}
+
+/* Show the dropdown on hover */
+.cart-dropdown:hover .cart-dropdown-panel {
+  display: block;
+}
+
+/* Cart items list */
+#cart-items-list {
+  max-height: 200px;
+  overflow-y: auto;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+}
+
+/* Individual cart item row */
+.cart-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.cart-item:last-child {
+  border-bottom: none;
+}
+
+/* Thumbnail image */
+.cart-item img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+/* Item details */
+.cart-item-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.cart-item-details .product-name {
+  font-weight: bold;
+}
+
+.cart-item-details .product-code {
+  font-size: 12px;
+  color: gray;
+}
+
+.cart-item-details .product-quantity {
+  font-size: 14px;
+}
+
+/* Item price */
+.cart-item-price {
+  font-weight: bold;
+  text-align: right;
+}
+
+/* Checkout button styling */
+.theme-button {
+  background-color: #007bff; /* Replace with your theme's button color */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  text-align: center;
+  width: 100%;
+  border-radius: 5px;
+}
+
+.theme-button:hover {
+  background-color: #0056b3; /* Darker shade for hover */
+}
+
+/* Container for the placeholder images */
+#image-placeholder-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px; /* Space between placeholders */
+  margin-top: 15px; /* Space between the main image and placeholders */
+}
+
+/* Styling for each placeholder image */
+.image-placeholder {
+  width: 80px; /* Adjust width as needed */
+  height: 80px; /* Adjust height as needed */
+  border-radius: 5px;
+  object-fit: cover;
+  background-color: #f0f0f0; /* Light gray background for placeholders */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover effect for placeholders */
+.image-placeholder:hover {
+  transform: scale(1.05); /* Slight zoom effect */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* More pronounced shadow on hover */
+}
+
+#product-image {
+  width: 80%; /* Reduce the width to 80% of its original size */
+  height: auto; /* Maintain the aspect ratio */
+  margin: 0 auto; /* Center the image horizontally */
+  display: block; /* Ensure proper centering */
+  border-radius: 10px; /* Optional: Add rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: Add a shadow for emphasis */
+}

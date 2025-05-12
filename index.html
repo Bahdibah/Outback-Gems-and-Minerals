@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Outback Gems</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="index.css" />
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Parisienne&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
@@ -234,6 +234,15 @@
 
   
   <script>
+  // Background image rotation
+  const images = ["images/Banner 1.jpg", "images/Banner 2.jpg", "images/Banner 3.jpg", "images/Banner 4.jpg"];
+    let current = 0;
+
+    setInterval(() => {
+      current = (current + 1) % images.length;
+      document.getElementById("home").style.backgroundImage = `url('${images[current]}')`;
+    }, 15000); // Change image every 15 seconds
+
     // #region banner carousel script
     const itemTrack = document.querySelector('.banner');
     const items = document.querySelectorAll('.banner-item');
