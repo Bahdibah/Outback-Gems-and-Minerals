@@ -222,7 +222,7 @@ footer >div{
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 3%;
-  margin: 3%;
+  margin: 3% 10%;
   justify-items: center;
 }
 
