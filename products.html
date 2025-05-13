@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Products - Outback Gems</title>
-  <link rel="stylesheet" href="synthetic.css" />
+  <link rel="stylesheet" href="products.css" />
   <link rel="stylesheet" href="navbar.css" />
   <link href="https://fonts.googleapis.com/css2?family=Parisienne&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
@@ -18,38 +18,108 @@
     <header id="navbar-container"></header>
 
     <div class="page-layout">
+      <div class="side-menu">
+        <!-- Lab-Grown Rough Section -->
+        <div class="side-menu-heading side-menu-toggle" data-category="synthetic">Lab-Grown Rough</div>
+        <div class="side-menu-container">
+          <div class="side-menu-toggle" data-category="synthetic-sapphire">Sapphire</div>
+          <ul class="side-menu-sublist">
+            <li><a href="#">Blue Sapphire</a></li>
+            <li><a href="#">Pink Sapphire</a></li>
+            <li><a href="#">Yellow Sapphire</a></li>
+            <li><a href="#">Green Sapphire</a></li>
+            <li><a href="#">Orange Sapphire</a></li>
+            <li><a href="#">Teal Sapphire</a></li>
+          </ul>
+        </div>
+        <div class="side-menu-container">
+          <div class="side-menu-toggle" data-category="synthetic-spinel">Spinel</div>
+          <ul class="side-menu-sublist">
+            <li><a href="#">Red Spinel</a></li>
+            <li><a href="#">Pink Spinel</a></li>
+            <li><a href="#">Blue Spinel</a></li>
+            <li><a href="#">Lavender Spinel</a></li>
+            <li><a href="#">Green Spinel</a></li>
+            <li><a href="#">Orange Spinel</a></li>
+          </ul>
+        </div>
+        <div class="side-menu-container">
+          <div class="side-menu-toggle" data-category="synthetic-cubic-zirconia">Cubic Zirconia</div>
+          <ul class="side-menu-sublist">
+            <li><a href="#">White CZ</a></li>
+            <li><a href="#">Pink CZ</a></li>
+            <li><a href="#">Champagne CZ</a></li>
+            <li><a href="#">Green CZ</a></li>
+            <li><a href="#">Lavender CZ</a></li>
+            <li><a href="#">Orange CZ</a></li>
+          </ul>
+        </div>
+
+        <!-- Natural Rough Section -->
+        <div class="side-menu-heading side-menu-toggle" data-category="natural">Natural Rough</div>
+        <div class="side-menu-container">
+          <div class="side-menu-toggle" data-category="natural-sapphire">Sapphire</div>
+          <ul class="side-menu-sublist">
+            <li><a href="#">Blue Sapphire</a></li>
+            <li><a href="#">Green Sapphire</a></li>
+            <li><a href="#">Yellow Sapphire</a></li>
+            <li><a href="#">Teal Sapphire</a></li>
+            <li><a href="#">Parti Sapphire</a></li>
+            <li><a href="#">Pink Sapphire</a></li>
+          </ul>
+        </div>
+        <div class="side-menu-container">
+          <div class="side-menu-toggle" data-category="natural-topaz">Topaz</div>
+        </div>
+        <div class="side-menu-container">
+          <div class="side-menu-toggle" data-category="natural-garnet">Garnet</div>
+        </div>
+        <div class="side-menu-container">
+          <div class="side-menu-toggle" data-category="natural-spinel">Spinel</div>
+        </div>
+        <div class="side-menu-container">
+          <div class="side-menu-toggle" data-category="natural-zircon">Zircon</div>
+        </div>
+        <div class="side-menu-container">
+          <div class="side-menu-toggle" data-category="natural-quartz">Quartz</div>
+        </div>
+        <div class="side-menu-container">
+          <div class="side-menu-toggle" data-category="natural-peridot">Peridot</div>
+        </div>
+        <div class="side-menu-container">
+          <div class="side-menu-toggle" data-category="natural-tourmaline">Tourmaline</div>
+        </div>
+        <div class="side-menu-container">
+          <div class="side-menu-toggle" data-category="natural-beryl">Beryl</div>
+        </div>
+        <div class="side-menu-container">
+          <div class="side-menu-toggle" data-category="natural-opal">Opal</div>
+        </div>
+
+        <!-- Other Items Section -->
+        <div class="side-menu-heading side-menu-toggle" data-category="other">Other Items</div>
+        <div class="side-menu-container">
+          <div class="side-menu-toggle" data-category="fossicking-wash-bags">Fossicking Wash Bags</div>
+        </div>
+        <div class="side-menu-container">
+          <div class="side-menu-toggle" data-category="agate-thunder-eggs">Agate Thunder Eggs</div>
+        </div>
+        <div class="side-menu-container">
+          <div class="side-menu-toggle" data-category="meteorites">Meteorites</div>
+        </div>
+        <div class="side-menu-container">
+          <div class="side-menu-toggle" data-category="fluorescent-minerals">Fluorescent Minerals</div>
+        </div>
+        <div class="side-menu-container">
+          <div class="side-menu-toggle" data-category="mystery-boxes">Mystery Boxes</div>
+        </div>
       </div>
 
-      <div class="product-container">
-        <div class="product-header-container">
-          <div class="product-header-title">Product Header</div>
+      <div id="dynamic-product-container" class="product-container">
+        <div class="dynamic-product-header-container">
+          <div class="dynamic-product-header-title">Product Header</div>
         </div>
-
-        <div class="product-description-container">
-          <div class="product-description">Our synthetic gemstones are lab-grown and ideal for faceting, collecting, or display. 
-            They offer vibrant colour, clarity, and consistency—perfect for hobbyists and lapidary artists alike.</div>
-        </div>
-
-        <!-- Product category cards -->
-      </div>
-      <div class="product-card-container">
-        <div class="product-card" style="background-image: url('images/Synthetic Sapphire.jpg'); background-size: 100%; background-repeat: no-repeat; background-position: center;">
-          <h3>Synthetic Sapphire</h3>
-          <p>Durable and brilliantly coloured, our synthetic sapphires are ideal for precision faceting and jewellery work.</p>
-          <button class="product-button"><a href="/products.html?category=synthetic-sapphire" data-category="synthetic-sapphire">Shop all Synthetic Sapphire</a></button>
-        </div>
-
-        <div class="product-card" style="background-image: url('images/Synthetic Spinel.jpg'); background-size: 100%; background-repeat: no-repeat; background-position: center;">
-          <h3>Synthetic Spinel</h3>
-          <p>Available in a range of vivid hues, synthetic spinel is a versatile and affordable choice for collectors and cutters.</p>
-          <button class="product-button "><a href="/products.html?category=synthetic-spinel" data-category="synthetic-spinel">Shop all Synthetic Spinel</a></button>
-        </div>
-
-        <div class="product-card" style="background-image: url('images/Synthetic CZ.jpg'); background-size: 100%; background-repeat: no-repeat; background-position: center;">
-          <h3>Cubic Zirconia</h3>
-          <p>With high brilliance and diamond-like sparkle, synthetic cubic zirconia is perfect for eye-catching faceting projects.</p>
-          <button class="product-button"><a href="/products.html?category=synthetic-cubic-zirconia" data-category="synthetic-cubic-zirconia">Shop all Cubic Zirconia</a></button>
-        </div>
+        <!-- Product cards will be dynamically inserted here -->
       </div>
     </div>
 
@@ -185,8 +255,8 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
-      const productContainer = document.getElementById("product-container");
-      const productHeader = document.querySelector(".product-header-title");
+      const productContainer = document.getElementById("dynamic-product-container");
+      const productHeader = document.querySelector(".dynamic-product-header-title");
 
       // Function to get the query parameter value
       function getQueryParam(param) {
@@ -264,7 +334,7 @@
         productContainer.appendChild(productHeader);
       
         // Update the product header title
-        const productHeaderTitle = document.querySelector(".product-header-title");
+        const productHeaderTitle = document.querySelector(".dynamic-product-header-title");
         productHeaderTitle.textContent = headerTitle;
       
         // Display products
@@ -273,7 +343,7 @@
       
           products.forEach(product => {
             const productCard = document.createElement("div");
-            productCard.classList.add("product-card");
+            productCard.classList.add("dynamic-product-card");
       
             // Image
             const imageContainer = document.createElement("div");
@@ -297,7 +367,7 @@
       
             // Button with link to view-product.html?productname=XYZ
             const productButton = document.createElement("button");
-            productButton.classList.add("product-button");
+            productButton.classList.add("dynamic-product-button");
             productButton.textContent = "View Details";
             productButton.onclick = () => {
               window.location.href = `view-product.html?productid=${encodeURIComponent(product["product id"])}`;
@@ -352,7 +422,7 @@
 
         // Add suggestion header
         const suggestionHeader = document.createElement("div");
-        suggestionHeader.classList.add("product-header-title");
+        suggestionHeader.classList.add("dynamic-product-header-title");
         suggestionHeader.textContent = "You May Also Like";
         suggestionContainer.appendChild(suggestionHeader);
 
@@ -361,7 +431,7 @@
           // Display the suggestions
           shuffledSuggestions.forEach(product => {
             const productCard = document.createElement("div");
-            productCard.classList.add("product-card");
+            productCard.classList.add("dynamic-product-card");
 
             // Image
             const imageContainer = document.createElement("div");
@@ -385,7 +455,7 @@
 
             // Button with link to view-product.html?productname=XYZ
             const productButton = document.createElement("button");
-            productButton.classList.add("product-button");
+            productButton.classList.add("dynamic-product-button");
             productButton.textContent = "View Details";
             productButton.onclick = () => {
               window.location.href = `view-product.html?productid=${encodeURIComponent(product["product id"])}`;
