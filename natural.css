@@ -28,6 +28,8 @@ body {
 }
 
 button, .button {
+  font-family: Arial, sans-serif; /* Reverted to standard font */  
+  width: 75%;
   background-color: #cc5500;
   color: #fff;
   font-weight: bold;
@@ -40,6 +42,14 @@ button, .button {
   display: inline-block;
   margin-top: 10px;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  opacity: 0.9;
+}
+
+.product-card a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
+  border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border stays */
 }
 
 button:hover, .button:hover {
@@ -115,29 +125,49 @@ footer >div{
 }
 
 /* Container for the dynamic product cards */
-#dynamic-product-container {
+#product-container {
   display: flex;
   flex-wrap: wrap; /* Enables wrapping into new rows */
   gap: 3%; /* Same spacing as before */
   padding: 20px;
-  width: 70%;
+  height: fit-content;
+  min-height: 150vh;
+  width: 90%;
   margin: 0 3% 3% auto;
   box-sizing: border-box;
   align-items: flex-start;
   height: fit-content;
   min-height: 150vh;
   justify-content: center; /* Center the cards horizontally */
-  background-color: #333; /* Match "What's New" background */
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6), 0 4px 6px rgba(0, 0, 0, 0.4); /* Match the shadow */
-  border-radius: 15px;
 }
 
-.dynamic-product-header-container {
+.product-header-container, .product-description-container {
   flex: 0 0 100%;
   margin-bottom: 20px;
 }
 
-.dynamic-product-header-title {
+.product-card-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3%;
+  margin: 3%;
+  justify-items: center;
+}
+
+  /* Media Query for Smaller Screens: Adjust for mobile responsiveness */
+  @media (max-width: 1024px) {
+    #product-container {
+      grid-template-columns: repeat(2, 1fr); /* 2 cards on medium screens */
+    }
+  }
+  
+  @media (max-width: 600px) {
+    #product-container {
+      grid-template-columns: 1fr; /* 1 card per row on small screens */
+    }
+  }
+
+.product-header-title {
 width: 80%;
 margin: 40px auto 40px auto;
 padding: 15px;
@@ -149,85 +179,105 @@ border: none;
 outline: none;
 box-sizing: border-box;
 font-weight: bold;
+text-shadow: #444;
 }
 
-/* Dynamic Product Card Styling */
-.dynamic-product-card {
+.product-description {
+  width: 90%;
+  margin: 40px auto 40px auto;
+  padding: 15px;
   background-color: #444;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.6);
+  border: none;
+  outline: none;
+  box-sizing: border-box;
+  font-weight: bold;
+  }
+
+/* Dynamic Product Card Styling */
+.product-card {  
   border-radius: 10px;
   padding: 20px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
   text-align: center;
   border: 3px solid #cc5500;
-  flex: 1 1 30%; /* Flex-grow and flex-basis for responsive design */
-  max-width: 30%;
   box-sizing: border-box;
-  margin: 1.5% 0 1.5% 0;
-}
-
-/* Image Styling */
-.dynamic-product-card img {
-  width: 100%; /* Ensure the image scales within the card */
-  height: auto;
-  border-radius: 10px;
-  margin-bottom: 12px;
+  justify-items: center;
 }
 
 /* Product Name Styling */
-.dynamic-product-card h3 {
-  font-size: 1.2rem;
-  color: #cc5500;
-  margin-bottom: 8px;
+.product-card h3 { 
+  background-color: rgba(0, 0, 0, 0.6); 
+  padding: 10px 24px; 
+  border-radius: 15px;
+  display: flex; 
+  flex-direction: column; 
+  justify-content: center; 
+  align-content: center;
+  max-width: 51%; 
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.6); 
+  font-family: 'Georgia', serif; 
+  border: #cc5500 1px solid;
+  text-align: center;
 }
 
 /* Description Styling */
-.dynamic-product-card p {
-  font-size: 1.1rem;
-  color: #bfbfbfd2;
-  margin: 8px 0;
+.product-card p {  
+  background-color: rgba(0, 0, 0, 0.6); 
+  padding: 30px 24px; 
+  border-radius: 15px;
+  display: flex; 
+  flex-direction: column; 
+  justify-content: center; 
+  align-content: center;
+  max-width: 51%; 
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.6); 
+  font-family: 'Georgia', serif; 
+  text-align: center;
 }
 
 /* Price Line Styling */
-.dynamic-product-card p:nth-of-type(2) {
+.card p:nth-of-type(2) {
   font-weight: bold;
   color: #ffd580;
   font-size: 1.2rem;
 }
 
 /* Image container */
-.dynamic-product-card .image-container {
+.product-card img {
   width: 100%;
-  height: 250px; /* Fixed height for images */
+  height: auto;
   overflow: hidden;
   border-radius: 10px;
   margin-bottom: 15px;
 }
 
-.dynamic-product-card img {
+.product-card {
   width: 100%;
-  height: 100%;
   object-fit: cover; /* Ensures image scales and covers the area */
   transition: transform 0.3s ease;
 }
 
-.dynamic-product-card:hover img {
+.product-card:hover {
   transform: scale(1.05); /* Slight zoom effect on hover */
 }
 
 /* Media Query for Smaller Screens: Adjust for mobile responsiveness */
 @media (max-width: 1024px) {
-  #dynamic-product-container {
+  #product-container {
     grid-template-columns: repeat(2, 1fr); /* 2 cards on medium screens */
   }
 }
 
 @media (max-width: 600px) {
-  #dynamic-product-container {
+  #product-container {
     grid-template-columns: 1fr; /* 1 card per row on small screens */
   }
 }
 
-.dynamic-product-card .image-container {
+.product-card .image-container {
   width: 100%;
   height: 250px;
   overflow: hidden;
@@ -235,133 +285,28 @@ font-weight: bold;
   margin-bottom: 15px;
 }
 
-.dynamic-product-card img {
+.product-card img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: transform 0.3s ease;
 }
 
-.dynamic-product-card:hover img {
+.product-card:hover img {
   transform: scale(1.05);
 }
 
 /* Media Query for Smaller Screens: Adjust for mobile responsiveness */
 @media (max-width: 1024px) {
-  #dynamic-product-container {
+  #product-container {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 600px) {
-  #dynamic-product-container {
+  #product-container {
     grid-template-columns: 1fr;
   }
-}
-
-/* Base styling for side menu */
-.side-menu {
-  background-color: #444444;
-  width: fit-content;
-  left: 0;
-  position: relative; /* Or static */
-  margin-bottom: var(--footer-height);
-}
-
-/* Headings and Toggles */
-.side-menu-heading {  
-  display: block;
-  font-family: 'Roboto', sans-serif; /* Or your selected font */
-  font-weight: 700;
-  background-color: #cc5500;
-  color: white !important;
-  padding: 12px 20px;
-  text-transform: uppercase;
-  font-size: 1.1rem;
-  text-align: center;
-  letter-spacing: 1.5px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.side-menu-container {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-}
-
-.side-menu-toggle {
-  color: #cc5500;
-  font-size: 1.1rem;
-  font-weight: bold;
-  cursor: pointer;
-  padding: 12px 20px;
-  position: relative;
-  border: 1px solid #333;
-  border-radius: 5px; 
-  transition: background 0.3s ease, color 0.3s ease;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-/* Styling for the sublist */
-.side-menu-sublist {
-  list-style-type: none;
-  margin: 0;
-  display: none; /* Hidden by default */
-  position: absolute;
-  left: 0; /* Initially hide to the right */
-  top: 0;
-  background-color: #444; /* Matches the background */
-  width: 250px; /* Set the dropdown width */
-  z-index: 1;
-  width: max-content;
-  border: 1px solid #444;
-  border-radius: 5px;
-}
-
-.side-menu-sublist li {
-  padding: 12px 20px;  
-  font-weight: bold;
-  border: 1px solid #333;
-  border-radius: 5px; 
-  transition: background 0.3s ease, color 0.3s ease;
-  font-size: 1.1rem;
-  font-weight: bold;
-  margin-left: -40px;
-}
-
-/* Hover effect to show the dropdown */
-.side-menu-container:hover .side-menu-sublist {
-  display: block; /* Show on hover */
-  left: 100%; /* Position to the right */
-}
-
-/* Link styling */
-.side-menu-sublist li a {  
-  color: #cc5500;
-  text-decoration: none;
-}
-
-.side-menu-heading:hover {
-  background-color:#b34700
-  
-}
-
-.side-menu-toggle:hover, .side-menu-sublist li:hover{
-  background-color: #cc5500;
-  color: white;
-}
-
-.side-menu-sublist li:hover a {
-  color: white;
-}
-
-
-/* Add some space to the side menu */
-.side-menu > ul {
-  margin-bottom: 20px;
 }
 
 /* Product details container */
@@ -397,7 +342,6 @@ button {
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
-  font-family: Arial, sans-serif; /* Reverted to standard font */
 }
 
 #add-to-cart {
