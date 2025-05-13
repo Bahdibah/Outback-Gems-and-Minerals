@@ -1,6 +1,7 @@
 :root {
   --navbar-height: 70px;
 }
+
 body {
   
     background-color: #2e2e2e;
@@ -11,11 +12,19 @@ body {
     height: 100%;
 }
 
+header {
+width: 100%;
+ background-color: #1e1e1e;
+ display: flex;
+ align-items: center;
+ position: relative;
+ justify-content: space-between;
+}
+
 #page-wrapper {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  margin-top: 1%; /* Reduced from 2% to 1% */
   padding-top: var(--navbar-height); /* This adds space at the top for the fixed navbar */
 }
 
@@ -25,6 +34,74 @@ body {
   flex-direction: row;
   align-items: flex-start;
   width: 100%;
+  margin-bottom: 2%;
+}
+
+section {
+  padding: 60px 20px;
+}
+
+#home {
+  background: url('images/Natural Banner 1.jpg') no-repeat center center/cover;
+  color: #fff;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-image 1s ease-in-out;
+  Max-width: 100%;
+}
+
+.hero-overlay {
+  background-color: rgba(0, 0, 0, 0.7); 
+  padding: 30px 24px; 
+  border-radius: 15px;
+  display: flex; 
+  flex-direction: column; 
+  justify-content: center; 
+  align-content: center;
+  max-width: 51%; 
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.5); 
+  font-family: 'Georgia', serif; 
+  border: #cc5500 3px solid;
+  text-align: center;
+}
+.hero-overlay h2 {
+  font-size: 2rem; 
+  font-weight: bold;
+  margin-bottom: 15px;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7); 
+}
+
+.hero-overlay p {
+  font-size: 1.3rem; 
+  line-height: 1.6;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7); 
+}
+
+.banner-slider {
+  width: 100%;
+  overflow: hidden;
+  background-color: black;
+  display: flex;
+  align-items: center;
+  position: relative;
+  font-size: 1.5rem;
+}
+
+.banner {
+  display: flex;
+  width: max-content;
+  transition: transform 0.7s ease-in-out;
+  width: 100%;
+}
+
+.banner-item {
+  flex: 0 0 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 100%;
 }
 
 button, .button {
@@ -49,7 +126,6 @@ button, .button {
   text-decoration: none;
   color: #fff;
   font-weight: bold;
-  border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border stays */
 }
 
 button:hover, .button:hover {
@@ -69,11 +145,6 @@ margin-top: 40px; /* More space above */
 padding: 16px 40px;
 }
 
-
-section {
-    padding: 60px 20px;
-}
-
 header {
      width: 100%;
     background-color: #1e1e1e;
@@ -91,6 +162,7 @@ footer {
     flex-direction: row;
     gap: 5%;
     width: 100%;
+    margin-top: 1%;
 }
 
 footer >div{
