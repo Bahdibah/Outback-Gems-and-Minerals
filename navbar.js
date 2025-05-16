@@ -16,7 +16,6 @@ function fetchProductData() {
     .then(data => {
       cachedProducts = data;
       loading = false; // Set loading to false once data is loaded
-      console.log("Data loaded:", cachedProducts);
     })
     .catch(error => {
       loading = false; // Ensure loading is set to false even if there's an error
@@ -34,16 +33,28 @@ function debounceSearch() {
 function search() {
   const resultContainer = document.getElementById("results");
 
+  // Check if data is still loading
   if (loading) {
     resultContainer.innerHTML = "<p>Loading products...</p>"; // Show loading message
+
+    // Wait and retry the search once loading is complete
+    setTimeout(() => {
+      search(); // Retry the search
+    }, 100); // Retry every 100ms
+    return;
   }
 
+  // Proceed with the search once loading is complete
   const searchTerm = document.getElementById("search-input").value.toLowerCase();
-  if(searchTerm !="") {
-  const results = cachedProducts.filter(product =>
-    product["product name"].toLowerCase().includes(searchTerm)
-  );
-  displayResults(results);}
+  if (searchTerm !== "") {
+    const results = cachedProducts.filter(product =>
+      product["product name"].toLowerCase().includes(searchTerm)
+    );
+
+    displayResults(results);
+  } else {
+    resultContainer.innerHTML = "<p>Type in the search bar to find products.</p>";
+  }
 }
 
 function displayResults(results) {
