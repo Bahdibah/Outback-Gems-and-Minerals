@@ -120,26 +120,55 @@
     position: relative;
   }
 
-  .search-results {
+ .search-results {
+  position: absolute; /* Position the results container relative to the input */
   display: flex;
   flex-direction: column;
-  background: white;
-  border: 1px solid #ccc;
+  top: 100%; /* Place it directly below the input */
+  width: 100%; /* Match the width of the parent container (search input) */
+  background: #444;
   list-style: none;
-  margin-top: 55%;
-  width: 170px;
-  z-index: 1000;
-  height: 50px;
+  margin: 0; /* Remove default margin */
+  padding: 0; /* Remove default padding */
+  z-index: 1000; /* Ensure it appears above other elements */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+  gap: 0;
+}
+
+.search-results-container {
+  transition: opacity 0.3s ease, visibility 0.3s ease; /* Smooth transition for hiding and showing */
+  opacity: 1;
+  visibility: visible;
+}
+
+.search-results-container.hidden {
+  opacity: 0 !important;
+  visibility: hidden;
+  pointer-events: none; /* Prevent interaction when hidden */
 }
 
 .search-results li {
   padding: 10px;
   cursor: pointer;
   background: #f0f0f0;
+  display: flex;
+  align-items: center;
+  width: 100%; /* Match the width of the parent container */
+  box-sizing: border-box; /* Include padding in the width calculation */
+  background-color: #444;
+  border-bottom:#cc5500 1px solid;
 }
 
 .search-results li:hover {
   background: #cc5500;
+  color: white; /* Change text color on hover */
+}
+
+.search-results img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  margin-right: 10px;
 }
   
   /* Style for dropdown menu alignment */
