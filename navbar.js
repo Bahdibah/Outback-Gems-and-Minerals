@@ -1,9 +1,11 @@
 let cachedProducts = [];
 let debounceTimeout;
+let loading = true; // Track whether data is still loading
 
 // Debugging: Ensure the script is loaded
 
 function fetchProductData() {
+  loading = true; // Set loading to true while fetching data
   return fetch("https://script.googleusercontent.com/macros/echo?user_content_key=AehSKLjckrSmV4Q396r2J5437VHynXSLyUYow6iqkCoXEY7HrOg2cr_voo08MQL6qcMM04pBDpWPA1kgKDaTRUEOJBZ48B-SMN75SrRx86Pow9494AvOa4RBDe-WLCDnlG85PhU5LDk8GvqfMbrbDHzmS9kAs0tPivdOdAxqxdhgCnvUxPy8IKXdl6i92dL9O3GKWDjsSqKlqqa9bKbFxAnZn8oVEil2fg5qGD_Izy_rtBqgkVDTQpttRxrY86FnFn8373jngn3hJLR3QkHgvIWAzf2wa9cjBsGiOi70hv-IAu87d_WCywlb4vX0d2RHsA&lib=MreWV8qvFAXZ2-rISPaQS69qZewlWwj59")
     .then(response => {
       if (!response.ok) {
@@ -13,8 +15,12 @@ function fetchProductData() {
     })
     .then(data => {
       cachedProducts = data;
+      loading = false; // Set loading to false once data is loaded
+      console.log("Data loaded:", cachedProducts);
     })
     .catch(error => {
+      loading = false; // Ensure loading is set to false even if there's an error
+      console.error("Error fetching product data:", error);
     });
 }
 
@@ -26,6 +32,12 @@ function debounceSearch() {
 }
 
 function search() {
+  const resultContainer = document.getElementById("results");
+
+  if (loading) {
+    resultContainer.innerHTML = "<p>Loading products...</p>"; // Show loading message
+  }
+
   const searchTerm = document.getElementById("search-input").value.toLowerCase();
   if(searchTerm !="") {
   const results = cachedProducts.filter(product =>
@@ -37,7 +49,6 @@ function search() {
 function displayResults(results) {
   const resultContainer = document.getElementById("results");
   resultContainer.innerHTML = "";
-
 
   if (results.length === 0) {
     resultContainer.innerHTML = "<p>No products found.</p>";
