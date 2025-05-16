@@ -72,7 +72,6 @@
     display: flex;
     flex-direction: column;
     right: 10%;
-    border: red 1px solid;
     align-items: center;
     background-color: transparent;  /* Make the background transparent */
     border-radius: 5px;  /* Keep the rounded corners */
