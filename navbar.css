@@ -69,13 +69,14 @@
   
   .nav-search {
     position: absolute;
-    right: 10%;
     display: flex;
+    flex-direction: column;
+    right: 10%;
+    border: red 1px solid;
     align-items: center;
-    gap: 5px;
     background-color: transparent;  /* Make the background transparent */
     border-radius: 5px;  /* Keep the rounded corners */
-    padding: 5px 10px;  /* Add some spacing inside */
+    margin-left: 2%;
   }
   
   .nav-search input {
@@ -106,6 +107,7 @@
     color: #fff;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); /* Subtle shadow for the button */
+    width: 50px;
   }
   
   .nav-search button:hover {
@@ -119,25 +121,25 @@
   }
 
   .search-results {
-  position: absolute;
-  top: 100%;
-  left: 0;
+  display: flex;
+  flex-direction: column;
   background: white;
   border: 1px solid #ccc;
   list-style: none;
-  padding: 0;
-  margin: 0;
-  width: 100%;
+  margin-top: 55%;
+  width: 170px;
   z-index: 1000;
+  height: 50px;
 }
 
 .search-results li {
   padding: 10px;
   cursor: pointer;
+  background: #f0f0f0;
 }
 
 .search-results li:hover {
-  background: #f0f0f0;
+  background: #cc5500;
 }
   
   /* Style for dropdown menu alignment */

@@ -38,10 +38,15 @@
   </ul>
 
   <div class="nav-search">
-    <input id="search-input" type="text" placeholder="Search..."/>
-    <button><i class="fa fa-search" aria-hidden="true" onclick="search()"></i></button>
+    <div class="search-sub-container">
+      <input id="search-input" type="text" placeholder="Search..."/>
+      <button><i class="fa fa-search" aria-hidden="true" onclick="search()"></i></button>
+    </div>
+    <div class="search-results-container">
+      <ul id="results" class="search-results"></ul>
+    </div>
   </div>
-  <ul id="results" class="search-results"></ul>
+  
 
   <div class="options">
     <ul>
@@ -72,8 +77,6 @@
     </ul>
   </div>
 </nav>
-
-<script src="navbar.js"></script>
 
 <script>
   // Function to update the cart count in the navbar
