@@ -25,6 +25,8 @@ body {
   flex-direction: row;
   align-items: flex-start;
   width: 100%;
+    margin: 0 !important;
+  padding: 0 !important;
 }
 
 button, .button {
@@ -64,13 +66,16 @@ section {
     padding: 60px 20px;
 }
 
+/* Header container */
 header {
-     width: 100%;
-    background-color: #1e1e1e;
-    display: flex;
-    align-items: center;
-    position: relative;
-    justify-content: space-between;
+  width: 100%;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+  display: flex;
+  align-items: center;
+  position: relative;
+  justify-content: space-between;
 }
 
 /* Footer Styling */
@@ -120,35 +125,53 @@ footer >div{
   flex-wrap: wrap; /* Enables wrapping into new rows */
   gap: 3%; /* Same spacing as before */
   padding: 20px;
-  width: 70%;
-  margin: 0 3% 3% auto;
+  width: 100% !important;
+  margin: 0 !important;
   box-sizing: border-box;
   align-items: flex-start;
   height: fit-content;
   min-height: 150vh;
   justify-content: center; /* Center the cards horizontally */
-  background-color: #333; /* Match "What's New" background */
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6), 0 4px 6px rgba(0, 0, 0, 0.4); /* Match the shadow */
-  border-radius: 15px;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  border: none !important;
+  padding-left: 48px;   /* Larger gap left */
+  padding-right: 48px;  /* Larger gap right */
 }
 
 .dynamic-product-header-container {
-  flex: 0 0 100%;
-  margin-bottom: 20px;
+  width: 100%;
+  margin-bottom: 32px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  display: block;
 }
 
 .dynamic-product-header-title {
-width: 80%;
-margin: 40px auto 40px auto;
-padding: 15px;
-background-color: #444;
-border-radius: 10px;
-text-align: center;
-box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.6);
-border: none;
-outline: none;
-box-sizing: border-box;
-font-weight: bold;
+  width: 100%;
+  margin: 0;
+  padding: 30px 0;
+  text-align: center;
+  font-size: 2.2rem;      /* Match header font size */
+  font-family: inherit;    /* Use the same font as the rest of the site */
+  font-weight: bold;
+  letter-spacing: 1.5px;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  color: #cc5500;          /* Match your theme color */
+}
+
+/* Divider styling for product headers */
+.product-header-divider {
+  border: none;
+  border-top: 2px solid #cc5500; /* Use your accent color */
+  margin: 0 auto 24px auto;
+  width: 90%; /* Or 100% if you want it edge-to-edge */
+  opacity: 0.8;
 }
 
 /* Dynamic Product Card Styling */
@@ -159,10 +182,10 @@ font-weight: bold;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
   text-align: center;
   border: 3px solid #cc5500;
-  flex: 1 1 30%; /* Flex-grow and flex-basis for responsive design */
-  max-width: 30%;
+  flex: 1 1 28%;
+  max-width: 28%;
   box-sizing: border-box;
-  margin: 1.5% 0 1.5% 0;
+  margin-bottom: 32px;
 }
 
 /* Image Styling */
@@ -615,4 +638,13 @@ button {
   display: block; /* Ensure proper centering */
   border-radius: 10px; /* Optional: Add rounded corners */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: Add a shadow for emphasis */
+}
+
+.dynamic-product-cards {
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3%;
+  justify-content: center;
 }

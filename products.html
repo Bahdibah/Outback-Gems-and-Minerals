@@ -118,6 +118,7 @@
       <div id="dynamic-product-container" class="product-container">
         <div class="dynamic-product-header-container">
           <div class="dynamic-product-header-title">Product Header</div>
+          <hr class="product-header-divider" />
         </div>
         <!-- Product cards will be dynamically inserted here -->
       </div>
@@ -329,22 +330,35 @@
 
       // Function to display products
       function displayProducts(products, headerTitle, keyword, data) {
-        // Clear the product container and reattach the product header
+        // Clear the product container
         productContainer.innerHTML = "";
-        productContainer.appendChild(productHeader);
-      
-        // Update the product header title
-        const productHeaderTitle = document.querySelector(".dynamic-product-header-title");
-        productHeaderTitle.textContent = headerTitle;
-      
+
+        // Create the header container
+        const headerContainer = document.createElement("div");
+        headerContainer.className = "dynamic-product-header-container";
+
+        // Create the header title
+        const headerTitleDiv = document.createElement("div");
+        headerTitleDiv.className = "dynamic-product-header-title";
+        headerTitleDiv.textContent = headerTitle;
+
+        // Create the divider
+        const divider = document.createElement("hr");
+        divider.className = "product-header-divider";
+
+        // Assemble and append the header
+        headerContainer.appendChild(headerTitleDiv);
+        headerContainer.appendChild(divider);
+        productContainer.appendChild(headerContainer);
+
         // Display products
         if (products.length > 0) {
           const displayedProducts = []; // Track displayed products
-      
+    
           products.forEach(product => {
             const productCard = document.createElement("div");
             productCard.classList.add("dynamic-product-card");
-      
+    
             // Image
             const imageContainer = document.createElement("div");
             imageContainer.classList.add("image-container");
@@ -352,19 +366,19 @@
             img.src = product["image url"];
             img.alt = product["product name"] || "Product Image";
             imageContainer.appendChild(img);
-      
+    
             // Product name
             const productName = document.createElement("h3");
             productName.textContent = product["product name"];
-      
+    
             // Description
             const productDescription = document.createElement("p");
             productDescription.textContent = product.description;
-      
+    
             // Price per unit and unit (same line)
             const priceLine = document.createElement("p");
             priceLine.textContent = `$${product["price per unit"]} per ${product.unit}`;
-      
+    
             // Button with link to view-product.html?productname=XYZ
             const productButton = document.createElement("button");
             productButton.classList.add("dynamic-product-button");
@@ -372,20 +386,20 @@
             productButton.onclick = () => {
               window.location.href = `view-product.html?productid=${encodeURIComponent(product["product id"])}`;
             };
-      
+    
             // Assemble card
             productCard.appendChild(imageContainer);
             productCard.appendChild(productName);
             productCard.appendChild(productDescription);
             productCard.appendChild(priceLine);
             productCard.appendChild(productButton);
-      
+    
             productContainer.appendChild(productCard);
-      
+    
             // Add the product to the displayedProducts array
             displayedProducts.push(product);
           });
-      
+    
           // If fewer than 4 products are displayed, suggest additional products
           if (products.length < 4) {
             suggestAdditionalProducts(keyword, displayedProducts, data);
@@ -420,11 +434,20 @@
         const suggestionContainer = document.createElement("div");
         suggestionContainer.classList.add("suggestion-container");
 
-        // Add suggestion header
+        // Add suggestion header container with divider
+        const suggestionHeaderContainer = document.createElement("div");
+        suggestionHeaderContainer.className = "dynamic-product-header-container";
+
         const suggestionHeader = document.createElement("div");
-        suggestionHeader.classList.add("dynamic-product-header-title");
+        suggestionHeader.className = "dynamic-product-header-title";
         suggestionHeader.textContent = "You May Also Like";
-        suggestionContainer.appendChild(suggestionHeader);
+
+        const suggestionDivider = document.createElement("hr");
+        suggestionDivider.className = "product-header-divider";
+
+        suggestionHeaderContainer.appendChild(suggestionHeader);
+        suggestionHeaderContainer.appendChild(suggestionDivider);
+        suggestionContainer.appendChild(suggestionHeaderContainer);
 
         // Check if there are suggestions
         if (shuffledSuggestions.length > 0) {
