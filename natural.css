@@ -285,6 +285,9 @@ font-size: 4.5rem;
   width: 100%;
   object-fit: cover; /* Ensures image scales and covers the area */
   transition: transform 0.3s ease;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
 }
 
 /* Product Name Styling */

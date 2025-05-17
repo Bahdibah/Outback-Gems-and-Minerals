@@ -282,6 +282,9 @@ font-size: 4.5rem;
   border: 3px solid #cc5500;
   box-sizing: border-box;
   justify-items: center;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
 }
 
 /* Product Name Styling */
