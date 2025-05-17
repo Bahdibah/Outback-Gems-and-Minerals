@@ -297,22 +297,19 @@ margin-bottom: 5px;
   gap: 20px;
 }
 
-.content-wrapper {
+.bestsellers-container {
   margin: 0 auto;
   width: 100%;
 }
 
-/* Styling the "What's New" Section Main Container*/
 .whats-new-carousel { 
   margin: 65px 0 0 10%;
-
   width: 80%;
   padding: 20px 0;
   text-align: center;
   border-radius: 15px;
 }
 
-/* New header box styling */
 .whats-new-header-box {
   width: 80%; 
   margin: 20px auto 20px auto;
@@ -320,7 +317,7 @@ margin-bottom: 5px;
   border-radius: 10px;
   text-align: center;
   outline: none;
-  box-sizing: border-box; /* Ensure padding and border are included in width */
+  box-sizing: border-box; 
 }
 
 
@@ -774,4 +771,71 @@ button {
   display: block; /* Ensure proper centering */
   border-radius: 10px; /* Optional: Add rounded corners */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: Add a shadow for emphasis */
+}
+
+.bestseller-product-cards {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3%; /* Space between cards */
+  justify-content: flex-start; /* Align cards to the left, not center */
+  box-sizing: border-box;
+}
+
+.bestseller-product-card {
+  flex: 1 1 31.333%;   /* 3 cards per row, 2 gaps of 3% each: 31.333% * 3 + 6% = 100% */
+  max-width: 31.333%;
+  background-color: #444;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  border: 3px solid #cc5500;
+  box-sizing: border-box;
+  margin-bottom: 32px;
+}
+
+.bestseller-product-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  margin-bottom: 12px;
+}
+
+.bestseller-product-card h3 {
+  font-size: 1.2rem;
+  color: #cc5500;
+  margin-bottom: 8px;
+}
+
+.bestseller-product-card p {
+  font-size: 1.1rem;
+  color: #bfbfbfd2;
+  margin: 8px 0;
+}
+
+.bestseller-product-card .price {
+  font-weight: bold;
+  color: #ffd580;
+  font-size: 1.2rem;
+}
+
+.bestseller-product-button {
+  background-color: #cc5500;
+  color: #fff;
+  font-weight: bold;
+  border: none;
+  padding: 12px 28px;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+
+.bestseller-product-button:hover {
+  background-color: #ff7f33;
+  transform: scale(1.04) translateY(-1px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.35), 0 0 8px rgba(255, 127, 51, 0.5);
 }
