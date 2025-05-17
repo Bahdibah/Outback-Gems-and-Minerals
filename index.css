@@ -303,23 +303,12 @@ margin-bottom: 5px;
 }
 
 .whats-new-carousel { 
-  margin: 65px 0 0 10%;
-  width: 80%;
+  width: 80%; /* or 100% if you want full width */
+  margin: 65px auto 0 auto;
   padding: 20px 0;
   text-align: center;
   border-radius: 15px;
 }
-
-.whats-new-header-box {
-  width: 80%; 
-  margin: 20px auto 20px auto;
-  padding: 15px;
-  border-radius: 10px;
-  text-align: center;
-  outline: none;
-  box-sizing: border-box; 
-}
-
 
 .product-details {
   margin: 12px 0;
@@ -339,20 +328,6 @@ margin-bottom: 5px;
 .weight {
   font-size: 0.8rem;
   color: #999;
-}
-
-.new-product-grid {
-    overflow: hidden;
-    width: 100%;
-    max-width: 1200px;
-    margin: auto;
-}
-
-.carousel-track {
-  display: flex;
-  transition: transform 0.5s ease-in-out;
-  width: fit-content;
-  gap: 1%;
 }
 
 /* Product Card Styling */
@@ -788,12 +763,24 @@ button {
   max-width: 31.333%;
   background-color: #444;
   border-radius: 10px;
-  padding: 20px;
+  padding: 16px;           /* was 20px */
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
   text-align: center;
   border: 3px solid #cc5500;
   box-sizing: border-box;
-  margin-bottom: 32px;
+  margin-bottom: 24px;     /* was 32px */
+  min-height: 420px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.bestseller-product-card .image-container {
+  width: 100%;
+  height: 250px;
+  overflow: hidden;
+  border-radius: 10px;
+  margin-bottom: 15px;
 }
 
 .bestseller-product-card img {
@@ -804,21 +791,14 @@ button {
 }
 
 .bestseller-product-card h3 {
-  font-size: 1.2rem;
+  font-size: 1rem;         /* was 1.2rem */
   color: #cc5500;
   margin-bottom: 8px;
 }
 
-.bestseller-product-card p {
-  font-size: 1.1rem;
-  color: #bfbfbfd2;
-  margin: 8px 0;
-}
-
+.bestseller-product-card p,
 .bestseller-product-card .price {
-  font-weight: bold;
-  color: #ffd580;
-  font-size: 1.2rem;
+  font-size: 1rem;         /* was 1.1rem/1.2rem */
 }
 
 .bestseller-product-button {
@@ -839,3 +819,71 @@ button {
   transform: scale(1.04) translateY(-1px);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.35), 0 0 8px rgba(255, 127, 51, 0.5);
 }
+
+/* New Styles for What's New Section */
+.whatsnew-product-card {
+  background-color: #444;
+  border-radius: 10px;
+  padding: 16px;           /* was 20px */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  border: 3px solid #cc5500;
+  box-sizing: border-box;
+  margin: 0; /* Ensure no extra margin */
+  min-height: 420px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.whatsnew-product-card .image-container {
+  width: 100%;
+  height: 250px;
+  overflow: hidden;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+.whatsnew-product-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 12px;
+}
+
+.whatsnew-product-card h3 {
+  font-size: 1rem;         /* was 1.2rem */
+  color: #cc5500;
+  margin-bottom: 8px;
+}
+
+.whatsnew-product-card p,
+.whatsnew-product-card .price {
+  font-size: 1rem;         /* was 1.1rem/1.2rem */
+}
+
+.whatsnew-product-button {
+  background-color: #cc5500;
+  color: #fff;
+  font-weight: bold;
+  border: none;
+  padding: 12px 28px;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+
+.whatsnew-product-button:hover {
+  background-color: #ff7f33;
+  transform: scale(1.04) translateY(-1px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.35), 0 0 8px rgba(255, 127, 51, 0.5);
+}
+
+/* Hide Swiper pagination */
+.whats-new-swiper .swiper-pagination {
+  display: none !important;
+}
+
