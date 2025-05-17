@@ -281,11 +281,15 @@ font-size: 4.5rem;
   text-align: center;
   border: 3px solid #cc5500;
   box-sizing: border-box;
-  justify-items: center;
+  justify-items: center;  
+  width: 100%;
+  object-fit: cover; /* Ensures image scales and covers the area */
+  transition: transform 0.3s ease;
 }
 
 /* Product Name Styling */
 .product-card h3 { 
+  font-size: 1.5rem;
   background-color: rgba(0, 0, 0, 0.6); 
   padding: 10px 24px; 
   border-radius: 15px;
@@ -293,7 +297,7 @@ font-size: 4.5rem;
   flex-direction: column; 
   justify-content: center; 
   align-content: center;
-  max-width: 51%; 
+  width: 80%; 
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.6); 
   font-family: 'Georgia', serif; 
   border: #cc5500 1px solid;
@@ -309,10 +313,16 @@ font-size: 4.5rem;
   flex-direction: column; 
   justify-content: center; 
   align-content: center;
+  height: 100px;
   max-width: 51%; 
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.6); 
   font-family: 'Georgia', serif; 
   text-align: center;
+}
+
+.product-button {
+  width: 100%;
+  margin-bottom: 0%;
 }
 
 /* Price Line Styling */
@@ -329,12 +339,6 @@ font-size: 4.5rem;
   overflow: hidden;
   border-radius: 10px;
   margin-bottom: 15px;
-}
-
-.product-card {
-  width: 100%;
-  object-fit: cover; /* Ensures image scales and covers the area */
-  transition: transform 0.3s ease;
 }
 
 .product-card:hover {
@@ -422,8 +426,8 @@ button {
 }
 
 .view-all-button {
-  width: 10%;
-  margin-left: 45%;
+  width: 15%;
+  margin-left: 42.5%;
   height: 2%;
 }
 
