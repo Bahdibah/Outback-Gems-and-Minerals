@@ -249,6 +249,7 @@ outline: none;
 box-sizing: border-box;
 font-weight: bold;
 text-shadow: #444;
+font-size: 4.5rem;
 }
 
 .product-divider {
@@ -418,6 +419,12 @@ button {
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.view-all-button {
+  width: 10%;
+  margin-left: 45%;
+  height: 2%;
 }
 
 #add-to-cart {
