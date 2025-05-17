@@ -311,6 +311,7 @@ font-size: 4.5rem;
   justify-content: center; 
   align-content: center;
   max-width: 51%; 
+  height: 100px;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.6); 
   font-family: 'Georgia', serif; 
   text-align: center;
