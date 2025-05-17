@@ -165,14 +165,14 @@ footer >div{
   padding: 0 35px;
   text-align: center;
   width: 80%;
-  margin: 5% auto 0 auto; /* Center the container */
+  margin: 0 auto; /* Center the container */
   color: #bfbfbfd2; /* Body text color */
 }
 
 .faq-container h3 {
-  color: #cc5500;
-font-size: 4rem;
-margin: 2% 2% 2% 2%;
+color: #cc5500;
+font-size: 4.5rem;
+margin: 0 2% 2% 2%;
 }
 
 .faq-container h2 {
