@@ -17,6 +17,13 @@
 
   <header id="navbar-container"></header>
 
+    <section id="home">
+    <div class="hero-overlay">
+      <h2>Contact Us</h2>
+      <p>Have some questions? Need some advice? Fancy a friendly chat? Take a gander over our frequently asked questions to find your heart's desire, or contact us on the below form for a more personalised experience</p>
+    </div>
+  </section>
+
 <section id="faq">
   <div class="faq-container">
     <h3>Frequently Asked Questions</h3>
@@ -44,6 +51,8 @@
     <h4>Need more help or want to speak to us? Fill out the contact form below!</h4>
   </div>
 </section>
+
+<div class="divider"></div>
 
 <section id="contact">
   <div class="contact-container">
@@ -80,6 +89,47 @@
 </footer>
 
 <script src="navbar.js"></script>
+
+ <script>
+  // Background image rotation
+  const images = ["images/Contact Banner 1.jpeg", "images/Contact Banner 2.jpeg", "images/Contact Banner 3.jpeg", "images/Contact Banner 4.jpeg"];
+    let current = 0;
+
+    setInterval(() => {
+      current = (current + 1) % images.length;
+      document.getElementById("home").style.backgroundImage = `url('${images[current]}')`;
+    }, 15000); // Change image every 15 seconds
+
+    // #region banner carousel script
+    const itemTrack = document.querySelector('.banner');
+    const items = document.querySelectorAll('.banner-item');
+    const visibleMessages = 1;
+    let itemIndex = 0;
+  
+    // Clone first item(s) and append to end only if there are enough items
+    if (items.length > visibleMessages) {
+      for (let i = 0; i < visibleMessages; i++) {
+        const clone = items[i].cloneNode(true);
+        itemTrack.appendChild(clone);
+      }
+    }
+  
+    const totalItems = document.querySelectorAll('.banner-item').length;
+    setInterval(() => {
+      itemIndex++;
+      itemTrack.style.transition = 'transform 0.7s ease-in-out';
+      itemTrack.style.transform = `translateX(-${itemIndex * 100}%)`;
+  
+      if (itemIndex === totalItems - visibleMessages) {
+        setTimeout(() => {
+          itemTrack.style.transition = 'none';
+          itemTrack.style.transform = `translateX(0%)`;
+          itemIndex = 0;
+        }, 700); // Match the transition duration
+      }
+    }, 5000);
+    // #endregion
+ </script>   
 
 <script>
   function updateCartCount() {

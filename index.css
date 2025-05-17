@@ -242,8 +242,15 @@ margin-bottom: 5px;
 .divider {
   height: 1px;
   background-color: #cc5500;
+  width: 100%;
+  margin: 40px 0% 60px 0%;
+}
+
+.newsletter-divider {
+  height: 1px;
+  background-color: #cc5500;
   width: 80%;
-  margin: 40px 5% 60px 5%;
+  margin: 80px auto 0 auto;
 }
 
 /* Bestselling Section */
@@ -267,21 +274,21 @@ margin-bottom: 5px;
 
 /* Styling the Bestselling Items Header */
 .bestselling-header, .dynamic-product-header-title {
-  font-size: 1.8rem; /* 20% larger font size */
+  font-size: 4rem; /* 20% larger font size */
   color: #cc5500;
   margin: 0;
   text-transform: uppercase;
   letter-spacing: 1px;
 }
 
-/* Styling the H2 (Bestselling Items) */
-#bestsellers h2 {
-  font-size: 1.8rem;
+.whats-new-header {
+  font-size: 4rem; /* 20% larger font size */
   color: #cc5500;
   margin: 0;
-  border: none;
-  outline: none;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
+
 
 .product-grid {
   display: flex;
@@ -297,7 +304,8 @@ margin-bottom: 5px;
 
 /* Styling the "What's New" Section Main Container*/
 .whats-new-carousel { 
-  margin-left: 10%;
+  margin: 65px 0 0 10%;
+
   width: 80%;
   padding: 20px 0;
   text-align: center;
@@ -315,15 +323,6 @@ margin-bottom: 5px;
   box-sizing: border-box; /* Ensure padding and border are included in width */
 }
 
-/* New header text styling */
-.whats-new-header {
-  font-size: 2rem; /* Customize font size */
-  color: #fff; /* Adjust text color */
-  margin: 0;
-  padding: 0;
-  font-weight: bold; /* Optional styling */
-  text-transform: uppercase; /* Optional styling */
-}
 
 .product-details {
   margin: 12px 0;
@@ -522,14 +521,17 @@ form textarea {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   flex-wrap: wrap; 
-  width: 100%;  
+  width: 80%;  
+  margin: auto;
 }
 
 .newsletter-container h2 {
-  color: #cc5500; /* Header color */
-  margin-top: 0;
-  font-size: 2.5rem;
+  font-size: 3rem; /* 20% larger font size */
+  color: #cc5500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .newsletter-container p {
