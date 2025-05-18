@@ -24,6 +24,7 @@ body {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
+  gap: 8px; /* space between menu and products */
   width: 100%;
     margin: 0 !important;
   padding: 0 !important;
@@ -136,8 +137,8 @@ footer >div{
   box-shadow: none !important;
   border-radius: 0 !important;
   border: none !important;
-  padding-left: 48px;   /* Larger gap left */
-  padding-right: 48px;  /* Larger gap right */
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .dynamic-product-header-container {
@@ -284,11 +285,16 @@ footer >div{
 
 /* Base styling for side menu */
 .side-menu {
-  background-color: #444444;
-  width: fit-content;
+  width: 340px;         /* Wider menu */
+  min-width: 280px;
+  max-width: 400px;
   left: 0;
-  position: relative; /* Or static */
-  margin-bottom: var(--footer-height);
+  position: sticky;
+  top: var(--navbar-height, 70px); /* Adjust if your navbar is a different height */
+  align-self: flex-start;
+  height: fit-content;
+  z-index: 10;
+  background: none !important;
 }
 
 /* Headings and Toggles */
@@ -647,4 +653,132 @@ button {
   flex-wrap: wrap;
   gap: 3%;
   justify-content: center;
+}
+
+/* Category Card Styling */
+.category-card {
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  border-radius: 12px;
+  margin-bottom: 18px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+  transition: box-shadow 0.2s, min-height 0.3s;
+  min-height: 120px;
+  display: flex;
+  flex-direction: column;
+}
+
+.category-overlay {
+  background: rgba(34,34,34,0.7);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex: 1 1 auto;
+  width: 100%;
+  padding: 18px 24px;
+  border-radius: 0;      /* Remove or set to 0 */
+  box-sizing: border-box;
+}
+
+.category-title {
+  font-size: 1.5rem; /* Increased from 1.1rem */
+  font-family: 'Roboto', Arial, sans-serif;
+  color: #cc5500;
+  font-weight: bold;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  transition: color 0.2s;
+}
+
+.category-expand {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.2rem;
+  cursor: pointer;
+  margin-left: 12px;
+}
+
+.subcategory-list {
+  max-height: 0;
+  overflow: hidden;
+  background: rgba(34,34,34,0.85);
+  margin: 0;
+  padding: 0 16px;
+  list-style: none;
+  border-radius: 0 0 8px 8px;
+  position: relative;
+  z-index: 2;
+  transition: max-height 0.3s cubic-bezier(.4,0,.2,1), padding 0.3s;
+}
+
+.category-card.open .subcategory-list {
+  padding: 10px 16px;
+  max-height: 300px; /* Enough to show all subcategories */
+}
+
+.subcategory-list li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1rem;
+  display: block;
+  padding: 4px 0;
+  transition: color 0.2s;
+}
+
+.subcategory-list li a:hover {
+  color: #fff;
+  background: #cc5500;
+  border-radius: 4px;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.category-menu-title {
+  font-family: inherit;         /* Match right container */
+  font-size: 2.2rem;            /* Match .dynamic-product-header-title */
+  font-weight: bold;
+  letter-spacing: 1.5px;
+  color: #cc5500;
+  text-align: center;
+  margin: 0 0 32px 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 30px 0 0 0;
+}
+
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin: 24px 0;
+}
+
+.pagination-controls button {
+  background: #cc5500;
+  color: #fff;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.pagination-controls button:hover {
+  background: #ff7f33;
+}
+
+.ghost-card {
+  visibility: hidden !important;
+  pointer-events: none !important;
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
 }

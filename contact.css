@@ -184,7 +184,7 @@ margin: 0 2% 2% 2%;
   text-align: center;
   font-size: 2.75rem;
   margin: 10% auto 2%  -5%; /*margin& 110% width to centre but allow for all text on 1 line*/
-  width: 110%;
+  width: 100%;
 }
 
 .faq-grid {
@@ -223,8 +223,6 @@ margin: 0 2% 2% 2%;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3); /* Larger shadow on hover for depth */
   filter: blur(0px) brightness(1.1) drop-shadow(0 0 8px #ffa94d); /* Soft glow effect */
 }
-
-
 
 .divider {
   height: 1px;
