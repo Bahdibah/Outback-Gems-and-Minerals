@@ -19,7 +19,6 @@
 
     <div class="page-layout">
       <div class="side-menu">
-        <h3 class="category-menu-title">Categories</h3>
 
         <!-- Lab-Grown Rough -->
         <div class="category-card" style="background-image: url('images/Synthetic Banner 1.jpg');">
@@ -67,6 +66,15 @@
             <li><a href="#" class="side-menu-toggle" data-category="fluorescent-minerals">Fluorescent Minerals</a></li>
             <li><a href="#" class="side-menu-toggle" data-category="mystery-boxes">Mystery Boxes</a></li>
           </ul>
+        </div>
+
+        <!-- All Items (styled like other category cards, no accordion, links to all products) -->
+        <div class="category-card" id="all-items-card" style="background-image: url('images/Contact\ Banner\ 2.jpeg');">
+          <div class="category-overlay">
+            <span class="category-title side-menu-toggle" data-category="">All Items</span>
+            <!-- No expand button -->
+          </div>
+          <!-- No subcategory-list -->
         </div>
       </div>
 
@@ -370,13 +378,23 @@
 
           // Add ghost cards to maintain grid layout
           const productsShown = productsToShow.length;
-          const remainder = productsShown % 3;
-          const ghostCardsNeeded = remainder === 0 ? 0 : 3 - remainder;
 
-          for (let i = 0; i < ghostCardsNeeded; i++) {
-            const ghostCard = document.createElement("div");
-            ghostCard.className = "dynamic-product-card ghost-card";
-            productContainer.appendChild(ghostCard);
+          // Always show one row (3 cards) if less than 4 products on this page
+          if (productsToShow.length < 4) {
+            const ghostCardsNeeded = 3 - productsToShow.length;
+            for (let i = 0; i < ghostCardsNeeded; i++) {
+              const ghostCard = document.createElement("div");
+              ghostCard.className = "dynamic-product-card ghost-card";
+              productContainer.appendChild(ghostCard);
+            }
+          } else {
+            // Two rows: fill up to 6 cards
+            const ghostCardsNeeded = 6 - productsShown;
+            for (let i = 0; i < ghostCardsNeeded; i++) {
+              const ghostCard = document.createElement("div");
+              ghostCard.className = "dynamic-product-card ghost-card";
+              productContainer.appendChild(ghostCard);
+            }
           }
 
           // Show "You May Also Like" if fewer than 4 products in this category
@@ -395,14 +413,20 @@
           if (page > 1) {
             const prevBtn = document.createElement("button");
             prevBtn.textContent = "Previous";
-            prevBtn.onclick = () => displayProducts(currentProducts, headerTitle, keyword, data, page - 1);
+            prevBtn.onclick = () => {
+              displayProducts(currentProducts, headerTitle, keyword, data, page - 1);
+              document.getElementById('dynamic-product-container').scrollIntoView({ behavior: 'smooth' });
+            };
             pagination.appendChild(prevBtn);
           }
           pagination.appendChild(document.createTextNode(` Page ${page} of ${totalPages} `));
           if (page < totalPages) {
             const nextBtn = document.createElement("button");
             nextBtn.textContent = "Next";
-            nextBtn.onclick = () => displayProducts(currentProducts, headerTitle, keyword, data, page + 1);
+            nextBtn.onclick = () => {
+              displayProducts(currentProducts, headerTitle, keyword, data, page + 1);
+              document.getElementById('dynamic-product-container').scrollIntoView({ behavior: 'smooth' });
+            };
             pagination.appendChild(nextBtn);
           }
           productContainer.appendChild(pagination);
