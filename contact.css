@@ -183,7 +183,7 @@ margin: 0 2% 2% 2%;
   color: #cc5500;
   text-align: center;
   font-size: 2.75rem;
-  margin: 10% auto 2%  -5%; /*margin& 110% width to centre but allow for all text on 1 line*/
+  margin: 10% auto 2%  auto; /*margin& 110% width to centre but allow for all text on 1 line*/
   width: 100%;
 }
 
