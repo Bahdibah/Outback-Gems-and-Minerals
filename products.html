@@ -282,7 +282,7 @@
               }
 
               // Display filtered products
-              const headerTitle = formatCategoryHeader(keyword);
+              const headerTitle = keyword ? formatCategoryHeader(keyword) : "All Products";
               displayProducts(filteredProducts, headerTitle, keyword, data);
             } else {
               productContainer.innerHTML = "<p>No products found.</p>";
