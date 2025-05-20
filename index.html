@@ -20,6 +20,7 @@
 <body>
 
   <header id="navbar-container"></header>
+  <script src="navbar.js"></script>
 
   <section id="home">
     <div class="hero-overlay">
@@ -146,7 +147,7 @@
     </div>
   </footer>
 
-  <script src="navbar.js"></script>
+  
   
   <script>
   // Background image rotation
@@ -238,115 +239,6 @@
     emailInput.value = ''; // Clear the input field
   });
   
-    // Dynamically load the shared navbar
-    document.addEventListener('DOMContentLoaded', () => {
-      fetch('navbar.html') // Ensure the file path is correct
-        .then(response => {
-          if (!response.ok) {
-            throw new Error(`Failed to load navbar. Status: ${response.status}`);
-          }
-          return response.text();
-        })
-        .then(data => {
-          document.querySelector('header').innerHTML = data;
-        })
-        .catch(error => {
-          console.error('Error loading navbar:', error);
-          document.querySelector('header').innerHTML = '<p style="color: red;">Failed to load navbar. Please try again later.</p>';
-        });
-    });
-  
-    // Dynamically load the navbar
-    document.addEventListener("DOMContentLoaded", () => {
-      fetch("navbar.html")
-        .then(response => {
-          if (!response.ok) {
-            throw new Error(`Failed to load navbar. Status: ${response.status}`);
-          }
-          return response.text();
-        })
-        .then(html => {
-          const navbarContainer = document.querySelector("header") || document.getElementById("navbar-container");
-          if (navbarContainer) {
-            navbarContainer.innerHTML = html;
-
-            // Update the cart count and dropdown after the navbar is loaded
-            updateCartCount();
-            updateCartDropdown();
-          }
-        })
-        .catch(error => {
-          console.error("Error loading navbar:", error);
-        });
-    });
-
-    // Function to update the cart count
-    function updateCartCount() {
-      const cart = JSON.parse(localStorage.getItem("cart")) || [];
-      const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-      const cartCountElement = document.getElementById("cart-count");
-
-      if (cartCountElement) {
-        cartCountElement.textContent = totalItems;
-      } else {
-        console.error("Cart count element not found in the navbar.");
-      }
-    }
-
-    // Function to update the cart dropdown
-    function updateCartDropdown() {
-      const cart = JSON.parse(localStorage.getItem("cart")) || [];
-      const cartItemsList = document.getElementById("cart-items-list");
-      const cartMessage = document.getElementById("cart-message");
-      const cartSubtotal = document.getElementById("cart-subtotal");
-      const cartTotal = document.getElementById("cart-total");
-
-      if (!cartItemsList || !cartMessage || !cartSubtotal || !cartTotal) {
-        console.error("Cart dropdown elements not found in the DOM.");
-        return;
-      }
-
-      if (cart.length === 0) {
-        cartMessage.textContent = "Your cart is empty.";
-        cartItemsList.innerHTML = "";
-        cartSubtotal.textContent = "$0.00";
-        cartTotal.textContent = "$0.00";
-        return;
-      }
-
-      let subtotal = 0;
-      cartItemsList.innerHTML = ""; // Clear existing items
-
-      cart.forEach(item => {
-        const itemTotal = item.price * item.quantity;
-        subtotal += itemTotal;
-
-        const cartItem = document.createElement("div");
-        cartItem.classList.add("cart-item");
-
-        cartItem.innerHTML = `
-          <img src="${item.image}" alt="${item.name}" style="width: 50px; height: 50px; object-fit: cover; margin-right: 10px;">
-          <div class="cart-item-details">
-            <span class="product-name">${item.name}</span>
-            <span class="product-code">Code: ${item.id}</span>
-            <span class="product-quantity">Qty: ${item.quantity}</span>
-          </div>
-          <div class="cart-item-price">$${(item.price * item.quantity).toFixed(2)}</div>
-        `;
-
-        cartItemsList.appendChild(cartItem);
-      });
-
-      cartMessage.textContent = `You currently have ${cart.length} items in your cart.`;
-      cartSubtotal.textContent = `$${subtotal.toFixed(2)}`;
-      cartTotal.textContent = `$${subtotal.toFixed(2)}`;
-    }
-
-    // Listen for cart updates and refresh the dropdown
-    document.addEventListener("cartUpdated", () => {
-      updateCartCount();
-      updateCartDropdown();
-    });
 
     document.addEventListener("DOMContentLoaded", function () {
   const bestsellerGrid = document.querySelector('.bestseller-product-cards');

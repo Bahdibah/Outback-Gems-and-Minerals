@@ -73,7 +73,7 @@
 
       <!-- Buttons -->
       <div class="cart-buttons">
-        <button id="checkout-button" class="theme-button">Continue to Checkout</button>
+        <button id="cart-page-checkout-button" class="theme-button">Continue to Checkout</button>
         <button id="continue-shopping-button" class="theme-button secondary">Continue Shopping</button>
       </div>
     </div>
@@ -96,54 +96,6 @@
   </footer>
 
   <script src="navbar.js"></script>
-  
-  <script>
-  // Dynamically load the navbar
-  document.addEventListener("DOMContentLoaded", () => {
-    fetch("navbar.html")
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(`Failed to load navbar. Status: ${response.status}`);
-        }
-        return response.text();
-      })
-      .then(html => {
-        const navbarContainer = document.querySelector("header") || document.getElementById("navbar-container");
-        if (navbarContainer) {
-          navbarContainer.innerHTML = html;
-
-          // Update the cart count after the navbar is loaded
-          updateCartCount();
-
-          // Listen for the custom "cartUpdated" event
-          document.addEventListener("cartUpdated", (event) => {
-            const cartCountElement = document.getElementById("cart-count");
-            if (cartCountElement) {
-              cartCountElement.textContent = event.detail.totalItems;
-            }
-          });
-        } else {
-          console.error("Navbar container not found in the DOM.");
-        }
-      })
-      .catch(error => {
-        console.error("Error loading navbar:", error);
-      });
-  });
-
-  // Function to update the cart count
-  function updateCartCount() {
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-    const cartCountElement = document.getElementById("cart-count");
-    if (cartCountElement) {
-      cartCountElement.textContent = totalItems;
-    } else {
-      console.error("Cart count element not found in the navbar.");
-    }
-  }
-  </script>
-
   <script src="cart.js"></script>
 </body>
 </html>

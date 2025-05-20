@@ -154,7 +154,7 @@ body {
   margin: 2% auto 2% auto;
 }
 
-.theme-button {
+#cart-page-checkout-button.theme-button {
   padding: 10px 20px;
   font-size: 16px;
   color: #1e1e1e; /* Dark text for contrast */
@@ -165,7 +165,7 @@ body {
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.theme-button:hover {
+#cart-page-checkout-button.theme-button:hover {
   background-color: #ff7f33; /* Lighter orange for hover effect */
   transform: translateY(-2px); /* Slightly raise the button on hover */
 }

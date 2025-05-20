@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>View Product - Outback Gems</title>
-  <link rel="stylesheet" href="view-products.css" />
+  <link rel="stylesheet" href="products.css" />
   <link rel="stylesheet" href="navbar.css" />
   <link href="https://fonts.googleapis.com/css2?family=Parisienne&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
@@ -17,472 +17,100 @@
   <div id="page-wrapper">
     
     <header id="navbar-container"></header>
-    
-    <script>
-      // Function to update the cart count in the navbar
-      function updateCartCount() {
-        const cart = JSON.parse(localStorage.getItem("cart")) || [];
-        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-        const cartCountElement = document.getElementById("cart-count");
-        if (cartCountElement) {
-          cartCountElement.textContent = totalItems;
-        }
-      }
-    
-      // Function to update the cart dropdown
-      function updateCartDropdown() {
-        const cart = JSON.parse(localStorage.getItem("cart")) || [];
-        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-        const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-    
-        // Update cart count in the navbar
-        const cartCountElement = document.getElementById("cart-count");
-        if (cartCountElement) {
-          cartCountElement.textContent = totalItems;
-        }
-    
-        // Update cart message
-        const cartMessage = document.getElementById("cart-message");
-        if (cartMessage) {
-          cartMessage.textContent = `You currently have ${totalItems} items in your cart`;
-        }
-    
-        // Update cart items list
-        const cartItemsList = document.getElementById("cart-items-list");
-        if (cartItemsList) {
-          cartItemsList.innerHTML = ""; // Clear existing items
-    
-          cart.forEach(item => {
-            const cartItem = document.createElement("div");
-            cartItem.classList.add("cart-item");
-    
-            cartItem.innerHTML = `
-              <img src="${item.image}" alt="${item.name}" style="width: 50px; height: 50px; object-fit: cover; margin-right: 10px;">
-              <div class="cart-item-details">
-                <span class="product-name">${item.name}</span>
-                <span class="product-code">Code: ${item.id}</span>
-                <span class="product-quantity">Qty: ${item.quantity}</span>
-              </div>
-              <div class="cart-item-price">$${(item.price * item.quantity).toFixed(2)}</div>
-            `;
-    
-            cartItemsList.appendChild(cartItem);
-          });
-        }
-    
-        // Update cart dropdown details
-        const cartSubtotal = document.getElementById("cart-subtotal");
-        const cartTotal = document.getElementById("cart-total");
-    
-        if (cartSubtotal) {
-          cartSubtotal.textContent = `$${subtotal.toFixed(2)}`;
-        }
-        if (cartTotal) {
-          cartTotal.textContent = `$${subtotal.toFixed(2)}`;
-        }
-      }
-    
-      // Update the cart count on page load
-      updateCartCount();
-    
-      // Update the cart dropdown on page load
-      updateCartDropdown();
-    
-      // Listen for the custom "cartUpdated" event
-      document.addEventListener("cartUpdated", (event) => {
-        const cartCountElement = document.getElementById("cart-count");
-        if (cartCountElement) {
-          cartCountElement.textContent = event.detail.totalItems;
-        }
-      });
-    
-      // Listen for the custom "cartUpdated" event
-      document.addEventListener("cartUpdated", () => {
-        updateCartDropdown();
-      });
-    
-      document.addEventListener("cartUpdated", (event) => {
-        updateCartDropdown(); // Update the dropdown
-      });
-    
-      document.addEventListener("cartUpdated", () => {
-        updateCartCount();
-        updateCartDropdown();
-      });
-      
-    </script>
-    </header>
+  
 
     <div class="page-layout">
       <div class="side-menu">
-        <!-- Same menu structure kept intact -->
-        <div class="side-menu-heading">Lab-Grown Rough</div>
-        <div class="side-menu-container">
-          <div class="side-menu-toggle">Sapphire</div>
-          <ul class="side-menu-sublist">
-            <li><a href="#">Blue Sapphire</a></li>
-            <li><a href="#">Pink Sapphire</a></li>
-            <li><a href="#">Yellow Sapphire</a></li>
-            <li><a href="#">Green Sapphire</a></li>
-            <li><a href="#">Orange Sapphire</a></li>
-            <li><a href="#">Teal Sapphire</a></li>
+
+        <!-- Lab-Grown Rough -->
+        <div class="category-card" style="background-image: url('images/Synthetic Banner 1.jpg');">
+          <div class="category-overlay">
+            <span class="category-title side-menu-toggle" data-category="synthetic">Lab-Grown Rough</span>
+            <button class="category-expand" type="button">&#9662;</button>
+          </div>
+          <ul class="subcategory-list">
+            <li><a href="#" class="side-menu-toggle" data-category="synthetic-sapphire">Sapphire</a></li>
+            <li><a href="#" class="side-menu-toggle" data-category="synthetic-spinel">Spinel</a></li>
+            <li><a href="#" class="side-menu-toggle" data-category="synthetic-cubic-zirconia">Cubic Zirconia</a></li>
           </ul>
         </div>
 
-        <div class="side-menu-container">
-          <div class="side-menu-toggle">Spinel</div>
-          <ul class="side-menu-sublist">
-            <li><a href="#">Red Spinel</a></li>
-            <li><a href="#">Pink Spinel</a></li>
-            <li><a href="#">Blue Spinel</a></li>
-            <li><a href="#">Lavender Spinel</a></li>
-            <li><a href="#">Green Spinel</a></li>
-            <li><a href="#">Orange Spinel</a></li>
+        <!-- Natural Rough -->
+        <div class="category-card" style="background-image: url('images/Natural Banner 1.jpg');">
+          <div class="category-overlay">
+            <span class="category-title side-menu-toggle" data-category="natural">Natural Rough</span>
+            <button class="category-expand" type="button">&#9662;</button>
+          </div>
+          <ul class="subcategory-list">
+            <li><a href="#" class="side-menu-toggle" data-category="natural-sapphire">Sapphire</a></li>
+            <li><a href="#" class="side-menu-toggle" data-category="natural-topaz">Topaz</a></li>
+            <li><a href="#" class="side-menu-toggle" data-category="natural-garnet">Garnet</a></li>
+            <li><a href="#" class="side-menu-toggle" data-category="natural-spinel">Spinel</a></li>
+            <li><a href="#" class="side-menu-toggle" data-category="natural-zircon">Zircon</a></li>
+            <li><a href="#" class="side-menu-toggle" data-category="natural-quartz">Quartz</a></li>
+            <li><a href="#" class="side-menu-toggle" data-category="natural-peridot">Peridot</a></li>
+            <li><a href="#" class="side-menu-toggle" data-category="natural-tourmaline">Tourmaline</a></li>
+            <li><a href="#" class="side-menu-toggle" data-category="natural-beryl">Beryl</a></li>
+            <li><a href="#" class="side-menu-toggle" data-category="natural-opal">Opal</a></li>
           </ul>
         </div>
 
-        <div class="side-menu-container">
-          <div class="side-menu-toggle">Cubic Zirconia</div>
-          <ul class="side-menu-sublist">
-            <li><a href="#">White CZ</a></li>
-            <li><a href="#">Pink CZ</a></li>
-            <li><a href="#">Champagne CZ</a></li>
-            <li><a href="#">Green CZ</a></li>
-            <li><a href="#">Lavender CZ</a></li>
-            <li><a href="#">Orange CZ</a></li>
+        <!-- Other Items -->
+        <div class="category-card" style="background-image: url('images/Other Banner 1.jpg');">
+          <div class="category-overlay">
+            <span class="category-title side-menu-toggle" data-category="other">Other Items</span>
+            <button class="category-expand" type="button">&#9662;</button>
+          </div>
+          <ul class="subcategory-list">
+            <li><a href="#" class="side-menu-toggle" data-category="fossicking-wash-bags">Fossicking Wash Bags</a></li>
+            <li><a href="#" class="side-menu-toggle" data-category="agate-thunder-eggs">Agate Thunder Eggs</a></li>
+            <li><a href="#" class="side-menu-toggle" data-category="meteorites">Meteorites</a></li>
+            <li><a href="#" class="side-menu-toggle" data-category="fluorescent-minerals">Fluorescent Minerals</a></li>
+            <li><a href="#" class="side-menu-toggle" data-category="mystery-boxes">Mystery Boxes</a></li>
           </ul>
         </div>
 
-        <div class="side-menu-heading">Natural Rough</div>
-        <div class="side-menu-container">
-          <div class="side-menu-toggle">Sapphire</div>
-          <ul class="side-menu-sublist">
-            <li><a href="#">Blue Sapphire</a></li>
-            <li><a href="#">Green Sapphire</a></li>
-            <li><a href="#">Yellow Sapphire</a></li>
-            <li><a href="#">Teal Sapphire</a></li>
-            <li><a href="#">Parti Sapphire</a></li>
-            <li><a href="#">Pink Sapphire</a></li>
-          </ul>
+        <!-- All Items (styled like other category cards, no accordion, links to all products) -->
+        <div class="category-card" id="all-items-card" style="background-image: url('images/Contact\ Banner\ 2.jpeg');">
+          <div class="category-overlay">
+            <span class="category-title side-menu-toggle" data-category="">All Items</span>
+            <!-- No expand button -->
+          </div>
+          <!-- No subcategory-list -->
         </div>
-        <div class="side-menu-toggle">Topaz</div>
-        <div class="side-menu-toggle">Garnet</div>
-        <div class="side-menu-toggle">Spinel</div>
-        <div class="side-menu-toggle">Zircon</div>
-        <div class="side-menu-toggle">Quartz</div>
-        <div class="side-menu-toggle">Peridot</div>
-        <div class="side-menu-toggle">Tourmaline</div>
-        <div class="side-menu-toggle">Beryl</div>
-        <div class="side-menu-toggle">Opal</div>
-
-        <div class="side-menu-heading">Other items</div>
-        <div class="side-menu-toggle">Fossicking Wash Bags</div>
-        <div class="side-menu-toggle">Agate Thunder Eggs</div>
-        <div class="side-menu-toggle">Meteorites</div>
-        <div class="side-menu-toggle">Fluorescent Minerals</div>
-        <div class="side-menu-toggle">Mystery Boxes</div>
       </div>
 
-      <div class="view-product-container">
-        <!-- Dynamic product details will be loaded here -->
-        <div id="view-product-details" class="view-product-detail">
-          <h1 id="product-name">Loading...</h1>
-          <img id="product-image" src="" alt="Product Image" />
-          
-          <!-- Placeholder images directly under the main product image -->
-          <div id="image-placeholder-container">
-            <img class="image-placeholder" src="images/placeholder1.jpg" alt="Placeholder 1" />
-            <img class="image-placeholder" src="images/placeholder2.jpg" alt="Placeholder 2" />
-            <img class="image-placeholder" src="images/placeholder3.jpg" alt="Placeholder 3" />
-          </div>
-          
-          
-          <p id="variation-label" style="font-weight: bold; margin-bottom: 5px;">Select Size:</p>
-          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
-            <select id="variation-selector" style="flex: 0 0 70%;"></select>
-            <p id="product-stock" style="font-size: 0.9rem; color: #ffcc80; margin-left: 10px;">Stock: Loading...</p>
-          </div>
-          <p id="product-description">Loading product description...</p>
-          <p id="product-weight"></p>
-          <p id="product-stock"></p>
-          <p id="product-price"></p>
-          <p id="quantity-label" style="font-weight: bold; margin-bottom: 5px;">Select Quantity:</p>
-          <input type="number" id="quantity" name="quantity" min="1" value="1" style="display: inline-block;" />
-          <button id="add-to-cart">Add to Cart</button>
-          <button id="continue-shopping-button" class="theme-button" onclick="window.location.href='products.html'">
-            Continue Shopping
-          </button>
-        </div>
-      </div>
-    </div> <!-- End of page-layout -->
+
+  <div class="view-product-container">
+  <div id="view-product-details" class="view-product-detail">
+    <h1 id="product-name">Loading...</h1>
+    <img id="product-image" src="" alt="Product Image" />
+    <div id="image-placeholder-container">
+      <img class="image-placeholder" src="images/placeholder1.jpg" alt="Placeholder 1" />
+      <img class="image-placeholder" src="images/placeholder2.jpg" alt="Placeholder 2" />
+      <img class="image-placeholder" src="images/placeholder3.jpg" alt="Placeholder 3" />
+    </div>
+    <p id="variation-label" style="font-weight: bold; margin-bottom: 5px;">Select Size:</p>
+    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+      <select id="variation-selector" style="flex: 0 0 70%;"></select>
+      <p id="product-stock" style="font-size: 0.9rem; color: #ffcc80; margin-left: 10px;">Stock: Loading...</p>
+    </div>
+    <p id="product-description">Loading product description...</p>
+    <p id="product-weight"></p>
+    <p id="product-price"></p>
+    <p id="quantity-label" style="font-weight: bold; margin-bottom: 5px;">Select Quantity:</p>
+    <input type="number" id="quantity" name="quantity" min="1" value="1" style="display: inline-block;" />
+    <button id="add-to-cart">Add to Cart</button>
+    <button id="continue-shopping-button" class="theme-button" onclick="window.location.href='products.html'">
+      Continue Shopping
+    </button>
+  </div>
+</div>
+</div> <!-- End of page-layout -->
 
 <script src="navbar.js"></script>
+<script src="view-product.js"></script>
 
-    <script>
-      // Function to add an item to the cart
-  function addToCart(item) {
-const cart = JSON.parse(localStorage.getItem("cart")) || [];
-const existingItem = cart.find(cartItem => cartItem.id === item.id);
-
-if (existingItem) {
-existingItem.quantity += item.quantity;
-} else {
-cart.push(item);
-}
-
-localStorage.setItem("cart", JSON.stringify(cart));
-
-// Dispatch the custom "cartUpdated" event
-const totalItems = cart.reduce((sum, cartItem) => sum + cartItem.quantity, 0);
-document.dispatchEvent(new CustomEvent("cartUpdated", { detail: { totalItems } }));
-
-// Explicitly update the dropdown after the cart is updated
-updateCartDropdown();
-
-}
-</script>
-    <script>
-      // Function to update the cart count
-      function updateCartCount() {
-        const cart = JSON.parse(localStorage.getItem("cart")) || [];
-        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-        const cartCountElement = document.getElementById("cart-count");
-
-        if (cartCountElement) {
-          cartCountElement.textContent = totalItems;
-        } else {
-          console.error("Cart count element not found in the navbar.");
-        }
-      }
-
-      // Function to update the cart dropdown
-      function updateCartDropdown() {
-        const cart = JSON.parse(localStorage.getItem("cart")) || [];
-        const cartItemsList = document.getElementById("cart-items-list");
-        const cartMessage = document.getElementById("cart-message");
-        const cartSubtotal = document.getElementById("cart-subtotal");
-        const cartTotal = document.getElementById("cart-total");
-
-        if (!cartItemsList || !cartMessage || !cartSubtotal || !cartTotal) {
-          console.error("Cart dropdown elements not found in the DOM.");
-          return;
-        }
-
-        if (cart.length === 0) {
-          cartMessage.textContent = "Your cart is empty.";
-          cartItemsList.innerHTML = "";
-          cartSubtotal.textContent = "$0.00";
-          cartTotal.textContent = "$0.00";
-          return;
-        }
-
-        let subtotal = 0;
-        cartItemsList.innerHTML = ""; // Clear existing items
-
-        cart.forEach(item => {
-          const itemTotal = item.price * item.quantity;
-          subtotal += itemTotal;
-
-          const cartItem = document.createElement("div");
-          cartItem.classList.add("cart-item");
-
-          cartItem.innerHTML = `
-            <img src="${item.image}" alt="${item.name}" style="width: 50px; height: 50px; object-fit: cover; margin-right: 10px;">
-            <div class="cart-item-details">
-              <span class="product-name">${item.name}</span>
-              <span class="product-code">Code: ${item.id}</span>
-              <span class="product-quantity">Qty: ${item.quantity}</span>
-            </div>
-            <div class="cart-item-price">$${(item.price * item.quantity).toFixed(2)}</div>
-          `;
-
-          cartItemsList.appendChild(cartItem);
-        });
-
-        cartMessage.textContent = `You currently have ${cart.length} items in your cart.`;
-        cartSubtotal.textContent = `$${subtotal.toFixed(2)}`;
-        cartTotal.textContent = `$${subtotal.toFixed(2)}`;
-      }
-      document.addEventListener("cartUpdated", (e) => {
-  updateCartCount();
-  updateCartDropdown();
-});
-    </script>
-
-    <script>
-    const apiUrl = "https://script.googleusercontent.com/macros/echo?user_content_key=AehSKLjckrSmV4Q396r2J5437VHynXSLyUYow6iqkCoXEY7HrOg2cr_voo08MQL6qcMM04pBDpWPA1kgKDaTRUEOJBZ48B-SMN75SrRx86Pow9494AvOa4RBDe-WLCDnlG85PhU5LDk8GvqfMbrbDHzmS9kAs0tPivdOdAxqxdhgCnvUxPy8IKXdl6i92dL9O3GKWDjsSqKlqqa9bKbFxAnZn8oVEil2fg5qGD_Izy_rtBqgkVDTQpttRxrY86FnFn8373jngn3hJLR3QkHgvIWAzf2wa9cjBsGiOi70hv-IAu87d_WCywlb4vX0d2RHsA&lib=MreWV8qvFAXZ2-rISPaQS69qZewlWwj59";
-
-    const urlParams = new URLSearchParams(window.location.search);
-    const productId = urlParams.get("productid");
-
-    const productNameElement = document.getElementById("product-name");
-    const productImageElement = document.getElementById("product-image");
-    const productDescriptionElement = document.getElementById("product-description");
-    const quantityInputElement = document.getElementById("quantity");
-    const addToCartButton = document.getElementById("add-to-cart");
-    const variationSelector = document.getElementById("variation-selector");
-    const productWeightElement = document.getElementById("product-weight");
-    const productStockElement = document.getElementById("product-stock");
-    const productPriceElement = document.getElementById("product-price");
-
-    async function fetchProductDetails() {
-      try {
-        const response = await fetch(apiUrl);
-        if (!response.ok) {
-          throw new Error(`Failed to fetch product details. Status: ${response.status}`);
-        }
-
-        const products = await response.json();
-
-        // Filter variations based on product id from the URL
-        const filteredByProductId = products.filter(item => item["product id"].trim() === productId.trim());
-
-        if (filteredByProductId.length === 0) {
-          productNameElement.textContent = "Product not found";
-          productDescriptionElement.textContent = "The product you are looking for does not exist.";
-          return;
-        }
-
-        // Further filter variations to include only unique weights
-        const uniqueWeights = new Set();
-        const variations = filteredByProductId.filter(item => {
-          if (uniqueWeights.has(item.weight)) {
-            return false; // Skip duplicate weights
-          }
-          uniqueWeights.add(item.weight);
-          return true;
-        });
-
-        if (variations.length === 0) {
-          productNameElement.textContent = "No variations available";
-          productDescriptionElement.textContent = "No variations found for this product.";
-          return;
-        }
-
-        // Populate the dropdown with variations
-        variations.forEach((variation, index) => {
-          const option = document.createElement("option");
-          option.value = index;
-          option.textContent = `${variation.weight} ${variation.unit} - $${variation["total price"].toFixed(2)}`;
-          variationSelector.appendChild(option);
-        });
-
-        // Update product details for the first variation by default
-        updateProductDetails(variations[0]);
-
-        // Add event listener for dropdown changes
-        variationSelector.addEventListener("change", (event) => {
-          const selectedIndex = parseInt(event.target.value, 10);
-          updateProductDetails(variations[selectedIndex]);
-        });
-
-        // Add to cart functionality
-        addToCartButton.addEventListener("click", () => {
-          const selectedIndex = parseInt(variationSelector.value, 10);
-          const selectedVariation = variations[selectedIndex];
-          const quantity = parseInt(quantityInputElement.value, 10) || 1;
-
-          // Get the displayed stock from the productStockElement
-          const displayedStock = parseInt(productStockElement.textContent.replace("Stock: ", ""), 10);
-
-          // Validate the quantity against the displayed stock
-          if (quantity > displayedStock || quantity <= 0) {
-            alert(`Only ${displayedStock} units are available.`);
-            return;
-          }
-
-          // Add the item to the cart
-          const cart = JSON.parse(localStorage.getItem("cart")) || [];
-          const existingItem = cart.find(
-            item =>
-              item.id === productId &&
-              item.weight === selectedVariation.weight &&
-              item.unit === selectedVariation.unit
-          );
-
-          if (existingItem) {
-            existingItem.quantity += quantity;
-          } else {
-            cart.push({
-              id: productId,
-              name: selectedVariation["product name"],
-              price: selectedVariation["total price"],
-              image: selectedVariation["image url"] || "images/placeholder.png",
-              weight: selectedVariation.weight,
-              unit: selectedVariation.unit,
-              quantity: quantity
-            });
-          }
-
-          localStorage.setItem("cart", JSON.stringify(cart));
-
-          // Dispatch the custom "cartUpdated" event
-          const totalItems = cart.reduce((sum, cartItem) => sum + cartItem.quantity, 0);
-          document.dispatchEvent(new CustomEvent("cartUpdated", { detail: { totalItems } }));
-
-          // Explicitly update the dropdown after the cart is updated
-          updateCartDropdown();
-
-          // Force the stock display to recalculate and update
-          updateProductDetails(selectedVariation);
-
-          alert(`${quantity} item(s) added to the cart.`);
-        });
-      } catch (error) {
-        console.error("Error fetching product details:", error);
-        productNameElement.textContent = "Error loading product";
-        productDescriptionElement.textContent = "Please try again later.";
-      }
-    }
-
-    function updateProductDetails(selectedVariation) {
-  const cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-  // Find the matching item in the cart for the selected variation
-  const cartItem = cart.find(
-    item =>
-      item.id === productId &&
-      item.weight === selectedVariation.weight &&
-      item.unit === selectedVariation.unit
-  );
-
-  // Use the stock from the selected variation
-  const baseStock = selectedVariation.stock;
-
-  // Subtract the quantity of the specific variant in the cart
-  const cartQuantity = cartItem ? cartItem.quantity : 0;
-  const availableStock = baseStock - cartQuantity;
-
-  // Update product details on the page
-  productNameElement.textContent = selectedVariation["product name"];
-  productImageElement.src = selectedVariation["image url"] || "images/placeholder.png";
-  productDescriptionElement.textContent = selectedVariation.description;
-  productWeightElement.textContent = `Weight: ${selectedVariation.weight} ${selectedVariation.unit}`;
-  productStockElement.textContent = `Stock: ${availableStock}`;
-  productPriceElement.textContent = `Price: $${selectedVariation["total price"].toFixed(2)}`;
-
-  // Update the quantity input to respect the displayed stock
-  quantityInputElement.setAttribute("max", availableStock);
-  quantityInputElement.value = 1;
-
-  // Prevent typing a value greater than the displayed stock
-  quantityInputElement.addEventListener("input", () => {
-    let quantity = parseInt(quantityInputElement.value, 10) || 1;
-    const displayedStock = parseInt(productStockElement.textContent.replace("Stock: ", ""), 10);
-
-    if (quantity > displayedStock) {
-      quantity = displayedStock;
-      quantityInputElement.value = displayedStock; // Reset to max stock
-    }
-
-    const totalPrice = selectedVariation["total price"] * quantity;
-    productPriceElement.textContent = `Price: $${totalPrice.toFixed(2)}`;
-  });
-}
-
-    // Fetch product details on page load
-    fetchProductDetails();
-  </script>
 
     <footer>
       <div class="footer-left">
@@ -499,5 +127,6 @@ updateCartDropdown();
       </div>
     </footer>
   </div> <!-- End of page-wrapper -->
+
 </body>
 </html>

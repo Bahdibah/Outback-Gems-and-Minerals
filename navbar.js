@@ -89,6 +89,66 @@ function displayResults(results) {
   });
 }
 
+// Update the cart count in the navbar
+function updateCartCount() {
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+  const cartCountElement = document.getElementById("cart-count");
+  if (cartCountElement) cartCountElement.textContent = totalItems;
+}
+
+// Update the cart dropdown in the navbar
+function updateCartDropdown() {
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  const cartItemsList = document.getElementById("cart-items-list");
+  const cartMessage = document.getElementById("cart-message");
+  const cartTotal = document.getElementById("cart-total");
+
+  if (!cartItemsList || !cartMessage || !cartTotal) {
+    console.error("Cart dropdown elements not found in the DOM.");
+    return;
+  }
+
+  if (cart.length === 0) {
+    cartMessage.textContent = "Your cart is empty.";
+    cartItemsList.innerHTML = "";
+    cartTotal.textContent = "$0.00";
+    return;
+  }
+
+  let subtotal = 0;
+  cartItemsList.innerHTML = ""; // Clear existing items
+
+  cart.forEach(item => {
+    const itemTotal = item.price * item.quantity;
+    subtotal += itemTotal;
+
+    const cartItem = document.createElement("div");
+    cartItem.classList.add("cart-item");
+
+    cartItem.innerHTML = `
+      <img src="${item.image}" alt="${item.name}" style="width: 50px; height: 50px; object-fit: cover; margin-right: 10px;">
+      <div class="cart-item-details">
+        <span class="product-name">${item.name}</span>
+        <span class="product-code">Code: ${item.id}</span>
+        <span class="product-quantity">Qty: ${item.quantity}</span>
+      </div>
+      <div class="cart-item-price">$${(item.price * item.quantity).toFixed(2)}</div>
+    `;
+
+    cartItemsList.appendChild(cartItem);
+  });
+
+  cartMessage.textContent = `You currently have ${cart.length} items in your cart.`;
+  cartTotal.textContent = `$${subtotal.toFixed(2)}`;
+}
+
+// Listen for cartUpdated event
+document.addEventListener("cartUpdated", function() {
+  updateCartCount();
+  updateCartDropdown();
+});
+
 document.addEventListener("DOMContentLoaded", () => {
 
   // Fetch product data
@@ -146,6 +206,10 @@ document.addEventListener("DOMContentLoaded", () => {
             document.querySelector('.search-results-container').style.visibility = 'visible';
           }
         });
+
+        // <-- ADD THESE LINES HERE:
+        updateCartCount();
+        updateCartDropdown();
       } else {
         console.error("Navbar container not found in the DOM.");
       }
@@ -154,3 +218,7 @@ document.addEventListener("DOMContentLoaded", () => {
       console.error("Error loading navbar:", error);
     });
 });
+
+// Initial update on page load (after navbar HTML is loaded)
+updateCartCount();
+updateCartDropdown();
