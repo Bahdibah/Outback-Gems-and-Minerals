@@ -88,24 +88,26 @@ header {
   border: 1px solid red;
 }
 
-.view-product-detail p {
+.view-product-details p {
   font-size: 1.2rem;
 }
 
-#view-product-name {
+#product-name {
   font-size: 1.75rem;
 }
 
-#view-product-image {
+#product-image {
   width: 320px;
 }
 
-#view-product-image-placeholder-container {
+#image-placeholder-container {
   border: 1px solid red;
+
 }
 
-.view-product-image-placeholder {
+.image-placeholder {
   border: 1px solid red;
+
 }
 
 /* Footer Styling */
