@@ -21,7 +21,7 @@ body {
 }
 
 /* page layout for main products page (body container)*/
-.page-layout {
+.view-product-page-layout {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
@@ -85,6 +85,7 @@ header {
 }
 
 .view-product-detail {
+  border: 1px solid red;
 }
 
 .view-product-detail p {
@@ -154,5 +155,5 @@ footer >div{
   border-top: 2px solid #cc5500; /* Use your accent color */
   margin: 0 auto 24px auto;
   width: 90%; /* Or 100% if you want it edge-to-edge */
-  opacity: 0.8;
+opacity: 0.8;
 }
