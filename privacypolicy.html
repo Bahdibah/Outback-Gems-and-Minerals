@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Outback Gems</title>
+  <link rel="stylesheet" href="contact.css" />
+  <link rel="stylesheet" href="navbar.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Parisienne&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Allura&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Satisfy&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body class="contact-page">
+
+  <header id="navbar-container"></header>
+
+    <section id="home">
+    <div class="hero-overlay">
+      <h2>Privacy Policy</h2>
+      <p>Have some questions? Need some advice? Fancy a friendly chat? Take a gander over our frequently asked questions to find your heart's desire, or contact us on the below form for a more personalised experience</p>
+    </div>
+  </section>
+
+<section id="faq">
+  <div class="faq-container">
+    <h3>Privacy Policy</h3>
+    <div class="divider"></div>
+    <p>Enter Privacy Policy</p>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-left">
+      <p><a href="privacypolicy.html">Privacy Policy</a></p>
+      <p><a href="termsofuse.html">Terms Of Use</a></p>
+    </div>
+  <div class="footer-middle">
+    <p>&copy; 2025 Outback Gems &amp; Minerals. All rights reserved.</p>
+    <p>ABN: 0123456789</p>
+  </div>
+  <div class="footer-right">
+    <p><a href="outbackgems@outlook.com"><i class="fa fa-envelope" aria-hidden="true" style="color:white"></i></a></p>
+    <p><a href="https://www.facebook.com/"><i class="fa fa-facebook-square" aria-hidden="true"
+          style="color:white"></i></a></p>
+  </div>
+</footer>
+
+<script src="navbar.js"></script>
+
+ <script>
+  // Background image rotation
+  const images = ["images/Contact Banner 1.jpeg", "images/Contact Banner 2.jpeg", "images/Contact Banner 3.jpeg", "images/Contact Banner 4.jpeg"];
+    let current = 0;
+
+    setInterval(() => {
+      current = (current + 1) % images.length;
+      document.getElementById("home").style.backgroundImage = `url('${images[current]}')`;
+    }, 15000); // Change image every 15 seconds
+
+    // #region banner carousel script
+    const itemTrack = document.querySelector('.banner');
+    const items = document.querySelectorAll('.banner-item');
+    const visibleMessages = 1;
+    let itemIndex = 0;
+  
+    // Clone first item(s) and append to end only if there are enough items
+    if (items.length > visibleMessages) {
+      for (let i = 0; i < visibleMessages; i++) {
+        const clone = items[i].cloneNode(true);
+        itemTrack.appendChild(clone);
+      }
+    }
+  
+    const totalItems = document.querySelectorAll('.banner-item').length;
+    setInterval(() => {
+      itemIndex++;
+      itemTrack.style.transition = 'transform 0.7s ease-in-out';
+      itemTrack.style.transform = `translateX(-${itemIndex * 100}%)`;
+  
+      if (itemIndex === totalItems - visibleMessages) {
+        setTimeout(() => {
+          itemTrack.style.transition = 'none';
+          itemTrack.style.transform = `translateX(0%)`;
+          itemIndex = 0;
+        }, 700); // Match the transition duration
+      }
+    }, 5000);
+    // #endregion
+ </script>   
+
+<script>
+  function updateCartCount() {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    const cartCountElement = document.getElementById("cart-count");
+    if (cartCountElement) {
+      cartCountElement.textContent = totalItems;
+    }
+  }
+
+    // Dynamically load the navbar
+    document.addEventListener("DOMContentLoaded", () => {
+      fetch("navbar.html")
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`Failed to load navbar. Status: ${response.status}`);
+          }
+          return response.text();
+        })
+        .then(html => {
+          const navbarContainer = document.querySelector("header") || document.getElementById("navbar-container");
+          if (navbarContainer) {
+            navbarContainer.innerHTML = html;
+
+            // Update the cart count and dropdown after the navbar is loaded
+            updateCartCount();
+            updateCartDropdown();
+          }
+        })
+        .catch(error => {
+          console.error("Error loading navbar:", error);
+        });
+    });
+
+    // Function to update the cart count
+    function updateCartCount() {
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+      const cartCountElement = document.getElementById("cart-count");
+
+      if (cartCountElement) {
+        cartCountElement.textContent = totalItems;
+      } else {
+        console.error("Cart count element not found in the navbar.");
+      }
+    }
+
+    // Function to update the cart dropdown
+    function updateCartDropdown() {
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const cartItemsList = document.getElementById("cart-items-list");
+      const cartMessage = document.getElementById("cart-message");
+      const cartSubtotal = document.getElementById("cart-subtotal");
+      const cartTotal = document.getElementById("cart-total");
+
+      if (!cartItemsList || !cartMessage || !cartSubtotal || !cartTotal) {
+        console.error("Cart dropdown elements not found in the DOM.");
+        return;
+      }
+
+      if (cart.length === 0) {
+        cartMessage.textContent = "Your cart is empty.";
+        cartItemsList.innerHTML = "";
+        cartSubtotal.textContent = "$0.00";
+        cartTotal.textContent = "$0.00";
+        return;
+      }
+
+      let subtotal = 0;
+      cartItemsList.innerHTML = ""; // Clear existing items
+
+      cart.forEach(item => {
+        const itemTotal = item.price * item.quantity;
+        subtotal += itemTotal;
+
+        const cartItem = document.createElement("div");
+        cartItem.classList.add("cart-item");
+
+        cartItem.innerHTML = `
+          <img src="${item.image}" alt="${item.name}" style="width: 50px; height: 50px; object-fit: cover; margin-right: 10px;">
+          <div class="cart-item-details">
+            <span class="product-name">${item.name}</span>
+            <span class="product-code">Code: ${item.id}</span>
+            <span class="product-quantity">Qty: ${item.quantity}</span>
+          </div>
+          <div class="cart-item-price">$${(item.price * item.quantity).toFixed(2)}</div>
+        `;
+
+        cartItemsList.appendChild(cartItem);
+      });
+
+      cartMessage.textContent = `You currently have ${cart.length} items in your cart.`;
+      cartSubtotal.textContent = `$${subtotal.toFixed(2)}`;
+      cartTotal.textContent = `$${subtotal.toFixed(2)}`;
+    }
+
+    // Listen for cart updates and refresh the dropdown
+    document.addEventListener("cartUpdated", () => {
+      updateCartCount();
+      updateCartDropdown();
+    });
+</script>
+
+</body>
+</html>
