@@ -85,7 +85,7 @@ header {
 }
 
 .view-product-detail {
-
+  border: 1px solid red;
 }
 
 .view-product-details p {
