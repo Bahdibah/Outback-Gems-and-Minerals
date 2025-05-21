@@ -1,114 +1,161 @@
+:root {
+  --navbar-height: 70px;
+}
+
+body {
+  
+    background-color: #2e2e2e;
+    color: #cc5500;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+#page-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin-top: 1%; /* Reduced from 2% to 1% */
+  padding-top: var(--navbar-height); /* This adds space at the top for the fixed navbar */
+}
+
+/* page layout for main products page (body container)*/
+.page-layout {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 8px; /* space between menu and products */
+  width: 100%;
+    margin: 0 !important;
+  padding: 0 !important;
+}
+
+button, .button {
+  background-color: #cc5500;
+  color: #fff;
+  font-weight: bold;
+  border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border stays */
+  padding: 14px 32px;
+  font-size: 1.25rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  display: inline-block;
+  margin-top: 10px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+button:hover, .button:hover {
+  background-color: #ff7f33;
+  transform: scale(1.04) translateY(-1px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.35), 0 0 8px rgba(255, 127, 51, 0.5);
+}
+
+button:active, .button:active {
+  background-color: #b34700;
+  transform: scale(0.98) translateY(0);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.view-all-button {
+margin-top: 40px; /* More space above */
+padding: 16px 40px;
+}
+
+
+section {
+    padding: 60px 20px;
+}
+
+/* Header container */
+header {
+  width: 100%;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+  display: flex;
+  align-items: center;
+  position: relative;
+  justify-content: space-between;
+}
+
 .view-product-container {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 2rem 1rem;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  border: 1px solid red;
 }
 
 .view-product-detail {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+
+}
+
+.view-product-details p {
+  font-size: 1.2rem;
 }
 
 #product-name {
-  font-size: 2rem;
-  margin-bottom: 1rem;
+  font-size: 1.75rem;
 }
 
 #product-image {
   width: 320px;
-  height: 320px;
-  object-fit: cover;
-  border-radius: 8px;
-  margin-bottom: 1rem;
 }
 
 #image-placeholder-container {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 1rem;
+  border: 1px solid red;
+
 }
 
 .image-placeholder {
-  width: 60px;
-  height: 60px;
-  object-fit: cover;
-  border-radius: 6px;
-  cursor: pointer;
-  border: 2px solid #eee;
-  transition: border 0.2s;
+  border: 1px solid red;
+
 }
 
-.image-placeholder:hover {
-  border: 2px solid #cc5500;
-}
-
-#variation-label,
-#quantity-label {
-  font-weight: bold;
-  margin-bottom: 5px;
-}
-
-#variation-selector {
-  padding: 0.5rem;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  font-size: 1rem;
-}
-
-#product-description,
-#product-weight,
-#product-price {
-  margin-bottom: 0.5rem;
-}
-
-#quantity {
-  width: 60px;
-  margin-right: 10px;
-}
-
-#add-to-cart {
-  background: #cc5500;
-  color: #fff;
-  border: none;
-  padding: 0.7rem 1.5rem;
-  border-radius: 6px;
-  font-size: 1rem;
-  cursor: pointer;
-  margin-right: 10px;
-  margin-bottom: 1rem;
-}
-
-#add-to-cart:hover {
-  background: #a94400;
-}
-
-#continue-shopping-button {
-  background: #444;
-  color: #fff;
-  border: none;
-  padding: 0.7rem 1.5rem;
-  border-radius: 6px;
-  font-size: 1rem;
-  cursor: pointer;
-}
-
-#continue-shopping-button:hover {
-  background: #222;
-}
-
-@media (max-width: 768px) {
-  .view-product-container {
-    padding: 1rem 0.5rem;
-  }
-  #product-image {
+/* Footer Styling */
+footer {
+    background-color: #1e1e1e;
+    color: #888;
+    display: flex;
+    flex-direction: row;
+    gap: 5%;
     width: 100%;
-    height: auto;
-  }
-  .view-product-detail {
-    align-items: stretch;
-  }
+}
+
+footer >div{
+  width: 33%;
+  display: flex;
+  flex-direction: row;
+}
+
+.footer-left {
+  gap: 5%;
+  padding-left: 1%;
+  align-items: center;
+}
+
+.footer-middle {
+  justify-content: center;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-middle p {
+  margin: 0.5%;
+}
+
+.footer-right {
+  justify-content: right;
+  gap: 4%;
+  padding-right: 1%;
+  font-size: 1.5rem;  
+  align-items: center;
+}
+
+/* Divider styling for product headers */
+.divider {
+  border: none;
+  border-top: 2px solid #cc5500; /* Use your accent color */
+  margin: 0 auto 24px auto;
+  width: 90%; /* Or 100% if you want it edge-to-edge */
+  opacity: 0.8;
 }
