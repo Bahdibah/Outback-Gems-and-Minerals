@@ -218,7 +218,3 @@ document.addEventListener("DOMContentLoaded", () => {
       console.error("Error loading navbar:", error);
     });
 });
-
-// Initial update on page load (after navbar HTML is loaded)
-updateCartCount();
-updateCartDropdown();

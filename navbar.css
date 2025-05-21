@@ -335,25 +335,6 @@
   margin-top: 10px;
 }
 
-/* Cart dropdown panel */
-.cart-dropdown-panel {
-  display: none;
-  position: absolute;
-  top: 100%;
-  right: 0;
-  background-color: white;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 15px;
-  width: 300px;
-  z-index: 1000;
-  border-radius: 5px;
-}
-
-/* Show the dropdown on hover */
-.cart-dropdown:hover .cart-dropdown-panel {
-  display: block;
-}
-
 /* Cart items list */
 #cart-items-list {
   max-height: 200px;

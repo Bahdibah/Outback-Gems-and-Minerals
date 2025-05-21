@@ -374,30 +374,6 @@ margin-bottom: 5px;
   margin-bottom: 8px;
 }
 
-/* Product Button Styling */
-.product-button {
-  background-color: #cc5500;
-  color: #fff;
-  font-weight: bold;
-  border: none;
-  padding: 10px 25px;
-  font-size: 1.1rem;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s, transform 0.3s ease;
-  display: inline-block;
-}
-
-/* Hover and Active States for Product Button */
-.product-button:hover {
-  background-color: #ff7f33;
-  transform: translateY(-2px);
-}
-
-.product-button:active {
-  background-color: #b34700;  
-}
-
 .product-card .image-container,
 .new-product-card .image-container {
   width: 100%;
@@ -420,19 +396,6 @@ margin-bottom: 5px;
   transform: scale(1.05);
 }
 
-/* Product Button Styling */
-.product-button {
-  background-color: #cc5500;
-  color: #fff;
-  font-weight: bold;
-  border: none;
-  padding: 10px 25px;
-  font-size: 1.1rem;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s, transform 0.3s ease;
-  display: inline-block;
-}
 
 .product-button:hover {
   background-color: #ff7f33;

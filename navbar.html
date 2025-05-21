@@ -161,11 +161,6 @@
     updateCartDropdown();
   });
 
-  document.addEventListener("cartUpdated", (event) => {
-    console.log("cartUpdated event received:", event.detail); // Debugging log
-    updateCartDropdown(); // Update the dropdown
-  });
-
   document.addEventListener("cartUpdated", () => {
     updateCartCount();
     updateCartDropdown();
