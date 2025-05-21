@@ -1,0 +1,223 @@
+/* Base styling for side menu */
+.side-menu {
+  width: 340px;         /* Wider menu */
+  min-width: 280px;
+  max-width: 400px;
+  left: 0;
+  position: sticky;
+  top: var(--navbar-height, 70px); /* Adjust if your navbar is a different height */
+  align-self: flex-start;
+  height: fit-content;
+  z-index: 10;
+  background: none !important;
+  margin-top: 90px; /* Adjust this value until it lines up perfectly */
+}
+
+/* Headings and Toggles */
+.side-menu-heading {  
+  display: block;
+  font-family: 'Roboto', sans-serif; /* Or your selected font */
+  font-weight: 700;
+  background-color: #cc5500;
+  color: white !important;
+  padding: 12px 20px;
+  text-transform: uppercase;
+  font-size: 1.1rem;
+  text-align: center;
+  letter-spacing: 1.5px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.side-menu-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.side-menu-toggle {
+  color: #cc5500;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 12px 20px;
+  position: relative;
+  border: 1px solid #333;
+  border-radius: 5px; 
+  transition: background 0.3s ease, color 0.3s ease;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Styling for the sublist */
+.side-menu-sublist {
+  list-style-type: none;
+  margin: 0;
+  display: none; /* Hidden by default */
+  position: absolute;
+  left: 0; /* Initially hide to the right */
+  top: 0;
+  background-color: #444; /* Matches the background */
+  width: 250px; /* Set the dropdown width */
+  z-index: 1;
+  width: max-content;
+  border: 1px solid #444;
+  border-radius: 5px;
+}
+
+.side-menu-sublist li {
+  padding: 12px 20px;  
+  font-weight: bold;
+  border: 1px solid #333;
+  border-radius: 5px; 
+  transition: background 0.3s ease, color 0.3s ease;
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-left: -40px;
+}
+
+/* Hover effect to show the dropdown */
+.side-menu-container:hover .side-menu-sublist {
+  display: block; /* Show on hover */
+  left: 100%; /* Position to the right */
+}
+
+/* Link styling */
+.side-menu-sublist li a {  
+  color: #cc5500;
+  text-decoration: none;
+}
+
+.side-menu-heading:hover {
+  background-color:#b34700
+  
+}
+
+.side-menu-toggle:hover, .side-menu-sublist li:hover{
+  background-color: #cc5500;
+  color: white;
+}
+
+.side-menu-sublist li:hover a {
+  color: white;
+}
+
+
+/* Add some space to the side menu */
+.side-menu > ul {
+  margin-bottom: 20px;
+}
+
+/* Category Card Styling */
+.category-card {
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  border-radius: 12px;
+  margin-bottom: 18px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+  transition: box-shadow 0.2s, min-height 0.3s;
+  min-height: 120px;
+  display: flex;
+  flex-direction: column;
+}
+
+.category-overlay {
+  background: rgba(34,34,34,0.7);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex: 1 1 auto;
+  width: 100%;
+  padding: 18px 24px;
+  border-radius: 0;      /* Remove or set to 0 */
+  box-sizing: border-box;
+}
+
+.category-title {
+  font-size: 1.5rem; /* Increased from 1.1rem */
+  font-family: 'Roboto', Arial, sans-serif;
+  color: #cc5500;
+  font-weight: bold;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  transition: color 0.2s;
+}
+
+.category-expand {
+  background: none;
+  border: none;
+  color: #fff;                /* White arrow */
+  font-size: 3rem;            /* Larger arrow */
+  cursor: pointer;
+  margin-left: 12px;
+  padding: 8px 18px;          /* Larger clickable area */
+  border-radius: 50%;
+  box-shadow: none;
+  transition: color 0.2s, background 0.2s;
+  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.category-expand:hover {
+  color: #cc5500;             /* Arrow turns orange on hover */
+  background: none;
+  box-shadow: none;
+  text-shadow: none;
+}
+
+.subcategory-list {
+  max-height: 0;
+  overflow: hidden;
+  background: rgba(34,34,34,0.85);
+  margin: 0;
+  padding: 0 16px;
+  list-style: none;
+  border-radius: 0 0 8px 8px;
+  position: relative;
+  z-index: 2;
+  transition: max-height 0.3s cubic-bezier(.4,0,.2,1), padding 0.3s;
+}
+
+.category-card.open .subcategory-list {
+  padding: 10px 16px;
+  max-height: 300px; /* Enough to show all subcategories */
+}
+
+.subcategory-list li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1rem;
+  display: block;
+  padding: 4px 0;
+  transition: color 0.2s;
+}
+
+.subcategory-list li a:hover {
+  color: #fff;
+  background: #cc5500;
+  border-radius: 4px;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.category-menu-title {
+  font-family: inherit;         /* Match right container */
+  font-size: 2.2rem;            /* Match .dynamic-product-header-title */
+  font-weight: bold;
+  letter-spacing: 1.5px;
+  color: #cc5500;
+  text-align: center;
+  margin: 0 0 32px 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 30px 0 0 0;
+}
