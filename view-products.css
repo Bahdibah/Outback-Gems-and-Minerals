@@ -85,29 +85,30 @@ header {
 }
 
 .view-product-detail {
+<<<<<<< HEAD
   border: 1px solid red;
+=======
+>>>>>>> e7f89cf50eb3cf3d116c1967fbed3fb6ddc4eabf
 }
 
-.view-product-details p {
+.view-product-detail p {
   font-size: 1.2rem;
 }
 
-#product-name {
+#view-product-name {
   font-size: 1.75rem;
 }
 
-#product-image {
+#view-product-image {
   width: 320px;
 }
 
-#image-placeholder-container {
+#view-product-image-placeholder-container {
   border: 1px solid red;
-
 }
 
-.image-placeholder {
+.view-product-image-placeholder {
   border: 1px solid red;
-
 }
 
 /* Footer Styling */
@@ -157,5 +158,5 @@ footer >div{
   border-top: 2px solid #cc5500; /* Use your accent color */
   margin: 0 auto 24px auto;
   width: 90%; /* Or 100% if you want it edge-to-edge */
-  opacity: 0.8;
+  opacity: 0.8;
 }

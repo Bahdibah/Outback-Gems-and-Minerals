@@ -5,15 +5,15 @@ const urlParams = new URLSearchParams(window.location.search);
 const productId = urlParams.get("productid");
 
 // DOM Elements
-const productNameElement = document.getElementById("product-name");
-const productImageElement = document.getElementById("product-image");
-const productDescriptionElement = document.getElementById("product-description");
-const quantityInputElement = document.getElementById("quantity");
-const addToCartButton = document.getElementById("add-to-cart");
-const variationSelector = document.getElementById("variation-selector");
-const productWeightElement = document.getElementById("product-weight");
-const productStockElement = document.getElementById("product-stock");
-const productPriceElement = document.getElementById("product-price");
+const productNameElement = document.getElementById("view-product-name");
+const productImageElement = document.getElementById("view-product-image");
+const productDescriptionElement = document.getElementById("view-product-description");
+const quantityInputElement = document.getElementById("view-product-quantity");
+const addToCartButton = document.getElementById("view-product-add-to-cart");
+const variationSelector = document.getElementById("view-product-variation-selector");
+const productWeightElement = document.getElementById("view-product-weight");
+const productStockElement = document.getElementById("view-product-stock");
+const productPriceElement = document.getElementById("view-product-price");
 
 let variations = [];
 let currentVariation = null;
