@@ -11,7 +11,6 @@ const productDescriptionElement = document.getElementById("view-product-descript
 const quantityInputElement = document.getElementById("view-product-quantity");
 const addToCartButton = document.getElementById("view-product-add-to-cart");
 const variationSelector = document.getElementById("view-product-variation-selector");
-const productWeightElement = document.getElementById("view-product-weight");
 const productStockElement = document.getElementById("view-product-stock");
 const productPriceElement = document.getElementById("view-product-price");
 
@@ -167,7 +166,6 @@ function updateProductDetails(selectedVariation) {
   productNameElement.textContent = selectedVariation["product name"];
   productImageElement.src = selectedVariation["image url"] || "images/placeholder.png";
   productDescriptionElement.textContent = selectedVariation.description;
-  productWeightElement.textContent = `Weight: ${selectedVariation.weight} ${selectedVariation.unit}`;
   productStockElement.textContent = `Stock: ${availableStock}`;
   productPriceElement.textContent = `Price: $${selectedVariation["total price"].toFixed(2)}`;
 

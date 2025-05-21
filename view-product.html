@@ -23,30 +23,81 @@
     <div class="view-product-page-layout">
   <div id="side-menu-container"></div>
   <div class="view-product-container">
-    <div id="view-product-details" class="view-product-detail">
-      <h1 id="view-product-name">Loading...</h1>
-      <img id="view-product-image" src="" alt="Product Image" />
-      <div id="view-product-image-placeholder-container">
-        <img class="view-product-image-placeholder" src="images/placeholder1.jpg" alt="Placeholder 1" />
-        <img class="view-product-image-placeholder" src="images/placeholder2.jpg" alt="Placeholder 2" />
-        <img class="view-product-image-placeholder" src="images/placeholder3.jpg" alt="Placeholder 3" />
+    <div class="view-product-detail">
+      <div class="view-product-header-container">
+        <h1 id="view-product-name" class="view-product-title">Loading...</h1>
       </div>
-      <p id="view-product-variation-label">Select Size:</p>
-      <div>
-        <select id="view-product-variation-selector"></select>
-        <p id="view-product-stock" >Stock: Loading...</p>
+      <div class="view-product-main">
+        <!-- Left: Main image and thumbnails -->
+        <div class="view-product-images">
+          <div class="view-product-thumbnails">
+            <img class="view-product-image-placeholder" src="images/placeholder1.jpg" alt="Thumb 1" />
+            <img class="view-product-image-placeholder" src="images/placeholder2.jpg" alt="Thumb 2" />
+            <img class="view-product-image-placeholder" src="images/placeholder3.jpg" alt="Thumb 3" />
+          </div>
+           <img id="view-product-image" src="" alt="Product Image" class="view-product-main-image" />
+        </div>
+        <!-- Right: Product info -->
+        <div class="view-product-info">
+          <div class="view-product-row">
+            <label id="view-product-variation-label" for="view-product-variation-selector">Select Size:</label>
+            <select id="view-product-variation-selector"></select>
+            <span id="view-product-stock">Stock: Loading...</span>
+          </div>
+          <div class="view-product-row">
+            <label id="view-product-quantity-label" for="view-product-quantity">Select Quantity:</label>
+            <input type="number" id="view-product-quantity" name="quantity" min="1" value="1">
+            <span id="view-product-price"></span>
+          </div>
+          <div class="view-product-description-block">
+            <div class="view-product-description-title">Description:</div>
+            <p id="view-product-description" class="view-product-description">Loading product description...</p>
+          </div>
+          <button id="view-product-add-to-cart">Add to Cart</button>
+          <button id="view-product-continue-shopping-button" class="theme-button" onclick="window.location.href='products.html'">
+            Continue Shopping
+          </button>
+        </div>
       </div>
-      <p id="view-product-description">Loading product description...</p>
-      <p id="view-product-weight"></p>
-      <p id="view-product-price"></p>
-      <p id="view-product-quantity-label">Select Quantity:</p>
-      <input type="number" id="view-product-quantity" name="quantity" min="1" value="1">
-      <button id="view-product-add-to-cart">Add to Cart</button>
-      <button id="view-product-continue-shopping-button" class="theme-button" onclick="window.location.href='products.html'">
-        Continue Shopping
-      </button>
+      <!-- Technical info section: now inside .view-product-detail, after .view-product-main -->
+      <div class="view-product-technical-info" id="view-product-technical-info">
+  <h2 class="technical-info-title">About Synthetic Spinel</h2>
+  <p class="technical-info-intro">
+    Synthetic spinel is a man-made gemstone prized for its brilliance, durability, and versatility. Originally developed as an alternative to natural gemstones, synthetic spinel is created in a laboratory environment, most commonly using the flame fusion (Verneuil) process. It is available in a wide range of vivid colors and is often used as a simulant for sapphire, aquamarine, and other gems. Its excellent optical properties and ease of cutting make it a favorite among faceters and collectors alike.
+  </p>
+  <div class="technical-info-grid">
+    <div class="technical-info-table">
+      <div><span>Chemical Formula:</span> MgAl<sub>2</sub>O<sub>4</sub></div>
+      <div><span>Crystal System:</span> Cubic (Isometric)</div>
+      <div><span>Refractive Index:</span> 1.727–1.740</div>
+      <div><span>Specific Gravity:</span> 3.58–3.61</div>
+      <div><span>Hardness (Mohs):</span> 7.5–8.0</div>
+      <div><span>Dispersion:</span> 0.020</div>
+      <div><span>Typical Colors:</span> Colorless, blue, pink, red, green, yellow, violet</div>
+      <div><span>Transparency:</span> Transparent to opaque</div>
+      <div><span>Cleavage:</span> None</div>
+      <div><span>Fracture:</span> Conchoidal</div>
+      <div><span>Luster:</span> Vitreous</div>
+      <div><span>Fluorescence:</span> Usually inert, but some colors may fluoresce under UV</div>
+      <div><span>Synthesis Method:</span> Flame fusion (Verneuil process)</div>
+    </div>
+    <div class="technical-info-notes">
+      <h3>Faceting Notes:</h3>
+      <ul>
+        <li>Polishes well with alumina or cerium oxide on tin or Lucite laps.</li>
+        <li>Sharp facet junctions; takes a high polish.</li>
+        <li>Low risk of heat damage during cutting.</li>
+        <li>Careful orientation can maximize color and minimize windowing.</li>
+      </ul>
+      <h3>Collector Notes:</h3>
+      <ul>
+        <li>Often used as a simulant for sapphire and other gems.</li>
+        <li>Readily available in large, clean crystals.</li>
+        <li>Distinguishable from natural spinel by inclusions and growth features.</li>
+      </ul>
     </div>
   </div>
+</div>
 </div> <!-- End of view-product-page-layout -->
 
 <script src="navbar.js"></script>
