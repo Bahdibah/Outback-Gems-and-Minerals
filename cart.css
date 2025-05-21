@@ -5,6 +5,15 @@ body {
   padding: 0;
   background-color: #2e2e2e; /* Dark grey background for the page and container */
   color: #cc5500; /* Orange text color for consistency */
+  height: 100%;
+}
+
+#page-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin-top: 1%; /* Or 2% if you prefer more space */
+  padding-top: 70px; /* If your navbar is fixed and 70px tall */
 }
 
 .cart-container {
@@ -181,6 +190,40 @@ body {
   background-color: #444; /* Darker grey for hover effect */
   border-color: #ff7f33; /* Lighter orange border on hover */
   transform: translateY(-2px); /* Slightly raise the button on hover */
+}
+
+/* Quantity and Remove Buttons */
+.quantity-button,
+.plus-button,
+.minus-button,
+.remove-button {
+  background: #cc5500;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 4px 10px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  margin: 0 2px;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.quantity-button:hover,
+.plus-button:hover,
+.minus-button:hover,
+.remove-button:hover {
+  background: #a94400;
+  transform: translateY(-2px);
+}
+
+.remove-button {
+  background: #e74c3c;
+  color: #fff;
+  padding: 4px 10px;
+}
+
+.remove-button:hover {
+  background: #c0392b;
 }
 
 /* Footer Styling */
