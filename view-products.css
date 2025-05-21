@@ -1,114 +1,31 @@
-:root {
-  --navbar-height: 70px;
-}
-
-body {
-  
-    background-color: #2e2e2e;
-    color: #cc5500;
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    height: 100%;
-}
-
-#page-wrapper {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  margin-top: 1%; /* Reduced from 2% to 1% */
-  padding-top: var(--navbar-height); /* This adds space at the top for the fixed navbar */
-}
-
-/* page layout for main products page (body container)*/
-.page-layout {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  gap: 8px; /* space between menu and products */
-  width: 100%;
-    margin: 0 !important;
-  padding: 0 !important;
-}
-
-button, .button {
-  background-color: #cc5500;
-  color: #fff;
-  font-weight: bold;
-  border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border stays */
-  padding: 14px 32px;
-  font-size: 1.25rem;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
-  display: inline-block;
-  margin-top: 10px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-}
-
-button:hover, .button:hover {
-  background-color: #ff7f33;
-  transform: scale(1.04) translateY(-1px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.35), 0 0 8px rgba(255, 127, 51, 0.5);
-}
-
-button:active, .button:active {
-  background-color: #b34700;
-  transform: scale(0.98) translateY(0);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.view-all-button {
-margin-top: 40px; /* More space above */
-padding: 16px 40px;
-}
-
-
-section {
-    padding: 60px 20px;
-}
-
-/* Header container */
-header {
-  width: 100%;
-  background-color: transparent !important;
-  box-shadow: none !important;
-  border: none !important;
-  display: flex;
-  align-items: center;
-  position: relative;
-  justify-content: space-between;
-}
-
 .view-product-container {
   border: 1px solid red;
 }
 
 .view-product-detail {
-<<<<<<< HEAD
-  border: 1px solid red;
-=======
->>>>>>> e7f89cf50eb3cf3d116c1967fbed3fb6ddc4eabf
+
 }
 
-.view-product-detail p {
+.view-product-details p {
   font-size: 1.2rem;
 }
 
-#view-product-name {
+#product-name {
   font-size: 1.75rem;
 }
 
-#view-product-image {
+#product-image {
   width: 320px;
 }
 
-#view-product-image-placeholder-container {
+#image-placeholder-container {
   border: 1px solid red;
+
 }
 
-.view-product-image-placeholder {
+.image-placeholder {
   border: 1px solid red;
+
 }
 
 /* Footer Styling */
@@ -158,5 +75,5 @@ footer >div{
   border-top: 2px solid #cc5500; /* Use your accent color */
   margin: 0 auto 24px auto;
   width: 90%; /* Or 100% if you want it edge-to-edge */
-  opacity: 0.8;
+  opacity: 0.8;
 }
