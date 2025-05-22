@@ -143,23 +143,76 @@ async function fetchProductDetails() {
     productDescriptionElement.textContent = "Please try again later.";
   }
 
-  //Continue shopping button to escape to category level//
+  //Continue shopping button to escape to category level. Kept in for reference
 
-  const category = variations[0]?.category;
-  const continueLink = document.getElementById("view-product-continue-shopping-link");
-  const continueBtn = document.getElementById("view-product-continue-shopping-button");
+  // const category = variations[0]?.category;
+  // const continueLink = document.getElementById("view-product-continue-shopping-link");
+  // const continueBtn = document.getElementById("view-product-continue-shopping-button");
   
-  function formatCategoryHeader(keyword) {
-    if (!keyword) return "All Products";
-    return keyword
-      .replace(/-/g, ' ')
-      .replace(/\b\w/g, c => c.toUpperCase());
-  }
+  // function formatCategoryHeader(keyword) {
+  //   if (!keyword) return "All Products";
+  //   return keyword
+  //     .replace(/-/g, ' ')
+  //     .replace(/\b\w/g, c => c.toUpperCase());
+  // }
   
-  if (category && continueLink && continueBtn) {
-    continueLink.href = `products.html?category=${encodeURIComponent(category)}`;
-    continueBtn.textContent = `Back to ${formatCategoryHeader(category)}`;
-  }
+  // if (category && continueLink && continueBtn) {
+  //   continueLink.href = `products.html?category=${encodeURIComponent(category)}`;
+  //   continueBtn.textContent = `Back to ${formatCategoryHeader(category)}`;
+  // }
+
+  //Continue shopping button to escape to previous page. Falls back to home if no previous page//
+        const continueLink = document.getElementById("view-product-continue-shopping-link");
+    const continueBtn = document.getElementById("view-product-continue-shopping-button");
+    
+    function getReferrerText(referrer) {
+      if (!referrer) return "Back to Home";
+      try {
+        const url = new URL(referrer);
+        if (url.pathname.includes("products.html")) {
+          // If there's a category param, format it
+          const params = new URLSearchParams(url.search);
+          const category = params.get("category");
+          if (category) {
+            return "Back to " + category.replace(/-/g, " ").replace(/\b\w/g, c => c.toUpperCase());
+          }
+          return "Back to All Products";
+        }
+        if (url.pathname.includes("view-product.html")) {
+          return "Back to Previous Product";
+        }
+        if (url.pathname.includes("contact.html")) {
+          return "Back to Contact Page";
+        }
+        if (url.pathname.includes("synthetic.html")) {
+          return "Back to Synthetic Products";
+        }
+        if (url.pathname.includes("natural.html")) {
+          return "Back to Natural Products";
+        }
+        if (url.pathname.includes("other.html")) {
+          return "Back to Other Products";
+        }
+        if (url.pathname.includes("cart.html")) {
+          return "Back to Cart";
+        }
+        // Add more cases as needed
+        return "Back";
+      } catch {
+        return "Back";
+      }
+    }
+    
+    if (continueLink && continueBtn) {
+      if (document.referrer) {
+        continueLink.href = document.referrer;
+        continueBtn.textContent = getReferrerText(document.referrer);
+      } else {
+        // Fallback: go to all products
+        continueLink.href = "products.html";
+        continueBtn.textContent = "Back to All Products";
+      }
+    }
 
 function updateProductDetails(selectedVariation) {
   const cart = JSON.parse(localStorage.getItem("cart")) || [];
