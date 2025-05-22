@@ -142,7 +142,24 @@ async function fetchProductDetails() {
     productNameElement.textContent = "Error loading product";
     productDescriptionElement.textContent = "Please try again later.";
   }
-}
+
+  //Continue shopping button to escape to category level//
+
+  const category = variations[0]?.category;
+  const continueLink = document.getElementById("view-product-continue-shopping-link");
+  const continueBtn = document.getElementById("view-product-continue-shopping-button");
+  
+  function formatCategoryHeader(keyword) {
+    if (!keyword) return "All Products";
+    return keyword
+      .replace(/-/g, ' ')
+      .replace(/\b\w/g, c => c.toUpperCase());
+  }
+  
+  if (category && continueLink && continueBtn) {
+    continueLink.href = `products.html?category=${encodeURIComponent(category)}`;
+    continueBtn.textContent = `Back to ${formatCategoryHeader(category)}`;
+  }
 
 function updateProductDetails(selectedVariation) {
   const cart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -172,7 +189,9 @@ function updateProductDetails(selectedVariation) {
   // Update the quantity input to respect the displayed stock
   quantityInputElement.setAttribute("max", availableStock);
   quantityInputElement.value = 1;
+};
 }
+
 
 // Initialize the page
 fetchProductDetails();
