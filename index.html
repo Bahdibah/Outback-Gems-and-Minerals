@@ -259,8 +259,10 @@
       // Remove loading message
       bestsellerGrid.innerHTML = "";
 
+      const bestsellerItems = data.filter(product => product.bestseller && product.bestseller.toLowerCase() === "y");
+
       // Shuffle and pick 3 random products
-      const shuffled = data.sort(() => 0.5 - Math.random()).slice(0, 3);
+      const shuffled = bestsellerItems.sort(() => 0.5 - Math.random()).slice(0, 3);
 
       shuffled.forEach(product => {
         const card = document.createElement("div");
@@ -328,9 +330,10 @@ document.addEventListener("DOMContentLoaded", function () {
     .then(response => response.json())
     .then(data => {
       swiperWrapper.innerHTML = ""; // Remove loading message
-
+      const newItems = data.filter(product => product.newitem && product.newitem.toLowerCase() === "y")
+      
       // Shuffle and pick up to 6 random products for the carousel
-      const shuffled = data.sort(() => 0.5 - Math.random()).slice(0, 6);
+      const shuffled = newItems.sort(() => 0.5 - Math.random()).slice(0, 6);
 
       shuffled.forEach(product => {
         const slide = document.createElement("div");
