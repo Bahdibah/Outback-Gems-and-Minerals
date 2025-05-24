@@ -8,43 +8,43 @@
 {
     "category": "synthetic-sapphire",
     "category-description": "Durable and brilliantly coloured, our synthetic sapphires are ideal for precision faceting and jewellery work.",
-	"description": "<p><strong>Synthetic Sapphire</strong> (Al<sub>2</sub>O<sub>3</sub>) is a lab-grown corundum known for its exceptional hardness (Mohs 9), making it ideal for faceting and use in high-durability jewellery.</p><p>It comes in a wide variety of colours including deep blue, yellow, pink, green, and colourless. Created using methods like the Verneuil process, synthetic sapphire is optically identical to natural sapphire and offers excellent clarity, brilliance, and heat resistance.</p>",
+	"product-description": "<p><strong>Synthetic Sapphire</strong> (Al<sub>2</sub>O<sub>3</sub>) is a lab-grown corundum known for its exceptional hardness (Mohs 9), making it ideal for faceting and use in high-durability jewellery.</p><p>It comes in a wide variety of colours including deep blue, yellow, pink, green, and colourless. Created using methods like the Verneuil process, synthetic sapphire is optically identical to natural sapphire and offers excellent clarity, brilliance, and heat resistance.</p>",
     "category-image": "Synthetic Sapphire.jpg"
 },
   {
     "category": "synthetic-cz",
     "category-description": "With high brilliance and diamond-like sparkle, synthetic cubic zirconia is perfect for eye-catching faceting projects.",
-    "description": "<p><strong>Cubic Zirconia</strong> (ZrO<sub>2</sub>) is a synthetic gemstone prized for its brilliance and affordability. It has a Mohs hardness of 8–8.5, making it suitable for a variety of lapidary applications. Available in clear and various colours, cubic zirconia is a popular diamond substitute and is often cut into faceted stones for jewellery use. It polishes well and offers high light dispersion and clarity.</p>",
+    "product-description": "<p><strong>Cubic Zirconia</strong> (ZrO<sub>2</sub>) is a synthetic gemstone prized for its brilliance and affordability. It has a Mohs hardness of 8–8.5, making it suitable for a variety of lapidary applications. Available in clear and various colours, cubic zirconia is a popular diamond substitute and is often cut into faceted stones for jewellery use. It polishes well and offers high light dispersion and clarity.</p>",
     "category-image": "Synthetic CZ.jpg"
   },
   {
     "category": "natural-zircon",
     "category-description": "Known for its brilliance and fire, natural zircon is a striking gemstone with rich tones and ancient origins",
-     "description": "<p><strong>Natural Zircon</strong> (ZrSiO<sub>4</sub>) is a brilliant, high-refractive-index gemstone known for its fire and range of colours. With a Mohs hardness of 6–7.5, it can be faceted for jewellery or kept as a collector’s specimen. Zircon is not to be confused with synthetic cubic zirconia and has unique natural characteristics, often found in golden, brown, or blue hues.</p>",
+     "product-description": "<p><strong>Natural Zircon</strong> (ZrSiO<sub>4</sub>) is a brilliant, high-refractive-index gemstone known for its fire and range of colours. With a Mohs hardness of 6–7.5, it can be faceted for jewellery or kept as a collector’s specimen. Zircon is not to be confused with synthetic cubic zirconia and has unique natural characteristics, often found in golden, brown, or blue hues.</p>",
      "category-image": "Natural Ziron.jpg"
   },
   {
     "category": "natural-sapphire",
     "category-description": "Explore the timeless beauty of natural sapphires, prized for their vivid colours and exceptional durability.",
-     "description": "<p><strong>Natural Sapphire</strong> is a variety of corundum (Al<sub>2</sub>O<sub>3</sub>) with a Mohs hardness of 9, second only to diamond. Found in a range of colours including blue, yellow, green, and pink, sapphires are highly prized by both gem collectors and jewellers. These stones are ideal for cutting and polishing, and their durability makes them perfect for long-lasting jewellery pieces.</p>",
+     "product-description": "<p><strong>Natural Sapphire</strong> is a variety of corundum (Al<sub>2</sub>O<sub>3</sub>) with a Mohs hardness of 9, second only to diamond. Found in a range of colours including blue, yellow, green, and pink, sapphires are highly prized by both gem collectors and jewellers. These stones are ideal for cutting and polishing, and their durability makes them perfect for long-lasting jewellery pieces.</p>",
      "category-image": "Natural Sapphire.jpg"
   },
   {
     "category": "other-fossicking-bags",
     "category-description": "Ready to dig in? Our sapphire-rich washbags bring the thrill of fossicking straight to you — just add water and start your treasure hunt.",
-    "description": "<p><strong>Sapphire Washbags</strong> contain gem-bearing alluvial material, ready to be sieved and searched for sapphires and other minerals. These are ideal for fossickers of all ages and experience levels. Each bag offers the excitement of uncovering natural treasures and is perfect for use at home or at a gem club.</p>",
+    "product-description": "<p><strong>Sapphire Washbags</strong> contain gem-bearing alluvial material, ready to be sieved and searched for sapphires and other minerals. These are ideal for fossickers of all ages and experience levels. Each bag offers the excitement of uncovering natural treasures and is perfect for use at home or at a gem club.</p>",
     "category-image": "Other Washbag.jpg"
   },
   {
     "category": "other-mystery-boxes",
     "category-description": "Can't decide? Let us surprise you! Our mystery boxes are packed with a random assortment of rough, polished, and unusual gems and minerals — always fun, never the same.",
-    "description": "<p><strong>Mystery Boxes</strong> are packed with a selection of natural and/or synthetic gemstones, mineral specimens, and other surprises. Great for collectors, cutters, or gifting, each box offers variety and value, with a mix of rough and polished pieces. Contents vary with each box, making every purchase a unique experience.</p>",
+    "product-description": "<p><strong>Mystery Boxes</strong> are packed with a selection of natural and/or synthetic gemstones, mineral specimens, and other surprises. Great for collectors, cutters, or gifting, each box offers variety and value, with a mix of rough and polished pieces. Contents vary with each box, making every purchase a unique experience.</p>",
     "category-image": "Other Mystery Box.jpg"
   },
   {
     "category": "other-thunder-eggs",
     "category-description":"Each thunder egg holds a surprise within — crack them open to reveal vibrant patterns, hidden crystals, and natural beauty formed over millions of years.",
-    "description": "<p><strong>Thunder Eggs</strong> are unique geological formations often containing agate, jasper, or quartz within a rough, rounded exterior. Formed in volcanic environments, they are prized by collectors for their surprising internal patterns and colours once cut and polished. Each specimen is a natural mystery waiting to be revealed.</p>",
+    "product-description": "<p><strong>Thunder Eggs</strong> are unique geological formations often containing agate, jasper, or quartz within a rough, rounded exterior. Formed in volcanic environments, they are prized by collectors for their surprising internal patterns and colours once cut and polished. Each specimen is a natural mystery waiting to be revealed.</p>",
     "category-image": "Other Thunder Egg.jpg"
   }
 ]
