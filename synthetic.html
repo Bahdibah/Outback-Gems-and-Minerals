@@ -35,29 +35,14 @@
      <div class="product-divider"></div>
 
     <div class="page-layout">
-      <div class="product-container">
+
+      <div id="loading-categories"></div>
       <div class="product-card-container">
-        <div class="product-card" style="background-image: url('images/Synthetic Sapphire.jpg'); background-size: 100%; background-repeat: no-repeat; background-position: center;">
-          <h3>Sapphire</h3>
-          <p>Durable and brilliantly coloured, our synthetic sapphires are ideal for precision faceting and jewellery work.</p>
-          <button class="product-button"><a href="/products.html?category=synthetic-sapphire" data-category="synthetic-sapphire">Shop all Sapphire</a></button>
-        </div>
-
-        <div class="product-card" style="background-image: url('images/Synthetic Spinel.jpg'); background-size: 100%; background-repeat: no-repeat; background-position: center;">
-          <h3>Spinel</h3>
-          <p>Available in a range of vivid hues, synthetic spinel is a versatile and affordable choice for collectors and cutters.</p>
-          <button class="product-button "><a href="/products.html?category=synthetic-spinel" data-category="synthetic-spinel">Shop all Spinel</a></button>
-        </div>
-
-        <div class="product-card" style="background-image: url('images/Synthetic CZ.jpg'); background-size: 100%; background-repeat: no-repeat; background-position: center;">
-          <h3>Cubic Zirconia</h3>
-          <p>With high brilliance and diamond-like sparkle, synthetic cubic zirconia is perfect for eye-catching faceting projects.</p>
-          <button class="product-button"><a href="/products.html?category=synthetic-cubic-zirconia" data-category="synthetic-cubic-zirconia">Shop all Cubic Zirconia</a></button>
-        </div>
+        <!-- Cards will be loaded here by JS -->
       </div>
-      <button class="view-all-button">View All Synthetic Prodcuts</button>
     </div>
-  </div>  
+    <button class="view-all-button">View All Synthetic Prodcuts</button>  
+  </div> 
 
     <footer>
       <div class="footer-left">
@@ -86,7 +71,6 @@
         document.getElementById("home").style.backgroundImage = `url('${images[current]}')`;
       }, 15000); // Change image every 15 seconds
   </script>    
-
-
+  <script src="synthetic.js"></script>
 </body>
 </html>

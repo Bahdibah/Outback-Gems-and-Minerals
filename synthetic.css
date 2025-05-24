@@ -141,8 +141,9 @@ button:active, .button:active {
 }
 
 .view-all-button {
-margin-top: 40px; /* More space above */
-padding: 16px 40px;
+  width: 15%;
+  margin-left: 42.5%;
+  height: 2%;
 }
 
 header {
@@ -431,9 +432,8 @@ button {
 }
 
 .view-all-button {
-  width: 15%;
-  margin-left: 42.5%;
-  height: 2%;
+margin-top: 40px; /* More space above */
+padding: 16px 40px;
 }
 
 #add-to-cart {
