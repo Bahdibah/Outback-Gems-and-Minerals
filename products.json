@@ -21,13 +21,25 @@
     "category": "natural-zircon",
     "category-description": "Known for its brilliance and fire, natural zircon is a striking gemstone with rich tones and ancient origins",
      "product-description": "<p><strong>Natural Zircon</strong> (ZrSiO<sub>4</sub>) is a brilliant, high-refractive-index gemstone known for its fire and range of colours. With a Mohs hardness of 6–7.5, it can be faceted for jewellery or kept as a collector’s specimen. Zircon is not to be confused with synthetic cubic zirconia and has unique natural characteristics, often found in golden, brown, or blue hues.</p>",
-     "category-image": "Natural Ziron.jpg"
+     "category-image": "Natural Zircon.jpg"
   },
   {
     "category": "natural-sapphire",
     "category-description": "Explore the timeless beauty of natural sapphires, prized for their vivid colours and exceptional durability.",
      "product-description": "<p><strong>Natural Sapphire</strong> is a variety of corundum (Al<sub>2</sub>O<sub>3</sub>) with a Mohs hardness of 9, second only to diamond. Found in a range of colours including blue, yellow, green, and pink, sapphires are highly prized by both gem collectors and jewellers. These stones are ideal for cutting and polishing, and their durability makes them perfect for long-lasting jewellery pieces.</p>",
      "category-image": "Natural Sapphire.jpg"
+  },
+  {
+    "category": "natural-garnet",
+    "category-description": "Known for its brilliance and fire, natural zircon is a striking gemstone with rich tones and ancient origins",
+     "product-description": "<p><strong>Natural Garnet</strong> encompasses a group of silicate minerals that occur in a wide variety of colours, with deep reds being the most recognised. With a Mohs hardness of 6.5 to 7.5 and a strong natural lustre, garnets are highly valued in lapidary work. Their consistent crystal structure and rich tones make them a favourite for both faceting and cabbing.</p>",
+     "category-image": "Natural Garnet.jpg"
+  },
+  {
+    "category": "natural-tourmaline",
+    "category-description": "Known for its brilliance and fire, natural zircon is a striking gemstone with rich tones and ancient origins",
+     "product-description": "<p><strong>Natural Tourmaline</strong> is a striking gemstone known for its impressive range of colours, from vibrant pinks and greens to deep blues and rich browns. A complex borosilicate mineral, tourmaline is popular with lapidaries for its brilliance, durability, and diverse crystal formations. Its Mohs hardness typically ranges from 7 to 7.5, making it ideal for cutting and polishing.</p>",
+     "category-image": "Natural Tourmaline.jpg"
   },
   {
     "category": "other-fossicking-wash-bags",
