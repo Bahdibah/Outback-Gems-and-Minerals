@@ -17,6 +17,16 @@ const productPriceElement = document.getElementById("view-product-price");
 let variations = [];
 let currentVariation = null;
 
+fetch("side-menu.html")
+  .then(response => response.text())
+  .then(html => {
+    document.getElementById("side-menu-container").innerHTML = html;
+    if (typeof fetchAndLoadMenu === "function") {
+      fetchAndLoadMenu();
+    }
+    // ...rest of your product logic...
+  });
+
 // Fetch product details from the API
 async function fetchProductDetails() {
   try {
@@ -195,3 +205,4 @@ function updateProductDetails(selectedVariation) {
 
 // Initialize the page
 fetchProductDetails();
+

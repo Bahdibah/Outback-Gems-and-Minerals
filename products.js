@@ -3,8 +3,9 @@ fetch("side-menu.html")
   .then(response => response.text())
   .then(html => {
     document.getElementById("side-menu-container").innerHTML = html;
-    if (typeof initializeSideMenu === "function") {
-      initializeSideMenu();
+    // Now let side-menu.js handle the rest:
+    if (typeof fetchAndLoadMenu === "function") {
+      fetchAndLoadMenu(); // This should load subcategories and initialize the menu
     }
 
     // --- Product loading logic STARTS here ---

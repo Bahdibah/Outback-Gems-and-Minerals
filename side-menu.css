@@ -147,9 +147,15 @@
   padding: 0;
   margin: 0;
   transition: color 0.2s;
+  z-index: 1;
+  position: relative;
+  pointer-events: auto;
 }
 
 .category-expand {
+  z-index: 2;
+  position: relative;
+  pointer-events: auto;
   background: none;
   border: none;
   color: #fff;                /* White arrow */
@@ -186,10 +192,14 @@
   transition: max-height 0.3s cubic-bezier(.4,0,.2,1), padding 0.3s;
 }
 
-.category-card.open .subcategory-list {
-  padding: 10px 16px;
-  max-height: 300px; /* Enough to show all subcategories */
+/* Hide subcategories by default */
+.category-card .subcategory-list {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s;
+  display: block; /* Always block for animation */
 }
+
 
 .subcategory-list li a {
   color: #fff;

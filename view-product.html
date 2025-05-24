@@ -102,18 +102,8 @@
 
 
 <script src="navbar.js"></script>
-<script src="view-product.js"></script>
-<script>
-  fetch("side-menu.html")
-    .then(response => response.text())
-    .then(html => {
-      document.getElementById("side-menu-container").innerHTML = html;
-      if (typeof initializeSideMenu === "function") {
-        initializeSideMenu();
-      }
-    });
-</script>
 <script src="side-menu.js"></script>
+<script src="view-product.js"></script>
 
   </div> <!-- End of page-wrapper -->
   </div>
