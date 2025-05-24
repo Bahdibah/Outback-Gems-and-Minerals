@@ -243,9 +243,9 @@ footer >div{
 }
 
 .view-product-image-placeholder {
-  height: calc((370px - (2 * 8px)) / 3); /* 3 thumbs, 2 gaps of 8px */
-  width: auto; /* Let width scale naturally */
-  max-width: 100px; /* Optional: limit max width */
+  height: calc((370px - (2 * 8px)) / 3); 
+  width: auto; 
+  max-width: 100px; 
   object-fit: cover;
   border-radius: 6px;
   border: 1px solid #444;
@@ -307,7 +307,7 @@ footer >div{
 #view-product-price {
   font-size: 1.1rem;
   color: #ffb366;
-  margin-left: 18px; /* space between qty and price */
+  margin-left: 18px;
   white-space: nowrap;
 }
 
@@ -341,10 +341,10 @@ footer >div{
   width: 100%;
   margin-top: 40px;
   padding: 36px 0 28px 0;
-  background: transparent;      /* Remove background */
+  background: transparent;     
   color: #f5f5f5;
-  border-radius: 0;             /* Remove rounded corners */
-  box-shadow: none;             /* Remove shadow */
+  border-radius: 0;            
+  box-shadow: none;             
   border-top: 2px solid #cc5500;
   font-size: 1.08rem;
   box-sizing: border-box;
