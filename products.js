@@ -20,12 +20,7 @@ fetch("side-menu.html")
     const categoryKeyword = getQueryParam("category");
 
     if (categoryKeyword) {
-      const sideMenuItem = document.querySelector(`.side-menu-toggle[data-category="${categoryKeyword}"]`);
-      if (sideMenuItem) {
-        loadProductsByCategory(categoryKeyword);
-      } else {
-        loadProductsByCategory(); // fallback
-      }
+      loadProductsByCategory(categoryKeyword);
     } else {
       loadProductsByCategory(); // Load all products if no category is specified
     }
