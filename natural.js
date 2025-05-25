@@ -1,3 +1,4 @@
+
 function formatSubcategory(cat) {
   return cat.replace(/^[^-]+-/, '')
             .replace(/-/g, ' ')
@@ -70,7 +71,7 @@ async function loadNaturalProducts() {
         <p class="product-card-description">${description}</p>
         <a href="/products.html?category=${encodeURIComponent(product.category)}" data-category="${product.category}">
            <button class="product-button">
-            Shop all ${title}
+            View All
           </button>
         </a>
       </div>
