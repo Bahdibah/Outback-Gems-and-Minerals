@@ -354,6 +354,11 @@ footer >div{
   box-sizing: border-box;
 }
 
+h1 {
+  color: #cc5500;
+  font-size: 2rem;
+}
+
 .technical-info-title {
   color: #ffb366;
   font-size: 1.6rem;
@@ -376,6 +381,13 @@ footer >div{
   flex-wrap: wrap;
   gap: 40px;
   margin-top: 10px;
+}
+
+.divider {
+  height: 1px;
+  background-color: #cc5500;
+  width: 100%;
+  margin: 40px 0% 40px 0%;
 }
 
 @media (max-width: 900px) {
