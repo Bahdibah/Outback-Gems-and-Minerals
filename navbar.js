@@ -139,7 +139,8 @@ function updateCartDropdown() {
     cartItemsList.appendChild(cartItem);
   });
 
-  cartMessage.textContent = `You currently have ${cart.length} items in your cart.`;
+  const totalQuantity = cart.reduce((sum, item) => sum + item.quantity, 0);
+  cartMessage.textContent = `You currently have ${totalQuantity} items in your cart`;
   cartTotal.textContent = `$${subtotal.toFixed(2)}`;
 }
 
