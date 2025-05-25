@@ -123,6 +123,4 @@ function fetchAndLoadMenu() {
   }
 }
 
-// Run on page load
-fetchAndLoadMenu();
 
