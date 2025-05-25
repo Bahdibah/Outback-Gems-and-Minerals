@@ -68,11 +68,11 @@ async function loadOtherProducts() {
       <div class="product-card-content">
         <h3 class="product-card-title">${title}</h3>
         <p class="product-card-description">${description}</p>
-        <button class="product-button">
-          <a href="/products.html?category=${encodeURIComponent(product.category)}" data-category="${product.category}">
+        <a href="/products.html?category=${encodeURIComponent(product.category)}" data-category="${product.category}">
+           <button class="product-button">
             Shop all ${title}
-          </a>
-        </button>
+          </button>
+        </a>
       </div>
     `;
 
