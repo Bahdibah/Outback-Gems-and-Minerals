@@ -193,7 +193,8 @@ function updateProductDetails(selectedVariation) {
   productNameElement.textContent = selectedVariation["product name"];
   productImageElement.src = selectedVariation["image url"] || "images/placeholder.png";
   productDescriptionElement.textContent = selectedVariation.description;
-  productStockElement.textContent = `Stock: ${availableStock}`;
+  if (availableStock > 0 ) {productStockElement.textContent =`Stock: ${availableStock}`}
+  else productStockElement.textContent ='Out of Stock';
   productPriceElement.textContent = `Price: $${selectedVariation["total price"].toFixed(2)}`;
 
   // Update the quantity input to respect the displayed stock
