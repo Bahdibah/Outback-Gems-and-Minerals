@@ -207,7 +207,6 @@ async function fetchProductDetails() {
     const cartQuantity = cartItem ? cartItem.quantity : 0;
     const availableStock = baseStock - cartQuantity;
 
-    // Update product details on the page
     productNameElement.textContent = selectedVariation["product name"];
     productImageElement.src = selectedVariation["image url"] || "images/placeholder.png";
     productDescriptionElement.textContent = selectedVariation.description;
@@ -215,13 +214,56 @@ async function fetchProductDetails() {
     else productStockElement.textContent ='Out of Stock';
     productPriceElement.textContent = `Price: $${selectedVariation["total price"].toFixed(2)}`;
 
-    // Update the quantity input to respect the displayed stock
     quantityInputElement.setAttribute("max", availableStock);
     quantityInputElement.value = 1;
-};
-}
 
+    // Main image from API
+    const apiImage = selectedVariation["image url"] || "images/placeholder.png";
+    const mainImage = document.getElementById("view-product-image");
+    const thumbnailsContainer = document.getElementById("view-product-thumbnails");
 
-// Initialize the page
+    // Fetch extra images from productid.json
+    fetch("productid.json")
+      .then(res => res.json())
+      .then(productImagesList => {
+        // Find the entry for this product id
+        const productImages = productImagesList.find(p => p.productid === productId);
+        // Use the 3 images from JSON, or fallback to placeholders
+        const extraImages = productImages?.images || [
+          "images/placeholder1.jpg",
+          "images/placeholder2.jpg",
+          "images/placeholder3.jpg"
+        ];
+
+        // Build the thumbnails: API image first, then the 3 from JSON
+        const allThumbs = [apiImage, ...extraImages];
+
+        // Set the main image to the API image by default
+        if (mainImage) mainImage.src = apiImage;
+
+        // Render thumbnails
+        thumbnailsContainer.innerHTML = "";
+        allThumbs.forEach((imgUrl, idx) => {
+          const thumb = document.createElement("img");
+          thumb.src = imgUrl;
+          thumb.alt = `Thumbnail ${idx + 1}`;
+          thumb.className = "view-product-image-placeholder";
+          thumb.style.cursor = "pointer";
+          // Highlight the selected thumbnail
+          if (idx === 0) thumb.style.border = "2px solid #cc5500";
+          thumb.addEventListener("click", function() {
+            if (mainImage) mainImage.src = imgUrl;
+            // Optional: highlight the selected thumbnail
+            thumbnailsContainer.querySelectorAll("img").forEach(img => img.style.border = "1px solid #444");
+            this.style.border = "2px solid #cc5500";
+          });
+          thumbnailsContainer.appendChild(thumb);
+        });
+      });
+
+    quantityInputElement.setAttribute("max", availableStock);
+    quantityInputElement.value = 1;
+};}
+
 fetchProductDetails();
 
