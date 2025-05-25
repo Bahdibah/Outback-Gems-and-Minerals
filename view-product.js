@@ -147,59 +147,77 @@ async function fetchProductDetails() {
       productPriceElement.textContent = `Price: $${totalPrice.toFixed(2)}`;
     });
 
+    // After you set variations and before using category:
+    const category = variations[0]?.category;
+
+    // Load technical information based on the product category
+    if (category) {
+      fetch("products.json")
+        .then(res => res.json())
+        .then(products => {
+          const product = products.find(p => p.category === category);
+          const technicalInfo = product?.["product-description"] || "<p>No technical info available.</p>";
+          const techDiv = document.getElementById("view-product-technical-info");
+          if (techDiv) techDiv.innerHTML = technicalInfo;
+        })
+        .catch(err => {
+          const techDiv = document.getElementById("view-product-technical-info");
+          if (techDiv) techDiv.innerHTML = "<p>Error loading technical info.</p>";
+          console.error("Error loading technical info:", err);
+        });
+    }
+
+    //Continue shopping button to escape to category level//
+    const continueLink = document.getElementById("view-product-continue-shopping-link");
+    const continueBtn = document.getElementById("view-product-continue-shopping-button");
+    
+    function formatCategoryHeader(keyword) {
+      if (!keyword) return "All Products";
+      return keyword
+        .replace(/-/g, ' ')
+        .replace(/\b\w/g, c => c.toUpperCase());
+    }
+    
+    if (category && continueLink && continueBtn) {
+      continueLink.href = `products.html?category=${encodeURIComponent(category)}`;
+      continueBtn.textContent = `Back to ${formatCategoryHeader(category)}`;
+    }
+
   } catch (error) {
     console.error("Error fetching product details:", error);
     productNameElement.textContent = "Error loading product";
     productDescriptionElement.textContent = "Please try again later.";
   }
 
-  //Continue shopping button to escape to category level//
+  function updateProductDetails(selectedVariation) {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-  const category = variations[0]?.category;
-  const continueLink = document.getElementById("view-product-continue-shopping-link");
-  const continueBtn = document.getElementById("view-product-continue-shopping-button");
-  
-  function formatCategoryHeader(keyword) {
-    if (!keyword) return "All Products";
-    return keyword
-      .replace(/-/g, ' ')
-      .replace(/\b\w/g, c => c.toUpperCase());
-  }
-  
-  if (category && continueLink && continueBtn) {
-    continueLink.href = `products.html?category=${encodeURIComponent(category)}`;
-    continueBtn.textContent = `Back to ${formatCategoryHeader(category)}`;
-  }
+    // Find the matching item in the cart for the selected variation
+    const cartItem = cart.find(
+      item =>
+        item.id === productId &&
+        item.weight === selectedVariation.weight &&
+        item.unit === selectedVariation.unit
+    );
 
-function updateProductDetails(selectedVariation) {
-  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    // Use the stock from the selected variation
+    const baseStock = selectedVariation.stock;
 
-  // Find the matching item in the cart for the selected variation
-  const cartItem = cart.find(
-    item =>
-      item.id === productId &&
-      item.weight === selectedVariation.weight &&
-      item.unit === selectedVariation.unit
-  );
+    // Subtract the quantity of the specific variant in the cart
+    const cartQuantity = cartItem ? cartItem.quantity : 0;
+    const availableStock = baseStock - cartQuantity;
 
-  // Use the stock from the selected variation
-  const baseStock = selectedVariation.stock;
+    // Update product details on the page
+    productNameElement.textContent = selectedVariation["product name"];
+    productImageElement.src = selectedVariation["image url"] || "images/placeholder.png";
+    productDescriptionElement.textContent = selectedVariation.description;
+    if (availableStock > 0 ) {productStockElement.textContent =`Stock: ${availableStock}`}
+    else productStockElement.textContent ='Out of Stock';
+    productPriceElement.textContent = `Price: $${selectedVariation["total price"].toFixed(2)}`;
 
-  // Subtract the quantity of the specific variant in the cart
-  const cartQuantity = cartItem ? cartItem.quantity : 0;
-  const availableStock = baseStock - cartQuantity;
-
-  // Update product details on the page
-  productNameElement.textContent = selectedVariation["product name"];
-  productImageElement.src = selectedVariation["image url"] || "images/placeholder.png";
-  productDescriptionElement.textContent = selectedVariation.description;
-  if (availableStock > 0 ) {productStockElement.textContent =`Stock: ${availableStock}`}
-  else productStockElement.textContent ='Out of Stock';
-  productPriceElement.textContent = `Price: $${selectedVariation["total price"].toFixed(2)}`;
-
-  // Update the quantity input to respect the displayed stock
-  quantityInputElement.setAttribute("max", availableStock);
-  quantityInputElement.value = 1;
+    // Update the quantity input to respect the displayed stock
+    quantityInputElement.setAttribute("max", availableStock);
+    quantityInputElement.value = 1;
 };
 }
 
