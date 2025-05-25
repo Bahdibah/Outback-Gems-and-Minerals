@@ -354,6 +354,11 @@ footer >div{
   box-sizing: border-box;
 }
 
+h1 {
+  color: #cc5500;
+  font-size: 2rem;
+}
+
 .technical-info-title {
   color: #ffb366;
   font-size: 1.6rem;
