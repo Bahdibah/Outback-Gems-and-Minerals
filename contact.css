@@ -12,7 +12,7 @@ body {
 }
 
 #home {
-  background: url('images/Contact Banner 1.jpeg') no-repeat center center/cover;
+  background: url('images/banners/Contact Banner 1.jpeg') no-repeat center center/cover;
   color: #fff;
   position: relative;
   display: flex;
