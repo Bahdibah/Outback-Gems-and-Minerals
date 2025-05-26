@@ -59,7 +59,7 @@ async function loadOtherProducts() {
     // Build card using your existing structure
     const card = document.createElement("div");
     card.className = "product-card";
-    card.style.backgroundImage = `url('images/${image}')`;
+    card.style.backgroundImage = `url('images/category cards/${image}')`;
     card.style.backgroundSize = "100%";
     card.style.backgroundRepeat = "no-repeat";
     card.style.backgroundPosition = "center";
