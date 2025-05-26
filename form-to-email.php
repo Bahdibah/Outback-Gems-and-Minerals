@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // If no errors, send email
     if (empty($errors)) {
         // Recipient email address 
-        $recipient = "outbackgems@outlook.com";
+        $recipient = "support@outbackgems.com.au";
 
         // Additional headers
         $headers = "From: $name <$email>";
