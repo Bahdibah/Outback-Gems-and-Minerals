@@ -214,6 +214,22 @@
       "images/products/waam002/image2.jpg",
       "images/products/waam002/image3.jpg"
     ]
+  },  
+  {
+    "productid": "hzr002",
+    "images": [
+      "images/products/hzr002/image1.jpg",
+      "images/products/hzr002/image2.jpg",
+      "images/products/hzr002/image3.jpg"
+    ]
+  },  
+  {
+    "productid": "hzr003",
+    "images": [
+      "images/products/hzr003/image1.jpg",
+      "images/products/hzr003/image2.jpg",
+      "images/products/hzr003/image3.jpg"
+    ]
   },
   {
     "productid": "sp001",
