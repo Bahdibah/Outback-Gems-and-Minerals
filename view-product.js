@@ -230,9 +230,9 @@ async function fetchProductDetails() {
         const productImages = productImagesList.find(p => p.productid === productId);
         // Use the 3 images from JSON, or fallback to placeholders
         const extraImages = productImages?.images || [
-          "images/products/${productid}/placeholder1.jpg",
-          "images/products/${productid}/placeholder2.jpg",
-          "images/products/${productid}/placeholder3.jpg"
+          "images/products/${productid}/image1.jpg",
+          "images/products/${productid}/image2.jpg",
+          "images/products/${productid}/image3.jpg"
         ];
 
         // Build the thumbnails: API image first, then the 3 from JSON
