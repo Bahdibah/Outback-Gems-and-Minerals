@@ -67,6 +67,15 @@ fetch("side-menu.html")
             // Only keep unique product ids
         filteredProducts = getUniqueByProductId(filteredProducts);
 
+           // Sort alphabetically by product name
+          filteredProducts.sort((a, b) => {
+            const nameA = (a["product name"] || "").toLowerCase();
+            const nameB = (b["product name"] || "").toLowerCase();
+            if (nameA < nameB) return -1;
+            if (nameA > nameB) return 1;
+            return 0;
+          });
+
             const headerTitle = keyword ? formatCategoryHeader(keyword) : "All Products";
             displayProducts(filteredProducts, headerTitle, keyword, data);
           } else {
