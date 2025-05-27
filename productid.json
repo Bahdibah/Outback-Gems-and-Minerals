@@ -192,6 +192,30 @@
     ]
   },
   {
+    "productid": "sq002",
+    "images": [
+      "images/products/sq002/image1.jpg",
+      "images/products/sq002/image2.jpg",
+      "images/products/sq002/image3.jpg"
+    ]
+  },
+  {
+    "productid": "waam001",
+    "images": [
+      "images/products/waam001/image1.jpg",
+      "images/products/waam001/image2.jpg",
+      "images/products/waam001/image3.jpg"
+    ]
+  },
+  {
+    "productid": "waam002",
+    "images": [
+      "images/products/waam002/image1.jpg",
+      "images/products/waam002/image2.jpg",
+      "images/products/waam002/image3.jpg"
+    ]
+  },
+  {
     "productid": "sp001",
     "images": [
       "images/products/sp001/image1.jpg",

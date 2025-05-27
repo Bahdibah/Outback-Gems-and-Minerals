@@ -231,6 +231,10 @@ footer >div{
   height: 370px; /* Match the main image height */
 }
 
+.view-product-thumbnails img{
+  height: 80px; /* Reduce height to stop overflow*/
+}
+
 /* Make images centered and larger */
 .view-product-main-image {
   width: 370px;

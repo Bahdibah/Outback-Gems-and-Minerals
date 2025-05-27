@@ -37,6 +37,18 @@ fetch("side-menu.html")
       });
     });
 
+    //function to only load unique product ids on the product grid
+    function getUniqueByProductId(products) {
+    const seen = new Set();
+    return products.filter(product => {
+      if (seen.has(product["product id"])) {
+        return false;
+      }
+      seen.add(product["product id"]);
+      return true;
+    });
+    }
+
     // Function to load products by category keyword
     function loadProductsByCategory(keyword = null) {
       productContainer.innerHTML = "<p>Loading products...</p>";
@@ -51,6 +63,10 @@ fetch("side-menu.html")
             } else {
               filteredProducts = data;
             }
+
+            // Only keep unique product ids
+        filteredProducts = getUniqueByProductId(filteredProducts);
+
             const headerTitle = keyword ? formatCategoryHeader(keyword) : "All Products";
             displayProducts(filteredProducts, headerTitle, keyword, data);
           } else {
