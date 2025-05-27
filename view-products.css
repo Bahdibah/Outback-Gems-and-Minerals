@@ -232,7 +232,7 @@ footer >div{
 }
 
 .view-product-thumbnails img{
-  height: 80px; /* Reduce height to stop overflow*/
+  height: 25%; /* Reduce height to stop overflow*/
 }
 
 /* Make images centered and larger */
