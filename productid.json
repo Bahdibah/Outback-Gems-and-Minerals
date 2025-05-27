@@ -176,6 +176,22 @@
     ]
   },
   {
+    "productid": "olv003",
+    "images": [
+      "images/products/olv003/image1.jpg",
+      "images/products/olv003/image2.jpg",
+      "images/products/olv003/image3.jpg"
+    ]
+  },
+  {
+    "productid": "olv005",
+    "images": [
+      "images/products/olv005/image1.jpg",
+      "images/products/olv005/image2.jpg",
+      "images/products/olv005/image3.jpg"
+    ]
+  },
+  {
     "productid": "sp001",
     "images": [
       "images/products/sp001/image1.jpg",
