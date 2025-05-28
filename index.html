@@ -190,10 +190,14 @@
     // #endregion
   
     // #region whats new carousel script
+    document.addEventListener("DOMContentLoaded", function () {
     const productTrack = document.querySelector('.carousel-track');
     const products = document.querySelectorAll('.new-product-card');
     const visibleCount = 3;
     let productIndex = 0;
+
+    //Check carousel has properly loaded to prevent errors
+     if (!productTrack || products.length === 0) return;
   
     // Clone first visibleCount cards and append to the end only if there are enough cards
     if (products.length > visibleCount) {
@@ -219,6 +223,7 @@
         }, 700); // Match the transition duration
       }
     }, 7000); // Rotate every 7 seconds
+    });
     // #endregion
   
       // Newsletter form validation
