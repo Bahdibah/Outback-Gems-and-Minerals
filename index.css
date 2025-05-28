@@ -688,3 +688,10 @@ button {
   display: none !important;
 }
 
+/*stretching swiper cards so they all appear the same height*/
+.whats-new-swiper .swiper-slide {
+  display: flex;
+  align-items: stretch;
+  height: auto; /* Let the card set the height */
+}
+
