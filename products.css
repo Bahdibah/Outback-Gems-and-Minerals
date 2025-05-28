@@ -345,8 +345,12 @@ button {
 } 
 
 .pagination-controls a {
-  text-decoration: none;
+  text-decoration: underline;
   color: #cc5500;
+}
+
+.pagination-controls a:hover {
+  color: #ff7f33;
 }
 
 .ghost-card {
