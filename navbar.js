@@ -180,21 +180,14 @@ document.addEventListener("DOMContentLoaded", () => {
         // Add event listener for input changes
         searchInput.addEventListener("input", debounceSearch);
 
-        console.log("Before keypress loop")
-        console.log("Search input element:", searchInput);
         // Trigger search on Enter key press
         searchInput.addEventListener("keydown", (event) => {
-          console.log("In keypress main function");
-          console.log("Search input element:", searchInput);
           if (event.key === "Enter") {
-            console.log("In keypress if loop");
             event.preventDefault(); // Prevent default behavior (e.g., form submission)
             search(); // Trigger the search function
           }
         });
-
-        console.log("After keypress loop")
-        console.log("Search input element:", searchInput);
+        
         // Hide search results when clicking outside the search input or results
         document.addEventListener("click", (event) => {
           if (
