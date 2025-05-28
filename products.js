@@ -189,6 +189,60 @@ fetch("side-menu.html")
           };
           pagination.appendChild(prevBtn);
         }
+
+         // Page number links
+  const pageNumbers = document.createElement("span");
+  function addPageLink(i) {
+    if (i === page) {
+      const currentPageSpan = document.createElement("span");
+      currentPageSpan.textContent = ` ${i} `;
+      pageNumbers.appendChild(currentPageSpan);
+    } else {
+      const pageLink = document.createElement("a");
+      pageLink.href = "#";
+      pageLink.textContent = ` ${i} `;
+      pageLink.onclick = (e) => {
+        e.preventDefault();
+        displayProducts(currentProducts, headerTitle, keyword, data, i);
+        document.getElementById('dynamic-product-container').scrollIntoView({ behavior: 'smooth' });
+      };
+      pageNumbers.appendChild(pageLink);
+    }
+  }
+
+  if (totalPages < 5) {
+    for (let i = 1; i <= totalPages; i++) {
+      addPageLink(i);
+    }
+  } else {
+    // Always show first page
+    addPageLink(1);
+
+    // Show ellipsis if needed
+    if (page > 3) {
+      const ellipsis = document.createElement("span");
+      ellipsis.textContent = " ... ";
+      pageNumbers.appendChild(ellipsis);
+    }
+
+    // Show current-1, current, current+1 (if in range)
+    for (let i = Math.max(2, page - 2); i <= Math.min(totalPages - 1, page + 2); i++) {
+      addPageLink(i);
+    }
+
+    // Show ellipsis if needed
+    if (page < totalPages - 2) {
+      const ellipsis = document.createElement("span");
+      ellipsis.textContent = " ... ";
+      pageNumbers.appendChild(ellipsis);
+    }
+
+    // Always show last page
+    addPageLink(totalPages);
+  }
+
+  pagination.appendChild(pageNumbers);
+
         pagination.appendChild(document.createTextNode(` Page ${page} of ${totalPages} `));
         if (page < totalPages) {
           const nextBtn = document.createElement("button");
@@ -199,7 +253,8 @@ fetch("side-menu.html")
           };
           pagination.appendChild(nextBtn);
         }
-        productContainer.appendChild(pagination);
+
+        productContainer.appendChild(pagination);        
       }
     }
 

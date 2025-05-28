@@ -340,6 +340,15 @@ button {
   background: #ff7f33;
 }
 
+.pagination-controls span {
+  color: white;
+} 
+
+.pagination-controls a {
+  text-decoration: none;
+  color: #cc5500;
+}
+
 .ghost-card {
   visibility: hidden !important;
   pointer-events: none !important;
