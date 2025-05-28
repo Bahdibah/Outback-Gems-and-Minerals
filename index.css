@@ -589,7 +589,7 @@ button {
 }
 
 .bestseller-product-card h3 {
-  font-size: 1rem;         /* was 1.2rem */
+  font-size: 1.5rem;         /* was 1.2rem */
   color: #cc5500;
   margin-bottom: 8px;
 }
@@ -653,7 +653,7 @@ button {
 }
 
 .whatsnew-product-card h3 {
-  font-size: 1rem;         /* was 1.2rem */
+  font-size: 1.5rem;         /* was 1.2rem */
   color: #cc5500;
   margin-bottom: 8px;
 }
