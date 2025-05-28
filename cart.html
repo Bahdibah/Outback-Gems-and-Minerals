@@ -72,8 +72,30 @@
 
       <!-- Buttons -->
       <div class="cart-buttons">
-        <button id="cart-page-checkout-button" class="theme-button">Continue to Checkout</button>
+        <button id="cart-page-checkout-button" class="theme-button">Proceed</button>
         <button id="continue-shopping-button" class="theme-button secondary">Continue Shopping</button>
+      </div>
+
+      <!-- Payment Options Box (hidden by default) -->
+      <div id="payment-options-box" style="display: none;">
+        <h2 class="payment-options-title">Choose Your Payment Method</h2>
+        <div class="payment-options-row">
+          <div class="payment-option" id="pay-card">
+            <i class="fa fa-credit-card payment-icon"></i>
+            <span>Pay with Card</span>
+          </div>
+          <div class="payment-option" id="pay-paypal">
+            <img src="https://www.paypalobjects.com/webstatic/icon/pp258.png" alt="PayPal" class="payment-icon-img" />
+            <span>PayPal</span>
+          </div>
+          <div class="payment-option" id="pay-bank">
+            <i class="fa fa-university payment-icon"></i>
+            <span>Direct Bank Transfer</span>
+          </div>
+        </div>
+        <button id="final-checkout-button" class="theme-button" disabled style="margin-top: 36px;">
+          Checkout
+        </button>
       </div>
     </div>
   </div>
@@ -96,5 +118,6 @@
 
   <script src="navbar.js"></script>
   <script src="cart.js"></script>
+  <script src="https://js.stripe.com/v3/"></script>
 </body>
 </html>

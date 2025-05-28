@@ -161,6 +161,7 @@ body {
   justify-content: space-between;
   gap: 10px;
   margin: 2% auto 2% auto;
+  flex-direction: row-reverse; /* This swaps the button order */
 }
 
 #cart-page-checkout-button.theme-button {
@@ -224,6 +225,96 @@ body {
 
 .remove-button:hover {
   background: #c0392b;
+}
+
+/* Payment Options Styling */
+#payment-options-box {
+  background: #333;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+  margin: 80px auto 0 auto;   /* Increased from 30px to 60px for more gap */
+  padding: 28px 18px 24px 18px;
+  width: 70%;
+  text-align: center;
+}
+
+.payment-options-title {
+  color: #cc5500;
+  margin-bottom: 24px;
+  font-size: 1.4rem;
+  letter-spacing: 1px;
+}
+
+.payment-options-row {
+  display: flex;
+  justify-content: space-around;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.payment-option {
+  background: #222;
+  border: 2px solid #444;
+  border-radius: 10px;
+  padding: 28px 24px 18px 24px;
+  width: 180px;
+  min-height: 160px;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end; /* Align content to bottom */
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+  font-size: 1.1rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+  position: relative;
+}
+
+.payment-option:hover, .payment-option.selected {
+  border-color: #cc5500;
+  box-shadow: 0 4px 16px #cc5500aa;
+  transform: translateY(-4px) scale(1.03);
+}
+
+.payment-icon,
+.payment-icon-img {
+  font-size: 5.2rem !important;      /* Larger font for icons */
+  max-height: 110px;                 /* Larger max height for images */
+  max-width: 140px;                  /* Larger max width for images */
+  width: auto;
+  height: auto;
+  margin-bottom: auto;
+  margin-top: 0;
+  display: block;
+  color: #cc5500;
+  line-height: 1;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.payment-option span {
+  margin-top: 18px;
+  margin-bottom: 0;
+  font-size: 1.1rem;
+  width: 100%;
+  text-align: center;
+}
+
+@media (max-width: 800px) {
+  #payment-options-box {
+    width: 98%;
+    padding: 12px 2px;
+  }
+  .payment-options-row {
+    flex-direction: column;
+    gap: 18px;
+    align-items: center;
+  }
+  .payment-option {
+    width: 90%;
+    min-width: 180px;
+  }
 }
 
 /* Footer Styling */

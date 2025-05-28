@@ -233,16 +233,76 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Checkout button (add your logic)
-  if (checkoutButton) {
+  const paymentOptionsBox = document.getElementById('payment-options-box');
+  if (checkoutButton && paymentOptionsBox) {
     checkoutButton.addEventListener("click", () => {
       if (checkoutButton.disabled) {
         alert("Please adjust your cart to available stock before checking out.");
         return;
       }
-      // Add checkout logic here
-      alert("Proceeding to checkout...");
+      paymentOptionsBox.style.display = "block";
+      paymentOptionsBox.scrollIntoView({ behavior: "smooth" });
     });
   }
+
+  const finalCheckoutButton = document.getElementById('final-checkout-button');
+  document.querySelectorAll('.payment-option').forEach(option => {
+    option.addEventListener('click', function() {
+      document.querySelectorAll('.payment-option').forEach(opt => opt.classList.remove('selected'));
+      this.classList.add('selected');
+      if (finalCheckoutButton) finalCheckoutButton.disabled = false;
+      // Optionally, store which payment method was selected for later use
+      finalCheckoutButton.dataset.method = this.id;
+    });
+  });
+
+  // Optional: Handle the final checkout button click
+  if (finalCheckoutButton) {
+    finalCheckoutButton.addEventListener('click', async function() {
+      const method = finalCheckoutButton.dataset.method;
+      if (method === 'pay-card') {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const response = await fetch('/.netlify/functions/create-checkout-session', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ cart }),
+        });
+        const data = await response.json();
+        const stripe = Stripe('pk_test_51RSrS62LkmYKgi6mvADvrSFydOLBRaVVyniXGlSLPIxQoHEXnTXd7sVcnUzxBGaplW6Tyd1WSBuDk4lYrTUXNphM00pn9Kv2mg');
+        stripe.redirectToCheckout({ sessionId: data.id });
+      }
+      // ...handle other payment methods...
+    });
+  }
+
+  // Stripe checkout handler
+  const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+
+  exports.handler = async (event) => {
+    const { cart } = JSON.parse(event.body);
+
+    const line_items = cart.map(item => ({
+      price_data: {
+        currency: 'aud',
+        product_data: { name: item.name },
+        unit_amount: Math.round(item.price * 100),
+      },
+      quantity: item.quantity,
+    }));
+
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ['card'],
+      line_items,
+      mode: 'payment',
+      success_url: 'https://YOURDOMAIN.com/thankyou.html',
+      cancel_url: 'https://YOURDOMAIN.com/cart.html',
+    });
+
+    return {
+      statusCode: 200,
+      body: JSON.stringify({ id: session.id }),
+    };
+  };
 
   // Initial load
   loadCart();
