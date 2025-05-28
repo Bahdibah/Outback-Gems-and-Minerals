@@ -569,6 +569,7 @@ button {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  align-items: center;
 }
 
 .bestseller-product-card .image-container {
@@ -581,7 +582,8 @@ button {
 
 .bestseller-product-card img {
   width: 100%;
-  height: auto;
+  height: 100%;  
+  object-fit: cover;
   border-radius: 10px;
   margin-bottom: 12px;
 }
@@ -608,6 +610,7 @@ button {
   cursor: pointer;
   margin-top: 10px;
   transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s;
+  width: fit-content;
 }
 
 .bestseller-product-button:hover {
@@ -630,6 +633,7 @@ button {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  align-items: center;
 }
 
 .whatsnew-product-card .image-container {
@@ -670,6 +674,7 @@ button {
   cursor: pointer;
   margin-top: 10px;
   transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s;
+  width: fit-content;
 }
 
 .whatsnew-product-button:hover {
