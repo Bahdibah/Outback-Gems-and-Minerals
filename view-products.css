@@ -239,7 +239,7 @@ footer >div{
 .view-product-main-image {
   width: 370px;
   height: 370px;
-  object-fit: cover;
+  object-fit: contain;
   border-radius: 12px;
   box-shadow: 0 2px 12px rgba(0,0,0,0.18);
   background: #444;
