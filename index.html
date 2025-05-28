@@ -292,7 +292,7 @@
         // Button
         const button = document.createElement("button");
         button.className = "bestseller-product-button";
-        button.textContent = "View Details";
+        button.textContent = "View";
         button.onclick = () => {
           window.location.href = `view-product.html?productid=${encodeURIComponent(product["product id"])}`;
         };
@@ -346,7 +346,7 @@ document.addEventListener("DOMContentLoaded", function () {
             <h3>${product["product name"]}</h3>
             <p>${product.description}</p>
             <p class="price">$${product["price per unit"]} per ${product.unit}</p>
-            <button class="whatsnew-product-button" onclick="window.location.href='view-product.html?productid=${encodeURIComponent(product["product id"])}'">View Details</button>
+            <button class="whatsnew-product-button" onclick="window.location.href='view-product.html?productid=${encodeURIComponent(product["product id"])}'">View</button>
           </div>
         `;
         swiperWrapper.appendChild(slide);

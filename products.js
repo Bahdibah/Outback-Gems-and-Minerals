@@ -136,7 +136,7 @@ fetch("side-menu.html")
 
           const productButton = document.createElement("button");
           productButton.classList.add("dynamic-product-button");
-          productButton.textContent = "View Details";
+          productButton.textContent = "View";
           productButton.onclick = () => {
             window.location.href = `view-product.html?productid=${encodeURIComponent(product["product id"])}`;
           };

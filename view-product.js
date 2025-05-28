@@ -180,7 +180,7 @@ async function fetchProductDetails() {
     
     if (category && continueLink && continueBtn) {
       continueLink.href = `products.html?category=${encodeURIComponent(category)}`;
-      continueBtn.textContent = `Back to ${formatCategoryHeader(category)}`;
+      continueBtn.textContent = `View all ${formatCategoryHeader(category)}`;
     }
 
   } catch (error) {
