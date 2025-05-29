@@ -1,4 +1,5 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+const fetch = require('node-fetch'); // Make sure node-fetch is installed in your functions folder
 
 exports.handler = async (event) => {
   try {
@@ -11,17 +12,24 @@ exports.handler = async (event) => {
       };
     }
 
-    console.log('Received cart:', cart);
+    // Fetch all products from your Google Sheets API
+    const productsRes = await fetch('https://script.google.com/macros/s/AKfycbyCY8VW0D1A7AFJiU7X6tN5-RTrnYxQIV4QCzmFprxYrCVv2o4uKWnmKfJ6Xh40H4uqXA/exec');
+    const products = await productsRes.json();
 
+    // Build Stripe line_items using trusted product data
     const line_items = cart.map(item => {
-      const price = Number(item.price);
+      const product = products.find(p => p["product id"] === item.id);
+      if (!product) {
+        throw new Error(`Product not found: ${item.id}`);
+      }
+      const price = Number(product["total price"]);
       if (isNaN(price)) {
-        throw new Error(`Invalid price for item: ${item.name}`);
+        throw new Error(`Invalid price for product: ${product["product name"]}`);
       }
       return {
         price_data: {
           currency: 'aud',
-          product_data: { name: item.name, metadata: { product_id: item.id } },
+          product_data: { name: product["product name"], metadata: { product_id: product["product id"] } },
           unit_amount: Math.round(price * 100),
         },
         quantity: item.quantity,
@@ -35,7 +43,7 @@ exports.handler = async (event) => {
       shipping_address_collection: {
         allowed_countries: ['AU'],
       },
-      success_url: 'https://6838195758ea7c00089e79f1--outbackgems.netlify.app/thankyou.html', 
+      success_url: 'https://6838195758ea7c00089e79f1--outbackgems.netlify.app/thankyou.html',
       cancel_url: 'https://6838195758ea7c00089e79f1--outbackgems.netlify.app/cancel.html',
     });
 
