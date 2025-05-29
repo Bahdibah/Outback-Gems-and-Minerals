@@ -170,30 +170,6 @@
   margin-right: 10px;
 }
   
-  /* Style for dropdown menu alignment */
-  .nav-links li.dropdown {
-    position: relative;
-  }
-  
-  .dropdown-menu {
-    display: none;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-15%);
-    min-width: 180px; /* Optional: Prevents dropdown from being too small */
-    background-color: #444444;
-    border-radius: 5px;
-    padding: 0;
-    margin: 0;
-    z-index: 999;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
-  }
-  
-  /* Make dropdown appear when hovering over the parent item */
-  .nav-links li.dropdown:hover .dropdown-menu {
-    display: block;
-  }
-  
   .nav-links li a {
     padding: 12px 20px;
     display: block;
@@ -210,44 +186,7 @@
     background-color: #cc5500;
     color: #1e1e1e;
   }
-  
-  /* Ensure that the dropdown aligns with the parent */
-  .nav-links li.dropdown:hover .dropdown-menu {
-    left: 0; /* This makes sure the dropdown aligns with the button */
-  }
-  
-  /* Style for dropdown menu items */
-  .dropdown-menu li a {
-    padding: 12px 20px;
-    display: block;
-    color: #cc5500;
-    font-weight: normal;
-    border-bottom: 1px solid #333;
-  }
-  
-  .dropdown-menu li a:hover:not(.dropdown-header) {
-    background-color: #cc5500;
-    color: #1e1e1e;
-  }
-  
-  .nav-links li.dropdown:hover .dropdown-menu {
-    display: block;
-  }
-  
-  .dropdown-header {
-    display: block;
-    font-family: 'Roboto', sans-serif; /* Or your selected font */
-    font-weight: 700;
-    background-color: #ff7f33;
-    color: white !important;
-    padding: 12px 20px;
-    text-transform: uppercase;
-    font-size: 1.1rem;
-    text-align: center;
-    letter-spacing: 1.5px;
-    border-radius: 4px;
-  }
-  
+    
   
   .logo {
     max-height: 50px;
