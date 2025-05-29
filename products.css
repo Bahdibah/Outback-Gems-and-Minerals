@@ -5,7 +5,7 @@ body {
   
     background-color: #2e2e2e;
     color: #cc5500;
-    font-family: Arial, sans-serif;
+    font-family: 'Georgia', serif; 
     margin: 0;
     padding: 0;
     height: 100%;
@@ -159,7 +159,6 @@ footer >div{
   padding-bottom: 30px;
   text-align: center;
   font-size: 2.2rem;      /* Match header font size */
-  font-family: inherit;    /* Use the same font as the rest of the site */
   font-weight: bold;
   letter-spacing: 1.5px;
   background: transparent;
@@ -300,7 +299,6 @@ button {
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
-  font-family: Arial, sans-serif; /* Reverted to standard font */
 }
 
 

@@ -5,7 +5,7 @@ body {
   
     background-color: #2e2e2e;
     color: #cc5500;
-    font-family: Arial, sans-serif;
+    font-family: 'Georgia', serif; 
     margin: 0;
     padding: 0;
     height: 100%;
@@ -95,7 +95,6 @@ header {
   align-content: center;
   max-width: 51%; 
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.5); 
-  font-family: 'Georgia', serif; 
   border: #cc5500 3px solid;
   text-align: center;
 }
@@ -185,7 +184,6 @@ footer >div{
   justify-content: center;
   gap: 24px;
   padding: 60px 20px;
-  font-family: 'Georgia', serif;
   max-width: 1200px;
   margin: 0 auto;
 }

@@ -6,7 +6,7 @@ body {
   
     background-color: #2e2e2e;
     color: #cc5500;
-    font-family: Arial, sans-serif;
+    font-family: 'Georgia', serif; 
     margin: 0;
     padding: 0;
     height: 100%;
@@ -55,7 +55,6 @@ section {
   align-content: center;
   max-width: 51%; 
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.5); 
-  font-family: 'Georgia', serif; 
   border: #cc5500 3px solid;
   text-align: center;
 }
@@ -98,7 +97,6 @@ section {
 }
 
 button, .button {
-  font-family: Arial, sans-serif; /* Reverted to standard font */  
   width: 75%;
   background-color: #cc5500;
   color: #fff;
@@ -311,7 +309,6 @@ font-size: 4.5rem;
   padding: 10px 24px; 
   border-radius: 15px;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.6); 
-  font-family: 'Georgia', serif; 
   border: #cc5500 1px solid;
   text-align: center;
   margin: 0 auto;           /* Center block horizontally */
@@ -337,7 +334,6 @@ font-size: 4.5rem;
   height: auto;
   width: 100%;
   max-width: 100%;
-  font-family: 'Georgia', serif; 
   text-align: center;
   margin: 0;
   box-sizing: border-box;
