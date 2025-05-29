@@ -302,6 +302,7 @@ font-size: 4.5rem;
   box-sizing: border-box;
   justify-items: center;  
   width: 100%;
+  height: 35vh;
   object-fit: cover; /* Ensures image scales and covers the area */
   transition: transform 0.3s ease;
   background-size: cover !important;
