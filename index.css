@@ -552,6 +552,11 @@ button {
   object-fit: cover;
   border-radius: 10px;
   margin-bottom: 12px;
+  transition: transform 0.3s ease;
+}
+
+.bestseller-product-card:hover img {
+  transform: scale(1.05); /* Slight zoom effect on hover */
 }
 
 .bestseller-product-card h3 {
@@ -621,6 +626,11 @@ button {
   object-fit: cover;
   border-radius: 10px;
   margin-bottom: 12px;
+  transition: transform 0.3s ease;
+}
+
+.whatsnew-product-card:hover img {
+  transform: scale(1.05); /* Slight zoom effect on hover */
 }
 
 /*Old stling - keeping in case we decide we want the box round the header
@@ -680,8 +690,7 @@ button {
 
 .whatsnew-product-button:hover {
   background: #ff7f33;
-  transform: translateY(-3px) scale(1.04);
-  transform: translateX(-50%) scale(1.04); 
+  transform: translateY(-3px) scale(1.04);  
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.35), 0 0 8px rgba(255, 127, 51, 0.5);
 }
 
