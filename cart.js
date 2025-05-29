@@ -82,7 +82,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const row = document.createElement('tr');
       row.innerHTML = `
         <td><img src="${item.image}" alt="${item.name}" style="width: 50px; height: 50px; object-fit: cover;" /></td>
-        <td>${item.name}</td>
+        <td>
+          ${item.name}
+          <div class="cart-product-id">${item.id || item["product id"] || ''}</div>
+        </td>
         <td>${item.weight || ''} ${item.unit || ''}</td>
         <td>
           <button class="decrease-quantity" data-index="${idx}">-</button>
