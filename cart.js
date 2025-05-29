@@ -268,9 +268,10 @@ document.addEventListener('DOMContentLoaded', () => {
         cart = cart.map(item => ({
           id: item["product id"],
           name: item["product name"],
-          price: item["total price"], // or item["price per unit"] * item["weight"] if needed
-          quantity: item.quantity || 1 // adjust as needed
+          price: Number(item["total price"]), // Ensure this is a number
+          quantity: item.quantity || 1
         }));
+        console.log('Cart being sent:', cart);
         const response = await fetch('/.netlify/functions/create-checkout-session', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
