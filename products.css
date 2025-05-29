@@ -179,16 +179,23 @@ footer >div{
 
 /* Dynamic Product Card Styling */
 .dynamic-product-card {
+  flex: 1 1 28%;
+  max-width: 28%;  
   background-color: #444;
   border-radius: 10px;
-  padding: 20px;
+  padding: 16px;           /* was 20px */
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
   text-align: center;
   border: 3px solid #cc5500;
-  flex: 1 1 28%;
-  max-width: 28%;
   box-sizing: border-box;
-  margin-bottom: 32px;
+  margin-bottom: 24px;     /* was 32px */
+  height: 500px;  
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  justify-content: flex-start;
+  align-items: center;
+  position: relative;
 }
 
 /* Image Styling */
@@ -315,7 +322,7 @@ button {
   flex-wrap: wrap;
   gap: 3%;
   justify-content: center;
-}
+  }
 
 
 .pagination-controls {

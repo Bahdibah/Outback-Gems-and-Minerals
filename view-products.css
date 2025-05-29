@@ -96,7 +96,7 @@ header {
   /* Use a max-width in px, not percent */
   max-width: 900px;
   width: 100%;
-  margin: 0 auto;
+  margin: 0 auto 1% auto;
   background: #232323;
   border-radius: 16px;
   box-shadow: 0 4px 24px rgba(0,0,0,0.18);
@@ -199,6 +199,7 @@ footer >div{
   gap: 32px;
   align-items: stretch; /* Make both columns equal height */
   width: 100%;
+  margin: auto;
 }
 
 .view-product-images {
@@ -240,9 +241,6 @@ footer >div{
   width: 370px;
   height: 370px;
   object-fit: contain;
-  border-radius: 12px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.18);
-  background: #444;
   display: block;
 }
 
