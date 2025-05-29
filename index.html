@@ -289,11 +289,6 @@
         const desc = document.createElement("p");
         desc.textContent = product.description;
 
-        // Price
-        const price = document.createElement("p");
-        price.className = "price";
-        price.textContent = `$${product["price per unit"]} per ${product.unit}`;
-
         // Button
         const button = document.createElement("button");
         button.className = "bestseller-product-button";
@@ -306,7 +301,6 @@
         card.appendChild(imageContainer);
         card.appendChild(name);
         card.appendChild(desc);
-        card.appendChild(price);
         card.appendChild(button);
 
         bestsellerGrid.appendChild(card);
@@ -350,7 +344,6 @@ document.addEventListener("DOMContentLoaded", function () {
             </div>
             <h3>${product["product name"]}</h3>
             <p>${product.description}</p>
-            <p class="price">$${product["price per unit"]} per ${product.unit}</p>
             <button class="whatsnew-product-button" onclick="window.location.href='view-product.html?productid=${encodeURIComponent(product["product id"])}'">View</button>
           </div>
         `;
