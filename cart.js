@@ -266,9 +266,9 @@ document.addEventListener('DOMContentLoaded', () => {
       if (method === 'pay-card') {
         let cart = JSON.parse(localStorage.getItem('cart')) || [];
         cart = cart.map(item => ({
-          id: item["product id"],
-          name: item["product name"],
-          price: Number(item["total price"]), // Ensure this is a number
+          id: item.id,
+          name: item.name,
+          price: Number(item.price),
           quantity: item.quantity || 1
         }));
         console.log('Cart being sent:', cart);
