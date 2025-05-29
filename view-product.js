@@ -150,6 +150,11 @@ async function fetchProductDetails() {
     // After you set variations and before using category:
     const category = variations[0]?.category;
 
+    // Dispatch event for navbar highlighting
+    if (category) {
+      document.dispatchEvent(new CustomEvent("productCategoryLoaded", { detail: { category } }));
+    }
+
     // Load technical information based on the product category
     if (category) {
       fetch("products.json")

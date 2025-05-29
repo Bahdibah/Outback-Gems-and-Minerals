@@ -179,14 +179,7 @@
     transition: background 0.3s ease, color 0.3s ease;
     border-radius: 5px;
     text-decoration: none;
-  }
-  
-  .nav-links li a:hover,
-  nav ul li a.active {
-    background-color: #cc5500;
-    color: #1e1e1e;
-  }
-    
+  }    
   
   .logo {
     max-height: 50px;

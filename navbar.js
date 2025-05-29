@@ -201,9 +201,49 @@ document.addEventListener("DOMContentLoaded", () => {
           }
         });
 
-        // <-- ADD THESE LINES HERE:
         updateCartCount();
         updateCartDropdown();
+
+        //Hightlght navlink for current page
+        // Highlight navlink for current page/category
+        const navLinks = document.querySelectorAll("nav ul li a");
+        const currentPath = window.location.pathname.split("/").pop().toLowerCase() || "index.html";
+        const urlParams = new URLSearchParams(window.location.search);
+        const categoryParam = urlParams.get("category");
+        const mainCategory = categoryParam ? categoryParam.split('-')[0].toLowerCase() : null;
+
+        // Map mainCategory to high-level page
+        const categoryToPage = {
+          synthetic: "synthetic.html",
+          natural: "natural.html",
+          other: "other.html"
+        };
+
+        let categoryLinkHighlighted = false;
+
+        if (
+          (currentPath === "products.html" || currentPath === "view-product.html") &&
+          mainCategory &&
+          categoryToPage[mainCategory]
+        ) {
+          navLinks.forEach(link => {
+            const href = link.getAttribute("href").replace(/^\//, '').toLowerCase();
+            if (href === categoryToPage[mainCategory]) {
+              link.classList.add("active");
+              categoryLinkHighlighted = true;
+            }
+          });
+        }
+
+        // If not on a category, or no category link matched, highlight the page link
+        if (!categoryLinkHighlighted) {
+          navLinks.forEach(link => {
+            const linkPath = link.getAttribute("href").replace(/^\//, '').split("?")[0].split("#")[0].toLowerCase();
+            if (linkPath === currentPath) {
+              link.classList.add("active");
+            }
+          });
+        }
       } else {
         console.error("Navbar container not found in the DOM.");
       }
@@ -211,4 +251,23 @@ document.addEventListener("DOMContentLoaded", () => {
     .catch(error => {
       console.error("Error loading navbar:", error);
     });
+});
+
+document.addEventListener("productCategoryLoaded", function(e) {
+  const category = e.detail.category;
+  const mainCategory = category ? category.split('-')[0].toLowerCase() : null;
+  const categoryToPage = {
+    synthetic: "synthetic.html",
+    natural: "natural.html",
+    other: "other.html"
+  };
+  const navLinks = document.querySelectorAll("nav ul li a");
+  if (mainCategory && categoryToPage[mainCategory]) {
+    navLinks.forEach(link => {
+      const href = link.getAttribute("href").replace(/^\//, '').toLowerCase();
+      if (href === categoryToPage[mainCategory]) {
+        link.classList.add("active");
+      }
+    });
+  }
 });
