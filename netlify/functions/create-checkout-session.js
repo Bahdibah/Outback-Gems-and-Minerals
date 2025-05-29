@@ -32,6 +32,9 @@ exports.handler = async (event) => {
       payment_method_types: ['card'],
       line_items,
       mode: 'payment',
+      shipping_address_collection: {
+        allowed_countries: ['AU'], // Add more country codes as needed, e.g. ['AU', 'NZ']
+      },
       success_url: 'https://YOURDOMAIN.com/thankyou.html',
       cancel_url: 'https://YOURDOMAIN.com/cart.html',
     });
