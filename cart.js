@@ -276,7 +276,19 @@ document.addEventListener('DOMContentLoaded', () => {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ cart }),
         });
-        const data = await response.json();
+        const text = await response.text();
+        console.log('Function response:', text);
+        let data;
+        try {
+          data = JSON.parse(text);
+        } catch (e) {
+          alert('Checkout failed: Invalid server response');
+          return;
+        }
+        if (!data.id) {
+          alert('Checkout failed: ' + (data.error || 'No session ID returned.'));
+          return;
+        }
         const stripe = Stripe('pk_test_51RSrS62LkmYKgi6mvADvrSFydOLBRaVVyniXGlSLPIxQoHEXnTXd7sVcnUzxBGaplW6Tyd1WSBuDk4lYrTUXNphM00pn9Kv2mg');
         stripe.redirectToCheckout({ sessionId: data.id });
       }

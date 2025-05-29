@@ -4,6 +4,15 @@ exports.handler = async (event) => {
   try {
     const { cart } = JSON.parse(event.body);
 
+    if (!cart || !Array.isArray(cart) || cart.length === 0) {
+      return {
+        statusCode: 400,
+        body: JSON.stringify({ error: 'Cart is empty or invalid.' }),
+      };
+    }
+
+    console.log('Received cart:', cart);
+
     const line_items = cart.map(item => ({
       price_data: {
         currency: 'aud',
@@ -26,6 +35,7 @@ exports.handler = async (event) => {
       body: JSON.stringify({ id: session.id }),
     };
   } catch (error) {
+    console.error('Stripe error:', error);
     return {
       statusCode: 500,
       body: JSON.stringify({ error: error.message }),
