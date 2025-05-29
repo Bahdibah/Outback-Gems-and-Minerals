@@ -519,7 +519,6 @@ form textarea {
   text-align: center;
   text-transform: uppercase;
   letter-spacing: 1.5px;
-  font-family: Arial, sans-serif; /* Reverted to standard font */
 }
 
 /* Buttons styling */
@@ -530,7 +529,6 @@ button {
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
-  font-family: Arial, sans-serif; /* Reverted to standard font */
 }
 
 /* Responsive design */
@@ -565,11 +563,13 @@ button {
   border: 3px solid #cc5500;
   box-sizing: border-box;
   margin-bottom: 24px;     /* was 32px */
-  min-height: 420px;
+  min-height: 420px;  
   display: flex;
   flex-direction: column;
+  gap: 5px;
   justify-content: flex-start;
   align-items: center;
+  position: relative;
 }
 
 .bestseller-product-card .image-container {
@@ -594,9 +594,10 @@ button {
   margin-bottom: 8px;
 }
 
-.bestseller-product-card p,
-.bestseller-product-card .price {
-  font-size: 1rem;         /* was 1.1rem/1.2rem */
+.bestseller-product-card p {
+  font-size: 1.1rem;
+  color: #bfbfbfd2;
+  margin: 8px 0;
 }
 
 .bestseller-product-button {
@@ -604,18 +605,21 @@ button {
   color: #fff;
   font-weight: bold;
   border: none;
+  margin-top: auto;
+  margin-bottom: 16px;
   padding: 12px 28px;
   font-size: 1rem;
   border-radius: 5px;
   cursor: pointer;
-  margin-top: 10px;
   transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s;
   width: fit-content;
+  align-self: center;
+  position: static;
 }
 
 .bestseller-product-button:hover {
-  background-color: #ff7f33;
-  transform: scale(1.04) translateY(-1px);
+  background: #ff7f33;
+  transform: translateY(-3px) scale(1.04);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.35), 0 0 8px rgba(255, 127, 51, 0.5);
 }
 
@@ -634,6 +638,7 @@ button {
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  position: relative;
 }
 
 .whatsnew-product-card .image-container {
@@ -652,15 +657,42 @@ button {
   margin-bottom: 12px;
 }
 
+/*Old stling - keeping in case we decide we want the box round the header
+/* .whatsnew-product-card h3 {
+  font-size: 1.5rem;
+  background-color: rgba(0, 0, 0, 0.6); 
+  padding: 10px 24px; 
+  border-radius: 15px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.6); 
+  font-family: 'Georgia', serif; 
+  text-align: center;
+  margin: 0 auto;           /* Center block horizontally */
+  /*width: fit-content;       /* Only as wide as the content */
+  /*display: block;
+}*/
+
 .whatsnew-product-card h3 {
   font-size: 1.5rem;         /* was 1.2rem */
   color: #cc5500;
   margin-bottom: 8px;
 }
 
-.whatsnew-product-card p,
-.whatsnew-product-card .price {
-  font-size: 1rem;         /* was 1.1rem/1.2rem */
+.whatsnew-product-card p {
+  padding: 50px 24px 50px 24px;
+  border-radius: 15px;
+  display: flex; 
+  flex-direction: column; 
+  justify-content: center; 
+  align-content: center;
+  height: auto;
+  width: 100%;
+  max-width: 100%;
+  text-align: center;
+  margin: 0;
+  box-sizing: border-box;
+  font-size: 1.1rem;
+  color: #bfbfbfd2;
+  margin: 8px 0;
 }
 
 .whatsnew-product-button {
@@ -668,18 +700,22 @@ button {
   color: #fff;
   font-weight: bold;
   border: none;
+  margin-top: auto;
+  margin-bottom: 16px;
   padding: 12px 28px;
   font-size: 1rem;
   border-radius: 5px;
   cursor: pointer;
-  margin-top: 10px;
   transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s;
   width: fit-content;
+  align-self: center;
+  position: static;
 }
 
 .whatsnew-product-button:hover {
-  background-color: #ff7f33;
-  transform: scale(1.04) translateY(-1px);
+  background: #ff7f33;
+  transform: translateY(-3px) scale(1.04);
+  transform: translateX(-50%) scale(1.04); 
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.35), 0 0 8px rgba(255, 127, 51, 0.5);
 }
 
