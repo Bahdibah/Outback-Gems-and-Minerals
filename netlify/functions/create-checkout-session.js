@@ -33,10 +33,10 @@ exports.handler = async (event) => {
       line_items,
       mode: 'payment',
       shipping_address_collection: {
-        allowed_countries: ['AU'], // Add more country codes as needed, e.g. ['AU', 'NZ']
+        allowed_countries: ['AU'],
       },
-      success_url: 'https://YOURDOMAIN.com/thankyou.html',
-      cancel_url: 'https://YOURDOMAIN.com/cart.html',
+      success_url: 'https://6838195758ea7c00089e79f1--outbackgems.netlify.app/thankyou.html', 
+      cancel_url: 'https://6838195758ea7c00089e79f1--outbackgems.netlify.app/cancel.html',
     });
 
     return {
