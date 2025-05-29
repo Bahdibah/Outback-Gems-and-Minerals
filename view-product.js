@@ -226,6 +226,23 @@ async function fetchProductDetails() {
     const apiImage = selectedVariation["image url"] || "images/placeholder.png";
     const mainImage = document.getElementById("view-product-image");
     const thumbnailsContainer = document.getElementById("view-product-thumbnails");
+    const modalOverlay = document.getElementById("image-modal-overlay");
+    const modalImg = document.getElementById("image-modal-img");
+
+    if (mainImage && modalOverlay && modalImg) {
+  mainImage.addEventListener("click", function() {
+    modalImg.src = mainImage.src;
+    modalOverlay.classList.add("active");
+  });
+
+  modalOverlay.addEventListener("click", function(e) {
+    // Only close if clicking the overlay, not the image itself
+    if (e.target === modalOverlay) {
+      modalOverlay.classList.remove("active");
+      modalImg.src = "";
+    }
+  });
+} 
 
     // Fetch extra images from productid.json
     fetch("productid.json")

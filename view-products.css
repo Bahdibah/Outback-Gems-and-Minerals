@@ -242,6 +242,7 @@ footer >div{
   height: 370px;
   object-fit: contain;
   display: block;
+  cursor: pointer;
 }
 
 .view-product-image-placeholder {
@@ -390,6 +391,30 @@ h1 {
   background-color: #cc5500;
   width: 100%;
   margin: 40px 0% 40px 0%;
+}
+
+#image-modal-overlay {
+  display: none; /* Hidden by default */
+  position: fixed;
+  z-index: 2000;
+  left: 0; top: 0; right: 0; bottom: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(0,0,0,0.85);
+  justify-content: center;
+  align-items: center;
+  cursor: zoom-out;
+}
+
+#image-modal-overlay.active {
+  display: flex;
+}
+
+#image-modal-img {
+  max-width: 90vw;
+  max-height: 90vh;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  background: #222; 
 }
 
 @media (max-width: 900px) {
