@@ -680,8 +680,7 @@ button {
 
 .whatsnew-product-button:hover {
   background: #ff7f33;
-  transform: translateY(-3px) scale(1.04);
-  transform: translateX(-50%) scale(1.04); 
+  transform: translateY(-3px) scale(1.04);  
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.35), 0 0 8px rgba(255, 127, 51, 0.5);
 }
 
