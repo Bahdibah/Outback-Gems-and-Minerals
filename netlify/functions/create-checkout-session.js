@@ -13,19 +13,28 @@ exports.handler = async (event) => {
 
     console.log('Received cart:', cart);
 
-    const line_items = cart.map(item => ({
-      price_data: {
-        currency: 'aud',
-        product_data: { name: item.name, metadata: { product_id: item.id } },
-        unit_amount: Math.round(item.price * 100),
-      },
-      quantity: item.quantity,
-    }));
+    const line_items = cart.map(item => {
+      const price = Number(item.price);
+      if (isNaN(price)) {
+        throw new Error(`Invalid price for item: ${item.name}`);
+      }
+      return {
+        price_data: {
+          currency: 'aud',
+          product_data: { name: item.name, metadata: { product_id: item.id } },
+          unit_amount: Math.round(price * 100),
+        },
+        quantity: item.quantity,
+      };
+    });
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       line_items,
       mode: 'payment',
+      shipping_address_collection: {
+        allowed_countries: ['AU'], // Add more country codes as needed, e.g. ['AU', 'NZ']
+      },
       success_url: 'https://YOURDOMAIN.com/thankyou.html',
       cancel_url: 'https://YOURDOMAIN.com/cart.html',
     });
