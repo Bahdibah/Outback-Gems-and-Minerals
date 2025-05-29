@@ -307,6 +307,7 @@ font-size: 4.5rem;
   background-size: cover !important;
   background-repeat: no-repeat !important;
   background-position: center !important;
+  position: relative;
 }
 
 /* Product Name Styling */
@@ -366,12 +367,15 @@ font-size: 4.5rem;
   color: #fff;
   border: none;
   border-radius: 6px;
-
   cursor: pointer;
   transition: background 0.2s, transform 0.2s;
   line-height: normal;
   min-height: unset;
   max-height: unset;
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 a,
