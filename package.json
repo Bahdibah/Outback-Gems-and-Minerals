@@ -1,0 +1,23 @@
+{
+  "name": "outback-gems-and-minerals",
+  "version": "1.0.0",
+  "description": "Gemstone and mineral sourcing, faceting, and sales – natural and synthetic. Aussie-run. Rock solid.",
+  "main": "cart.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bahdibah/Outback-Gems-and-Minerals.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Bahdibah/Outback-Gems-and-Minerals/issues"
+  },
+  "homepage": "https://github.com/Bahdibah/Outback-Gems-and-Minerals#readme",
+  "dependencies": {
+    "stripe": "^18.2.0"
+  }
+}
