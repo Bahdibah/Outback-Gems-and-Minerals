@@ -357,3 +357,11 @@ footer >div{
   font-size: 1.5rem;  
   align-items: center;
 }
+
+.cart-product-id {
+  font-size: 0.85em;
+  color: #888;
+  margin-top: 2px;
+  margin-bottom: 0;
+  line-height: 1.2;
+}

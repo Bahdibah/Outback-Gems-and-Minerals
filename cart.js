@@ -82,7 +82,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const row = document.createElement('tr');
       row.innerHTML = `
         <td><img src="${item.image}" alt="${item.name}" style="width: 50px; height: 50px; object-fit: cover;" /></td>
-        <td>${item.name}</td>
+        <td>
+          ${item.name}
+          <div class="cart-product-id">${item.id || item["product id"] || ''}</div>
+        </td>
         <td>${item.weight || ''} ${item.unit || ''}</td>
         <td>
           <button class="decrease-quantity" data-index="${idx}">-</button>
@@ -261,7 +264,13 @@ document.addEventListener('DOMContentLoaded', () => {
     finalCheckoutButton.addEventListener('click', async function() {
       const method = finalCheckoutButton.dataset.method;
       if (method === 'pay-card') {
-        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        cart = cart.map(item => ({
+          id: item["product id"],
+          name: item["product name"],
+          price: item["total price"], // or item["price per unit"] * item["weight"] if needed
+          quantity: item.quantity || 1 // adjust as needed
+        }));
         const response = await fetch('/.netlify/functions/create-checkout-session', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
