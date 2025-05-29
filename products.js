@@ -131,8 +131,9 @@ fetch("side-menu.html")
           const productDescription = document.createElement("p");
           productDescription.textContent = product.description;
 
-          const priceLine = document.createElement("p");
-          priceLine.textContent = `$${product["price per unit"]} per ${product.unit}`;
+          /*Removing price line - keeping in in case we decide we want it*/
+          // const priceLine = document.createElement("p");
+          // priceLine.textContent = `$${product["price per unit"]} per ${product.unit}`;
 
           const productButton = document.createElement("button");
           productButton.classList.add("dynamic-product-button");
@@ -144,7 +145,8 @@ fetch("side-menu.html")
           productCard.appendChild(imageContainer);
           productCard.appendChild(productName);
           productCard.appendChild(productDescription);
-          productCard.appendChild(priceLine);
+          /*Removing price line - keeping in in case we decide we want it*/ 
+          // productCard.appendChild(priceLine);
           productCard.appendChild(productButton);
 
           productContainer.appendChild(productCard);
