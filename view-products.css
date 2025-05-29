@@ -96,7 +96,7 @@ header {
   /* Use a max-width in px, not percent */
   max-width: 900px;
   width: 100%;
-  margin: 0 auto;
+  margin: 0 auto 1% auto;
   background: #232323;
   border-radius: 16px;
   box-shadow: 0 4px 24px rgba(0,0,0,0.18);
