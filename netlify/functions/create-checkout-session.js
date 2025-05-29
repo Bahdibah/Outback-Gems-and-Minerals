@@ -7,12 +7,7 @@ exports.handler = async (event) => {
     const line_items = cart.map(item => ({
       price_data: {
         currency: 'aud',
-        product_data: {
-          name: item.name,
-          metadata: {
-            product_id: item.id // Make sure your cart items have a unique 'id' property
-          }
-        },
+        product_data: { name: item.name, metadata: { product_id: item.id } },
         unit_amount: Math.round(item.price * 100),
       },
       quantity: item.quantity,
