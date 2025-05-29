@@ -261,7 +261,13 @@ document.addEventListener('DOMContentLoaded', () => {
     finalCheckoutButton.addEventListener('click', async function() {
       const method = finalCheckoutButton.dataset.method;
       if (method === 'pay-card') {
-        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        cart = cart.map(item => ({
+          id: item["product id"],
+          name: item["product name"],
+          price: item["total price"], // or item["price per unit"] * item["weight"] if needed
+          quantity: item.quantity || 1 // adjust as needed
+        }));
         const response = await fetch('/.netlify/functions/create-checkout-session', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
