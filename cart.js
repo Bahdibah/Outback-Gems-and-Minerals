@@ -371,6 +371,7 @@ document.addEventListener('DOMContentLoaded', () => {
       body: JSON.stringify({ cart, shippingMethod, customerEmail: email }),
     });
     const data = await response.json();
+    console.log('Bank transfer response:', data);
     if (data.error) {
       document.getElementById('bank-transfer-result').textContent = 'Error: ' + data.error;
     } else {
