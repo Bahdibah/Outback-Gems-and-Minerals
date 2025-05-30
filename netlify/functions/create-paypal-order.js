@@ -9,7 +9,7 @@ exports.handler = async (event) => {
     const validatedCart = cart.map(item => {
       const product = trustedProducts.find(p =>
         p["product id"] === item.id &&
-        p.weight == item.weight
+        Number(p.weight) == Number(item.weight) // ensure both are numbers
         // No unit check!
       );
       if (!product) {
@@ -19,6 +19,10 @@ exports.handler = async (event) => {
           unit: p.unit
         })));
         throw new Error(`Product not found: ${item.id}`);
+      }
+      if (!product.price) {
+        console.error('Product price missing:', product);
+        throw new Error(`Product price missing for: ${item.id}`);
       }
       return {
         name: `${product["product name"]} (${product["weight"]}${product["unit"] || ""})`,
