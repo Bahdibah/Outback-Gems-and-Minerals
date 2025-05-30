@@ -43,7 +43,7 @@ section {
   align-items: center;
   transition: background-image 1s ease-in-out;
   Max-width: 100%;  
-  background-size: cover !important;
+  background-size: 100% 100% !important;
   background-position: center center !important;
   background-repeat: no-repeat !important;
   height: 30vh;  
