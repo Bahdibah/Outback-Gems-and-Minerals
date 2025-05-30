@@ -86,6 +86,9 @@ exports.handler = async (event) => {
       shipping_address_collection: {
         allowed_countries: ['AU'],
       },
+      phone_number_collection: {
+        enabled: true
+      },
       success_url: 'https://6838195758ea7c00089e79f1--outbackgems.netlify.app/thankyou.html',
       cancel_url: 'https://6838195758ea7c00089e79f1--outbackgems.netlify.app/cancel.html',
     });
