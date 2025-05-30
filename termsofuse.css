@@ -11,102 +11,11 @@ body {
     padding: 0;
 }
 
-#home {
-  background: url('images/Contact Banner 1.jpeg') no-repeat center center/cover;
-  color: #fff;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: background-image 1s ease-in-out;
-  margin: calc(var(--navbar-height)) auto 0;
-  Max-width: 100%;
-  object-fit: cover;
-}
-
-.hero-overlay {
-  background-color: rgba(0, 0, 0, 0.7); 
-  padding: 30px 24px; 
-  border-radius: 15px;
-  display: flex; 
-  flex-direction: column; 
-  justify-content: center; 
-  align-content: center;
-  max-width: 51%; 
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.5); 
-  border: #cc5500 3px solid;
-  text-align: center;
-}
-.hero-overlay h2 {
-  font-size: 2rem; 
-  font-weight: bold;
-  margin-bottom: 15px;
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7); 
-}
-
-.hero-overlay p {
-  font-size: 1.3rem; 
-  line-height: 1.6;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7); 
-}
-
-.banner-slider {
-  width: 100%;
-  overflow: hidden;
-  background-color: black;
-  display: flex;
-  align-items: center;
-  position: relative;
-  font-size: 1.5rem;
-}
-
-.banner {
-  display: flex;
-  width: max-content;
-  transition: transform 0.7s ease-in-out;
-  width: 100%;
-}
-
-.banner-item {
-  flex: 0 0 100vw;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-width: 100%;
-}
-
-button, .button {
-  background-color: #cc5500;
-  color: #fff;
-  font-weight: bold;
-  border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border stays */
-  padding: 14px 32px;
-  font-size: 1.25rem;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
-  display: inline-block;
-  margin-top: 10px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-}
-
-button:hover, .button:hover {
-  background-color: #ff7f33;
-  transform: scale(1.04) translateY(-1px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.35), 0 0 8px rgba(255, 127, 51, 0.5);
-}
-
-button:active, .button:active {
-  background-color: #b34700;
-  transform: scale(0.98) translateY(0);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
 section {
     padding: 60px 20px;
 }
 
-#faq {
+#terms {
     padding: 60px 20px 0 20px;
 }
 
@@ -117,6 +26,41 @@ header {
     align-items: center;
     position: relative;
     justify-content: space-between;
+}
+
+.terms-container  {
+  padding: 0 35px;
+  text-align: center;
+  width: 80%;
+  margin: 50px auto; /* Center the container */
+  color: #bfbfbfd2; /* Body text color */
+}
+
+.terms-container h1 {
+color: #cc5500;
+font-size: 4.5rem;
+margin: 0 2% 2% 2%;
+}
+
+.terms-container h2 {
+  color: #cc5500;
+  text-align: center;
+  font-size: 2rem;
+}
+
+.terms-container ul li {
+  text-align: left;
+}
+
+.terms-container p strong {
+  color:#cc5500;
+}
+
+.divider {
+  height: 1px;
+  background-color: #cc5500;
+  width: 80%;
+  margin: auto;
 }
 
 /* Footer Styling */
@@ -158,296 +102,4 @@ footer >div{
   padding-right: 1%;
   font-size: 1.5rem;  
   align-items: center;
-}
-
-.faq-container  {
-  padding: 0 35px;
-  text-align: center;
-  width: 80%;
-  margin: 0 auto; /* Center the container */
-  color: #bfbfbfd2; /* Body text color */
-}
-
-.faq-container h3 {
-color: #cc5500;
-font-size: 4.5rem;
-margin: 0 2% 2% 2%;
-}
-
-.faq-container h2 {
-  color: #cc5500;
-}
-
-.faq-container h4 {
-  color: #cc5500;
-  text-align: center;
-  font-size: 2.75rem;
-  margin: 10% auto 2%  auto; /*margin& 110% width to centre but allow for all text on 1 line*/
-  width: 100%;
-}
-
-.faq-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 3 columns */
-  gap: 20px; /* Horizontal gap */
-  row-gap: 40px; /* Increased vertical gap between rows */
-  margin-top: 20px;
-  justify-items: center; /* Center the boxes horizontally */
-}
-
-/* .faq-box {
-  background-color: #444;
-  border-radius: 10px;
-  padding: 12px;
-  text-align: center;
-  max-width: 250px;
-  margin: 0 auto;
-  color: #bfbfbfd2;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6), 0 4px 6px rgba(0, 0, 0, 0.4); /* Subtler shadow 
-} */
-
-.faq-box {
-  background-color: #444; /* Original background color */
-  border: 4px solid #cc5500; /* Original border color */
-  border-radius: 8px; /* Original border radius */
-  flex: 1 1 20%;
-  padding: 20px 24px;
-  box-sizing: border-box;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease, filter 0.3s ease; /* Added transition for the glow */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
-}
-
-.faq-box:hover {
-  transform: translateY(-5px); /* Slight lift effect */
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3); /* Larger shadow on hover for depth */
-  filter: blur(0px) brightness(1.1) drop-shadow(0 0 8px #ffa94d); /* Soft glow effect */
-}
-
-.divider {
-  height: 1px;
-  background-color: #cc5500;
-  width: 80%;
-  margin: auto;
-}
-
-.contact-container {
-  background-color: #444;
-  border: 2px solid #cc5500;
-  padding: 40px;
-  width: 65%;
-  margin: 0 auto;
-  border-radius: 15px;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.6);
-  color: #bfbfbfd2; /* Body text color */
-}
-
-.contact-container h2{
-  color: #cc5500; /* Header color */
-  margin-top: 0;
-  font-size: 2.5rem;}
-
-form label {
-  margin-top: 15px;
-  font-weight: bold;
-  display: block;
-  font-size: 1rem
-}
-
-form input,
-form textarea {
-  display: block;
-  width: 100%;
-  margin-top: 5px;
-  padding: 10px;
-  background-color: #444;
-  color: #fff;
-  border: 2px solid #cc5500;
-  border-radius: 5px;
-}
-
-form textarea {
-  height: 75px; /* Adjust height to make the message box taller */
-}
-
-/* Styling links inside Contact Us and FAQ sections */
-.contact-page #contact a,
-.contact-page #faq a {
-    color: #cc5500; /* Orange color for links */
-    text-decoration: none; /* Remove underline */
-    transition: color 0.3s ease, background-color 0.3s ease; /* Smooth transition */
-}
-
-.contact-page #contact a:hover,
-.contact-page #faq a:hover {
-    color: #fff; /* White text when hovered */
-    background-color: #cc5500; /* Orange background when hovered */
-    padding: 5px 10px; /* Add padding for hover effect */
-    border-radius: 5px; /* Rounded corners */
-}
-
-/* Cart dropdown container */
-.cart-dropdown {
-  position: relative;
-}
-
-/* Dropdown panel styling */
-.cart-dropdown-panel {
-  display: none; /* Hidden by default */
-  position: absolute;
-  top: 100%; /* Position below the cart icon */
-  right: 0;
-  background-color: white;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 15px;
-  width: 300px;
-  z-index: 1000;
-  border-radius: 5px;
-}
-
-/* Show the dropdown panel on hover */
-.cart-dropdown:hover .cart-dropdown-panel {
-  display: block;
-}
-
-/* Subtotal and total rows */
-.cart-subtotal,
-.cart-total {
-  display: flex;
-  justify-content: space-between;
-  margin: 10px 0;
-}
-
-/* Checkout button styling */
-#checkout-button {
-  display: block;
-  width: 100%;
-  text-align: center;
-  margin-top: 10px;
-}
-
-/* Cart dropdown panel */
-.cart-dropdown-panel {
-  display: none;
-  position: absolute;
-  top: 100%;
-  right: 0;
-  background-color: white;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 15px;
-  width: 300px;
-  z-index: 1000;
-  border-radius: 5px;
-}
-
-/* Show the dropdown on hover */
-.cart-dropdown:hover .cart-dropdown-panel {
-  display: block;
-}
-
-/* Cart items list */
-#cart-items-list {
-  max-height: 200px;
-  overflow-y: auto;
-  margin-bottom: 15px;
-  border-bottom: 1px solid #ddd;
-  padding-bottom: 10px;
-}
-
-/* Individual cart item row */
-.cart-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 0;
-  border-bottom: 1px solid #f0f0f0;
-}
-
-.cart-item:last-child {
-  border-bottom: none;
-}
-
-/* Thumbnail image */
-.cart-item img {
-  width: 50px;
-  height: 50px;
-  object-fit: cover;
-  margin-right: 10px;
-}
-
-/* Item details */
-.cart-item-details {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.cart-item-details .product-name {
-  font-weight: bold;
-}
-
-.cart-item-details .product-code {
-  font-size: 12px;
-  color: gray;
-}
-
-.cart-item-details .product-quantity {
-  font-size: 14px;
-}
-
-/* Item price */
-.cart-item-price {
-  font-weight: bold;
-  text-align: right;
-}
-
-/* Checkout button styling */
-.theme-button {
-  background-color: #007bff; /* Replace with your theme's button color */
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  cursor: pointer;
-  font-size: 14px;
-  text-align: center;
-  width: 100%;
-  border-radius: 5px;
-}
-
-.theme-button:hover {
-  background-color: #0056b3; /* Darker shade for hover */
-}
-
-/* Container for the placeholder images */
-#image-placeholder-container {
-  display: flex;
-  justify-content: center;
-  gap: 10px; /* Space between placeholders */
-  margin-top: 15px; /* Space between the main image and placeholders */
-}
-
-/* Styling for each placeholder image */
-.image-placeholder {
-  width: 80px; /* Adjust width as needed */
-  height: 80px; /* Adjust height as needed */
-  border-radius: 5px;
-  object-fit: cover;
-  background-color: #f0f0f0; /* Light gray background for placeholders */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-  cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-/* Hover effect for placeholders */
-.image-placeholder:hover {
-  transform: scale(1.05); /* Slight zoom effect */
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* More pronounced shadow on hover */
-}
-
-#product-image {
-  width: 80%; /* Reduce the width to 80% of its original size */
-  height: auto; /* Maintain the aspect ratio */
-  margin: 0 auto; /* Center the image horizontally */
-  display: block; /* Ensure proper centering */
-  border-radius: 10px; /* Optional: Add rounded corners */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: Add a shadow for emphasis */
 }
