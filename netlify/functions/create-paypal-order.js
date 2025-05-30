@@ -6,6 +6,8 @@ exports.handler = async (event) => {
 
     const trustedProducts = await fetch('https://script.google.com/macros/s/AKfycbyCY8VW0D1A7AFJiU7X6tN5-RTrnYxQIV4QCzmFprxYrCVv2o4uKWnmKfJ6Xh40H4uqXA/exec').then(res => res.json());
 
+    console.log('Trusted hap001:', trustedProducts.find(p => p["product id"] === "hap001"));
+
     const validatedCart = cart.map(item => {
       const product = trustedProducts.find(p =>
         p["product id"] === item.id &&
