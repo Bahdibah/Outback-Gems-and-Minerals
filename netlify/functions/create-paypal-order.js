@@ -45,8 +45,7 @@ exports.handler = async (event) => {
     // Calculate items array
     const items = validatedCart.map(item => ({
       name: item.name,
-      description: `ID: ${item.id}`, // Add this line for product ID
-      sku: item.id,                  // Add this line for SKU
+      sku: item.id, // Only SKU, no description
       unit_amount: { currency_code: 'AUD', value: item.price.toFixed(2) },
       quantity: item.quantity,
     }));
