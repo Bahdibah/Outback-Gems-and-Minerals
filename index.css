@@ -500,17 +500,6 @@ button {
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-/* Responsive design */
-@media (max-width: 768px) {
-   #product-name {
-    font-size: 2rem;
-  }
-
-  button {
-    font-size: 1rem;
-  }
-}
-
 .bestseller-product-cards {
   width: 100%;
   margin: 0 auto;
@@ -709,3 +698,115 @@ button {
   height: auto; /* Let the card set the height */
 }
 
+/* =========================
+   Responsive Design
+   ========================= */
+
+/* Tablets (max-width: 1024px) */
+@media (max-width: 1024px) {
+  .about-us > div,
+  .bestseller-product-card,
+  .new-product-card,
+  .whatsnew-product-card {
+    max-width: 48%;
+    flex: 1 1 48%;
+  }
+  .about-us {
+    gap: 16px;
+  }
+  .whats-new-carousel {
+    width: 98%;
+  }
+}
+
+/* Large phones and small tablets (max-width: 768px) */
+@media (max-width: 768px) {
+  .about-us > div,
+  .bestseller-product-card,
+  .new-product-card,
+  .whatsnew-product-card {
+    max-width: 98%;
+    flex: 1 1 98%;
+  }
+  .about-us {
+    flex-direction: column;
+    gap: 12px;
+  }
+  .whats-new-carousel {
+    width: 100%;
+    padding: 10px 0;
+  }
+  .newsletter-container form {
+    width: 100%;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .newsletter-container form input[type='email'] {
+    min-width: 0;
+    width: 100%;
+  }
+  .newsletter-container h2 {
+    font-size: 2rem;
+  }
+  .bestselling-header, .dynamic-product-header-title, .whats-new-header {
+    font-size: 2.2rem;
+  }
+  #home {
+    height: 22vh;
+    min-height: 120px;
+  }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+   #product-name {
+    font-size: 2rem;
+  }
+
+  button {
+    font-size: 1rem;
+  }
+}
+
+/* Phones (max-width: 480px) */
+@media (max-width: 480px) {
+  .about-us > div,
+  .bestseller-product-card,
+  .new-product-card,
+  .whatsnew-product-card {
+    max-width: 100%;
+    flex: 1 1 100%;
+    padding: 10px 4px;
+  }
+  .about-us {
+    padding: 20px 4px;
+  }
+  .newsletter-container {
+    width: 98%;
+    padding: 0 2px;
+  }
+  .newsletter-container h2 {
+    font-size: 1.3rem;
+  }
+  .newsletter-container p {
+    font-size: 1rem;
+  }
+  .newsletter-container form button {
+    font-size: 1rem;
+    padding: 10px 12px;
+  }
+  .bestselling-header, .dynamic-product-header-title, .whats-new-header {
+    font-size: 1.2rem;
+  }
+  #home {
+    height: 16vh;
+    min-height: 60px;
+  }
+  .hero-overlay {
+    max-width: 98%;
+    padding: 10px 4px;
+  }
+  .banner-slider {
+    font-size: 1rem;
+  }
+}
