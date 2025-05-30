@@ -89,8 +89,8 @@ exports.handler = async (event) => {
       phone_number_collection: {
         enabled: true
       },
-      success_url: 'https://6838195758ea7c00089e79f1--outbackgems.netlify.app/thankyou.html',
-      cancel_url: 'https://6838195758ea7c00089e79f1--outbackgems.netlify.app/cancel.html',
+      success_url: 'https://outbackgems.netlify.app/thankyou.html',
+      cancel_url: 'https://outbackgems.netlify.app/cancel.html',
     });
 
     return {

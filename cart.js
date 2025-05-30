@@ -304,6 +304,39 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         const stripe = Stripe('pk_test_51RSrS62LkmYKgi6mvADvrSFydOLBRaVVyniXGlSLPIxQoHEXnTXd7sVcnUzxBGaplW6Tyd1WSBuDk4lYrTUXNphM00pn9Kv2mg');
         stripe.redirectToCheckout({ sessionId: data.id });
+      } else if (method === 'pay-paypal') {
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        cart = cart.map(item => ({
+          id: item.id,
+          name: item.name,
+          price: Number(item.price),
+          weight: item.weight,
+          quantity: item.quantity || 1
+        }));
+
+        // Calculate shipping
+        const shippingMethod = localStorage.getItem('selectedShippingMethod') || 'standard';
+        let shippingCost = 0;
+        const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+        if (subtotal >= 100) {
+          shippingCost = shippingMethod === 'standard' ? 0 : 5.00;
+        } else {
+          shippingCost = shippingMethod === 'standard' ? 10.95 : 14.45;
+        }
+
+        // Call your backend to create the PayPal order
+        const response = await fetch('/.netlify/functions/create-paypal-order', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ cart, shippingCost, shippingMethod }),
+        });
+        const data = await response.json();
+        if (!data.approvalUrl) {
+          alert('PayPal checkout failed: ' + (data.error || 'No approval URL returned.'));
+          return;
+        }
+        // Redirect to PayPal
+        window.location.href = data.approvalUrl;
       }
       // ...handle other payment methods...
     });
