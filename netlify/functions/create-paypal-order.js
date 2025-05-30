@@ -35,6 +35,7 @@ exports.handler = async (event) => {
         throw new Error(`Not enough stock for: ${item.id}`);
       }
       return {
+        id: product["product id"], // Add this line
         name: `${product["product name"]} (${product["weight"]}${product["unit"] || ""})`,
         price,
         quantity: item.quantity,
