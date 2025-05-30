@@ -82,7 +82,11 @@ header {
   align-items: center;
   transition: background-image 1s ease-in-out;
   margin: calc(var(--navbar-height)) auto 0;
-  Max-width: 100%;
+  Max-width: 100%;  
+  background-size: cover !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+  height: 30vh;  
 }
 
 .hero-overlay {
