@@ -22,7 +22,7 @@ body {
   margin: calc(var(--navbar-height)) auto 0;
   Max-width: 100%;
   object-fit: cover;  
-  background-size: cover !important;
+  background-size: 100% 100% !important;
   background-position: center center !important;
   background-repeat: no-repeat !important;
   height: 30vh;  
