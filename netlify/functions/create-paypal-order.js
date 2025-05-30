@@ -1,18 +1,31 @@
-const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
+const fetch = require('node-fetch');
 
 exports.handler = async (event) => {
   try {
     const { cart, shippingCost, shippingMethod } = JSON.parse(event.body);
 
-    const trustedProducts = await fetch('YOUR_API_URL').then(res => res.json());
+    const trustedProducts = await fetch('https://script.google.com/macros/s/AKfycbyCY8VW0D1A7AFJiU7X6tN5-RTrnYxQIV4QCzmFprxYrCVv2o4uKWnmKfJ6Xh40H4uqXA/exec').then(res => res.json());
+
+    console.log('Trusted hap001:', trustedProducts.find(p => p["product id"] === "hap001"));
 
     const validatedCart = cart.map(item => {
       const product = trustedProducts.find(p =>
         p["product id"] === item.id &&
-        p.weight == item.weight &&
-        (p.unit || "") === (item.unit || "")
+        Number(p.weight) == Number(item.weight) // ensure both are numbers
+        // No unit check!
       );
-      if (!product) throw new Error(`Product not found: ${item.id}`);
+      if (!product) {
+        console.error('Product not found:', item, trustedProducts.map(p => ({
+          id: p["product id"],
+          weight: p.weight,
+          unit: p.unit
+        })));
+        throw new Error(`Product not found: ${item.id}`);
+      }
+      if (!product.price) {
+        console.error('Product price missing:', product);
+        throw new Error(`Product price missing for: ${item.id}`);
+      }
       return {
         name: `${product["product name"]} (${product["weight"]}${product["unit"] || ""})`,
         price: Number(product.price),
