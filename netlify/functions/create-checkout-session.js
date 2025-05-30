@@ -53,7 +53,6 @@ exports.handler = async (event) => {
           currency: 'aud',
           product_data: {
             name: `${product["product name"]} (${product["weight"]}${product["unit"] || ""})`,
-            images: imageUrl ? [imageUrl] : [],
             description: `ID: ${product["product id"]}`,
             metadata: {
               product_id: product["product id"],
