@@ -23,7 +23,6 @@ exports.handler = async (event) => {
 
     // Build Stripe line_items using trusted product data
     const line_items = cart.map(item => {
-      // Match by product id AND weight
       const product = products.find(
         p => p["product id"] === item.id && Number(p["weight"]) === Number(item.weight)
       );
@@ -34,23 +33,27 @@ exports.handler = async (event) => {
       if (isNaN(price)) {
         throw new Error(`Invalid price for product: ${product["product name"]}`);
       }
+
+      // --- DEBUG LOG ---
+      let imageUrl = "";
+      if (product["image url"]) {
+        imageUrl = product["image url"].startsWith('http')
+          ? product["image url"]
+          : `https://6838195758ea7c00089e79f1--outbackgems.netlify.app/${product["image url"].replace(/\\/g, '/')}`;
+        try {
+          new URL(imageUrl);
+        } catch {
+          console.error(`Invalid image URL for product ${product["product id"]}:`, imageUrl);
+          imageUrl = ""; // fallback to no image
+        }
+      }
+
       return {
         price_data: {
           currency: 'aud',
           product_data: {
-            name: `${product["product name"]} (${product["weight"]}${product["unit"] || ""})`, // Name + size/weight
-            images: (() => {
-              if (!product["image url"]) return [];
-              const url = product["image url"].startsWith('http')
-                ? product["image url"]
-                : `https://6838195758ea7c00089e79f1--outbackgems.netlify.app/${product["image url"].replace(/\\/g, '/')}`;
-              try {
-                new URL(url); // Throws if not valid
-                return [url];
-              } catch {
-                return [];
-              }
-            })(),
+            name: `${product["product name"]} (${product["weight"]}${product["unit"] || ""})`,
+            images: imageUrl ? [imageUrl] : [],
             description: `ID: ${product["product id"]}`,
             metadata: {
               product_id: product["product id"],
