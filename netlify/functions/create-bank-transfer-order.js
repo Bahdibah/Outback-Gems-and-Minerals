@@ -88,6 +88,14 @@ Please use the reference number above when making your transfer.
     });
 
     // Return details to frontend
+    console.log({
+      reference,
+      bankDetails,
+      orderSummary,
+      shippingMethod: shippingMethod === 'express' ? 'Express' : 'Standard',
+      total: total.toFixed(2)
+    });
+
     return {
       statusCode: 200,
       body: JSON.stringify({
