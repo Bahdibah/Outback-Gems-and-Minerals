@@ -38,7 +38,13 @@ exports.handler = async (event) => {
         price_data: {
           currency: 'aud',
           product_data: {
-            name: product["product name"],
+            name: `${product["product name"]} (${product["weight"]}${product["unit"] || ""})`, // Name + size/weight
+            images: product["image url"] ? [
+              product["image url"].startsWith('http')
+                ? product["image url"]
+                : `https://6838195758ea7c00089e79f1--outbackgems.netlify.app/${product["image url"].replace(/\\/g, '/')}`
+            ] : [],
+            description: `ID: ${product["product id"]}`,
             metadata: {
               product_id: product["product id"],
               weight: product["weight"]
