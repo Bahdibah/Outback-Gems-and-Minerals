@@ -390,6 +390,21 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  // Show modal (when needed, e.g. after clicking "Direct Bank Transfer")
+  // document.getElementById('bank-transfer-modal').style.display = 'flex';
+
+  // Close modal on X click
+  document.getElementById('close-bank-modal').onclick = function() {
+    document.getElementById('bank-transfer-modal').style.display = 'none';
+  };
+  // Close modal when clicking outside modal content
+  window.onclick = function(event) {
+    const modal = document.getElementById('bank-transfer-modal');
+    if (event.target === modal) {
+      modal.style.display = 'none';
+    }
+  };
+
   // Initial load
   loadCart();
   updateCartCount();

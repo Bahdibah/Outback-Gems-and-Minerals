@@ -408,15 +408,31 @@ footer >div{
   border: 1px solid #ccc;
 }
 
-/* Modal JavaScript (to be included in a <script> tag) */
-// Show modal
-document.getElementById('bank-transfer-modal').style.display = 'flex';
-// Close modal
-document.getElementById('close-bank-modal').onclick = function() {
-  document.getElementById('bank-transfer-modal').style.display = 'none';
-};
-window.onclick = function(event) {
-  if (event.target === document.getElementById('bank-transfer-modal')) {
-    document.getElementById('bank-transfer-modal').style.display = 'none';
-  }
-};
+/* Make modal title orange and bigger */
+#bank-transfer-modal h2 {
+  color: #cc5500;
+  font-size: 2.2rem;
+  margin-bottom: 18px;
+  font-weight: bold;
+}
+
+#bank-transfer-modal h3,
+#bank-transfer-modal label,
+#bank-transfer-modal .section-title {
+  color: #cc5500;
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-top: 18px;
+  margin-bottom: 8px;
+}
+#bank-transfer-modal label {
+  font-size: 1.1rem;
+  color: #fff;
+  margin-bottom: 6px;
+}
+#bank-transfer-modal #bank-transfer-result h3 {
+  color: #cc5500;
+  font-size: 1.5rem;
+  margin-top: 18px;
+}
+
