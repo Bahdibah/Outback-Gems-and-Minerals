@@ -8,7 +8,7 @@ try {
 
 exports.handler = async (event) => {
   try {
-    const { cart } = JSON.parse(event.body);
+    const { cart, shippingMethod, shippingCost } = JSON.parse(event.body);
 
     if (!cart || !Array.isArray(cart) || cart.length === 0) {
       return {
@@ -39,11 +39,18 @@ exports.handler = async (event) => {
           currency: 'aud',
           product_data: {
             name: `${product["product name"]} (${product["weight"]}${product["unit"] || ""})`, // Name + size/weight
-            images: product["image url"] ? [
-              product["image url"].startsWith('http')
+            images: (() => {
+              if (!product["image url"]) return [];
+              const url = product["image url"].startsWith('http')
                 ? product["image url"]
-                : `https://6838195758ea7c00089e79f1--outbackgems.netlify.app/${product["image url"].replace(/\\/g, '/')}`
-            ] : [],
+                : `https://6838195758ea7c00089e79f1--outbackgems.netlify.app/${product["image url"].replace(/\\/g, '/')}`;
+              try {
+                new URL(url); // Throws if not valid
+                return [url];
+              } catch {
+                return [];
+              }
+            })(),
             description: `ID: ${product["product id"]}`,
             metadata: {
               product_id: product["product id"],
@@ -55,6 +62,20 @@ exports.handler = async (event) => {
         quantity: item.quantity,
       };
     });
+
+    // Add shipping cost as a line item if applicable
+    if (shippingCost && shippingCost > 0) {
+      line_items.push({
+        price_data: {
+          currency: 'aud',
+          product_data: {
+            name: shippingMethod === 'express' ? 'Express Shipping' : 'Standard Shipping',
+          },
+          unit_amount: Math.round(Number(shippingCost) * 100),
+        },
+        quantity: 1,
+      });
+    }
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
