@@ -28,10 +28,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $recipient = "support@outbackgems.com.au";
 
         // Additional headers
-        $headers = "From: $name <$email>";
+        $headers = "From: $name <$email>\r\n";
+        $headers .= "Reply-To: $email\r\n";
+        $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
+        $subject = "Contact Form Submission from $name";
+        $body = "Name: $name\nEmail: $email\n\nMessage:\n$message";
 
         // Send email
-        if (mail($recipient, $message, $headers)) {
+        if (mail($recipient, $subject, $message, $headers, $body)) {
             echo "Email sent successfully!";
         } else {
             echo "Failed to send email. Please try again later.";
