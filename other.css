@@ -247,19 +247,6 @@ footer >div{
   justify-items: center;
 }
 
-  /* Media Query for Smaller Screens: Adjust for mobile responsiveness */
-  @media (max-width: 1024px) {
-    #product-container {
-      grid-template-columns: repeat(2, 1fr); /* 2 cards on medium screens */
-    }
-  }
-  
-  @media (max-width: 600px) {
-    #product-container {
-      grid-template-columns: 1fr; /* 1 card per row on small screens */
-    }
-  }
-
 .product-header-title {
 width: 80%;
 margin: 40px auto 40px auto;
@@ -399,3 +386,112 @@ a:active {
   color: inherit;
   text-decoration: none;
 }
+
+/* =========================
+   Responsive Design for Other Page
+   ========================= */
+
+/* Tablets (max-width: 1024px) */
+@media (max-width: 1024px) {
+  .product-card-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 4%;
+    margin: 30px 2%;
+  }
+  .product-header-title {
+    font-size: 2.5rem;
+    width: 95%;
+  }
+  .hero-overlay {
+    max-width: 80%;
+    padding: 18px 8px;
+    font-size: 1.2rem;
+  }
+  #home {
+    height: 22vh;
+    min-height: 120px;
+  }
+}
+
+/* Large phones and small tablets (max-width: 768px) */
+@media (max-width: 768px) {
+  .product-card-container {
+    grid-template-columns: 1fr;
+    gap: 2%;
+    margin: 18px 1%;
+  }
+  .product-header-title {
+    font-size: 1.5rem;
+    width: 100%;
+    padding: 8px;
+  }
+  .hero-overlay {
+    max-width: 98%;
+    padding: 10px 4px;
+    font-size: 1rem;
+  }
+  #home {
+    height: 16vh;
+    min-height: 60px;
+  }
+  .footer-left, .footer-middle, .footer-right {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    gap: 2px;
+    padding: 2px 0;
+  }
+  footer {
+    flex-direction: column;
+    gap: 2px;
+    font-size: 0.95rem;
+  }
+}
+
+/* Phones (max-width: 480px) */
+@media (max-width: 480px) {
+  .product-card-container {
+    grid-template-columns: 1fr;
+    gap: 1%;
+    margin: 8px 0;
+  }
+  .product-header-title {
+    font-size: 1.1rem;
+    width: 100%;
+    padding: 4px;
+  }
+  .hero-overlay {
+    max-width: 100%;
+    padding: 6px 2px;
+    font-size: 0.95rem;
+  }
+  #home {
+    height: 12vh;
+    min-height: 40px;
+  }
+  .footer-left, .footer-middle, .footer-right {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    gap: 1px;
+    padding: 1px 0;
+  }
+  footer {
+    flex-direction: column;
+    gap: 1px;
+    font-size: 0.92rem;
+  }
+}
+
+ /* Media Query for Smaller Screens: Adjust for mobile responsiveness */
+  @media (max-width: 1024px) {
+    #product-container {
+      grid-template-columns: repeat(2, 1fr); /* 2 cards on medium screens */
+    }
+  }
+  
+  @media (max-width: 600px) {
+    #product-container {
+      grid-template-columns: 1fr; /* 1 card per row on small screens */
+    }
+  }
