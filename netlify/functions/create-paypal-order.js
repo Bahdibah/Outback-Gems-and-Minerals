@@ -34,8 +34,25 @@ exports.handler = async (event) => {
       };
     });
 
-    const itemsTotal = validatedCart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-    const total = itemsTotal + Number(shippingCost);
+    // Calculate items array
+    const items = validatedCart.map(item => ({
+      name: item.name,
+      unit_amount: { currency_code: 'AUD', value: item.price.toFixed(2) },
+      quantity: item.quantity,
+    }));
+
+    // Add shipping as an item if needed
+    if (shippingCost && shippingCost > 0) {
+      items.push({
+        name: shippingMethod === 'express' ? 'Express Shipping' : 'Standard Shipping',
+        unit_amount: { currency_code: 'AUD', value: Number(shippingCost).toFixed(2) },
+        quantity: 1,
+      });
+    }
+
+    // Calculate item_total as the sum of all items (including shipping if present)
+    const itemsTotal = items.reduce((sum, item) => sum + (parseFloat(item.unit_amount.value) * item.quantity), 0);
+    const total = itemsTotal;
 
     // Get PayPal access token
     const auth = Buffer.from(`${process.env.PAYPAL_CLIENT_ID}:${process.env.PAYPAL_SECRET}`).toString('base64');
@@ -48,21 +65,6 @@ exports.handler = async (event) => {
       body: 'grant_type=client_credentials'
     });
     const tokenData = await tokenRes.json();
-
-    const items = validatedCart.map(item => ({
-      name: item.name,
-      unit_amount: { currency_code: 'AUD', value: item.price.toFixed(2) },
-      quantity: item.quantity,
-    }));
-
-    // Add shipping as a separate item if needed
-    if (shippingCost && shippingCost > 0) {
-      items.push({
-        name: shippingMethod === 'express' ? 'Express Shipping' : 'Standard Shipping',
-        unit_amount: { currency_code: 'AUD', value: Number(shippingCost).toFixed(2) },
-        quantity: 1,
-      });
-    }
 
     // Create PayPal order
     const orderRes = await fetch('https://api-m.sandbox.paypal.com/v2/checkout/orders', {
@@ -79,7 +81,7 @@ exports.handler = async (event) => {
             value: total.toFixed(2),
             breakdown: {
               item_total: { currency_code: 'AUD', value: itemsTotal.toFixed(2) },
-              shipping: { currency_code: 'AUD', value: Number(shippingCost).toFixed(2) }
+              // Remove shipping from breakdown if it's included as an item
             }
           },
           items
