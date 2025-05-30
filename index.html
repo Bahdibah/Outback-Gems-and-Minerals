@@ -21,6 +21,7 @@
 
   <header id="navbar-container"></header>
   <script src="navbar.js"></script>
+  <script src="productCache.js"></script>
 
   <section id="home">
     <div class="hero-overlay">
@@ -266,9 +267,8 @@
   loadingMsg.style.padding = "40px 0";
   bestsellerGrid.appendChild(loadingMsg);
 
-  // Fetch product data (replace with your actual endpoint if different)
-  fetch("https://script.google.com/macros/s/AKfycbyCY8VW0D1A7AFJiU7X6tN5-RTrnYxQIV4QCzmFprxYrCVv2o4uKWnmKfJ6Xh40H4uqXA/exec")
-    .then(response => response.json())
+  
+  getProductData()
     .then(data => {
       // Remove loading message
       bestsellerGrid.innerHTML = "";
@@ -334,9 +334,8 @@ document.addEventListener("DOMContentLoaded", function () {
   loadingMsg.style.padding = "40px 0";
   swiperWrapper.appendChild(loadingMsg);
 
-  fetch("https://script.google.com/macros/s/AKfycbyCY8VW0D1A7AFJiU7X6tN5-RTrnYxQIV4QCzmFprxYrCVv2o4uKWnmKfJ6Xh40H4uqXA/exec")
-    .then(response => response.json())
-    .then(data => {
+getProductData()
+  .then(data => {
       swiperWrapper.innerHTML = ""; // Remove loading message
       const newItems = data.filter(product => product.newitem && product.newitem.toLowerCase() === "y")
 
@@ -386,6 +385,7 @@ document.addEventListener("DOMContentLoaded", function () {
   </script>
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<!-- Your main script block follows -->
 </body>
 
 </html>

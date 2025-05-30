@@ -1,4 +1,3 @@
-
 function formatSubcategory(cat) {
   return cat.replace(/^[^-]+-/, '')
             .replace(/-/g, ' ')
@@ -22,13 +21,11 @@ async function loadNaturalProducts() {
 
   container.innerHTML = "";
 
-  const apiUrl = "https://script.google.com/macros/s/AKfycbyCY8VW0D1A7AFJiU7X6tN5-RTrnYxQIV4QCzmFprxYrCVv2o4uKWnmKfJ6Xh40H4uqXA/exec";
   let apiProducts = [];
   try {
-    const apiRes = await fetch(apiUrl);
-    apiProducts = await apiRes.json();
+    apiProducts = await getProductData();
   } catch (e) {
-    console.error("API fetch failed", e);
+    console.error("Product cache fetch failed", e);
   }
 
   let localProducts = [];

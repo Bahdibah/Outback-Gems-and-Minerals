@@ -82,45 +82,12 @@ function initializeSideMenu() {
   });
 }
 
-// --- Caching logic ---
-const CACHE_KEY = 'sideMenuProducts';
-const CACHE_TTL = 1000 * 60 * 10; // 10 minutes
-
-function getCachedProducts() {
-  const cached = localStorage.getItem(CACHE_KEY);
-  if (!cached) return null;
-  try {
-    const { data, timestamp } = JSON.parse(cached);
-    if (Date.now() - timestamp < CACHE_TTL) {
-      return data;
-    }
-    return null;
-  } catch {
-    return null;
-  }
-}
-
-function setCachedProducts(data) {
-  localStorage.setItem(CACHE_KEY, JSON.stringify({
-    data,
-    timestamp: Date.now()
-  }));
-}
-
 function fetchAndLoadMenu() {
-  const cached = getCachedProducts();
-  if (cached) {
-    loadSubcategories(cached);
-    initializeSideMenu();
-  } else {
-    fetch("https://script.google.com/macros/s/AKfycbyCY8VW0D1A7AFJiU7X6tN5-RTrnYxQIV4QCzmFprxYrCVv2o4uKWnmKfJ6Xh40H4uqXA/exec")
-      .then(res => res.json())
-      .then(products => {
-        setCachedProducts(products);
-        loadSubcategories(products);
-        initializeSideMenu();
-      });
-  }
+  getProductData()
+    .then(products => {
+      loadSubcategories(products);
+      initializeSideMenu();
+    });
 }
 
 

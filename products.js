@@ -53,9 +53,9 @@ fetch("side-menu.html")
     function loadProductsByCategory(keyword = null) {
       productContainer.innerHTML = "<p>Loading products...</p>";
 
-      fetch("https://script.google.com/macros/s/AKfycbyCY8VW0D1A7AFJiU7X6tN5-RTrnYxQIV4QCzmFprxYrCVv2o4uKWnmKfJ6Xh40H4uqXA/exec")
-        .then(response => response.json())
+      getProductData()
         .then(data => {
+          console.log("Loaded product data:", data); // <--- Add this
           if (data && data.length > 0) {
             let filteredProducts;
             if (keyword) {

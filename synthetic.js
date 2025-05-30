@@ -8,7 +8,6 @@ async function loadSyntheticProducts() {
   const loadingDiv = document.getElementById("loading-categories");
   const container = document.querySelector(".product-card-container");
 
-  // Show loading message above the cards
   loadingDiv.style.display = "block";
   loadingDiv.style.width = "100%";
   loadingDiv.style.fontSize = "1.5rem";
@@ -21,14 +20,13 @@ async function loadSyntheticProducts() {
 
   container.innerHTML = "";
 
-  // Fetch your data as before...
+
   const apiUrl = "https://script.google.com/macros/s/AKfycbyCY8VW0D1A7AFJiU7X6tN5-RTrnYxQIV4QCzmFprxYrCVv2o4uKWnmKfJ6Xh40H4uqXA/exec";
   let apiProducts = [];
   try {
-    const apiRes = await fetch(apiUrl);
-    apiProducts = await apiRes.json();
+    apiProducts = await getProductData();
   } catch (e) {
-    console.error("API fetch failed", e);
+    console.error("Product cache fetch failed", e);
   }
 
   let localProducts = [];
@@ -39,7 +37,6 @@ async function loadSyntheticProducts() {
     console.error("Local JSON fetch failed", e);
   }
 
-  // Hide loading message before rendering cards
   loadingDiv.style.display = "none";
 
   const syntheticProducts = apiProducts.filter(p => p.category && p.category.startsWith("synthetic-"));
@@ -47,7 +44,7 @@ async function loadSyntheticProducts() {
 
   syntheticProducts.forEach(product => {
     const subcategory = product.category.replace(/^synthetic-/, '').toLowerCase();
-    if (seenSubcategories.has(subcategory)) return; // Skip duplicates
+    if (seenSubcategories.has(subcategory)) return; 
     seenSubcategories.add(subcategory);
 
     const localInfo = localProducts.find(lp => lp.category === product.category);
@@ -55,7 +52,6 @@ async function loadSyntheticProducts() {
     const description = localInfo?.["category-description"] || "No description available.";
     const title = formatSubcategory(product.category);
 
-    // Build card using your existing structure
     const card = document.createElement("div");
     card.className = "product-card";
     card.style.backgroundImage = `url('images/category cards/${image}')`;
