@@ -1,10 +1,10 @@
-const fetch = require('node-fetch');
+const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 
 exports.handler = async (event) => {
   try {
     const { cart, shippingCost, shippingMethod } = JSON.parse(event.body);
 
-    const trustedProducts = await fetch('YOUR_API_URL').then(res => res.json());
+    const trustedProducts = await fetch('ATJD4Kt46jhDKxcf7CuMRHskls71TdLuYHnwNSui4H17rexyCJL-Y4QC88qqTcjXDOba0NlxZeDIH0o7').then(res => res.json());
 
     const validatedCart = cart.map(item => {
       const product = trustedProducts.find(p =>
