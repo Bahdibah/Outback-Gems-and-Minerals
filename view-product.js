@@ -86,10 +86,19 @@ async function fetchProductDetails() {
     addToCartButton.addEventListener("click", () => {
       const selectedIndex = parseInt(variationSelector.value, 10);
       const selectedVariation = variations[selectedIndex];
-      const quantity = parseInt(quantityInputElement.value, 10) || 1;
+      const quantity = parseInt(quantityInputElement.value, 10) || 0;
 
       // Get the displayed stock from the productStockElement
-      const displayedStock = parseInt(productStockElement.textContent.replace("Stock: ", ""), 10);
+      const stockText = productStockElement.textContent;
+      const displayedStock = stockText.startsWith("Stock: ")
+        ? parseInt(stockText.replace("Stock: ", ""), 10)
+        : 0;
+
+      // Check for out of stock
+      if (displayedStock <= 0) {
+        alert("This item is currently out of stock.");
+        return;
+      }
 
       // Validate the quantity against the displayed stock
       if (quantity > displayedStock || quantity <= 0) {
@@ -215,8 +224,16 @@ async function fetchProductDetails() {
     productNameElement.textContent = selectedVariation["product name"];
     productImageElement.src = selectedVariation["image url"] || "images/placeholder.png";
     productDescriptionElement.textContent = selectedVariation.description;
-    if (availableStock > 0 ) {productStockElement.textContent =`Stock: ${availableStock}`}
-    else productStockElement.textContent ='Out of Stock';
+        if (availableStock > 0) {
+          productStockElement.textContent = `Stock: ${availableStock}`;
+          quantityInputElement.disabled = false;
+          quantityInputElement.value = 1;
+        } else {
+          productStockElement.textContent = 'Out of Stock';
+          quantityInputElement.disabled = true;
+          quantityInputElement.value = 0;
+        }
+    addToCartButton.disabled = false; // Always enabled
     productPriceElement.textContent = `Price: $${selectedVariation["total price"].toFixed(2)}`;
 
     quantityInputElement.setAttribute("max", availableStock);
