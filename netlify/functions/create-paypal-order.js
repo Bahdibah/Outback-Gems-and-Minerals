@@ -4,7 +4,7 @@ exports.handler = async (event) => {
   try {
     const { cart, shippingCost, shippingMethod } = JSON.parse(event.body);
 
-    const trustedProducts = await fetch('YOUR_API_URL').then(res => res.json());
+    const trustedProducts = await fetch('https://script.google.com/macros/s/AKfycbyCY8VW0D1A7AFJiU7X6tN5-RTrnYxQIV4QCzmFprxYrCVv2o4uKWnmKfJ6Xh40H4uqXA/exec').then(res => res.json());
 
     const validatedCart = cart.map(item => {
       const product = trustedProducts.find(p =>
