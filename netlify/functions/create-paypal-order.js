@@ -12,7 +12,14 @@ exports.handler = async (event) => {
         p.weight == item.weight &&
         (p.unit || "") === (item.unit || "")
       );
-      if (!product) throw new Error(`Product not found: ${item.id}`);
+      if (!product) {
+        console.error('Product not found:', item, trustedProducts.map(p => ({
+          id: p["product id"],
+          weight: p.weight,
+          unit: p.unit
+        })));
+        throw new Error(`Product not found: ${item.id}`);
+      }
       return {
         name: `${product["product name"]} (${product["weight"]}${product["unit"] || ""})`,
         price: Number(product.price),
