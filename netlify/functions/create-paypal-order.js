@@ -78,6 +78,7 @@ exports.handler = async (event) => {
       })
     });
     const orderData = await orderRes.json();
+    console.log('PayPal order response:', orderData);
 
     // Find approval URL
     const approvalUrl = orderData.links.find(link => link.rel === 'approve')?.href;
