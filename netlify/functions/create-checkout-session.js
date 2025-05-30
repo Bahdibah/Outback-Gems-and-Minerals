@@ -1,5 +1,10 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-const fetch = require('node-fetch'); // Make sure node-fetch is installed in your functions folder
+let fetch;
+try {
+  fetch = (...args) => import('node-fetch').then(mod => mod.default(...args));
+} catch (e) {
+  // fallback or error handling if needed
+}
 
 exports.handler = async (event) => {
   try {
@@ -18,9 +23,12 @@ exports.handler = async (event) => {
 
     // Build Stripe line_items using trusted product data
     const line_items = cart.map(item => {
-      const product = products.find(p => p["product id"] === item.id);
+      // Match by product id AND weight
+      const product = products.find(
+        p => p["product id"] === item.id && Number(p["weight"]) === Number(item.weight)
+      );
       if (!product) {
-        throw new Error(`Product not found: ${item.id}`);
+        throw new Error(`Product not found: ${item.id} (weight: ${item.weight})`);
       }
       const price = Number(product["total price"]);
       if (isNaN(price)) {
@@ -29,7 +37,13 @@ exports.handler = async (event) => {
       return {
         price_data: {
           currency: 'aud',
-          product_data: { name: product["product name"], metadata: { product_id: product["product id"] } },
+          product_data: {
+            name: product["product name"],
+            metadata: {
+              product_id: product["product id"],
+              weight: product["weight"]
+            }
+          },
           unit_amount: Math.round(price * 100),
         },
         quantity: item.quantity,
