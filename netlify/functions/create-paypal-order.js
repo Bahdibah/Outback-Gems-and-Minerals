@@ -9,8 +9,8 @@ exports.handler = async (event) => {
     const validatedCart = cart.map(item => {
       const product = trustedProducts.find(p =>
         p["product id"] === item.id &&
-        p.weight == item.weight &&
-        (p.unit || "") === (item.unit || "")
+        p.weight == item.weight
+        // No unit check!
       );
       if (!product) {
         console.error('Product not found:', item, trustedProducts.map(p => ({

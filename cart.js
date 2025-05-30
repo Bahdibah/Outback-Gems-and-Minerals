@@ -270,7 +270,7 @@ document.addEventListener('DOMContentLoaded', () => {
           name: item.name,
           price: Number(item.price),
           weight: item.weight,
-          unit: item.unit, // <-- Add this!
+          unit: item.unit, // <-- This must be present and correct!
           quantity: item.quantity || 1
         }));
 
@@ -312,7 +312,7 @@ document.addEventListener('DOMContentLoaded', () => {
           name: item.name,
           price: Number(item.price),
           weight: item.weight,
-          unit: item.unit, // <-- Add this!
+          unit: item.unit, // <-- This must be present and correct!
           quantity: item.quantity || 1
         }));
 
