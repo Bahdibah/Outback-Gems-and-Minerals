@@ -27,7 +27,15 @@ exports.handler = async (event) => {
         console.error('Product price missing:', product);
         throw new Error(`Product price missing for: ${item.id}`);
       }
+      if (!Number.isInteger(item.quantity) || item.quantity < 1) {
+        throw new Error(`Invalid quantity for: ${item.id}`);
+      }
+      // Check stock availability
+      if (product.stock && item.quantity > product.stock) {
+        throw new Error(`Not enough stock for: ${item.id}`);
+      }
       return {
+        id: product["product id"], // Add this line
         name: `${product["product name"]} (${product["weight"]}${product["unit"] || ""})`,
         price,
         quantity: item.quantity,
@@ -37,22 +45,24 @@ exports.handler = async (event) => {
     // Calculate items array
     const items = validatedCart.map(item => ({
       name: item.name,
+      description: `ID: ${item.id}`, // Add this line for product ID
+      sku: item.id,                  // Add this line for SKU
       unit_amount: { currency_code: 'AUD', value: item.price.toFixed(2) },
       quantity: item.quantity,
     }));
 
-    // Add shipping as an item if needed
-    if (shippingCost && shippingCost > 0) {
-      items.push({
-        name: shippingMethod === 'express' ? 'Express Shipping' : 'Standard Shipping',
-        unit_amount: { currency_code: 'AUD', value: Number(shippingCost).toFixed(2) },
-        quantity: 1,
-      });
-    }
 
-    // Calculate item_total as the sum of all items (including shipping if present)
+    // Calculate item_total as the sum of all items (products only)
     const itemsTotal = items.reduce((sum, item) => sum + (parseFloat(item.unit_amount.value) * item.quantity), 0);
-    const total = itemsTotal;
+
+    // Recalculate shipping cost on server
+    let validatedShippingCost = 0;
+    if (itemsTotal >= 100) {
+      validatedShippingCost = shippingMethod === 'express' ? 5.00 : 0;
+    } else {
+      validatedShippingCost = shippingMethod === 'express' ? 14.45 : 10.95;
+    }
+    const total = itemsTotal + validatedShippingCost;
 
     // Get PayPal access token
     const auth = Buffer.from(`${process.env.PAYPAL_CLIENT_ID}:${process.env.PAYPAL_SECRET}`).toString('base64');
@@ -81,7 +91,7 @@ exports.handler = async (event) => {
             value: total.toFixed(2),
             breakdown: {
               item_total: { currency_code: 'AUD', value: itemsTotal.toFixed(2) },
-              // Remove shipping from breakdown if it's included as an item
+              shipping: { currency_code: 'AUD', value: validatedShippingCost.toFixed(2) }
             }
           },
           items
