@@ -339,10 +339,56 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         // Redirect to PayPal
         window.location.href = data.approvalUrl;
+      } else if (method === 'pay-bank') {
+        // Show the modal/section for bank transfer
+        document.getElementById('bank-transfer-modal').style.display = 'block';
+        // Optionally, fill in the order summary
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        let summaryHtml = '<ul>';
+        cart.forEach(item => {
+          summaryHtml += `<li>${item.name} x${item.quantity} - $${(item.price * item.quantity).toFixed(2)}</li>`;
+        });
+        summaryHtml += '</ul>';
+        document.getElementById('bank-order-summary').innerHTML = summaryHtml;
       }
       // ...handle other payment methods...
     });
   }
+
+  document.getElementById('place-bank-order').addEventListener('click', async () => {
+    const email = document.getElementById('bank-email').value.trim();
+    if (!email) {
+      alert('Please enter your email address.');
+      return;
+    }
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const shippingMethod = localStorage.getItem('selectedShippingMethod') || 'standard';
+
+    // Send to Netlify function
+    const response = await fetch('/.netlify/functions/create-bank-transfer-order', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ cart, shippingMethod, customerEmail: email }),
+    });
+    const data = await response.json();
+    if (data.error) {
+      document.getElementById('bank-transfer-result').textContent = 'Error: ' + data.error;
+    } else {
+      // Show confirmation and bank details
+      document.getElementById('bank-transfer-result').innerHTML = `
+        <h3>Order Placed!</h3>
+        <p>Please transfer the total to the following bank account:</p>
+        <pre>${data.bankDetails}</pre>
+        <p>Reference: <strong>${data.reference}</strong></p>
+        <p>Order Summary:<br><pre>${data.orderSummary}</pre></p>
+        <p>Total: $${data.total}</p>
+        <p>We've also sent these details to your email.</p>
+      `;
+      // Optionally clear cart, hide modal, etc.
+      localStorage.removeItem('cart');
+      updateCartCount();
+    }
+  });
 
   // Initial load
   loadCart();
