@@ -265,12 +265,13 @@ document.addEventListener('DOMContentLoaded', () => {
       const method = finalCheckoutButton.dataset.method;
       if (method === 'pay-card') {
         let cart = JSON.parse(localStorage.getItem('cart')) || [];
-        cart = cart.map(item => ({
-          id: item.id,
-          name: item.name,
-          price: Number(item.price),
-          quantity: item.quantity || 1
-        }));
+          cart = cart.map(item => ({
+            id: item.id,
+            name: item.name,
+            price: Number(item.price),
+            weight: item.weight, // <-- now included
+            quantity: item.quantity || 1
+          }));
         console.log('Cart being sent:', cart);
         const response = await fetch('/.netlify/functions/create-checkout-session', {
           method: 'POST',
