@@ -380,7 +380,6 @@ document.addEventListener('DOMContentLoaded', () => {
         <h3>Order Placed!</h3>
         <p>Please transfer the total to the following bank account:</p>
         <pre>${data.bankDetails}</pre>
-        <p>Reference: <strong>${data.reference}</strong></p>
         <p>Order Summary:<br><pre>${data.orderSummary}</pre></p>
         <p>Total: $${data.total}</p>
         <p>We've also sent these details to your email.</p>
