@@ -377,12 +377,15 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       // Show confirmation and bank details
       document.getElementById('bank-transfer-result').innerHTML = `
-        <h3>Order Placed!</h3>
+        <h3 style="color:#cc5500;">Order Placed!</h3>
         <p>Please transfer the total to the following bank account:</p>
         <pre>${data.bankDetails}</pre>
-        <p>Order Summary:<br><pre>${data.orderSummary}</pre></p>
-        <p>Total: $${data.total}</p>
-        <p>We've also sent these details to your email.</p>
+        <div class="modal-section-title" style="color:#cc5500; font-weight:bold;">Order Summary:</div>
+        <pre style="color:#fff; font-size:1.1em; font-family:'Inter',Arial,sans-serif;">${data.orderSummary}</pre>
+        <div class="modal-total"><strong>Total:</strong> $${data.total}</div>
+        <p class="modal-confirmation" style="color:#cc5500; font-weight:bold;">
+          We've also sent these details to your email.
+        </p>
       `;
       // Optionally clear cart, hide modal, etc.
       localStorage.removeItem('cart');
