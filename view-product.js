@@ -246,15 +246,20 @@ async function fetchProductDetails() {
     const modalOverlay = document.getElementById("image-modal-overlay");
     const modalImg = document.getElementById("image-modal-img");
 
-    if (mainImage && modalOverlay && modalImg) {
+   if (mainImage && modalOverlay && modalImg) {
   mainImage.addEventListener("click", function() {
     modalImg.src = mainImage.src;
     modalOverlay.classList.add("active");
   });
 
   modalOverlay.addEventListener("click", function(e) {
-    // Only close if clicking the overlay, not the image itself
-    if (e.target === modalOverlay) {
+    modalOverlay.classList.remove("active");
+    modalImg.src = "";
+  });
+
+  // Add ESC key functionality to close the modal
+  document.addEventListener("keydown", function(e) {
+    if (modalOverlay.classList.contains("active") && (e.key === "Escape" || e.key === "Esc")) {
       modalOverlay.classList.remove("active");
       modalImg.src = "";
     }
