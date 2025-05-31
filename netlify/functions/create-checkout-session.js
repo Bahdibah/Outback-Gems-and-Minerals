@@ -79,6 +79,8 @@ exports.handler = async (event) => {
       });
     }
 
+    const reference = 'OGM-' + Math.floor(100000 + Math.random() * 900000); // 6-digit random
+
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       line_items,
@@ -93,9 +95,16 @@ exports.handler = async (event) => {
       cancel_url: 'https://outbackgems.netlify.app/cancel.html',
     });
 
+    const orderSummary = [
+      ...cart.map(item =>
+        `${item.name} x${item.quantity} – $${(item.price * item.quantity).toFixed(2)}`
+      ),
+      `Shipping (${shippingMethod === 'express' ? 'Express' : 'Standard'}) – $${validatedShippingCost.toFixed(2)}`
+    ].join('\n');
+
     return {
       statusCode: 200,
-      body: JSON.stringify({ id: session.id }),
+      body: JSON.stringify({ id: session.id, orderSummary }),
     };
   } catch (error) {
     console.error('Stripe error:', error);
