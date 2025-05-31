@@ -1,5 +1,5 @@
 const fetch = require('node-fetch');
-const nodemailer = require('nodemailer');
+const { Resend } = require('resend');
 
 exports.handler = async (event) => {
   try {
@@ -69,19 +69,11 @@ Total: $${total.toFixed(2)}
 Please use the reference number above when making your transfer.
 `;
 
-    // Send email
-    const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
-      port: Number(process.env.SMTP_PORT),
-      secure: false, // true for 465, false for 587
-      auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS
-      }
-    });
+    // Send email with Resend
+    const resend = new Resend(process.env.RESEND_API_KEY);
 
-    await transporter.sendMail({
-      from: '"Outback Gems" <support@outbackgems.com.au>',
+    await resend.emails.send({
+      from: 'Outback Gems <support@outbackgems.com.au>',
       to: customerEmail,
       subject: 'Your Outback Gems & Minerals Order - Bank Transfer Details',
       text: emailBody
