@@ -361,6 +361,7 @@ footer >div{
   justify-content: center;
 }
 .modal-content {
+  position: relative;
   color: #fff;
   font-family: 'Montserrat', Arial, sans-serif;
   font-size: 1.15rem;
@@ -377,6 +378,19 @@ footer >div{
   font-size: 2rem;
   color: #ff6600;
   cursor: pointer;
+}
+.modal-close-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: none;
+  border: none;
+  color: #cc5500;
+  font-size: 2rem;
+  cursor: pointer;
+  z-index: 2;
+  padding: 0;
+  line-height: 1;
 }
 #bank-order-summary ul {
   padding-left: 18px;
