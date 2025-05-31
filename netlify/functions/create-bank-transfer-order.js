@@ -40,9 +40,12 @@ exports.handler = async (event) => {
     const reference = 'OGM-' + Date.now();
 
     // Compose order summary
-    const orderSummary = validatedCart.map(item =>
-      `${item.name} x${item.quantity} - $${(item.price * item.quantity).toFixed(2)}`
-    ).join('\n');
+    const orderSummary = [
+      ...validatedCart.map(item =>
+        `${item.name} x${item.quantity} – $${(item.price * item.quantity).toFixed(2)}`
+      ),
+      `Shipping (${shippingMethod === 'express' ? 'Express' : 'Standard'}) – $${validatedShippingCost.toFixed(2)}`
+    ].join('\n');
 
     // Bank details (replace with your real details)
     const bankDetails = `

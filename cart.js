@@ -380,7 +380,6 @@ document.addEventListener('DOMContentLoaded', () => {
         <h3>Order Placed!</h3>
         <p>Please transfer the total to the following bank account:</p>
         <pre>${data.bankDetails}</pre>
-        <p>Reference: <strong>${data.reference}</strong></p>
         <p>Order Summary:<br><pre>${data.orderSummary}</pre></p>
         <p>Total: $${data.total}</p>
         <p>We've also sent these details to your email.</p>
@@ -405,6 +404,29 @@ document.addEventListener('DOMContentLoaded', () => {
       modal.style.display = 'none';
     }
   };
+
+  // Order confirmation modal
+  function showOrderConfirmationModal(order) {
+    // order should include: items, shippingMethod, shippingCost, total, reference
+
+    // Build order summary list items
+    const summaryItems = order.items.map(item =>
+      `<li>${item.name} x${item.quantity} – $${(item.price * item.quantity).toFixed(2)}</li>`
+    );
+    // Add shipping line
+    summaryItems.push(
+      `<li>Shipping (${order.shippingMethod === 'express' ? 'Express' : 'Standard'}) – $${order.shippingCost.toFixed(2)}</li>`
+    );
+
+    // Set modal HTML
+    document.querySelector('.modal-bank-details .modal-reference').textContent = order.reference;
+    document.querySelector('.modal-order-summary').innerHTML = summaryItems.join('');
+    document.querySelector('.modal-total strong').textContent = `Total: $${order.total.toFixed(2)}`;
+    // ...set other modal fields as needed...
+
+    // Show modal
+    document.getElementById('order-confirmation-modal').style.display = 'block';
+  }
 
   // Initial load
   loadCart();
