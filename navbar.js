@@ -168,6 +168,22 @@ document.addEventListener("DOMContentLoaded", () => {
       if (navbarContainer) {
         navbarContainer.innerHTML = html;
 
+            // --- Add burger menu toggle here ---
+          const burger = document.getElementById("burger-menu");
+          const navLinksBurger = document.querySelector("nav ul.nav-links");
+          if (burger && navLinksBurger) {
+            burger.addEventListener("click", function () {
+              navLinksBurger.classList.toggle("open");
+            });
+            navLinksBurger.querySelectorAll("a").forEach(link => {
+              link.addEventListener("click", () => {
+                navLinksBurger.classList.remove("open");
+              });
+            });
+          }
+        // --- End burger menu toggle ---
+            
+
         // Now that the navbar is loaded, access the search input and results container
         const searchInput = document.getElementById("search-input");
         const resultContainer = document.getElementById("search-results-container");
