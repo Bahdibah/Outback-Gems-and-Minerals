@@ -59,7 +59,10 @@ fetch("side-menu.html")
           if (data && data.length > 0) {
             let filteredProducts;
             if (keyword) {
-              filteredProducts = data.filter(product => product.category.includes(keyword));
+              filteredProducts = data.filter(product => {
+                const categories = (product.category || "").split(",").map(c => c.trim());
+                return categories.some(cat => cat.includes(keyword));
+              });
             } else {
               filteredProducts = data;
             }

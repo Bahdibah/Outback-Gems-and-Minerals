@@ -45,6 +45,9 @@ async function loadNaturalProducts() {
   const seenSubcategories = new Set();
 
   naturalProducts.forEach(product => {
+    // Exclude products with multiple categories
+    if (product.category.includes(",")) return;
+
     const subcategory = product.category.replace(/^natural-/, '').toLowerCase();
     if (seenSubcategories.has(subcategory)) return; // Skip duplicates
     seenSubcategories.add(subcategory);

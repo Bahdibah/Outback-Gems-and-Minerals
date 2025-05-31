@@ -43,6 +43,9 @@ async function loadSyntheticProducts() {
   const seenSubcategories = new Set();
 
   syntheticProducts.forEach(product => {
+    // Exclude products with multiple categories
+    if (product.category.includes(",")) return;
+
     const subcategory = product.category.replace(/^synthetic-/, '').toLowerCase();
     if (seenSubcategories.has(subcategory)) return; 
     seenSubcategories.add(subcategory);
