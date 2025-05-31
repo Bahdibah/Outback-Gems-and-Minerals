@@ -59,17 +59,41 @@ Reference: ${reference}
     const emailBody = `
 Thank you for your order!
 
-Please transfer the total amount to the following bank account:
+Please transfer the total amount to the following bank account to complete your order:
 
 ${bankDetails}
 
 Order Summary:
 ${orderSummary}
 
-Shipping: ${shippingMethod === 'express' ? 'Express' : 'Standard'}
 Total: $${total.toFixed(2)}
 
 Please use the reference number above when making your transfer.
+`;
+
+    const emailBodyHtml = `
+  <p>Thank you for your order!</p>
+  <p>Please transfer the total amount to the following bank account to complete your order:</p>
+  <pre>${bankDetails}</pre>
+  <p><strong>Order Summary:</strong><br>${orderSummary.replace(/\n/g, '<br>')}</p>
+  <p><strong>Total:</strong> $${total.toFixed(2)}</p>
+  <p>Please use the reference number above when making your transfer.</p>
+  <br>
+  <hr>
+  <table style="margin-top:20px;">
+    <tr>
+      <td style="vertical-align:top;padding-right:12px;">
+        <img src="https://yourdomain.com/images/favicon.png" alt="Outback Gems Logo" style="height:48px;width:48px;border-radius:8px;">
+      </td>
+      <td style="vertical-align:top;">
+        <div style="font-size:1.1em;color:#cc5500;font-weight:bold;">Customer Support</div>
+        <div style="font-size:1em;color:#333;">support@outbackgems.com.au</div>
+        <div style="font-family:'Parisienne', 'Dancing Script', 'Sacramento', 'Allura', 'Satisfy', cursive; font-size:1.5em; color:#cc5500; margin-top:6px;">
+          Outback Gems &amp; Minerals
+        </div>
+      </td>
+    </tr>
+  </table>
 `;
 
     // Send email with Resend
@@ -79,7 +103,7 @@ Please use the reference number above when making your transfer.
       from: 'Outback Gems <support@outbackgems.com.au>',
       to: customerEmail,
       subject: 'Your Outback Gems & Minerals Order - Bank Transfer Details',
-      text: emailBody
+      html: emailBodyHtml // Use html instead of text
     });
 
     // Return details to frontend
