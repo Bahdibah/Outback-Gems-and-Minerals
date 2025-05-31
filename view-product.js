@@ -1,6 +1,3 @@
-// API URL
-const apiUrl = "https://script.googleusercontent.com/macros/echo?user_content_key=AehSKLjckrSmV4Q396r2J5437VHynXSLyUYow6iqkCoXEY7HrOg2cr_voo08MQL6qcMM04pBDpWPA1kgKDaTRUEOJBZ48B-SMN75SrRx86Pow9494AvOa4RBDe-WLCDnlG85PhU5LDk8GvqfMbrbDHzmS9kAs0tPivdOdAxqxdhgCnvUxPy8IKXdl6i92dL9O3GKWDjsSqKlqqa9bKbFxAnZn8oVEil2fg5qGD_Izy_rtBqgkVDTQpttRxrY86FnFn8373jngn3hJLR3QkHgvIWAzf2wa9cjBsGiOi70hv-IAu87d_WCywlb4vX0d2RHsA&lib=MreWV8qvFAXZ2-rISPaQS69qZewlWwj59";
-
 const urlParams = new URLSearchParams(window.location.search);
 const productId = urlParams.get("productid");
 
@@ -27,15 +24,10 @@ fetch("side-menu.html")
     // ...rest of your product logic...
   });
 
-// Fetch product details from the API
+// Fetch product details from the cache
 async function fetchProductDetails() {
   try {
-    const response = await fetch(apiUrl);
-    if (!response.ok) {
-      throw new Error(`Failed to fetch product details. Status: ${response.status}`);
-    }
-
-    const products = await response.json();
+    const products = await getProductData();
 
     // Filter variations based on product id from the URL
     const filteredByProductId = products.filter(item => item["product id"].trim() === productId.trim());
@@ -274,9 +266,9 @@ async function fetchProductDetails() {
         const productImages = productImagesList.find(p => p.productid === productId);
         // Use the 3 images from JSON, or fallback to placeholders
         const extraImages = productImages?.images || [
-          "images/products/${productid}/image1.jpg",
-          "images/products/${productid}/image2.jpg",
-          "images/products/${productid}/image3.jpg"
+          `images/products/${productId}/image1.jpg`,
+          `images/products/${productId}/image2.jpg`,
+          `images/products/${productId}/image3.jpg`
         ];
 
         // Build the thumbnails: API image first, then the 3 from JSON
