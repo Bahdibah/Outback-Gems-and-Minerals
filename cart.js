@@ -375,14 +375,13 @@ document.addEventListener('DOMContentLoaded', () => {
     if (data.error) {
       document.getElementById('bank-transfer-result').textContent = 'Error: ' + data.error;
     } else {
-      // Hide the email input and place order button
-      document.getElementById('bank-email').style.display = 'none';
-      document.getElementById('place-bank-order').style.display = 'none';
+
+      document.getElementById('bank-transfer-form-section').style.display = 'none';
 
       // Show confirmation and bank details
       document.getElementById('bank-transfer-result').innerHTML = `
         <h3 style="color:#cc5500;">Order Placed!</h3>
-        <p>Please transfer the total to the following bank account:</p>
+        <p>To complete your order, please transfer the total amount to:</p>
         <pre>${data.bankDetails}</pre>
         <div class="modal-section-title" style="color:#cc5500; font-weight:bold;">Order Summary:</div>
         <pre style="color:#fff; font-size:1.1em; font-family:'Inter',Arial,sans-serif;">${data.orderSummary}</pre>
