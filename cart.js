@@ -406,6 +406,29 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
+  // Order confirmation modal
+  function showOrderConfirmationModal(order) {
+    // order should include: items, shippingMethod, shippingCost, total, reference
+
+    // Build order summary list items
+    const summaryItems = order.items.map(item =>
+      `<li>${item.name} x${item.quantity} – $${(item.price * item.quantity).toFixed(2)}</li>`
+    );
+    // Add shipping line
+    summaryItems.push(
+      `<li>Shipping (${order.shippingMethod === 'express' ? 'Express' : 'Standard'}) – $${order.shippingCost.toFixed(2)}</li>`
+    );
+
+    // Set modal HTML
+    document.querySelector('.modal-bank-details .modal-reference').textContent = order.reference;
+    document.querySelector('.modal-order-summary').innerHTML = summaryItems.join('');
+    document.querySelector('.modal-total strong').textContent = `Total: $${order.total.toFixed(2)}`;
+    // ...set other modal fields as needed...
+
+    // Show modal
+    document.getElementById('order-confirmation-modal').style.display = 'block';
+  }
+
   // Initial load
   loadCart();
   updateCartCount();
