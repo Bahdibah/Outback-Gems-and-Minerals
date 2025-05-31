@@ -420,6 +420,13 @@ footer >div{
   margin-top: 18px;
 }
 
+.modal-section-title,
+.modal-confirmation {
+  color: #cc5500;
+  font-family: 'Inter', Arial, sans-serif;
+  font-weight: 700;
+}
+
 /* =========================
    Responsive Design for Cart Page
    ========================= */

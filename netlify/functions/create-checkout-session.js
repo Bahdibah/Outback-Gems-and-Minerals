@@ -79,7 +79,7 @@ exports.handler = async (event) => {
       });
     }
 
-    const reference = 'OGM-' + Math.floor(100000 + Math.random() * 900000); // 6-digit random
+    const reference = 'OGM-' + Math.floor(100000 + Math.random() * 900000); // 6 digits
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
@@ -99,8 +99,10 @@ exports.handler = async (event) => {
       ...cart.map(item =>
         `${item.name} x${item.quantity} – $${(item.price * item.quantity).toFixed(2)}`
       ),
-      `Shipping (${shippingMethod === 'express' ? 'Express' : 'Standard'}) – $${validatedShippingCost.toFixed(2)}`
-    ].join('\n');
+      shippingCost && shippingCost > 0
+        ? `Shipping (${shippingMethod === 'express' ? 'Express' : 'Standard'}) – $${Number(shippingCost).toFixed(2)}`
+        : null
+    ].filter(Boolean).join('\n');
 
     return {
       statusCode: 200,
