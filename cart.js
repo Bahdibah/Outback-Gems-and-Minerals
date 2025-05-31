@@ -375,6 +375,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (data.error) {
       document.getElementById('bank-transfer-result').textContent = 'Error: ' + data.error;
     } else {
+      // Hide the email input and place order button
+      document.getElementById('bank-email').style.display = 'none';
+      document.getElementById('place-bank-order').style.display = 'none';
+
       // Show confirmation and bank details
       document.getElementById('bank-transfer-result').innerHTML = `
         <h3 style="color:#cc5500;">Order Placed!</h3>
@@ -387,7 +391,6 @@ document.addEventListener('DOMContentLoaded', () => {
           We've also sent these details to your email.
         </p>
       `;
-      // Optionally clear cart, hide modal, etc.
       localStorage.removeItem('cart');
       updateCartCount();
     }
