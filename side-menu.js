@@ -18,6 +18,9 @@ function loadSubcategories(products) {
   };
 
   products.forEach(prod => {
+    // Exclude products with multiple categories
+    if (prod.category.includes(',')) return;
+
     const [main] = prod.category.split('-');
     if (categories[main]) {
       categories[main].add(prod.category);

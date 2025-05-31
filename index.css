@@ -646,12 +646,8 @@ button {
 }
 
 .whatsnew-product-card p {
-  padding: 50px 24px 50px 24px;
-  border-radius: 15px;
-  display: flex; 
-  flex-direction: column; 
-  justify-content: center; 
-  align-content: center;
+  padding: 8px 0;
+  border-radius: 0;
   height: auto;
   width: 100%;
   max-width: 100%;
@@ -660,7 +656,6 @@ button {
   box-sizing: border-box;
   font-size: 1.1rem;
   color: #bfbfbfd2;
-  margin: 8px 0;
 }
 
 .whatsnew-product-button {

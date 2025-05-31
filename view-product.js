@@ -158,13 +158,25 @@ async function fetchProductDetails() {
 
     // Load technical information based on the product category
     if (category) {
+      const categories = category.split(",").map(c => c.trim());
       fetch("products.json")
         .then(res => res.json())
         .then(products => {
-          const product = products.find(p => p.category === category);
-          const technicalInfo = product?.["product-description"] || "<p>No technical info available.</p>";
+          const techInfos = categories.map(cat => {
+            // Find the first product with this category (single, not comma-separated)
+            const product = products.find(p => {
+              // Handle both single and multi-category products in products.json
+              const prodCats = (p.category || "").split(",").map(x => x.trim());
+              return prodCats.includes(cat);
+            });
+            const title = product?.["product name"]
+  ? `<h3 style="color:#cc5500; margin-top:1.5em;">${product["product name"]}</h3>`
+  : "";
+const info = product?.["product-description"] || "<p>No technical info available.</p>";
+return title + info;
+          });
           const techDiv = document.getElementById("view-product-technical-info");
-          if (techDiv) techDiv.innerHTML = technicalInfo;
+          if (techDiv) techDiv.innerHTML = techInfos.join("<hr>");
         })
         .catch(err => {
           const techDiv = document.getElementById("view-product-technical-info");

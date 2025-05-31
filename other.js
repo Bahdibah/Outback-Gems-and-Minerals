@@ -45,6 +45,9 @@ async function loadOtherProducts() {
   const seenSubcategories = new Set();
 
   otherProducts.forEach(product => {
+    // Exclude products with multiple categories
+    if (product.category.includes(",")) return;
+
     const subcategory = product.category.replace(/^other-/, '').toLowerCase();
     if (seenSubcategories.has(subcategory)) return; // Skip duplicates
     seenSubcategories.add(subcategory);
