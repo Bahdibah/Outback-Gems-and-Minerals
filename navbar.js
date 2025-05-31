@@ -189,13 +189,18 @@ document.addEventListener("DOMContentLoaded", () => {
         });
         
         // Hide search results when clicking outside the search input or results
-        document.addEventListener("click", (event) => {
-          if (
+        document.addEventListener("click", (event) => {          
+        const searchInput = document.getElementById("search-input");
+        const resultsContainer = document.getElementById("search-results-container");
+        if  (
             !event.target.closest("#search-input") &&
             !event.target.closest("#search-results-container") &&
             !event.target.closest("#search-button")
           ) {
             document.querySelector('.search-results-container').style.visibility = 'hidden';
+            if (searchInput.value.trim() === "") {
+            resultsContainer.innerHTML = ""; // Clear results if input is empty
+            }
           } else {
             document.querySelector('.search-results-container').style.visibility = 'visible';
           }
