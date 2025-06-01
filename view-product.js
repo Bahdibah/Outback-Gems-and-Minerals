@@ -249,27 +249,6 @@ return title + info;
     const thumbnailsContainer = document.getElementById("view-product-thumbnails");
     const modalOverlay = document.getElementById("image-modal-overlay");
     const modalImg = document.getElementById("image-modal-img");
-
-   if (mainImage && modalOverlay && modalImg) {
-  mainImage.addEventListener("click", function() {
-    modalImg.src = mainImage.src;
-    modalOverlay.classList.add("active");
-  });
-
-  modalOverlay.addEventListener("click", function(e) {
-    modalOverlay.classList.remove("active");
-    modalImg.src = "";
-  });
-
-  // Add ESC key functionality to close the modal
-  document.addEventListener("keydown", function(e) {
-    if (modalOverlay.classList.contains("active") && (e.key === "Escape" || e.key === "Esc")) {
-      modalOverlay.classList.remove("active");
-      modalImg.src = "";
-    }
-  });
-} 
-
     // Fetch extra images from productid.json
     fetch("productid.json")
       .then(res => res.json())
@@ -314,4 +293,42 @@ return title + info;
 };}
 
 fetchProductDetails();
+
+// Modal image expand setup (add this after fetchProductDetails();)
+document.addEventListener("DOMContentLoaded", function() {
+  const mainImage = document.getElementById("view-product-image");
+  const modalOverlay = document.getElementById("image-modal-overlay");
+  const modalImg = document.getElementById("image-modal-img");
+  const closeBtn = document.querySelector(".image-modal-close");
+
+  if (mainImage && modalOverlay && modalImg) {
+    mainImage.addEventListener("click", function() {
+      if (mainImage.src && !mainImage.src.endsWith("placeholder.png")) {
+        modalImg.src = mainImage.src;
+        modalOverlay.classList.add("active");
+      }
+    });
+
+    modalOverlay.addEventListener("click", function(e) {
+      if (e.target === modalOverlay) {
+        modalOverlay.classList.remove("active");
+        modalImg.src = "";
+      }
+    });
+
+    if (closeBtn) {
+      closeBtn.addEventListener("click", function() {
+        modalOverlay.classList.remove("active");
+        modalImg.src = "";
+      });
+    }
+
+    document.addEventListener("keydown", function(e) {
+      if (modalOverlay.classList.contains("active") && (e.key === "Escape" || e.key === "Esc")) {
+        modalOverlay.classList.remove("active");
+        modalImg.src = "";
+      }
+    });
+  }
+});
 
