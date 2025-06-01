@@ -292,3 +292,23 @@ document.addEventListener("productCategoryLoaded", function(e) {
     });
   }
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+  const searchButton = document.getElementById('search-button');
+  const searchInput = document.getElementById('search-input');
+  if (searchButton && searchInput) {
+    searchButton.addEventListener('click', (e) => {
+      if (window.innerWidth <= 900) {
+        e.preventDefault();
+        searchInput.style.display = 'inline-block';
+        searchInput.focus();
+      }
+    });
+    // Optionally, hide input when it loses focus
+    searchInput.addEventListener('blur', () => {
+      if (window.innerWidth <= 900) {
+        searchInput.style.display = 'none';
+      }
+    });
+  }
+});
