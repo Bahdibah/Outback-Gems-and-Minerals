@@ -1,60 +1,60 @@
 <nav>
-  <div class="main-logo" >
-    <a href="index.html"><img src="images/general/logo.png" alt="Outback Gems Logo" class="logo" href="index.html"/></a>
-    <h1 class="welcome-message"><a href="index.html" class="welcome-message">Outback Gems &amp; Minerals</a></h1>
-  </div>
-
-  <button class="burger" id="burger-menu" aria-label="Open navigation">
-    <span></span>
-    <span></span>
-    <span></span>
-  </button>
-
-  <ul class="nav-links">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="synthetic.html">Synthetic Products</a></li>
-    <!--<li class="dropdown"> -->
-      <li><a href="natural.html">Natural Products</a></li>
-    <li><a href="other.html">Other Products</a></li>
-    <li><a href="contact.html">Contact</a></li>
-  </ul>
-
-  <div class="nav-actions">
-  <div class="nav-search">
-    <div class="search-sub-container">
-      <input id="search-input" type="text" placeholder="Search..."/>
-      <button id="search-button" onclick="search()"><i class="fa fa-search" aria-hidden="true"></i></button>
+  <div class="navbar-left">
+    <div class="main-logo" >
+      <a href="index.html"><img src="images/general/logo.png" alt="Outback Gems Logo" class="logo" href="index.html"/></a>
+      <h1 class="welcome-message"><a href="index.html" class="welcome-message">Outback Gems &amp; Minerals</a></h1>
     </div>
-    <div class="search-results-container" id="search-results-container">
-      <ul id="results" class="search-results"></ul>
-    </div>
+   </div> 
+
+  <div class="navbar middle"> 
+    <button class="burger" id="burger-menu" aria-label="Open navigation">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="synthetic.html">Synthetic Products</a></li>
+      <!--<li class="dropdown"> -->
+        <li><a href="natural.html">Natural Products</a></li>
+      <li><a href="other.html">Other Products</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
   </div>  
 
-  <div class="options">
-    <ul>
-      <li class="cart-dropdown">
-        <a href="cart.html" class="cart-link">
-          <i class="fa fa-shopping-cart" aria-hidden="true" style="color:white"></i>
-          <span id="cart-count" style="background-color: red; color: white; border-radius: 50%; padding: 2px 6px; font-size: 12px; position: absolute; top: 5px; right: 5px;">0</span>
-        </a>
-        <div class="cart-dropdown-panel">
-          <p id="cart-message">You currently have 0 items in your cart</p>
-          <div id="cart-items-list">
-            <!-- Cart items will be dynamically inserted here -->
-          </div>
+     <div class="navbar right">
+        <input id="search-input" type="text" placeholder="Search..."/>
+        <button id="search-button" onclick="search()"><i class="fa fa-search" aria-hidden="true"></i></button>
 
-          <div class="cart-total">
-            <span><strong>Total (inc GST):</strong></span>
-            <span id="cart-total" style="font-weight: bold;">$0.00</span>
+      <div class="search-results-container" id="search-results-container">
+        <ul id="results" class="search-results"></ul>
+      </div>
+
+ 
+      <ul>
+        <li class="cart-dropdown">
+          <a href="cart.html" class="cart-link">
+            <i class="fa fa-shopping-cart" aria-hidden="true" style="color:white"></i>
+            <span id="cart-count" style="background-color: red; color: white; border-radius: 50%; padding: 2px 6px; font-size: 12px; position: absolute; top: 5px; right: 5px;">0</span>
+          </a>
+          <div class="cart-dropdown-panel">
+            <p id="cart-message">You currently have 0 items in your cart</p>
+            <div id="cart-items-list">
+              <!-- Cart items will be dynamically inserted here -->
+            </div>
+
+            <div class="cart-total">
+              <span><strong>Total (inc GST):</strong></span>
+              <span id="cart-total" style="font-weight: bold;">$0.00</span>
+            </div>
+            <button id="checkout-button" class="theme-button" onclick="window.location.href='cart.html'">
+              VIEW CART &amp; CHECKOUT
+            </button>
           </div>
-          <button id="checkout-button" class="theme-button" onclick="window.location.href='cart.html'">
-            VIEW CART &amp; CHECKOUT
-          </button>
-        </div>
-      </li>
-    </ul>
-  </div>
-  </div>
+        </li>
+      </ul>
+    </div>
 </nav>
 
 <script>
