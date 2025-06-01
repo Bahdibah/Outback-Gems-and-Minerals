@@ -1,154 +1,60 @@
 <nav>
   <div class="navbar-left">
-    <div class="main-logo" >
-      <a href="index.html"><img src="images/general/logo.png" alt="Outback Gems Logo" class="logo" href="index.html"/></a>
-      <h1 class="welcome-message"><a href="index.html" class="welcome-message">Outback Gems &amp; Minerals</a></h1>
+    <div class="main-logo">
+      <a href="index.html">
+        <img src="images/general/logo.png" alt="Outback Gems Logo" class="logo" />
+      </a>
+      <h1 class="welcome-message">
+        <a href="index.html" class="welcome-message">Outback Gems &amp; Minerals</a>
+      </h1>
     </div>
-   </div> 
+  </div>
 
-  <div class="navbar middle"> 
+  <div class="navbar-middle">
     <button class="burger" id="burger-menu" aria-label="Open navigation">
       <span></span>
       <span></span>
       <span></span>
     </button>
-
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
-      <li><a href="synthetic.html">Synthetic Products</a></li>
-      <!--<li class="dropdown"> -->
-        <li><a href="natural.html">Natural Products</a></li>
-      <li><a href="other.html">Other Products</a></li>
+      <li><a href="synthetic.html">Synthetic<br>Rough</a></li>
+      <li><a href="natural.html">Natural<br>Rough</a></li>
+      <li><a href="other.html">Other<br>Products</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
-  </div>  
+  </div>
 
-     <div class="navbar right">
-        <input id="search-input" type="text" placeholder="Search..."/>
-        <button id="search-button" onclick="search()"><i class="fa fa-search" aria-hidden="true"></i></button>
-
-      <div class="search-results-container" id="search-results-container">
-        <ul id="results" class="search-results"></ul>
-      </div>
-
- 
-      <ul>
-        <li class="cart-dropdown">
-          <a href="cart.html" class="cart-link">
-            <i class="fa fa-shopping-cart" aria-hidden="true" style="color:white"></i>
-            <span id="cart-count" style="background-color: red; color: white; border-radius: 50%; padding: 2px 6px; font-size: 12px; position: absolute; top: 5px; right: 5px;">0</span>
-          </a>
-          <div class="cart-dropdown-panel">
-            <p id="cart-message">You currently have 0 items in your cart</p>
-            <div id="cart-items-list">
-              <!-- Cart items will be dynamically inserted here -->
-            </div>
-
-            <div class="cart-total">
-              <span><strong>Total (inc GST):</strong></span>
-              <span id="cart-total" style="font-weight: bold;">$0.00</span>
-            </div>
-            <button id="checkout-button" class="theme-button" onclick="window.location.href='cart.html'">
-              VIEW CART &amp; CHECKOUT
-            </button>
-          </div>
-        </li>
-      </ul>
+  <div class="navbar-right">
+    <input id="search-input" type="text" placeholder="Search..." />
+    <button id="search-button" onclick="search()">
+      <i class="fa fa-search" aria-hidden="true"></i>
+    </button>
+    <div class="search-results-container" id="search-results-container">
+      <ul id="results" class="search-results"></ul>
     </div>
+    <ul>
+      <li class="cart-dropdown">
+        <a href="cart.html" class="cart-link" style="position:relative;">
+          <i class="fa fa-shopping-cart" aria-hidden="true" style="color:white"></i>
+          <span id="cart-count" style="background-color: red; color: white; border-radius: 50%; padding: 2px 6px; font-size: 12px; position: absolute; top: 5px; right: 5px;">0</span>
+        </a>
+        <div class="cart-dropdown-panel">
+          <p id="cart-message">You currently have <span class="cart-count-highlight">1</span> items in your cart</p>
+          <hr class="cart-divider">
+          <div id="cart-items-list"></div>
+          <hr class="cart-divider">
+          <div class="cart-total">
+            <span><strong>Total (inc GST):</strong></span>
+            <span id="cart-total" style="font-weight: bold;">$0.00</span>
+          </div>
+          <button id="checkout-button" class="theme-button" onclick="window.location.href='cart.html'">
+            VIEW CART &amp; CHECKOUT
+          </button>
+        </div>
+      </li>
+    </ul>
+  </div>
 </nav>
 
-<script>
-  // Function to update the cart count in the navbar
-  function updateCartCount() {
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-    const cartCountElement = document.getElementById("cart-count");
-    if (cartCountElement) {
-      cartCountElement.textContent = totalItems;
-    }
-  }
-
-  // Function to update the cart dropdown
-  function updateCartDropdown() {
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-    const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-
-    console.log("Cart data:", cart); // Debugging log
-    console.log("Total items:", totalItems); // Debugging log
-    console.log("Subtotal:", subtotal); // Debugging log
-
-    // Update cart count in the navbar
-    const cartCountElement = document.getElementById("cart-count");
-    if (cartCountElement) {
-      cartCountElement.textContent = totalItems;
-    }
-
-    // Update cart message
-    const cartMessage = document.getElementById("cart-message");
-    if (cartMessage) {
-      cartMessage.textContent = `You currently have ${totalItems} items in your cart`;
-    }
-
-    // Update cart items list
-    const cartItemsList = document.getElementById("cart-items-list");
-    if (cartItemsList) {
-      cartItemsList.innerHTML = ""; // Clear existing items
-
-      cart.forEach(item => {
-        console.log("Adding item to dropdown:", item); // Debugging log
-        const cartItem = document.createElement("div");
-        cartItem.classList.add("cart-item");
-
-        cartItem.innerHTML = `
-          <img src="${item.image}" alt="${item.name}" style="width: 50px; height: 50px; object-fit: cover; margin-right: 10px;">
-          <div class="cart-item-details">
-            <span class="product-name">${item.name}</span>
-            <span class="product-code">Code: ${item.id}</span>
-            <span class="product-quantity">Qty: ${item.quantity}</span>
-          </div>
-          <div class="cart-item-price">$${(item.price * item.quantity).toFixed(2)}</div>
-        `;
-
-        cartItemsList.appendChild(cartItem);
-      });
-    }
-
-    // Update cart dropdown details
-    const cartSubtotal = document.getElementById("cart-subtotal");
-    const cartTotal = document.getElementById("cart-total");
-
-    if (cartSubtotal) {
-      cartSubtotal.textContent = `$${subtotal.toFixed(2)}`;
-    }
-    if (cartTotal) {
-      cartTotal.textContent = `$${subtotal.toFixed(2)}`;
-    }
-  }
-
-  // Update the cart count on page load
-  updateCartCount();
-
-  // Update the cart dropdown on page load
-  updateCartDropdown();
-
-  // Listen for the custom "cartUpdated" event
-  document.addEventListener("cartUpdated", (event) => {
-    const cartCountElement = document.getElementById("cart-count");
-    if (cartCountElement) {
-      cartCountElement.textContent = event.detail.totalItems;
-    }
-  });
-
-  // Listen for the custom "cartUpdated" event
-  document.addEventListener("cartUpdated", () => {
-    updateCartDropdown();
-  });
-
-  document.addEventListener("cartUpdated", () => {
-    updateCartCount();
-    updateCartDropdown();
-  });
-  
-</script>
 

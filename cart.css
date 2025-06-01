@@ -117,21 +117,21 @@ body {
   color: #ccc; /* Light grey for product details text */
 }
 
-.product-name {
+.cart-container .product-name {
   font-weight: bold;
   margin-bottom: 5px;
   color: #cc5500; /* Orange for product name */
 }
 
-.product-weight,
-.product-code {
-  font-size: 14px;
+.cart-container .product-weight,
+.cart-container .product-code {
+    font-size: 14px;
   color: #ccc; /* Light grey for weight and code */
 }
 
-.quantity-column,
-.price-column,
-.total-column {
+.cart-container .quantity-column,
+.cart-container .price-column,
+.cart-container .total-column {
   text-align: center; /* Center-align numeric columns */
 }
 
@@ -159,37 +159,65 @@ body {
 .cart-buttons {
   display: flex;
   justify-content: space-between;
-  gap: 10px;
+  gap: 6px; 
   margin: 2% auto 2% auto;
-  flex-direction: row-reverse; /* This swaps the button order */
 }
 
-#cart-page-checkout-button.theme-button {
+.cart-btn {
+  width: 49%;
+  padding: 12px 0;
+  font-size: 1.08rem;
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-weight: 600;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+  box-shadow: none;
+  outline: none;
+  letter-spacing: 0.5px;
+}
+
+/* Continue Shopping: grey background, orange border, white text */
+.cart-btn-grey {
+  background: #888;
+  color: #fff;
+  border: 2px solid #cc5500;
+}
+.cart-btn-grey:hover {
+  background: #cc5500;
+  color: #fff;
+  border-color: #cc5500;
+}
+
+/* Proceed: solid orange */
+.cart-btn-orange {
+  background: #cc5500;
+  color: #fff;
+  border: none;
+}
+.cart-btn-orange:hover {
+  background: #ff7f33;
+}
+
+/* Shipping Button */
+.shipping-button {
+  display: inline-block;
   padding: 10px 20px;
   font-size: 16px;
-  color: #1e1e1e; /* Dark text for contrast */
-  background-color: #cc5500; /* Orange for buttons */
+  font-weight: bold;
+  color: #fff;
+  background-color: #cc5500; /* Orange background */
   border: none;
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-top: 10px;
+  text-align: center;
+  width: calc(100% - 40px); /* Full width minus padding */
 }
 
-#cart-page-checkout-button.theme-button:hover {
+.shipping-button:hover {
   background-color: #ff7f33; /* Lighter orange for hover effect */
-  transform: translateY(-2px); /* Slightly raise the button on hover */
-}
-
-.theme-button.secondary {
-  background-color: #666; /* Slightly lighter grey for secondary buttons */
-  color: #fff; /* White text for contrast */
-  border: 2px solid #cc5500; /* Orange border to make it stand out */
-  transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
-}
-
-.theme-button.secondary:hover {
-  background-color: #444; /* Darker grey for hover effect */
-  border-color: #ff7f33; /* Lighter orange border on hover */
   transform: translateY(-2px); /* Slightly raise the button on hover */
 }
 
@@ -577,4 +605,38 @@ footer >div{
     justify-content: flex-start;
     padding: 1px 0;
   }
+}
+
+.theme-button {
+  padding: 12px 28px;
+  font-size: 1.08rem;
+  color: #fff;
+  background-color: #cc5500;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(204,85,0,0.10);
+  transition: background 0.2s, transform 0.2s;
+  margin: 0 auto;
+  display: block;
+}
+
+.theme-button:disabled {
+  background: #888;
+  color: #eee;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.theme-button:hover:enabled {
+  background-color: #ff7f33;
+  transform: translateY(-2px);
+}
+
+#payment-options-box .theme-button {
+  width: 220px;      /* or try 240px for even wider */
+  min-width: 180px;
+  margin: 32px auto 0 auto;
+  display: block;
 }

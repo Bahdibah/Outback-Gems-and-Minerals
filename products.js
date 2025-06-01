@@ -134,13 +134,9 @@ fetch("side-menu.html")
           const productDescription = document.createElement("p");
           productDescription.textContent = product.description;
 
-          /*Removing price line - keeping in in case we decide we want it*/
-          // const priceLine = document.createElement("p");
-          // priceLine.textContent = `$${product["price per unit"]} per ${product.unit}`;
-
           const productButton = document.createElement("button");
           productButton.classList.add("dynamic-product-button");
-          productButton.textContent = "View";
+          productButton.textContent = "View Details";
           productButton.onclick = () => {
             window.location.href = `view-product.html?productid=${encodeURIComponent(product["product id"])}`;
           };
@@ -148,8 +144,6 @@ fetch("side-menu.html")
           productCard.appendChild(imageContainer);
           productCard.appendChild(productName);
           productCard.appendChild(productDescription);
-          /*Removing price line - keeping in in case we decide we want it*/ 
-          // productCard.appendChild(priceLine);
           productCard.appendChild(productButton);
 
           productContainer.appendChild(productCard);
@@ -306,9 +300,6 @@ fetch("side-menu.html")
           const productDescription = document.createElement("p");
           productDescription.textContent = product.description;
 
-          const priceLine = document.createElement("p");
-          priceLine.textContent = `$${product["price per unit"]} per ${product.unit}`;
-
           const productButton = document.createElement("button");
           productButton.classList.add("dynamic-product-button");
           productButton.textContent = "View Details";
@@ -319,7 +310,6 @@ fetch("side-menu.html")
           productCard.appendChild(imageContainer);
           productCard.appendChild(productName);
           productCard.appendChild(productDescription);
-          productCard.appendChild(priceLine);
           productCard.appendChild(productButton);
 
           suggestionContainer.appendChild(productCard);

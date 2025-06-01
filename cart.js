@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const shippingOptionsContainer = document.querySelector('.shipping-options');
   const loadingMessage = document.getElementById('loading-message');
   const checkoutButton = document.getElementById('cart-page-checkout-button');
-  const continueShoppingButton = document.getElementById('continue-shopping-button');
+  const continueShoppingButton = document.getElementById('cart-continue-shopping');
   const stockApiUrl = 'https://script.google.com/macros/s/AKfycbyCY8VW0D1A7AFJiU7X6tN5-RTrnYxQIV4QCzmFprxYrCVv2o4uKWnmKfJ6Xh40H4uqXA/exec';
 
   // Debounce utility
@@ -231,7 +231,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Continue shopping button
   if (continueShoppingButton) {
     continueShoppingButton.addEventListener('click', () => {
-      window.location.href = 'products.html';
+      window.location.href = 'products.html#view-all'; // Adjust anchor as needed
     });
   }
 
