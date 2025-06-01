@@ -26,12 +26,14 @@
   </div>
 
   <div class="navbar-right">
-    <input id="search-input" type="text" placeholder="Search..." />
-    <button id="search-button" onclick="search()">
-      <i class="fa fa-search" aria-hidden="true"></i>
-    </button>
-    <div class="search-results-container" id="search-results-container">
-      <ul id="results" class="search-results"></ul>
+    <div class="navbar-search">
+      <input id="search-input" class="navbar-search-input" data-navbar-search-input="true" type="text" placeholder="Search..." />
+      <button id="search-button" class="navbar-search-btn" data-navbar-search="true" onclick="search()">
+        <i class="fa fa-search"></i>
+</button>
+      <div class="search-results-container" id="search-results-container">
+        <ul id="results" class="search-results"></ul>
+      </div>
     </div>
     <ul>
       <li class="cart-dropdown">
