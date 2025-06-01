@@ -65,7 +65,7 @@ section {
 }
 
 header {
-     width: 100%;
+    width: 100%;
     background-color: #1e1e1e;
     display: flex;
     align-items: center;
@@ -428,18 +428,18 @@ form textarea {
   align-items: center;
   justify-content: center;
   flex-wrap: wrap; 
-  width: 80%;  
   margin: auto;
+  text-align: center;
 }
 
-.newsletter-container h2 {
+.newsletter-signup h2 {
   font-size: 3rem; /* 20% larger font size */
   color: #cc5500;
   text-transform: uppercase;
   letter-spacing: 1px;
 }
 
-.newsletter-container p {
+.newsletter-signup p {
   color: #bfbfbfd2; /* Header color */
   margin-top: -20px;
   font-size: 1.2rem;
@@ -447,25 +447,26 @@ form textarea {
   text-align: center;
 }
 
-.newsletter-container form {
-  width: 50%;
+.newsletter-signup form {
+  width: 80%;
   display: flex;
   gap: 5%;  
   padding: 10px;
   justify-content: center;
+  align-items: center;  
 }
 
-.newsletter-container form input[type='email'] {
-  flex: 1;
-  min-width: 250px;
+.newsletter-signup form input[type='email'] {
+  width: 80%;
   padding: 14px;
   font-size: 1.1rem;
   border: 1px solid #ccc;
   border-radius: 5px;
+  margin: auto;
 }
 
-.newsletter-container form button { 
-   background-color: #cc5500;
+.newsletter-signup form button { 
+  background-color: #cc5500;
   color: #fff;
   font-weight: bold;
   border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border stays */
@@ -701,16 +702,15 @@ button {
 @media (max-width: 1024px) {
   .about-us > div,
   .bestseller-product-card,
-  .new-product-card,
-  .whatsnew-product-card {
+  .new-product-card {
     max-width: 48%;
     flex: 1 1 48%;
   }
+  .whats-new-carousel {
+    width: 80%;
+  }
   .about-us {
     gap: 16px;
-  }
-  .whats-new-carousel {
-    width: 98%;
   }
 }
 
@@ -726,10 +726,6 @@ button {
   .about-us {
     flex-direction: column;
     gap: 12px;
-  }
-  .whats-new-carousel {
-    width: 100%;
-    padding: 10px 0;
   }
   .newsletter-container form {
     width: 100%;
@@ -750,10 +746,16 @@ button {
     height: 22vh;
     min-height: 120px;
   }
-}
-
-/* Responsive design */
-@media (max-width: 768px) {
+  .hero-overlay {
+    width: 70%;
+    height: 100%;
+  }
+  .hero-overlay h2{
+    font-size: 1.2rem;
+  }
+  .hero-overlay p {
+    display: none;
+  }
    #product-name {
     font-size: 2rem;
   }
