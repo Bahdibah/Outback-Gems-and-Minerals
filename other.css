@@ -107,7 +107,8 @@ section {
   min-width: 100%;
 }
 
-button, .button { 
+button:not(.cart-icon):not([data-navbar-search="true"]):not(.burger),
+.button:not(.cart-icon):not([data-navbar-search="true"]):not(.burger) {
   width: 75%;
   background-color: #cc5500;
   color: #fff;
