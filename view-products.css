@@ -394,37 +394,57 @@ h1 {
 }
 
 #image-modal-overlay {
-  display: none; /* Hidden by default */
   position: fixed;
-  z-index: 2000;
-  left: 0; top: 0; right: 0; bottom: 0;
-  width: 100vw; height: 100vh;
+  top: 0; left: 0; right: 0; bottom: 0;
   background: rgba(0,0,0,0.85);
-  justify-content: center;
+  display: none;
   align-items: center;
-  cursor: zoom-out;
+  justify-content: center;
+  z-index: 1000;
+  cursor: default; /* Normal pointer */
 }
 
 #image-modal-overlay.active {
   display: flex;
 }
 
-#image-modal-img {
+.image-modal-content {
+  position: relative;
   max-width: 90vw;
   max-height: 90vh;
-  border-radius: 12px;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
-  background: #222; 
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
 }
 
-#image-modal-overlay p {
-  position: absolute;
-  color: white;
-  font-size: 1.5em;
-  top: 0;
-  right: 5%;
-  cursor: pointer;
+#image-modal-img {
+  max-width: 80vw;
+  max-height: 80vh;
+  border-radius: 8px;
+  box-shadow: 0 0 24px #000;
+  display: block;
 }
+
+.image-modal-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  color: #fff;
+  font-size: 2rem;
+  cursor: pointer;
+  z-index: 10;
+  background: rgba(0,0,0,0.5);
+  border-radius: 50%;
+  padding: 4px 10px 4px 10px;
+  transition: background 0.2s;
+}
+
+.image-modal-close:hover {
+  background: rgba(204,85,0,0.85);
+  color: #fff;
+}
+
 /* =========================
    Responsive Design for Synthetic Page
    ========================= */
