@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $body = "Name: $name\nEmail: $email\n\nMessage:\n$message";
 
         // Send email
-        if (mail($recipient, $subject, $message, $headers, $body)) {
+        if (mail($recipient, $subject, $body, $headers)) {
             echo "Email sent successfully!";
         } else {
             echo "Failed to send email. Please try again later.";
