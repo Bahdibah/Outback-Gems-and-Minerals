@@ -170,7 +170,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // --- Add burger menu toggle here ---
           const burger = document.getElementById("burger-menu");
-          const navLinksBurger = document.querySelector("nav ul.nav-links");
+          const navLinksBurger = document.querySelector("nav ul.burger-nav-links");
           if (burger && navLinksBurger) {
             burger.addEventListener("click", function () {
               navLinksBurger.classList.toggle("open");
