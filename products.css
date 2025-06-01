@@ -30,7 +30,8 @@ body {
   padding: 0 !important;
 }
 
-button, .button {
+button:not(.cart-icon):not([data-navbar-search="true"]), 
+.button:not(.cart-icon):not([data-navbar-search="true"]) {
   background-color: #cc5500;
   color: #fff;
   font-weight: bold;
