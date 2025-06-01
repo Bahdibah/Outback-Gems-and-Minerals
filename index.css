@@ -432,14 +432,14 @@ form textarea {
   text-align: center;
 }
 
-.newsletter-signup h2 {
+.newsletter-container h2 {
   font-size: 3rem; /* 20% larger font size */
   color: #cc5500;
   text-transform: uppercase;
   letter-spacing: 1px;
 }
 
-.newsletter-signup p {
+.newsletter-container p {
   color: #bfbfbfd2; /* Header color */
   margin-top: -20px;
   font-size: 1.2rem;
@@ -447,8 +447,8 @@ form textarea {
   text-align: center;
 }
 
-.newsletter-signup form {
-  width: 80%;
+.newsletter-container form {
+  width: 50%;
   display: flex;
   gap: 5%;  
   padding: 10px;
@@ -456,7 +456,7 @@ form textarea {
   align-items: center;  
 }
 
-.newsletter-signup form input[type='email'] {
+.newsletter-container form input[type='email'] {
   width: 80%;
   padding: 14px;
   font-size: 1.1rem;
@@ -465,7 +465,7 @@ form textarea {
   margin: auto;
 }
 
-.newsletter-signup form button { 
+.newsletter-container form button { 
   background-color: #cc5500;
   color: #fff;
   font-weight: bold;
@@ -626,20 +626,6 @@ button {
   transform: scale(1.05); /* Slight zoom effect on hover */
 }
 
-/*Old stling - keeping in case we decide we want the box round the header
-/* .whatsnew-product-card h3 {
-  font-size: 1.5rem;
-  background-color: rgba(0, 0, 0, 0.6); 
-  padding: 10px 24px; 
-  border-radius: 15px;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.6); 
-  font-family: 'Georgia', serif; 
-  text-align: center;
-  margin: 0 auto;           /* Center block horizontally */
-  /*width: fit-content;       /* Only as wide as the content */
-  /*display: block;
-}*/
-
 .whatsnew-product-card h3 {
   font-size: 1.5rem;         /* was 1.2rem */
   color: #cc5500;
@@ -720,8 +706,7 @@ button {
   .bestseller-product-card,
   .new-product-card,
   .whatsnew-product-card {
-    max-width: 98%;
-    flex: 1 1 98%;
+    width: 100%;
   }
   .about-us {
     flex-direction: column;
@@ -729,12 +714,15 @@ button {
   }
   .newsletter-container form {
     width: 100%;
+    gap: 8px;
+    margin: auto;
+    display: flex;
     flex-direction: column;
-    gap: 10px;
+    align-items: center;
+    justify-content: center;
   }
   .newsletter-container form input[type='email'] {
-    min-width: 0;
-    width: 100%;
+    width: 80%;
   }
   .newsletter-container h2 {
     font-size: 2rem;
@@ -750,23 +738,19 @@ button {
     width: 70%;
     height: 100%;
   }
-  .hero-overlay h2{
-    font-size: 1.2rem;
-  }
   .hero-overlay p {
     display: none;
   }
    #product-name {
     font-size: 2rem;
   }
-
   button {
     font-size: 1rem;
   }
 }
 
-/* Phones (max-width: 480px) */
-@media (max-width: 480px) {
+/* Phones (max-width: 560px) */
+@media (max-width: 560px) {
   .about-us > div,
   .bestseller-product-card,
   .new-product-card,
@@ -779,18 +763,36 @@ button {
     padding: 20px 4px;
   }
   .newsletter-container {
-    width: 98%;
+    width: 100%;
+    margin: 0 auto;
     padding: 0 2px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
   }
-  .newsletter-container h2 {
-    font-size: 1.3rem;
+  .newsletter-container form {
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin: 0 auto;
+    padding: 0;
+  }
+  .newsletter-container form input[type='email'] {
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0;
+  }
+  .newsletter-container form button {
+    width: fit-content;
+    box-sizing: border-box;
+    margin: 0;
+  }
+  .newsletter-container h2 {    
+    font-size: 1.5rem;
   }
   .newsletter-container p {
     font-size: 1rem;
-  }
-  .newsletter-container form button {
-    font-size: 1rem;
-    padding: 10px 12px;
   }
   .bestselling-header, .dynamic-product-header-title, .whats-new-header {
     font-size: 1.2rem;
@@ -800,8 +802,10 @@ button {
     min-height: 60px;
   }
   .hero-overlay {
-    max-width: 98%;
     padding: 10px 4px;
+  }
+  .hero-overlay h2 {    
+    font-size: 1.5rem;
   }
   .banner-slider {
     font-size: 1rem;
