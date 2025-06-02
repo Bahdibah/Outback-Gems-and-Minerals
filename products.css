@@ -340,12 +340,19 @@ button {
   box-shadow: none !important;
 }
 
-/* =========================
-   Responsive Design for Products Page
-   ========================= */
 
 
-/* Tablets (max-width: 1024px) */
+
+@media (max-width: 1280px) {
+  .dynamic-product-card {
+    flex: 1 1 30%;
+    max-width: 30%;
+  }
+  #dynamic-product-container {
+    gap: 2.5%;
+  }
+}
+
 @media (max-width: 1024px) {
   .dynamic-product-card {
     flex: 1 1 45%;
@@ -360,18 +367,18 @@ button {
   #dynamic-product-container {
     gap: 2%;
     padding: 10px;
-    margin: 0 0 0 220px !important;
+    margin: 0 0 0 220px !important; /* Adjusted for smaller side menu */
   }
   .dynamic-product-cards {
     width: 98%;
   }
 }
 
-/* Large phones and small tablets (max-width: 900px) */
+/* Side menu collapses here (max-width: 900px) */
 @media (max-width: 900px) {
   .dynamic-product-card {
-    flex: 1 1 98%;
-    max-width: 98%;
+    flex: 1 1 45%;
+    max-width: 45%;
     height: auto;
     margin-bottom: 12px;
   }
@@ -379,14 +386,22 @@ button {
     font-size: 1.2rem;
     padding: 10px 0;
   }
-  .dynamic-product-card-button {
-    margin-top: auto;
-  }
   #dynamic-product-container {
-    padding: 4px;        
+    padding: 4px;
+    margin: 0 auto !important; /* Center the container */
+    width: 80% !important; /* 10% margin on each side */
   }
   .dynamic-product-cards {
     width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Small tablets and large phones (max-width: 768px) */
+@media (max-width: 768px) {
+  .dynamic-product-card {
+    flex: 1 1 80%;
+    max-width: 80%;
   }
   .dynamic-product-card .image-container {
     min-height: 140px;
@@ -401,8 +416,15 @@ button {
   }
 }
 
+/* Phones (max-width: 500px) */
 @media (max-width: 500px) {
   .dynamic-product-card {
+    flex: 1 1 100%;
+    max-width: 100%;
     height: auto !important;
-    min-height: 220px; }
+    min-height: 220px;
+  }
+  #dynamic-product-container {
+    width: 90% !important; /* 5% margin on each side for phones */
+  }
 }
