@@ -111,62 +111,59 @@ document.addEventListener('DOMContentLoaded', () => {
   // Verify cart items against stock availability
   async function verifyCartStock() {
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const cachedStockData = await getProductData();
     if (cart.length === 0) return;
 
-    let loadingTimer;
-    try {
-      // Delay showing loading spinner by 750ms
-      loadingTimer = setTimeout(() => {
-        if (loadingMessage) loadingMessage.style.display = 'block';
-      }, 750);
+    let stockOk = true;
+    let adjustedItems = [];
 
-      const response = await fetch(stockApiUrl);
-      const products = await response.json();
-      let stockOk = true;
-      let adjustedItems = [];
+    cart.forEach((item, idx) => {
+      // Match by BOTH product id and weight
+      const product = cachedStockData.find(
+        p => p["product id"] === item.id && Number(p.weight) === Number(item.weight)
+      );
+      const row = cartTableBody.querySelectorAll('tr')[idx];
 
-      cart.forEach((item, idx) => {
-        const product = products.find(p => p["product id"] === item.id);
-        const row = cartTableBody.querySelectorAll('tr')[idx];
-        if (product && item.quantity > product.stock) {
+      if (product) {
+        if (item.quantity > product.stock) {
           stockOk = false;
-          // Warn user visually
           if (row) {
             row.style.backgroundColor = "#ffe5e5";
             row.title = `Only ${product.stock} in stock`;
           }
           if (item.quantity !== product.stock) {
             adjustedItems.push(`"${item.name}" (max ${product.stock})`);
+            item.quantity = product.stock;
           }
-          // Adjust quantity in cart and localStorage
-          item.quantity = product.stock;
         } else if (row) {
           row.style.backgroundColor = "";
           row.title = "";
         }
-      });
-
-      localStorage.setItem('cart', JSON.stringify(cart));
-      updateCartCount();
-
-      if (!stockOk && checkoutButton) {
-        checkoutButton.disabled = true;
-        checkoutButton.title = "Reduce quantities to available stock before checkout.";
-      } else if (checkoutButton) {
-        checkoutButton.disabled = false;
-        checkoutButton.title = "";
+      } else {
+        // No matching product found
+        if (row) {
+          row.style.backgroundColor = "#ffe5e5";
+          row.title = `Product not found in stock data`;
+        }
+        adjustedItems.push(`"${item.name}" (not found in stock data)`);
+        item.quantity = 0;
       }
+    });
 
-      // If any quantity was adjusted, reload the cart and show a single alert
-      if (adjustedItems.length > 0) {
-        loadCart(false); // This will NOT call verifyCartStock again
-        alert(`The following items were adjusted to available stock:\n\n${adjustedItems.join('\n')}`);
-      }
-    } catch (error) {
-      console.error("Error verifying stock:", error);
-    } finally {
-      clearTimeout(loadingTimer);
-      if (loadingMessage) loadingMessage.style.display = 'none';
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartCount();
+
+    if (!stockOk && checkoutButton) {
+      checkoutButton.disabled = true;
+      checkoutButton.title = "Reduce quantities to available stock before checkout.";
+    } else if (checkoutButton) {
+      checkoutButton.disabled = false;
+      checkoutButton.title = "";
+    }
+
+    if (adjustedItems.length > 0) {
+      loadCart(false);
+      alert(`The following items were adjusted to available stock:\n\n${adjustedItems.join('\n')}`);
     }
   }
 
@@ -177,7 +174,9 @@ document.addEventListener('DOMContentLoaded', () => {
   cartTableBody.addEventListener('click', (event) => {
     const target = event.target;
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const cachedStockData = JSON.parse(localStorage.getItem('productDataCache')) || [];
     let changed = false;
+
     if (target.classList.contains('decrease-quantity')) {
       const idx = +target.getAttribute('data-index');
       if (cart[idx] && cart[idx].quantity > 1) {
@@ -185,18 +184,28 @@ document.addEventListener('DOMContentLoaded', () => {
         changed = true;
       }
     }
+
     if (target.classList.contains('increase-quantity')) {
       const idx = +target.getAttribute('data-index');
       if (cart[idx]) {
+          const product = cachedStockData.find(
+            p => p["product id"] === cart[idx].id && Number(p.weight) === Number(cart[idx].weight)
+          );
+        if (product && cart[idx].quantity + 1 > product.stock) {
+          alert(`Cannot add more of "${cart[idx].name}". Only ${product.stock} in stock.`);
+          return;
+        }
         cart[idx].quantity += 1;
         changed = true;
       }
     }
+
     if (target.classList.contains('remove-button')) {
       const idx = +target.getAttribute('data-index');
       cart.splice(idx, 1);
       changed = true;
     }
+
     if (changed) {
       localStorage.setItem('cart', JSON.stringify(cart));
       updateCartCount();
@@ -205,21 +214,48 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  cartTableBody.addEventListener('input', (event) => {
+  function handleQuantityInput(event) {
     if (event.target.classList.contains('quantity-input')) {
       const idx = +event.target.getAttribute('data-index');
       const newQuantity = parseInt(event.target.value, 10);
       const cart = JSON.parse(localStorage.getItem('cart')) || [];
-      if (cart[idx] && newQuantity > 0) {
-        cart[idx].quantity = newQuantity;
-        localStorage.setItem('cart', JSON.stringify(cart));
-        updateCartCount();
-        loadCart(false); // Don't verify stock immediately
-        debouncedVerifyCartStock();
-      } else {
-        alert('Quantity must be at least 1.');
-        loadCart(false);
-      }
+      getProductData().then(cachedStockData => {
+        const product = cachedStockData.find(
+          p => p["product id"] === cart[idx].id && Number(p.weight) === Number(cart[idx].weight)
+        );
+
+        if (cart[idx] && newQuantity > 0) {
+          if (product && newQuantity > product.stock) {
+            alert(`Cannot set quantity of "${cart[idx].name}" to ${newQuantity}. Only ${product.stock} in stock.`);
+            event.target.value = cart[idx].quantity; // Reset to previous value
+            return;
+          }
+          cart[idx].quantity = newQuantity;
+          localStorage.setItem('cart', JSON.stringify(cart));
+          updateCartCount();
+          loadCart(false);
+          debouncedVerifyCartStock();
+        } else if (cart[idx]) {
+          alert('Quantity must be at least 1.');
+          event.target.value = cart[idx].quantity; // Reset to previous value
+          loadCart(false);
+        }
+      });
+    }
+  }
+
+  // Listen for blur and change events
+  cartTableBody.addEventListener('change', handleQuantityInput);
+  cartTableBody.addEventListener('blur', handleQuantityInput, true);
+
+  // Optionally handle Enter key
+  cartTableBody.addEventListener('keydown', function(event) {
+    if (
+      event.target.classList.contains('quantity-input') &&
+      (event.key === 'Enter' || event.keyCode === 13)
+    ) {
+      handleQuantityInput(event);
+      event.target.blur();
     }
   });
 
@@ -286,14 +322,12 @@ document.addEventListener('DOMContentLoaded', () => {
           shippingCost = shippingMethod === 'standard' ? 10.95 : 14.45;
         }
 
-        console.log('Cart being sent:', cart, shippingMethod, shippingCost);
         const response = await fetch('/.netlify/functions/create-checkout-session', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ cart, shippingCost, shippingMethod }),
         });
         const text = await response.text();
-        console.log('Function response:', text);
         let data;
         try {
           data = JSON.parse(text);
@@ -373,7 +407,6 @@ document.addEventListener('DOMContentLoaded', () => {
       body: JSON.stringify({ cart, shippingMethod, customerEmail: email }),
     });
     const data = await response.json();
-    console.log('Bank transfer response:', data);
     if (data.error) {
       document.getElementById('bank-transfer-result').textContent = 'Error: ' + data.error;
     } else {
@@ -394,17 +427,13 @@ document.addEventListener('DOMContentLoaded', () => {
       `;
       localStorage.removeItem('cart');
       updateCartCount();
+      loadCart(); // <-- Add this line
     }
   });
 
-  // Show modal (when needed, e.g. after clicking "Direct Bank Transfer")
-  // document.getElementById('bank-transfer-modal').style.display = 'flex';
-
-  // Close modal on X click
   document.getElementById('close-bank-modal').onclick = function() {
     document.getElementById('bank-transfer-modal').style.display = 'none';
   };
-  // Close modal when clicking outside modal content
   window.onclick = function(event) {
     const modal = document.getElementById('bank-transfer-modal');
     if (event.target === modal) {
@@ -412,30 +441,23 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  // Order confirmation modal
   function showOrderConfirmationModal(order) {
-    // order should include: items, shippingMethod, shippingCost, total, reference
 
-    // Build order summary list items
     const summaryItems = order.items.map(item =>
       `<li>${item.name} x${item.quantity} – $${(item.price * item.quantity).toFixed(2)}</li>`
     );
-    // Add shipping line
+
     summaryItems.push(
       `<li>Shipping (${order.shippingMethod === 'express' ? 'Express' : 'Standard'}) – $${order.shippingCost.toFixed(2)}</li>`
     );
 
-    // Set modal HTML
     document.querySelector('.modal-bank-details .modal-reference').textContent = order.reference;
     document.querySelector('.modal-order-summary').innerHTML = summaryItems.join('');
     document.querySelector('.modal-total strong').textContent = `Total: $${order.total.toFixed(2)}`;
-    // ...set other modal fields as needed...
 
-    // Show modal
     document.getElementById('order-confirmation-modal').style.display = 'block';
   }
 
-  // Initial load
   loadCart();
   updateCartCount();
 });

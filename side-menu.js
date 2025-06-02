@@ -99,7 +99,6 @@ function setupSideMenuListeners() {
   const sideMenuOverlay = document.getElementById('side-menu-overlay');
 
   function toggleSideMenu() {
-    console.log('Toggling side menu...');
     if (sideMenu && sideMenuOverlay) {
       sideMenu.classList.toggle('open');
       sideMenuOverlay.classList.toggle('open');
@@ -112,7 +111,6 @@ function setupSideMenuListeners() {
   }
 
   function closeSideMenu() {
-    console.log('Closing side menu...');
     if (sideMenu && sideMenuOverlay) {
       sideMenu.classList.remove('open');
       sideMenuOverlay.classList.remove('open');
