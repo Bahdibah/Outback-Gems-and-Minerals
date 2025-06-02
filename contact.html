@@ -100,35 +100,6 @@
       document.getElementById("home").style.backgroundImage = `url('${images[current]}')`;
     }, 15000); // Change image every 15 seconds
 
-    // #region banner carousel script
-    const itemTrack = document.querySelector('.banner');
-    const items = document.querySelectorAll('.banner-item');
-    const visibleMessages = 1;
-    let itemIndex = 0;
-  
-    // Clone first item(s) and append to end only if there are enough items
-    if (items.length > visibleMessages) {
-      for (let i = 0; i < visibleMessages; i++) {
-        const clone = items[i].cloneNode(true);
-        itemTrack.appendChild(clone);
-      }
-    }
-  
-    const totalItems = document.querySelectorAll('.banner-item').length;
-    setInterval(() => {
-      itemIndex++;
-      itemTrack.style.transition = 'transform 0.7s ease-in-out';
-      itemTrack.style.transform = `translateX(-${itemIndex * 100}%)`;
-  
-      if (itemIndex === totalItems - visibleMessages) {
-        setTimeout(() => {
-          itemTrack.style.transition = 'none';
-          itemTrack.style.transform = `translateX(0%)`;
-          itemIndex = 0;
-        }, 700); // Match the transition duration
-      }
-    }, 5000);
-    // #endregion
  </script>   
 
 
