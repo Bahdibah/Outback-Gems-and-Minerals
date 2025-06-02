@@ -469,144 +469,6 @@ footer >div{
   font-weight: 700;
 }
 
-/* =========================
-   Responsive Design for Cart Page
-   ========================= */
-
-/* Tablets (max-width: 1024px) */
-@media (max-width: 1024px) {
-  .cart-container {
-    width: 96%;
-    padding: 12px;
-  }
-  #payment-options-box {
-    width: 95%;
-    padding: 16px 4px;
-  }
-  .cart-heading {
-    font-size: 1.5rem;
-  }
-  #cart-table thead th,
-  #cart-table td {
-    padding: 10px;
-    font-size: 1rem;
-  }
-}
-
-@media (max-width: 800px) {
-  #payment-options-box {
-    width: 98%;
-    padding: 12px 2px;
-  }
-  .payment-options-row {
-    flex-direction: column;
-    gap: 18px;
-    align-items: center;
-  }
-  .payment-option {
-    width: 90%;
-    min-width: 180px;
-  }
-}
-
-/* Large phones and small tablets (max-width: 768px) */
-@media (max-width: 768px) {
-  .cart-container {
-    width: 100%;
-    padding: 6px;
-    min-height: 40vh;
-  }
-  #cart-table thead th,
-  #cart-table td {
-    padding: 8px;
-    font-size: 0.98rem;
-  }
-  .cart-heading {
-    font-size: 1.2rem;
-    padding-bottom: 6px;
-  }
-  .cart-buttons {
-    flex-direction: column;
-    gap: 10px;
-    align-items: stretch;
-  }
-  #payment-options-box {
-    width: 100%;
-    padding: 10px 2px;
-  }
-  .payment-option {
-    width: 98%;
-    min-width: 120px;
-    font-size: 1rem;
-    padding: 18px 8px;
-  }
-  .payment-options-row {
-    flex-direction: column;
-    gap: 12px;
-    align-items: center;
-  }
-  footer {
-    flex-direction: column;
-    gap: 6px;
-    font-size: 0.98rem;
-  }
-  footer > div {
-    width: 100%;
-    justify-content: flex-start;
-    padding: 2px 0;
-  }
-}
-
-/* Phones (max-width: 480px) */
-@media (max-width: 480px) {
-  .cart-container {
-    width: 100%;
-    padding: 2px;
-    min-height: 30vh;
-  }
-  #cart-table thead th,
-  #cart-table td {
-    padding: 4px;
-    font-size: 0.92rem;
-  }
-  .cart-heading {
-    font-size: 1rem;
-    padding-bottom: 4px;
-  }
-  .cart-buttons {
-    flex-direction: column;
-    gap: 8px;
-    align-items: stretch;
-  }
-  #payment-options-box {
-    width: 100%;
-    padding: 6px 0;
-  }
-  .payment-option {
-    width: 100%;
-    min-width: 90px;
-    font-size: 0.95rem;
-    padding: 12px 4px;
-  }
-  .footer-left, .footer-middle, .footer-right {
-    flex-direction: column;
-    align-items: flex-start;
-    width: 100%;
-    gap: 2px;
-    padding: 2px 0;
-  }
-  footer {
-    flex-direction: column;
-    gap: 2px;
-    font-size: 0.92rem;
-  }
-  footer > div {
-    width: 100%;
-    justify-content: flex-start;
-    padding: 1px 0;
-  }
-}
-
 .theme-button {
   padding: 12px 28px;
   font-size: 1.08rem;
@@ -639,4 +501,69 @@ footer >div{
   min-width: 180px;
   margin: 32px auto 0 auto;
   display: block;
+}
+
+/* =========================
+   Responsive Design for Cart Page
+   ========================= */
+
+/* Tablets (max-width: 1024px) */
+@media (max-width: 1024px) {
+  .cart-container {
+    width: 90%;
+    padding: 12px;
+  }
+  #payment-options-box {
+    width: 95%;
+    padding: 16px 4px;
+  }
+  .cart-heading {
+    font-size: 1.5rem;
+  }
+  #cart-table thead th,
+  #cart-table td {
+    padding: 10px;
+    font-size: 1rem;
+  }
+}
+
+/* Large phones and small tablets (max-width: 900px) */
+@media (max-width: 900px) {
+  .cart-container {
+    width: fit-content;
+    padding: 6px;
+    min-height: 40vh;
+  }  
+  #cart-table thead th,
+  #cart-table td {
+    padding: 8px;
+    font-size: 0.98rem;
+  }
+  .cart-totals {
+    justify-items: left;
+  }
+  .cart-heading {
+    font-size: 1.2rem;
+    padding-bottom: 6px;
+  }
+  .cart-buttons {
+    flex-direction: column;
+    gap: 10px;
+    align-items: stretch;
+  }
+  #payment-options-box {
+    width: 98%;
+    padding: 12px 2px;
+  }
+  .payment-option {
+    width: 98%;
+    min-width: 120px;
+    font-size: 1rem;
+    padding: 18px 8px;
+  }
+  .payment-options-row {
+    flex-direction: column;
+    gap: 18px;
+    align-items: center;
+  }
 }
