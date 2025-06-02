@@ -686,10 +686,13 @@ button {
 
 /* Tablets (max-width: 1024px) */
 @media (max-width: 1024px) {
-  .about-us > div,
   .bestseller-product-card,
   .new-product-card {
     max-width: 48%;
+    flex: 1 1 48%;
+  }
+  .about-us > div{
+    width: 48%;
     flex: 1 1 48%;
   }
   .whats-new-carousel {
@@ -701,16 +704,16 @@ button {
 }
 
 /* Large phones and small tablets (max-width: 768px) */
-@media (max-width: 768px) {
-  .about-us > div,
+@media (max-width: 900px) {
   .bestseller-product-card,
   .new-product-card,
   .whatsnew-product-card {
     width: 100%;
   }
-  .about-us {
-    flex-direction: column;
-    gap: 12px;
+  .about-us > div {
+    max-width: 100%;
+    flex: 1 1 100%;
+    padding: 10px 4px;
   }
   .newsletter-container form {
     width: 100%;
@@ -737,6 +740,9 @@ button {
   .hero-overlay {
     width: 70%;
     height: 100%;
+  }
+  .hero-overlay h2 {
+    font-size: 1.5rem;
   }
   .hero-overlay p {
     display: none;
@@ -805,7 +811,7 @@ button {
     padding: 10px 4px;
   }
   .hero-overlay h2 {    
-    font-size: 1.5rem;
+    font-size: 1rem;
   }
   .banner-slider {
     font-size: 1rem;
