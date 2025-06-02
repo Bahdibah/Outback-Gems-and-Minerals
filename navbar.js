@@ -198,7 +198,10 @@ document.addEventListener("DOMContentLoaded", () => {
           // Optionally, hide input when it loses focus
           searchInput.addEventListener('blur', () => {
             if (window.innerWidth <= 900) {
+              //Set delay for the searchbar to disappear to allow results to disappear first
+              setTimeout(() => {
               searchContainer.classList.remove('mobile-search-active');
+              }, 150);
             }
           });
         };
