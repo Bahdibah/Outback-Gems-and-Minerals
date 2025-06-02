@@ -111,62 +111,59 @@ document.addEventListener('DOMContentLoaded', () => {
   // Verify cart items against stock availability
   async function verifyCartStock() {
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const cachedStockData = await getProductData();
     if (cart.length === 0) return;
 
-    let loadingTimer;
-    try {
-      // Delay showing loading spinner by 750ms
-      loadingTimer = setTimeout(() => {
-        if (loadingMessage) loadingMessage.style.display = 'block';
-      }, 750);
+    let stockOk = true;
+    let adjustedItems = [];
 
-      const response = await fetch(stockApiUrl);
-      const products = await response.json();
-      let stockOk = true;
-      let adjustedItems = [];
+    cart.forEach((item, idx) => {
+      // Match by BOTH product id and weight
+      const product = cachedStockData.find(
+        p => p["product id"] === item.id && Number(p.weight) === Number(item.weight)
+      );
+      const row = cartTableBody.querySelectorAll('tr')[idx];
 
-      cart.forEach((item, idx) => {
-        const product = products.find(p => p["product id"] === item.id);
-        const row = cartTableBody.querySelectorAll('tr')[idx];
-        if (product && item.quantity > product.stock) {
+      if (product) {
+        if (item.quantity > product.stock) {
           stockOk = false;
-          // Warn user visually
           if (row) {
             row.style.backgroundColor = "#ffe5e5";
             row.title = `Only ${product.stock} in stock`;
           }
           if (item.quantity !== product.stock) {
             adjustedItems.push(`"${item.name}" (max ${product.stock})`);
+            item.quantity = product.stock;
           }
-          // Adjust quantity in cart and localStorage
-          item.quantity = product.stock;
         } else if (row) {
           row.style.backgroundColor = "";
           row.title = "";
         }
-      });
-
-      localStorage.setItem('cart', JSON.stringify(cart));
-      updateCartCount();
-
-      if (!stockOk && checkoutButton) {
-        checkoutButton.disabled = true;
-        checkoutButton.title = "Reduce quantities to available stock before checkout.";
-      } else if (checkoutButton) {
-        checkoutButton.disabled = false;
-        checkoutButton.title = "";
+      } else {
+        // No matching product found
+        if (row) {
+          row.style.backgroundColor = "#ffe5e5";
+          row.title = `Product not found in stock data`;
+        }
+        adjustedItems.push(`"${item.name}" (not found in stock data)`);
+        item.quantity = 0;
       }
+    });
 
-      // If any quantity was adjusted, reload the cart and show a single alert
-      if (adjustedItems.length > 0) {
-        loadCart(false); // This will NOT call verifyCartStock again
-        alert(`The following items were adjusted to available stock:\n\n${adjustedItems.join('\n')}`);
-      }
-    } catch (error) {
-      console.error("Error verifying stock:", error);
-    } finally {
-      clearTimeout(loadingTimer);
-      if (loadingMessage) loadingMessage.style.display = 'none';
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartCount();
+
+    if (!stockOk && checkoutButton) {
+      checkoutButton.disabled = true;
+      checkoutButton.title = "Reduce quantities to available stock before checkout.";
+    } else if (checkoutButton) {
+      checkoutButton.disabled = false;
+      checkoutButton.title = "";
+    }
+
+    if (adjustedItems.length > 0) {
+      loadCart(false);
+      alert(`The following items were adjusted to available stock:\n\n${adjustedItems.join('\n')}`);
     }
   }
 
@@ -177,7 +174,9 @@ document.addEventListener('DOMContentLoaded', () => {
   cartTableBody.addEventListener('click', (event) => {
     const target = event.target;
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const cachedStockData = JSON.parse(localStorage.getItem('productDataCache')) || [];
     let changed = false;
+
     if (target.classList.contains('decrease-quantity')) {
       const idx = +target.getAttribute('data-index');
       if (cart[idx] && cart[idx].quantity > 1) {
@@ -185,18 +184,28 @@ document.addEventListener('DOMContentLoaded', () => {
         changed = true;
       }
     }
+
     if (target.classList.contains('increase-quantity')) {
       const idx = +target.getAttribute('data-index');
       if (cart[idx]) {
+          const product = cachedStockData.find(
+            p => p["product id"] === cart[idx].id && Number(p.weight) === Number(cart[idx].weight)
+          );
+        if (product && cart[idx].quantity + 1 > product.stock) {
+          alert(`Cannot add more of "${cart[idx].name}". Only ${product.stock} in stock.`);
+          return;
+        }
         cart[idx].quantity += 1;
         changed = true;
       }
     }
+
     if (target.classList.contains('remove-button')) {
       const idx = +target.getAttribute('data-index');
       cart.splice(idx, 1);
       changed = true;
     }
+
     if (changed) {
       localStorage.setItem('cart', JSON.stringify(cart));
       updateCartCount();
@@ -210,7 +219,17 @@ document.addEventListener('DOMContentLoaded', () => {
       const idx = +event.target.getAttribute('data-index');
       const newQuantity = parseInt(event.target.value, 10);
       const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const cachedStockData = JSON.parse(localStorage.getItem('productDataCache')) || [];
+      const product = cachedStockData.find(
+        p => p["product id"] === cart[idx].id && Number(p.weight) === Number(cart[idx].weight)
+      );
+
       if (cart[idx] && newQuantity > 0) {
+        if (product && newQuantity > product.stock) {
+          alert(`Cannot set quantity of "${cart[idx].name}" to ${newQuantity}. Only ${product.stock} in stock.`);
+          event.target.value = cart[idx].quantity; // Reset to previous value
+          return;
+        }
         cart[idx].quantity = newQuantity;
         localStorage.setItem('cart', JSON.stringify(cart));
         updateCartCount();
