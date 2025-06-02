@@ -432,9 +432,6 @@ h1 {
   color: #fff;
 }
 
-/* =========================
-   Responsive Design for Synthetic Page
-   ========================= */
 
  @media (max-width: 1200px) {
 .view-product-main {
@@ -483,7 +480,7 @@ h1 {
   }
 }
 
-/* Small tablets (max-width: 768px) */
+
 @media (max-width: 768px) {
   .view-product-images {
     flex-direction: column;
@@ -497,7 +494,6 @@ h1 {
     width: 100%;
     justify-content: center;
     gap: 10px;
-    /* This is the key change - move thumbnails to after the main image in the DOM flow */
     order: 1;
   }
   
@@ -506,7 +502,6 @@ h1 {
     height: auto;
     max-width: 370px;
     max-height: 370px;
-    /* Main image comes first */
     order: 0;
   }
   
@@ -520,7 +515,6 @@ h1 {
   }
 }
 
-/* Phones (max-width: 576px) */
 @media (max-width: 576px) {
   .view-product-detail {
      max-width: 80%;
@@ -561,7 +555,6 @@ h1 {
     font-size: 1.2rem;
   }
   
-  /* Improve form elements spacing */
   #view-product-variation-selector,
   #view-product-quantity {
     width: 100%;
@@ -570,33 +563,28 @@ h1 {
     padding: 10px;
   }
   
-  /* Make quantity controls more thumb-friendly */
   input[type="number"] {
     font-size: 1.1rem;
   }
   
-  /* Use full widths */
   .view-product-technical-info {
     margin-top: 30px;
     padding: 24px 0 20px 0;
   }
   
-  /* Better spacing on mobile devices */
   .technical-info-intro {
     font-size: 1.05rem;
     margin-bottom: 20px;
     line-height: 1.6;
   }
   
-  /* Keep thumbnails visible but optimized */
   .view-product-thumbnails {
     overflow-x: auto;
     padding-bottom: 5px;
-    justify-content: flex-start; /* Left aligned for scrolling */
+    justify-content: flex-start; 
   }
 }
 
-/* Very small phones (max-width: 375px) */
 @media (max-width: 375px) {
   .view-product-detail {
      max-width: 80%;
