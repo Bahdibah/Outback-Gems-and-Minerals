@@ -210,6 +210,7 @@ input {
   flex-direction: column;
   top: 100%; /* Place it directly below the input */
   width: 100%; /* Match the width of the parent container (search input) */
+  right: 0;
   background: #444;
   list-style: none;
   margin: 0; /* Remove default margin */
@@ -220,6 +221,7 @@ input {
 }
 
 .navbar-search {
+  position: relative;
   display: flex;
   flex: 0 0 auto;
   align-items: center;
@@ -257,9 +259,14 @@ input {
 
 
 .search-results-container {
+  position: absolute;
+  top: 100%; /* Place it directly below the input */
+  width: 100%; /* Match the width of the parent container (search input) */
+  right: 0;
   transition: opacity 0.3s ease, visibility 0.3s ease; /* Smooth transition for hiding and showing */
   opacity: 1;
   visibility: visible;
+  z-index: 10000;
 }
 
 .search-results-container.hidden {
@@ -274,7 +281,7 @@ input {
   background: #f0f0f0;
   display: flex;
   align-items: center;
-  width: 100%; /* Match the width of the parent container */
+  width: fit-content; /* Match the width of the parent container */
   box-sizing: border-box; /* Include padding in the width calculation */
   background-color: #444;
   border-bottom:#cc5500 1px solid;
@@ -644,7 +651,6 @@ nav ul.burger-nav-links li a {
   .navbar-search #search-input {
     display: none !important;
   }
-
     .navbar-search-btn i {
       color: #fff;
       font-size: 1.7rem;
