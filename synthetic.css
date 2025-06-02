@@ -100,46 +100,26 @@ section {
   min-width: 100%;
 }
 
-button:not(.cart-icon):not([data-navbar-search="true"]):not(.burger),
-.button:not(.cart-icon):not([data-navbar-search="true"]):not(.burger) {
-  width: 75%;
-  background-color: #cc5500;
-  color: #fff;
-  font-weight: bold;
-  border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border stays */
-  padding: 14px 32px;
-  font-size: 1.25rem;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
-  display: inline-block;
-  margin-top: 10px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-  opacity: 0.9;
-}
-
 .product-card a {
   text-decoration: none;
   color: #fff;
   font-weight: bold;
 }
 
-button:hover, .button:hover {
+.view-all-button:hover, .product-button:hover {
   background-color: #ff7f33;
   transform: scale(1.04) translateY(-1px);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.35), 0 0 8px rgba(255, 127, 51, 0.5);
 }
 
-button:active, .button:active {
+.view-all-button:active, .product-button:active {
   background-color: #b34700;
   transform: scale(0.98) translateY(0);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .view-all-button {
-  width: auto;
-  min-width: 0;
-  max-width: 100%;
+  width: fit-content;
   padding: 12px 28px;
   margin: 40px auto 0 auto;
   display: block;
@@ -155,6 +135,7 @@ button:active, .button:active {
   text-align: center;
   white-space: nowrap;
 }
+
 .view-all-button:hover {
   background: #ff7f33;
   transform: translateY(-2px) scale(1.03);

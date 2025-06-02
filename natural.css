@@ -107,24 +107,6 @@ section {
   min-width: 100%;
 }
 
-button:not(.cart-icon):not([data-navbar-search="true"]):not(.burger),
-.button:not(.cart-icon):not([data-navbar-search="true"]):not(.burger) {
-  width: 75%;
-  background-color: #cc5500;
-  color: #fff;
-  font-weight: bold;
-  border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border stays */
-  padding: 14px 32px;
-  font-size: 1.25rem;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
-  display: inline-block;
-  margin-top: 10px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-  opacity: 0.9;
-}
-
 .product-card a {
   text-decoration: none;
   color: #fff;
@@ -162,6 +144,7 @@ button:active, .button:active {
   text-align: center;
   white-space: nowrap;
 }
+
 .view-all-button:hover {
   background: #ff7f33;
   transform: translateY(-2px) scale(1.03);
