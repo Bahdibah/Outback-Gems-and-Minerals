@@ -87,10 +87,12 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="cart-product-id">${item.id || item["product id"] || ''}</div>
         </td>
         <td>${item.weight || ''} ${item.unit || ''}</td>
-        <td class="quantity-cell">                    
-          <button class="decrease-quantity" data-index="${idx}">-</button>
-          <input type="number" value="${item.quantity}" min="1" data-index="${idx}" class="quantity-input" />
-          <button class="increase-quantity" data-index="${idx}">+</button>
+        <td class="quantity-cell">   
+          <div class="quantity-buttons">
+           <button class="increase-quantity" data-index="${idx}">+</button> 
+           <button class="decrease-quantity" data-index="${idx}">-</button>     
+          </div>              
+          <input type="number" value="${item.quantity}" min="1" data-index="${idx}" class="quantity-input" />  
         </td>
         <td class="price-cell">$${item.price.toFixed(2)}</td>
         <td>$${itemTotal.toFixed(2)}</td>
