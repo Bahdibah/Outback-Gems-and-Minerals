@@ -489,27 +489,35 @@ input {
 
 /* Desktop styles */
 nav ul.burger-nav-links {
+  position: absolute;
+  top: 100%;
+  background: #444;
+  height: fit-content;
   display: none; /* Hide by default */
   flex-direction: row;
   align-items: center;
-  gap: 10px;
-  height: 100%;
   margin: 0;
   padding: 0;
+  width: 100vw;
 }
 
 nav ul.burger-nav-links li a {
   color: #cc5500;
+  background: #444;
+  border: 1px solid #cc5500;
   text-decoration: none;
   font-weight: bold;
-  font-size: 1.05rem;
-  padding: 0 8px;
-  border-radius: 5px;
+  font-size: 1.25rem;
+  padding: 8px;
   text-align: center;
   line-height: 1.1;
   transition: background 0.3s, color 0.3s;
-  white-space: normal;
-  word-break: break-word;
+  border-radius: 0px;
+  height: 20px;
+}
+
+nav ul.burger-nav-links.open {
+  display: block;
 }
 
 /* =========================
