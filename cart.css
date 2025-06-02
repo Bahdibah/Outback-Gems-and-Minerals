@@ -561,6 +561,7 @@ footer >div{
   #cart-table td.quantity-cell button {
     width: 80%;
     text-align: center;
+    margin-top: 3px;
   }
   #cart-table td.quantity-cell input {
     margin: 0;
