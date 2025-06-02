@@ -245,6 +245,10 @@ body {
   transform: translateY(-2px);
 }
 
+#cart-table td.quantity-cell button {
+  visibility: hidden;
+}
+
 .remove-button {
   background: #e74c3c;
   color: #fff;
@@ -560,6 +564,7 @@ footer >div{
   }
   #cart-table td.quantity-cell button {
     width: 80%;
+    visibility: visible;
     text-align: center;
     margin-top: 3px;
   }
