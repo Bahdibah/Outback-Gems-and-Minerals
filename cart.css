@@ -150,9 +150,9 @@ body {
 
 .cart-totals strong {
   font-size: 18px;
-  color: #cc5500; /* Orange for totals */
-  text-align: right; /* Align the orange total to the right */
-  flex: 1; /* Ensure it aligns with the other totals */
+  color: #cc5500; 
+  text-align: right;
+  flex: 1; 
 }
 
 /* Buttons */
