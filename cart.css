@@ -562,6 +562,9 @@ footer >div{
   }
   #cart-table td.quantity-cell input {
     margin: 0;
+  } 
+  #cart-table th.price-header, #cart-table td.price-cell {
+    display: none;
   }
   .cart-totals {
     justify-items: center;

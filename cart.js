@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <input type="number" value="${item.quantity}" min="1" data-index="${idx}" class="quantity-input" />
           <button class="decrease-quantity" data-index="${idx}">-</button>
         </td>
-        <td>$${item.price.toFixed(2)}</td>
+        <td class="price-cell">$${item.price.toFixed(2)}</td>
         <td>$${itemTotal.toFixed(2)}</td>
         <td>
           <button data-index="${idx}" class="remove-button">Remove</button>
