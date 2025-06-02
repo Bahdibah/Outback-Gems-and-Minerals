@@ -30,8 +30,7 @@ body {
   padding: 0 !important;
 }
 
-button:not(.cart-icon):not([data-navbar-search="true"]):not(.burger),
-.button:not(.cart-icon):not([data-navbar-search="true"]):not(.burger) {
+.dynamic-product-button {
   background-color: #cc5500;
   color: #fff;
   font-weight: bold;
@@ -345,6 +344,7 @@ button {
    Responsive Design for Products Page
    ========================= */
 
+
 /* Tablets (max-width: 1024px) */
 @media (max-width: 1024px) {
   .dynamic-product-card {
@@ -372,6 +372,7 @@ button {
   .dynamic-product-card {
     flex: 1 1 98%;
     max-width: 98%;
+    height: auto;
     margin-bottom: 12px;
   }
   .dynamic-product-header-title {
