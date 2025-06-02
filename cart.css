@@ -540,7 +540,7 @@ footer >div{
     font-size: 0.98rem;
   }
   .cart-totals {
-    justify-items: left;
+    justify-items: center;
   }
   .cart-heading {
     font-size: 1.2rem;
@@ -548,11 +548,11 @@ footer >div{
   }
   .cart-buttons {
     flex-direction: column;
-    gap: 10px;
-    align-items: stretch;
+    width: 80%;
+    align-items: center;
   }
   #payment-options-box {
-    width: 98%;
+    width: 80%;
     padding: 12px 2px;
   }
   .payment-option {
