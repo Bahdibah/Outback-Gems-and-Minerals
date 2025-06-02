@@ -182,10 +182,29 @@ document.addEventListener("DOMContentLoaded", () => {
             });
           }
         // --- End burger menu toggle ---
+
+  
+        const searchButton = document.getElementById('search-button');
+        const searchInput = document.getElementById('search-input');
+        const searchContainer = searchInput?.closest('.navbar-search');
+        if (searchButton && searchInput && searchContainer) {
+          searchButton.addEventListener('click', (e) => {
+            if (window.innerWidth <= 900) {
+              e.preventDefault();
+              searchContainer.classList.add('mobile-search-active');
+              searchInput.focus();
+            }
+          });
+          // Optionally, hide input when it loses focus
+          searchInput.addEventListener('blur', () => {
+            if (window.innerWidth <= 900) {
+              searchContainer.classList.remove('mobile-search-active');
+            }
+          });
+        };
             
 
         // Now that the navbar is loaded, access the search input and results container
-        const searchInput = document.getElementById("search-input");
         const resultContainer = document.getElementById("search-results-container");
 
         if (!searchInput || !resultContainer) {
@@ -288,26 +307,6 @@ document.addEventListener("productCategoryLoaded", function(e) {
       const href = link.getAttribute("href").replace(/^\//, '').toLowerCase();
       if (href === categoryToPage[mainCategory]) {
         link.classList.add("active");
-      }
-    });
-  }
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-  const searchButton = document.getElementById('search-button');
-  const searchInput = document.getElementById('search-input');
-  if (searchButton && searchInput) {
-    searchButton.addEventListener('click', (e) => {
-      if (window.innerWidth <= 900) {
-        e.preventDefault();
-        searchInput.style.display = 'inline-block';
-        searchInput.focus();
-      }
-    });
-    // Optionally, hide input when it loses focus
-    searchInput.addEventListener('blur', () => {
-      if (window.innerWidth <= 900) {
-        searchInput.style.display = 'none';
       }
     });
   }

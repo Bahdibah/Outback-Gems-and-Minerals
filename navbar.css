@@ -639,6 +639,16 @@ nav ul.burger-nav-links.open {
     min-width: 0;
     width: 40%;
   }
+   .navbar-search.mobile-search-active .navbar-search-input,
+  .navbar-search.mobile-search-active #search-input {
+    display: inline-block !important;
+    width: 70vw;
+    max-width: 90vw;
+    background: #232323;
+    border: 2px solid #cc5500;
+    color: #fff;
+    margin-left: 8px;
+  }
   .navbar-search {
     display: flex;
     align-items: center;
@@ -663,5 +673,8 @@ nav ul.burger-nav-links.open {
       color: #fff;
       font-size: 1.7rem;
       line-height: 1;
+    }
+    .search-results {
+      width: fit-content;
     }
   }
