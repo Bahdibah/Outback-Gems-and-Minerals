@@ -4,7 +4,7 @@
   min-width: 280px;
   max-width: 400px;
   left: 0;
-  position: sticky;
+  position: fixed;
   top: var(--navbar-height, 70px); /* Adjust if your navbar is a different height */
   align-self: flex-start;
   height: fit-content;
@@ -33,6 +33,7 @@
   display: flex;
   flex-direction: column;
   width: 100%;
+  height: 100%;
 }
 
 .side-menu-toggle {
@@ -258,12 +259,9 @@
   }
 }
 
-/* Large phones and small tablets (max-width: 768px) */
-@media (max-width: 768px) {
+/* Large phones and small tablets (max-width: 900px) */
+@media (max-width: 900px) {
   .side-menu {
-    width: 100vw;
-    min-width: 0;
-    max-width: 100vw;
     position: static;
     margin-top: 18px;
     padding: 0 2px;
@@ -271,7 +269,6 @@
   }
   .side-menu-container {
     flex-direction: row;
-    width: 100%;
     justify-content: center;
     align-items: flex-start;
   }
@@ -285,42 +282,10 @@
   .category-expand {
     font-size: 1.5rem;
     padding: 4px 8px;
+    height: 50%;
   }
   .category-menu-title {
     font-size: 1.1rem;
     padding: 10px 0 0 0;
-  }
-}
-
-/* Phones (max-width: 480px) */
-@media (max-width: 480px) {
-  .side-menu {
-    width: 100vw;
-    min-width: 0;
-    max-width: 100vw;
-    position: static;
-    margin-top: 8px;
-    padding: 0 1px;
-    z-index: 5;
-  }
-  .side-menu-container {
-    flex-direction: column;
-    width: 100%;
-    align-items: stretch;
-  }
-  .category-card {
-    min-height: 40px;
-    margin-bottom: 6px;
-  }
-  .category-title {
-    font-size: 0.95rem;
-  }
-  .category-expand {
-    font-size: 1.1rem;
-    padding: 2px 4px;
-  }
-  .category-menu-title {
-    font-size: 0.95rem;
-    padding: 6px 0 0 0;
   }
 }

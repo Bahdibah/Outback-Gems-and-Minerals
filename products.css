@@ -26,7 +26,7 @@ body {
   align-items: flex-start;
   gap: 8px; /* space between menu and products */
   width: 100%;
-    margin: 0 !important;
+  margin: 0 !important;
   padding: 0 !important;
 }
 
@@ -128,7 +128,7 @@ footer >div{
   gap: 3%; /* Same spacing as before */
   padding: 20px;
   width: 100% !important;
-  margin: 0 !important;
+  margin: 0 0 0 340px !important;
   box-sizing: border-box;
   align-items: flex-start;
   height: fit-content;
@@ -360,37 +360,40 @@ button {
   #dynamic-product-container {
     gap: 2%;
     padding: 10px;
+    margin: 0 0 0 220px !important;
   }
   .dynamic-product-cards {
     width: 98%;
   }
 }
 
-/* Large phones and small tablets (max-width: 768px) */
-@media (max-width: 768px) {
+/* Large phones and small tablets (max-width: 900px) */
+@media (max-width: 900px) {
   .dynamic-product-card {
     flex: 1 1 98%;
     max-width: 98%;
-    height: 340px;
     margin-bottom: 12px;
-    padding: 10px;
   }
   .dynamic-product-header-title {
     font-size: 1.2rem;
     padding: 10px 0;
   }
+  .dynamic-product-card-button {
+    margin-top: auto;
+  }
   #dynamic-product-container {
-    gap: 1%;
-    padding: 4px;
+    padding: 4px;    
+    margin: 0 !important;
   }
   .dynamic-product-cards {
     width: 100%;
   }
   .dynamic-product-card .image-container {
-    height: 140px;
+    min-height: 140px;
   }
   .dynamic-product-card img {
-    height: 100%;
+    min-height: 140px;
+    object-fit: cover;
   }
   .pagination-controls {
     gap: 8px;
@@ -398,58 +401,8 @@ button {
   }
 }
 
-/* Phones (max-width: 480px) */
-@media (max-width: 480px) {
+@media (max-width: 500px) {
   .dynamic-product-card {
-    flex: 1 1 100%;
-    max-width: 100%;
-    height: 220px;
-    margin-bottom: 8px;
-    padding: 6px;
-  }
-  .dynamic-product-header-title {
-    font-size: 1rem;
-    padding: 6px 0;
-  }
-  #dynamic-product-container {
-    gap: 0.5%;
-    padding: 2px;
-  }
-  .dynamic-product-cards {
-    width: 100%;
-  }
-  .dynamic-product-card .image-container {
-    height: 80px;
-  }
-  .dynamic-product-card img {
-    height: 100%;
-  }
-  .pagination-controls {
-    gap: 4px;
-    margin: 6px 0;
-    font-size: 0.95rem;
-  }
-  footer {
-    flex-direction: column;
-    gap: 2px;
-    font-size: 0.92rem;
-  }
-  footer > div {
-    width: 100%;
-    justify-content: flex-start;
-    padding: 1px 0;
-  }
-}
-
-/* Media Query for Smaller Screens: Adjust for mobile responsiveness */
-@media (max-width: 1024px) {
-  #dynamic-product-container {
-    grid-template-columns: repeat(2, 1fr); /* 2 cards on medium screens */
-  }
-}
-
-@media (max-width: 600px) {
-  #dynamic-product-container {
-    grid-template-columns: 1fr; /* 1 card per row on small screens */
-  }
+    height: auto !important;
+    min-height: 220px; }
 }
