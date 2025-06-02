@@ -214,31 +214,48 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  cartTableBody.addEventListener('input', (event) => {
+  function handleQuantityInput(event) {
     if (event.target.classList.contains('quantity-input')) {
       const idx = +event.target.getAttribute('data-index');
       const newQuantity = parseInt(event.target.value, 10);
       const cart = JSON.parse(localStorage.getItem('cart')) || [];
-      const cachedStockData = JSON.parse(localStorage.getItem('productDataCache')) || [];
-      const product = cachedStockData.find(
-        p => p["product id"] === cart[idx].id && Number(p.weight) === Number(cart[idx].weight)
-      );
+      getProductData().then(cachedStockData => {
+        const product = cachedStockData.find(
+          p => p["product id"] === cart[idx].id && Number(p.weight) === Number(cart[idx].weight)
+        );
 
-      if (cart[idx] && newQuantity > 0) {
-        if (product && newQuantity > product.stock) {
-          alert(`Cannot set quantity of "${cart[idx].name}" to ${newQuantity}. Only ${product.stock} in stock.`);
+        if (cart[idx] && newQuantity > 0) {
+          if (product && newQuantity > product.stock) {
+            alert(`Cannot set quantity of "${cart[idx].name}" to ${newQuantity}. Only ${product.stock} in stock.`);
+            event.target.value = cart[idx].quantity; // Reset to previous value
+            return;
+          }
+          cart[idx].quantity = newQuantity;
+          localStorage.setItem('cart', JSON.stringify(cart));
+          updateCartCount();
+          loadCart(false);
+          debouncedVerifyCartStock();
+        } else if (cart[idx]) {
+          alert('Quantity must be at least 1.');
           event.target.value = cart[idx].quantity; // Reset to previous value
-          return;
+          loadCart(false);
         }
-        cart[idx].quantity = newQuantity;
-        localStorage.setItem('cart', JSON.stringify(cart));
-        updateCartCount();
-        loadCart(false); // Don't verify stock immediately
-        debouncedVerifyCartStock();
-      } else {
-        alert('Quantity must be at least 1.');
-        loadCart(false);
-      }
+      });
+    }
+  }
+
+  // Listen for blur and change events
+  cartTableBody.addEventListener('change', handleQuantityInput);
+  cartTableBody.addEventListener('blur', handleQuantityInput, true);
+
+  // Optionally handle Enter key
+  cartTableBody.addEventListener('keydown', function(event) {
+    if (
+      event.target.classList.contains('quantity-input') &&
+      (event.key === 'Enter' || event.keyCode === 13)
+    ) {
+      handleQuantityInput(event);
+      event.target.blur();
     }
   });
 
@@ -305,14 +322,12 @@ document.addEventListener('DOMContentLoaded', () => {
           shippingCost = shippingMethod === 'standard' ? 10.95 : 14.45;
         }
 
-        console.log('Cart being sent:', cart, shippingMethod, shippingCost);
         const response = await fetch('/.netlify/functions/create-checkout-session', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ cart, shippingCost, shippingMethod }),
         });
         const text = await response.text();
-        console.log('Function response:', text);
         let data;
         try {
           data = JSON.parse(text);
@@ -392,7 +407,6 @@ document.addEventListener('DOMContentLoaded', () => {
       body: JSON.stringify({ cart, shippingMethod, customerEmail: email }),
     });
     const data = await response.json();
-    console.log('Bank transfer response:', data);
     if (data.error) {
       document.getElementById('bank-transfer-result').textContent = 'Error: ' + data.error;
     } else {
@@ -413,17 +427,13 @@ document.addEventListener('DOMContentLoaded', () => {
       `;
       localStorage.removeItem('cart');
       updateCartCount();
+      loadCart(); // <-- Add this line
     }
   });
 
-  // Show modal (when needed, e.g. after clicking "Direct Bank Transfer")
-  // document.getElementById('bank-transfer-modal').style.display = 'flex';
-
-  // Close modal on X click
   document.getElementById('close-bank-modal').onclick = function() {
     document.getElementById('bank-transfer-modal').style.display = 'none';
   };
-  // Close modal when clicking outside modal content
   window.onclick = function(event) {
     const modal = document.getElementById('bank-transfer-modal');
     if (event.target === modal) {
@@ -431,30 +441,23 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  // Order confirmation modal
   function showOrderConfirmationModal(order) {
-    // order should include: items, shippingMethod, shippingCost, total, reference
 
-    // Build order summary list items
     const summaryItems = order.items.map(item =>
       `<li>${item.name} x${item.quantity} – $${(item.price * item.quantity).toFixed(2)}</li>`
     );
-    // Add shipping line
+
     summaryItems.push(
       `<li>Shipping (${order.shippingMethod === 'express' ? 'Express' : 'Standard'}) – $${order.shippingCost.toFixed(2)}</li>`
     );
 
-    // Set modal HTML
     document.querySelector('.modal-bank-details .modal-reference').textContent = order.reference;
     document.querySelector('.modal-order-summary').innerHTML = summaryItems.join('');
     document.querySelector('.modal-total strong').textContent = `Total: $${order.total.toFixed(2)}`;
-    // ...set other modal fields as needed...
 
-    // Show modal
     document.getElementById('order-confirmation-modal').style.display = 'block';
   }
 
-  // Initial load
   loadCart();
   updateCartCount();
 });

@@ -205,8 +205,6 @@ return title + info;
       continueLink.href = `products.html?category=${encodeURIComponent(category)}`;}
       continueBtn.textContent = `Continue Shopping`;
     }
-    console.log(category);
-    console.log(formatCategoryHeader(category));
 
   } catch (error) {
     console.error("Error fetching product details:", error);

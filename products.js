@@ -55,7 +55,6 @@ fetch("side-menu.html")
 
       getProductData()
         .then(data => {
-          console.log("Loaded product data:", data); // <--- Add this
           if (data && data.length > 0) {
             let filteredProducts;
             if (keyword) {
