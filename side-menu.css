@@ -444,6 +444,14 @@
   }
 }
 
+/* Hide mobile-only elements on desktop */
+@media (min-width: 901px) {
+  .side-menu-tab,
+  .side-menu-close-bar {
+    display: none !important;
+  }
+}
+
 /* Hide mobile toggle on desktop */
 @media (min-width: 901px) {
   .side-menu-toggle-btn {

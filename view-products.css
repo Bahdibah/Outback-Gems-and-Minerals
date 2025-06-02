@@ -443,31 +443,175 @@ h1 {
   }
  }  
 
-/* Tablets (max-width: 1024px) */
+
+@media (max-width: 1200px) {
+  .view-product-main {
+    flex-direction: column;
+    gap: 24px;
+  }
+  
+  .view-product-info {
+    flex: 0 0 100%;
+    max-width: 100%;
+    height: auto;
+  }
+}  
+
 @media (max-width: 1024px) {
   .view-product-container {
-  margin: 0 0 0 220px !important;
-  max-width: 100vw;
-}
-  .product-card-container {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 4%;
-    margin: 30px 2% ;
+    margin: 0 0 0 220px !important;
+    padding: 10px;
   }
-  .product-header-title {
-    font-size: 2.5rem;
-    width: 95%;
-  }
-  .hero-overlay {
+  
+  .view-product-detail {
     max-width: 80%;
-    padding: 18px 8px;
+  }
+}
+
+@media (max-width: 900px) {
+  .view-product-container {
+    margin: 0 auto !important;
+    width: 90% !important;
+    padding: 10px 0;
+  }
+  
+  .view-product-title {
+    font-size: 1.8rem;
+  }
+   .view-product-detail {
+    max-width: 80%;
+  }
+}
+
+/* Small tablets (max-width: 768px) */
+@media (max-width: 768px) {
+  .view-product-images {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+  
+  .view-product-thumbnails {
+    flex-direction: row;
+    height: auto;
+    width: 100%;
+    justify-content: center;
+    gap: 10px;
+    /* This is the key change - move thumbnails to after the main image in the DOM flow */
+    order: 1;
+  }
+  
+  .view-product-main-image {
+    width: 100%;
+    height: auto;
+    max-width: 370px;
+    max-height: 370px;
+    /* Main image comes first */
+    order: 0;
+  }
+  
+  .view-product-thumbnails img {
+    height: 70px;
+    width: 70px;
+  }
+  
+  .technical-info-grid {
+    gap: 20px;
+  }
+}
+
+/* Phones (max-width: 576px) */
+@media (max-width: 576px) {
+  .view-product-detail {
+     max-width: 80%;
+    padding: 20px 16px 16px;
+  }
+  
+  .view-product-title {
+    font-size: 1.5rem;
+  }
+  
+  .view-product-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  
+  #view-product-price {
+    margin-left: 0;
+    font-size: 1.2rem;
+    margin-top: 6px;
+  }
+  
+  #view-product-stock {
+    margin-top: -4px;
+  }
+  
+  .view-product-description-title {
+    margin-top: 18px;
+  }
+  
+  .technical-info-title {
+    font-size: 1.4rem;
+  }
+  
+  #view-product-add-to-cart,
+  #view-product-continue-shopping-button {
+    padding: 14px 0;
     font-size: 1.2rem;
   }
-  #home {
-    height: 22vh;
-    min-height: 120px;
+  
+  /* Improve form elements spacing */
+  #view-product-variation-selector,
+  #view-product-quantity {
+    width: 100%;
+    max-width: 200px;
+    margin-bottom: 5px;
+    padding: 10px;
   }
-  #product-container {
-    grid-template-columns: repeat(2, 1fr);
+  
+  /* Make quantity controls more thumb-friendly */
+  input[type="number"] {
+    font-size: 1.1rem;
+  }
+  
+  /* Use full widths */
+  .view-product-technical-info {
+    margin-top: 30px;
+    padding: 24px 0 20px 0;
+  }
+  
+  /* Better spacing on mobile devices */
+  .technical-info-intro {
+    font-size: 1.05rem;
+    margin-bottom: 20px;
+    line-height: 1.6;
+  }
+  
+  /* Keep thumbnails visible but optimized */
+  .view-product-thumbnails {
+    overflow-x: auto;
+    padding-bottom: 5px;
+    justify-content: flex-start; /* Left aligned for scrolling */
+  }
+}
+
+/* Very small phones (max-width: 375px) */
+@media (max-width: 375px) {
+  .view-product-detail {
+     max-width: 80%;
+    padding: 16px 12px 12px;
+  }
+  
+  .technical-info-title {
+    font-size: 1.3rem;
+  }
+  
+  .view-product-title {
+    font-size: 1.4rem;
+  }
+  
+  #view-product-description {
+    font-size: 1rem;
   }
 }
