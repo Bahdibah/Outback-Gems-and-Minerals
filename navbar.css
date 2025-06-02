@@ -49,18 +49,15 @@ nav {
   flex: 2 1 0;
   justify-content: center;
   text-align: center;
-  display: flex;
   flex-direction: row;
-  align-items: center;
 }
 
 .navbar-right {
-  flex: 1 1 0;
+  flex-direction: row;
   justify-content: flex-end;
-  gap: 16px;
   padding-right: 1%;
   font-size: 1.5rem;  
-  align-items: left;
+  width: 20%;
 }
 
 nav ul.nav-links {
@@ -114,6 +111,14 @@ nav li {
     transition: background 0.3s ease, color 0.3s ease;
     border-radius: 5px;
     text-align: center;
+  }
+
+.navbar-right ul {
+  display: flex;
+  align-items: center;  
+  padding-left: 0;
+  padding-inline-start: 0;
+  margin: 0;
   }
 
 .main-logo {
@@ -216,6 +221,7 @@ input {
 
 .navbar-search {
   display: flex;
+  flex: 0 0 auto;
   align-items: center;
   background: #232323; /* Unified background */
   border-radius: 999px; /* Fully rounded pill shape */
@@ -499,6 +505,22 @@ nav ul.burger-nav-links li a {
   word-break: break-word;
 }
 
+/* =========================
+   Responsive Design for Navbar
+   ========================= */
+
+  @media (max-width: 1230px) {
+    .main-logo {
+      padding-left: 0px;
+    }
+    .welcome-message {
+      font-size: 1.25rem;
+    }
+    .navbar-search {
+      width: 100px;
+    }
+   }
+
 /* Mobile styles */
 @media (max-width: 900px) {
   .navbar {
@@ -516,6 +538,7 @@ nav ul.burger-nav-links li a {
     width: auto;
     padding: 0;
     min-width: 0;
+    width: 40%;
   }
   .main-logo {
     flex-direction: row;
@@ -596,19 +619,17 @@ nav ul.burger-nav-links li a {
     color: #fff !important;
   }
   .navbar-right {
-    flex: 0 0 auto;
-    justify-content: flex-end;
-    align-items: center;
     width: auto;
     padding: 0;
     min-width: 0;
+    width: 40%;
   }
   .navbar-search {
     display: flex;
     align-items: center;
     border-radius: 6px;
     padding: 4px 8px;
-    margin: 0 8px;
+    margin: 0;
     gap: 0;
     width: auto;
     min-width: 0;
@@ -619,7 +640,6 @@ nav ul.burger-nav-links li a {
     box-shadow: none !important;
     outline: none !important;
   }
-
   .navbar-search-input,
   .navbar-search #search-input {
     display: none !important;
