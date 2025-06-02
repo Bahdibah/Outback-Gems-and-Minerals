@@ -262,7 +262,7 @@
 /* Large phones and small tablets (max-width: 900px) */
 @media (max-width: 900px) {
   .side-menu {
-    position: static;
+    width: 220px;
     margin-top: 18px;
     padding: 0 2px;
     z-index: 5;
