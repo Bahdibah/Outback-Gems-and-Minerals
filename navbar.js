@@ -217,7 +217,7 @@ document.addEventListener("DOMContentLoaded", () => {
               //Set delay for the searchbar to disappear to allow results to disappear first
               setTimeout(() => {
               searchContainer.classList.remove('mobile-search-active');
-              }, 150);
+              }, 300);
             }
           });
         };
