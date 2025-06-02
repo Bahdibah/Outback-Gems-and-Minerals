@@ -536,8 +536,32 @@ footer >div{
   }  
   #cart-table thead th,
   #cart-table td {
-    padding: 8px;
-    font-size: 0.98rem;
+    padding: 2px;
+    font-size: 0.75rem;
+    width: fit-content;
+  }
+  #cart-table td input {
+    width: 20px;
+  }
+  #cart-table td button {
+    font-size: 0.75rem;
+    width: fit-content;
+    padding: 2px 1px; 
+  }
+  #cart-table td img {
+    height: 20px;
+  }
+  #cart-table td.quantity-cell {
+    gap: 2px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  #cart-table td.quantity-cell button {
+    width: 80%;
+  }
+  #cart-table td.quantity-cell input {
+    margin: 0;
   }
   .cart-totals {
     justify-items: center;
