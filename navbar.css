@@ -642,12 +642,11 @@ nav ul.burger-nav-links.open {
    .navbar-search.mobile-search-active .navbar-search-input,
   .navbar-search.mobile-search-active #search-input {
     display: inline-block !important;
-    width: 70vw;
-    max-width: 90vw;
     background: #232323;
     border: 2px solid #cc5500;
     color: #fff;
     margin-left: 8px;
+    z-index: 5000;
   }
   .navbar-search {
     display: flex;
