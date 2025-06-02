@@ -200,17 +200,6 @@ margin: 0 2% 2% 2%;
   justify-items: center; /* Center the boxes horizontally */
 }
 
-/* .faq-box {
-  background-color: #444;
-  border-radius: 10px;
-  padding: 12px;
-  text-align: center;
-  max-width: 250px;
-  margin: 0 auto;
-  color: #bfbfbfd2;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6), 0 4px 6px rgba(0, 0, 0, 0.4); /* Subtler shadow 
-} */
-
 .faq-box {
   background-color: #444; /* Original background color */
   border: 4px solid #cc5500; /* Original border color */
@@ -295,15 +284,21 @@ form textarea {
    ========================= */
 
 /* Large phones and small tablets (max-width: 768px) */
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .faq-container {
     width: 100%;
     padding: 0 2px;
   }
+  .faq-container h3 {
+  font-size: 2.5rem;
+}
   .faq-grid {
     grid-template-columns: 1fr;
     gap: 12px;
     row-gap: 18px;
+  }
+  .faq-container h4 {
+    font-size: 2.5rem;
   }
   #home {
     height: 22vh;
