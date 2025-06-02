@@ -196,10 +196,17 @@ return title + info;
         .replace(/\b\w/g, c => c.toUpperCase());
     }
     
+    //Escape to synthetic level if mix CZ & Spinel bag
     if (category && continueLink && continueBtn) {
-      continueLink.href = `products.html?category=${encodeURIComponent(category)}`;
-      continueBtn.textContent = `View all ${formatCategoryHeader(category)}`;
+      if (category == 'synthetic-spinel,synthetic-cubic-zirconia') {
+        continueLink.href = `products.html?category=synthetic`;
+      }
+      else {
+      continueLink.href = `products.html?category=${encodeURIComponent(category)}`;}
+      continueBtn.textContent = `Continue Shopping`;
     }
+    console.log(category);
+    console.log(formatCategoryHeader(category));
 
   } catch (error) {
     console.error("Error fetching product details:", error);
