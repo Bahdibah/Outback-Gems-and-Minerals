@@ -40,9 +40,8 @@ nav {
 
 .navbar-left {
   flex: 1 1 0;
-  gap: 5%;
   padding-left: 1%;
-  align-items: left;
+  align-items: end;
   width: 20%;
 }
 
@@ -223,7 +222,7 @@ input {
   box-shadow: 0 4px 16px rgba(0,0,0,0.18);
   border: 2px solid #cc5500;
   padding: 4px 8px;
-  margin: 0 8px;
+  margin: 0;
   gap: 0;
   width: auto;
   min-width: 0;
@@ -451,6 +450,7 @@ input {
 
 /* Cart dropdown container */
 .cart-dropdown {
+  margin: 0;
   position: relative;
 }
 
@@ -599,7 +599,6 @@ nav ul.burger-nav-links li a {
     flex: 0 0 auto;
     justify-content: flex-end;
     align-items: center;
-    gap: 10px;
     width: auto;
     padding: 0;
     min-width: 0;
