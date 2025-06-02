@@ -16,11 +16,11 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  margin-top: 1%; /* Reduced from 2% to 1% */
-  padding-top: var(--navbar-height); /* This adds space at the top for the fixed navbar */
+  margin-top: 1%; 
+  padding-top: var(--navbar-height); 
 }
 
-/* Layout for the page: side menu + product area */
+
 .view-product-page-layout {
   display: flex;
   flex-direction: row;
@@ -31,15 +31,13 @@ body {
   padding: 0 !important;
 }
 
-/* Product area fills the rest */
 .view-product-container {
   padding: 4px;
   flex: 1 1 0;
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  /* REMOVE width: 100%; */
-  min-width: 0; /* Prevent overflow in flexbox */
+  min-width: 0; 
   margin: 0 0 0 340px !important;
 }
 
@@ -56,7 +54,7 @@ button:active, .button:active {
 }
 
 .view-all-button {
-margin-top: 40px; /* More space above */
+margin-top: 40px; 
 padding: 16px 40px;
 }
 
@@ -65,7 +63,6 @@ section {
     padding: 60px 20px;
 }
 
-/* Header container */
 header {
   width: 100%;
   background-color: transparent !important;
@@ -80,7 +77,6 @@ header {
 
 
 .view-product-detail {
-  /* Use a max-width in px, not percent */
   max-width: 900px;
   width: 100%;
   margin: 0 auto 1% auto;
@@ -114,7 +110,6 @@ header {
 
 }
 
-/* Footer Styling */
 footer {
     background-color: #1e1e1e;
     color: #888;
@@ -155,18 +150,17 @@ footer >div{
   align-items: center;
 }
 
-/* Centered title and divider */
 .view-product-title {
   text-align: center;
   font-size: 2rem;
   font-weight: bold;
   color: #cc5500;
-  margin: 0;    /* Remove margin for true centering */
+  margin: 0;   
   padding: 0;
 }
 
 
-/* Header/title bar for product card */
+
 .view-product-header-container {
   width: 100%;
   margin-bottom: 20px;
@@ -175,16 +169,16 @@ footer >div{
   border: none;
   box-shadow: none;
   display: flex;
-  align-items: center;      /* Vertically center */
-  justify-content: center;  /* Horizontally center */
-  min-height: 70px;         /* Optional: set a min height for vertical centering */
+  align-items: center;     
+  justify-content: center;  
+  min-height: 70px;        
 }
 
 .view-product-main {
   display: flex;
   flex-direction: row;
   gap: 32px;
-  align-items: stretch; /* Make both columns equal height */
+  align-items: stretch;
   width: 100%;
   margin: auto;
 }
@@ -204,26 +198,26 @@ footer >div{
   min-width: 180px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* Distribute content vertically */
-  height: 370px; /* Match the main image height */
+  justify-content: space-between; 
+  height: 370px; 
   gap: 12px;
   margin-bottom: 24px;
 }
 
-/* Thumbnails on the left, stacked vertically */
+
 .view-product-thumbnails {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   gap: 8px;
-  height: 370px; /* Match the main image height */
+  height: 370px;
 }
 
 .view-product-thumbnails img{
-  height: 25%; /* Reduce height to stop overflow*/
+  height: 25%; 
 }
 
-/* Make images centered and larger */
+
 .view-product-main-image {
   width: 370px;
   height: 370px;
@@ -238,7 +232,7 @@ footer >div{
   max-width: 100px; 
   object-fit: cover;
   border-radius: 6px;
-  border: 2px solid transparent; /* Always 2px, transparent by default */
+  border: 2px solid transparent; 
   background: #333;
   cursor: pointer;
   transition: border-color 0.2s;
@@ -247,7 +241,7 @@ footer >div{
 }
 
 .view-product-image-placeholder.selected {
-  border-color: #cc5500; /* Highlight color for selected */
+  border-color: #cc5500; 
 }
 
 .view-product-row {
@@ -388,7 +382,7 @@ h1 {
   align-items: center;
   justify-content: center;
   z-index: 1000;
-  cursor: default; /* Normal pointer */
+  cursor: default; 
 }
 
 #image-modal-overlay.active {
@@ -432,9 +426,6 @@ h1 {
   color: #fff;
 }
 
-/* =========================
-   Responsive Design for Synthetic Page
-   ========================= */
 
  @media (max-width: 1200px) {
 .view-product-main {
@@ -474,8 +465,35 @@ h1 {
     width: 90% !important;
     padding: 10px 0;
   }
-  
-  .view-product-title {
+    .view-product-main {
+    display: flex;
+    flex-direction: column; 
+    gap: 24px;
+  }
+
+  .view-product-images {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .view-product-thumbnails {
+    flex-direction: row;
+    height: auto;
+    width: 100%;
+    justify-content: center;
+    gap: 10px;
+    order: 1; 
+  }
+
+  .view-product-main-image {
+    width: 100%;
+    height: auto;
+    max-width: 370px;
+    max-height: 370px;
+    order: 0; 
+  }
+.view-product-title {
     font-size: 1.8rem;
   }
    .view-product-detail {
@@ -483,7 +501,7 @@ h1 {
   }
 }
 
-/* Small tablets (max-width: 768px) */
+
 @media (max-width: 768px) {
   .view-product-images {
     flex-direction: column;
@@ -497,7 +515,6 @@ h1 {
     width: 100%;
     justify-content: center;
     gap: 10px;
-    /* This is the key change - move thumbnails to after the main image in the DOM flow */
     order: 1;
   }
   
@@ -506,7 +523,6 @@ h1 {
     height: auto;
     max-width: 370px;
     max-height: 370px;
-    /* Main image comes first */
     order: 0;
   }
   
@@ -520,7 +536,6 @@ h1 {
   }
 }
 
-/* Phones (max-width: 576px) */
 @media (max-width: 576px) {
   .view-product-detail {
      max-width: 80%;
@@ -561,7 +576,6 @@ h1 {
     font-size: 1.2rem;
   }
   
-  /* Improve form elements spacing */
   #view-product-variation-selector,
   #view-product-quantity {
     width: 100%;
@@ -570,33 +584,28 @@ h1 {
     padding: 10px;
   }
   
-  /* Make quantity controls more thumb-friendly */
   input[type="number"] {
     font-size: 1.1rem;
   }
   
-  /* Use full widths */
   .view-product-technical-info {
     margin-top: 30px;
     padding: 24px 0 20px 0;
   }
   
-  /* Better spacing on mobile devices */
   .technical-info-intro {
     font-size: 1.05rem;
     margin-bottom: 20px;
     line-height: 1.6;
   }
   
-  /* Keep thumbnails visible but optimized */
   .view-product-thumbnails {
     overflow-x: auto;
     padding-bottom: 5px;
-    justify-content: flex-start; /* Left aligned for scrolling */
+    justify-content: flex-start; 
   }
 }
 
-/* Very small phones (max-width: 375px) */
 @media (max-width: 375px) {
   .view-product-detail {
      max-width: 80%;
