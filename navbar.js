@@ -44,14 +44,30 @@ function search() {
     return;
   }
 
+  //function to only load unique product ids on the product grid
+    function getUniqueByProductId(products) {
+    const seen = new Set();
+    return products.filter(product => {
+      if (seen.has(product["product id"])) {
+        return false;
+      }
+      seen.add(product["product id"]);
+      return true;
+    });
+    }
+
+
   // Proceed with the search once loading is complete
   const searchTerm = document.getElementById("search-input").value.toLowerCase();
   if (searchTerm !== "") {
-    const results = cachedProducts.filter(product =>
+    const filteredProducts = cachedProducts.filter(product =>
       product["product name"].toLowerCase().includes(searchTerm)
     );
 
-    displayResults(results);
+    // Then, get only unique product ids
+    const uniqueProducts = getUniqueByProductId(filteredProducts);
+
+    displayResults(uniqueProducts);
   }   
 }
 
@@ -201,7 +217,7 @@ document.addEventListener("DOMContentLoaded", () => {
               //Set delay for the searchbar to disappear to allow results to disappear first
               setTimeout(() => {
               searchContainer.classList.remove('mobile-search-active');
-              }, 150);
+              }, 300);
             }
           });
         };

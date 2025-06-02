@@ -220,6 +220,10 @@ input {
   gap: 0;
 }
 
+.search-results {
+  width: 100%;
+}
+
 .navbar-search {
   position: relative;
   display: flex;
@@ -276,12 +280,13 @@ input {
 }
 
 .search-results li {
+  font-size: 20px;
   padding: 10px;
   cursor: pointer;
   background: #f0f0f0;
   display: flex;
   align-items: center;
-  width: fit-content; /* Match the width of the parent container */
+  width: 170px; /* Match the width of the parent container */
   box-sizing: border-box; /* Include padding in the width calculation */
   background-color: #444;
   border-bottom:#cc5500 1px solid;
@@ -672,8 +677,5 @@ nav ul.burger-nav-links.open {
       color: #fff;
       font-size: 1.7rem;
       line-height: 1;
-    }
-    .search-results {
-      width: fit-content;
     }
   }

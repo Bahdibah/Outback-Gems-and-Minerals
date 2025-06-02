@@ -245,6 +245,10 @@ body {
   transform: translateY(-2px);
 }
 
+#cart-table td.quantity-cell button {
+  visibility: hidden;
+}
+
 .remove-button {
   background: #e74c3c;
   color: #fff;
@@ -552,14 +556,14 @@ footer >div{
     height: 20px;
   }
   #cart-table td.quantity-cell {
-    gap: 2px;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
   }
   #cart-table td.quantity-cell button {
-    width: 80%;
+    width: 50%;
+    visibility: visible;
     text-align: center;
     margin-top: 3px;
   }
@@ -595,5 +599,11 @@ footer >div{
     flex-direction: column;
     gap: 18px;
     align-items: center;
+  }
+}
+
+@media (max-width: 600px) {
+  .cart-buttons button{
+    width: 100%;
   }
 }
