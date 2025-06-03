@@ -388,7 +388,7 @@ button {
   }
   #dynamic-product-container {
     padding: 4px;
-    margin: 0 auto !important; /* Center the container */
+    margin: 0 0 0 56px !important; /* Adjusted for side menu tab */
     width: 80% !important; /* 10% margin on each side */
   }
   .dynamic-product-cards {
