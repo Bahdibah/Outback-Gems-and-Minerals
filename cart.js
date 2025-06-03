@@ -393,7 +393,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         // ...handle other payment methods...
       } finally {
-        if (overlay) overlay.style.display = 'none'; // Hide overlay when done (success or error)
+        if (overlay) overlay.style.display = 'none'; // Hide overlay when done
       }
     });
   }
