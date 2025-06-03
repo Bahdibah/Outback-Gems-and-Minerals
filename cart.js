@@ -461,4 +461,3 @@ document.addEventListener('DOMContentLoaded', () => {
   loadCart();
   updateCartCount();
 });
-console.log('Cart sent to PayPal:', cart, shippingCost, shippingMethod);
