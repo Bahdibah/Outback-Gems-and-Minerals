@@ -209,6 +209,8 @@ document.addEventListener("DOMContentLoaded", () => {
               e.preventDefault();
               searchContainer.classList.add('mobile-search-active');
               searchInput.focus();
+            } else {
+              search();
             }
           });
           // Optionally, hide input when it loses focus
