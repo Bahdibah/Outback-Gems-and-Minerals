@@ -40,16 +40,15 @@ async function loadNaturalProducts() {
   loadingDiv.style.display = "none";
 
   const naturalProducts = apiProducts.filter(p => p.category && p.category.startsWith("natural-"));
-  container.innerHTML = ""; // Clear any old cards
+  container.innerHTML = ""; 
 
   const seenSubcategories = new Set();
 
   naturalProducts.forEach(product => {
-    // Exclude products with multiple categories
     if (product.category.includes(",")) return;
 
     const subcategory = product.category.replace(/^natural-/, '').toLowerCase();
-    if (seenSubcategories.has(subcategory)) return; // Skip duplicates
+    if (seenSubcategories.has(subcategory)) return;
     seenSubcategories.add(subcategory);
 
     const localInfo = localProducts.find(lp => lp.category === product.category);
@@ -57,7 +56,6 @@ async function loadNaturalProducts() {
     const description = localInfo?.["category-description"] || "No description available.";
     const title = formatSubcategory(product.category);
 
-    // Build card using your existing structure
     const card = document.createElement("div");
     card.className = "product-card";
     card.style.backgroundImage = `url('images/category cards/${image}')`;
