@@ -14,14 +14,24 @@ const productPriceElement = document.getElementById("view-product-price");
 let variations = [];
 let currentVariation = null;
 
+// Dynamically load the side menu HTML
 fetch("side-menu.html")
   .then(response => response.text())
   .then(html => {
     document.getElementById("side-menu-container").innerHTML = html;
-    if (typeof fetchAndLoadMenu === "function") {
-      fetchAndLoadMenu();
-    }
-    // ...rest of your product logic...
+    // Dynamically load side-menu.js AFTER the HTML is present
+    const script = document.createElement('script');
+    script.src = 'side-menu.js';
+    script.onload = () => {
+      // Now that side-menu.js is loaded, initialize the menu
+      if (typeof fetchAndLoadMenu === "function") {
+        fetchAndLoadMenu();
+      }
+      if (typeof setupSideMenuListeners === "function") {
+        setupSideMenuListeners();
+      }
+    };
+    document.body.appendChild(script);
   });
 
 // Fetch product details from the cache

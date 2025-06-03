@@ -150,10 +150,5 @@ function setupSideMenuListeners() {
   }
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-  fetchAndLoadMenu();
-  // Call setupSideMenuListeners after menu is loaded into DOM
-  setTimeout(setupSideMenuListeners, 100); // Or call after your menu injection callback
-});
 
 

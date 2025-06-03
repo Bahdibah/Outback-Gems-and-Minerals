@@ -3,10 +3,19 @@ fetch("side-menu.html")
   .then(response => response.text())
   .then(html => {
     document.getElementById("side-menu-container").innerHTML = html;
-    // Now let side-menu.js handle the rest:
-    if (typeof fetchAndLoadMenu === "function") {
-      fetchAndLoadMenu(); // This should load subcategories and initialize the menu
-    }
+    // Now dynamically load side-menu.js AFTER the HTML is present
+    const script = document.createElement('script');
+    script.src = 'side-menu.js';
+    script.onload = () => {
+      // Now that side-menu.js is loaded, fetchAndLoadMenu will run and work as expected
+      if (typeof fetchAndLoadMenu === "function") {
+        fetchAndLoadMenu();
+      }
+      if (typeof setupSideMenuListeners === "function") {
+        setupSideMenuListeners();
+      }
+    };
+    document.body.appendChild(script);
 
     // --- Product loading logic STARTS here ---
     const productContainer = document.getElementById("dynamic-product-container");
