@@ -12,7 +12,7 @@ nav {
     flex-direction: row;
     width: 100%;
     height: var(--navbar-height);
-    z-index: 1000;
+    z-index: 100000;
     position: fixed;
     top: 0;
 }
@@ -494,8 +494,9 @@ input {
 
 /* Desktop styles */
 nav ul.burger-nav-links {
-  position: absolute;
-  top: 100%;
+  position: fixed;
+  top: var(--navbar-height);
+  left:0;
   background: #444;
   height: fit-content;
   display: none; /* Hide by default */
@@ -504,6 +505,7 @@ nav ul.burger-nav-links {
   margin: 0;
   padding: 0;
   width: 100vw;
+  z-index: 99999;
 }
 
 nav ul.burger-nav-links li a {
@@ -518,7 +520,9 @@ nav ul.burger-nav-links li a {
   line-height: 1.1;
   transition: background 0.3s, color 0.3s;
   border-radius: 0px;
-  height: 20px;
+  height: 20px;  
+  position: relative;
+  z-index: 99999;
 }
 
 nav ul.burger-nav-links.open {
@@ -586,7 +590,6 @@ nav ul.burger-nav-links.open {
   .burger {
     display: flex;
     margin: 0 auto;
-    z-index: 2100;
   }
   .navbar-middle ul.nav-links {
     display: none;

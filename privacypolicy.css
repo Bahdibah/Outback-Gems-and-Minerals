@@ -48,8 +48,11 @@ margin: 0 2% 2% 2%;
   font-size: 2rem;
 }
 
-.policy-container ul li {
-  text-align: left;
+.policy-container ul {
+  text-align: center;
+  align-items: center;
+  list-style-position: inside; /* Keep bullets with text */
+  padding-left: 0; /* Remove default padding */
 }
 
 .policy-container p strong {

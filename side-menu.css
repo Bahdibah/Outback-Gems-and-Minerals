@@ -8,7 +8,7 @@
   top: var(--navbar-height, 70px); /* Adjust if your navbar is a different height */
   align-self: flex-start;
   height: fit-content;
-  z-index: 10;
+  z-index: 3000;
   background: none !important;
   margin-top: 90px; /* Adjust this value until it lines up perfectly */
 }

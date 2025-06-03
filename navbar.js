@@ -32,6 +32,19 @@ function debounceSearch() {
 
 function search() {
   const resultContainer = document.getElementById("results");
+  const searchTerm = document.getElementById("search-input")?.value.toLowerCase() || "";
+
+  // Initialize results container if it doesn't exist
+  if (!resultContainer) {
+    const searchResultsContainer = document.getElementById("search-results-container");
+    
+    // Create results list if it doesn't exist
+    const newResultsList = document.createElement("ul");
+    newResultsList.id = "results";
+    newResultsList.className = "search-results";
+    searchResultsContainer.appendChild(newResultsList);
+    return; // Exit and let the next search handle displaying results
+  }
 
   // Check if data is still loading
   if (loading) {
@@ -43,6 +56,22 @@ function search() {
     }, 100); // Retry every 100ms
     return;
   }
+
+  // Proceed with the search once loading is complete
+  if (searchTerm !== "") {
+    const filteredProducts = cachedProducts.filter(product =>
+      product["product name"].toLowerCase().includes(searchTerm)
+    );
+
+    // Then, get only unique product ids
+    const uniqueProducts = getUniqueByProductId(filteredProducts);
+
+    displayResults(uniqueProducts);
+  }   else {
+    // If search bar is empty, clear results
+    displayResults([]);
+  }
+}
 
   //function to only load unique product ids on the product grid
     function getUniqueByProductId(products) {
@@ -56,24 +85,10 @@ function search() {
     });
     }
 
-
-  // Proceed with the search once loading is complete
-  const searchTerm = document.getElementById("search-input").value.toLowerCase();
-  if (searchTerm !== "") {
-    const filteredProducts = cachedProducts.filter(product =>
-      product["product name"].toLowerCase().includes(searchTerm)
-    );
-
-    // Then, get only unique product ids
-    const uniqueProducts = getUniqueByProductId(filteredProducts);
-
-    displayResults(uniqueProducts);
-  }   
-}
-
 function displayResults(results) {
   const resultContainer = document.getElementById("results");
-  resultContainer.innerHTML = "";
+  if (!resultContainer) return; // Exit if container is not found
+   resultContainer.innerHTML= ""
 
   if (results.length === 0) {
     resultContainer.innerHTML = "<p>No products found.</p>";
@@ -196,6 +211,15 @@ document.addEventListener("DOMContentLoaded", () => {
                 navLinksBurger.classList.remove("open");
               });
             });
+
+            // Add new click handler for clicking outside
+            document.addEventListener("click", (event) => {
+              if (!event.target.closest("#burger-menu") && 
+                  !event.target.closest(".burger-nav-links") && 
+                  navLinksBurger.classList.contains("open")) {
+                  navLinksBurger.classList.remove("open");
+          }
+        });
           }
         // --- End burger menu toggle ---
 
@@ -213,6 +237,16 @@ document.addEventListener("DOMContentLoaded", () => {
               search();
             }
           });
+          
+          searchInput.addEventListener("focus", search);
+          searchInput.addEventListener("input", debounceSearch);
+          searchInput.addEventListener("keydown", (event) => {
+            if (event.key === "Enter") {
+              event.preventDefault();
+              search();
+            }
+          });
+  
           // Optionally, hide input when it loses focus
           searchInput.addEventListener('blur', () => {
             if (window.innerWidth <= 900) {
@@ -232,17 +266,6 @@ document.addEventListener("DOMContentLoaded", () => {
           console.error("searchInput or resultContainer not found after loading navbar");
           return;
         }
-
-        // Add event listener for input changes
-        searchInput.addEventListener("input", debounceSearch);
-
-        // Trigger search on Enter key press
-        searchInput.addEventListener("keydown", (event) => {
-          if (event.key === "Enter") {
-            event.preventDefault(); // Prevent default behavior (e.g., form submission)
-            search(); // Trigger the search function
-          }
-        });
         
         // Hide search results when clicking outside the search input or results
         document.addEventListener("click", (event) => {          
