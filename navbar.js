@@ -211,6 +211,15 @@ document.addEventListener("DOMContentLoaded", () => {
                 navLinksBurger.classList.remove("open");
               });
             });
+
+            // Add new click handler for clicking outside
+            document.addEventListener("click", (event) => {
+              if (!event.target.closest("#burger-menu") && 
+                  !event.target.closest(".burger-nav-links") && 
+                  navLinksBurger.classList.contains("open")) {
+                  navLinksBurger.classList.remove("open");
+          }
+        });
           }
         // --- End burger menu toggle ---
 
