@@ -300,94 +300,101 @@ document.addEventListener('DOMContentLoaded', () => {
   // Optional: Handle the final checkout button click
   if (finalCheckoutButton) {
     finalCheckoutButton.addEventListener('click', async function() {
-      const method = finalCheckoutButton.dataset.method;
-      if (method === 'pay-card') {
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-        cart = cart.map(item => ({
-          id: item.id,
-          name: item.name,
-          price: Number(item.price),
-          weight: item.weight,
-          unit: item.unit, // <-- This must be present and correct!
-          quantity: item.quantity || 1
-        }));
+      const overlay = document.getElementById('please-wait-overlay');
+      if (overlay) overlay.style.display = 'flex'; // Show overlay
 
-        // Calculate shipping
-        const shippingMethod = localStorage.getItem('selectedShippingMethod') || 'standard';
-        let shippingCost = 0;
-        const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-        if (subtotal >= 100) {
-          shippingCost = shippingMethod === 'standard' ? 0 : 5.00;
-        } else {
-          shippingCost = shippingMethod === 'standard' ? 10.95 : 14.45;
-        }
+      try {
+        const method = finalCheckoutButton.dataset.method;
+        if (method === 'pay-card') {
+          let cart = JSON.parse(localStorage.getItem('cart')) || [];
+          cart = cart.map(item => ({
+            id: item.id,
+            name: item.name,
+            price: Number(item.price),
+            weight: item.weight,
+            unit: item.unit, // <-- This must be present and correct!
+            quantity: item.quantity || 1
+          }));
 
-        const response = await fetch('/.netlify/functions/create-checkout-session', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ cart, shippingCost, shippingMethod }),
-        });
-        const text = await response.text();
-        let data;
-        try {
-          data = JSON.parse(text);
-        } catch (e) {
-          alert('Checkout failed: Invalid server response');
-          return;
-        }
-        if (!data.id) {
-          alert('Checkout failed: ' + (data.error || 'No session ID returned.'));
-          return;
-        }
-        const stripe = Stripe('pk_test_51RSrS62LkmYKgi6mvADvrSFydOLBRaVVyniXGlSLPIxQoHEXnTXd7sVcnUzxBGaplW6Tyd1WSBuDk4lYrTUXNphM00pn9Kv2mg');
-        stripe.redirectToCheckout({ sessionId: data.id });
-      } else if (method === 'pay-paypal') {
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-        cart = cart.map(item => ({
-          id: item.id,
-          name: item.name,
-          price: Number(item.price),
-          weight: item.weight,
-          unit: item.unit, // <-- This must be present and correct!
-          quantity: item.quantity || 1
-        }));
+          // Calculate shipping
+          const shippingMethod = localStorage.getItem('selectedShippingMethod') || 'standard';
+          let shippingCost = 0;
+          const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+          if (subtotal >= 100) {
+            shippingCost = shippingMethod === 'standard' ? 0 : 5.00;
+          } else {
+            shippingCost = shippingMethod === 'standard' ? 10.95 : 14.45;
+          }
 
-        // Calculate shipping
-        const shippingMethod = localStorage.getItem('selectedShippingMethod') || 'standard';
-        let shippingCost = 0;
-        const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-        if (subtotal >= 100) {
-          shippingCost = shippingMethod === 'standard' ? 0 : 5.00;
-        } else {
-          shippingCost = shippingMethod === 'standard' ? 10.95 : 14.45;
-        }
+          const response = await fetch('/.netlify/functions/create-checkout-session', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ cart, shippingCost, shippingMethod }),
+          });
+          const text = await response.text();
+          let data;
+          try {
+            data = JSON.parse(text);
+          } catch (e) {
+            alert('Checkout failed: Invalid server response');
+            return;
+          }
+          if (!data.id) {
+            alert('Checkout failed: ' + (data.error || 'No session ID returned.'));
+            return;
+          }
+          const stripe = Stripe('pk_test_51RSrS62LkmYKgi6mvADvrSFydOLBRaVVyniXGlSLPIxQoHEXnTXd7sVcnUzxBGaplW6Tyd1WSBuDk4lYrTUXNphM00pn9Kv2mg');
+          stripe.redirectToCheckout({ sessionId: data.id });
+        } else if (method === 'pay-paypal') {
+          let cart = JSON.parse(localStorage.getItem('cart')) || [];
+          cart = cart.map(item => ({
+            id: item.id,
+            name: item.name,
+            price: Number(item.price),
+            weight: item.weight,
+            unit: item.unit, // <-- This must be present and correct!
+            quantity: item.quantity || 1
+          }));
 
-        // Call your backend to create the PayPal order
-        const response = await fetch('/.netlify/functions/create-paypal-order', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ cart, shippingCost, shippingMethod }),
-        });
-        const data = await response.json();
-        if (!data.approvalUrl) {
-          alert('PayPal checkout failed: ' + (data.error || 'No approval URL returned.'));
-          return;
+          // Calculate shipping
+          const shippingMethod = localStorage.getItem('selectedShippingMethod') || 'standard';
+          let shippingCost = 0;
+          const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+          if (subtotal >= 100) {
+            shippingCost = shippingMethod === 'standard' ? 0 : 5.00;
+          } else {
+            shippingCost = shippingMethod === 'standard' ? 10.95 : 14.45;
+          }
+
+          // Call your backend to create the PayPal order
+          const response = await fetch('/.netlify/functions/create-paypal-order', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ cart, shippingCost, shippingMethod }),
+          });
+          const data = await response.json();
+          if (!data.approvalUrl) {
+            alert('PayPal checkout failed: ' + (data.error || 'No approval URL returned.'));
+            return;
+          }
+          // Redirect to PayPal
+          window.location.href = data.approvalUrl;
+        } else if (method === 'pay-bank') {
+          // Show the modal/section for bank transfer
+          document.getElementById('bank-transfer-modal').style.display = 'block';
+          // Optionally, fill in the order summary
+          const cart = JSON.parse(localStorage.getItem('cart')) || [];
+          let summaryHtml = '<ul>';
+          cart.forEach(item => {
+            summaryHtml += `<li>${item.name} x${item.quantity} - $${(item.price * item.quantity).toFixed(2)}</li>`;
+          });
+          summaryHtml += '</ul>';
+          document.getElementById('bank-order-summary').innerHTML = summaryHtml;
         }
-        // Redirect to PayPal
-        window.location.href = data.approvalUrl;
-      } else if (method === 'pay-bank') {
-        // Show the modal/section for bank transfer
-        document.getElementById('bank-transfer-modal').style.display = 'block';
-        // Optionally, fill in the order summary
-        const cart = JSON.parse(localStorage.getItem('cart')) || [];
-        let summaryHtml = '<ul>';
-        cart.forEach(item => {
-          summaryHtml += `<li>${item.name} x${item.quantity} - $${(item.price * item.quantity).toFixed(2)}</li>`;
-        });
-        summaryHtml += '</ul>';
-        document.getElementById('bank-order-summary').innerHTML = summaryHtml;
+        // ...handle other payment methods...
+      } finally {
+        if (overlay) overlay.style.display = 'none'; // Hide overlay when done (success or error)
       }
-      // ...handle other payment methods...
     });
   }
 
