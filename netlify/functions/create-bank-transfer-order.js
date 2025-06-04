@@ -50,12 +50,12 @@ exports.handler = async (event) => {
     const total = itemsTotal + validatedShippingCost;
 
     // Generate reference number
-    const reference = 'OGM-' + Date.now();
+    const reference = 'OGM-' + Math.floor(100000 + Math.random() * 900000); // 6 digits
 
     // Compose order summary
     const orderSummary = [
       ...validatedCart.map(item =>
-        `${item.name} x${item.quantity} – $${(item.price * item.quantity).toFixed(2)}`
+        `${item.name} (ID: ${item.id}) x${item.quantity} – $${(item.price * item.quantity).toFixed(2)}`
       ),
       `Shipping (${shippingMethod === 'express' ? 'Express' : 'Standard'}) – $${validatedShippingCost.toFixed(2)}`
     ].join('\n');
@@ -95,7 +95,7 @@ Please use the reference number above when making your transfer.
   <hr>
   <table style="margin-top:20px;">
     <tr>
-      <td style="vertical-align:top;padding-right:12px;">
+      <td style="vertical-align:middle;padding-right:12px;">
         <img src="https://outbackgems.com.au/images/favicon.png" alt="Outback Gems Logo" style="height:48px;width:48px;border-radius:8px;">
       </td>
       <td style="vertical-align:top;">

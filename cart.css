@@ -602,6 +602,17 @@ footer >div{
   }
 }
 
+/* Responsive modal for bank transfer (and all modals) */
+@media (max-width: 900px) {
+  .modal-content {
+    width: 80% !important;
+    max-width: 98vw;
+    margin-top: 40px !important;
+    margin-bottom: 40px !important;
+    padding: 1em !important;
+  }
+}
+
 @media (max-width: 600px) {
   .cart-buttons button{
     width: 100%;
