@@ -343,7 +343,7 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('Checkout failed: ' + (data.error || 'No session ID returned.'));
             return;
           }
-          const stripe = Stripe('pk_test_51RSrS62LkmYKgi6mvADvrSFydOLBRaVVyniXGlSLPIxQoHEXnTXd7sVcnUzxBGaplW6Tyd1WSBuDk4lYrTUXNphM00pn9Kv2mg');
+          const stripe = Stripe('pk_live_51RSrS62LkmYKgi6m273LNQSjpKI8SnxNtiQMGcHijiiL3eliZZzqKDR00BL8uNlwYFloGGO3kyNQJKctTvEK4eB000e8dIlEQd');
           stripe.redirectToCheckout({ sessionId: data.id });
         } else if (method === 'pay-paypal') {
           let cart = JSON.parse(localStorage.getItem('cart')) || [];
