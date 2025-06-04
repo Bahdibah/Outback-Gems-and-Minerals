@@ -33,6 +33,7 @@ exports.handler = async (event) => {
       if (!Number.isInteger(item.quantity) || item.quantity < 1) throw new Error(`Invalid quantity for: ${item.id}`);
       if (product.stock && item.quantity > product.stock) throw new Error(`Not enough stock for: ${item.id}`);
       return {
+        id: item.id, // <-- Add this line
         name: `${product["product name"]} (${product["weight"]}${product["unit"] || ""})`,
         price,
         quantity: item.quantity,
