@@ -11,7 +11,7 @@
   </div>
 
   <div class="navbar-middle">
-    <button class="burger" id="burger-menu" aria-label="Open navigation">
+    <button class="burger" id="burger-menu" aria-label="Open navigation" aria-expanded="false">
       <span></span>
       <span></span>
       <span></span>
@@ -33,9 +33,9 @@
   </div>
 
   <div class="navbar-right">
-    <div class="navbar-search">
-      <input id="search-input" class="navbar-search-input" data-navbar-search-input="true" type="text" placeholder="Search..." />
-      <button id="search-button" class="navbar-search-btn" data-navbar-search="true">
+    <div class="navbar-search" role="search" aria-label="Site search">
+      <input id="search-input" class="navbar-search-input" data-navbar-search-input="true" type="text" placeholder="Search..." aria-label="Search products" />
+      <button id="search-button" class="navbar-search-btn" data-navbar-search="true" aria-label="Submit search">
         <i class="fa fa-search"></i>
 </button>
       <div class="search-results-container" id="search-results-container">

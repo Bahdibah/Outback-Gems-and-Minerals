@@ -29,11 +29,11 @@
       <div class="shipping-options">
         <p>How do you want this delivered?</p>
         <label>
-          <input type="radio" name="shipping" value="standard" checked />
+          <input type="radio" name="shipping" value="standard" checked aria-label="Standard shipping"/>
           Standard Post
         </label>
         <label>
-          <input type="radio" name="shipping" value="express" />
+          <input type="radio" name="shipping" value="express" aria-label="Express shipping"/>
           Express Post
         </label>
         <p class="free-shipping-note">Free shipping is automatically applied for orders over $100.</p>
@@ -81,7 +81,7 @@
       </div>
 
       <!-- Payment Options Box (hidden by default) -->
-      <div id="payment-options-box" style="display: none;">
+      <div id="payment-options-box" style="display: none;" role="dialog" aria-labelledby="payment-options-title">
         <h2 class="payment-options-title">Choose Your Payment Method</h2>
         <div class="payment-options-row">
           <div class="payment-option" id="pay-card">
