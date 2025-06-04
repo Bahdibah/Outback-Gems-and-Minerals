@@ -94,8 +94,8 @@ exports.handler = async (event) => {
           items
         }],
         application_context: {
-          return_url: 'https://outbackgems.netlify.app/thankyou.html',
-          cancel_url: 'https://outbackgems.netlify.app/cancel.html',
+          return_url: 'https://outbackgems.com.au/thankyou.html',
+          cancel_url: 'https://outbackgems.com.au/cancel.html',
           shipping_preference: "GET_FROM_FILE"
         }
       })
@@ -117,6 +117,10 @@ exports.handler = async (event) => {
   } catch (error) {
     return {
       statusCode: 500,
+      headers: {
+        "Access-Control-Allow-Origin": "https://outbackgems.com.au",
+        "Access-Control-Allow-Headers": "Content-Type",
+      },
       body: JSON.stringify({ error: error.message }),
     };
   }

@@ -91,8 +91,8 @@ exports.handler = async (event) => {
       phone_number_collection: {
         enabled: true
       },
-      success_url: 'https://outbackgems.netlify.app/thankyou.html',
-      cancel_url: 'https://outbackgems.netlify.app/cancel.html',
+      success_url: 'https://outbackgems.com.au/thankyou.html',
+      cancel_url: 'https://outbackgems.com.au/cancel.html',
     });
 
     const orderSummary = [
@@ -117,6 +117,10 @@ exports.handler = async (event) => {
     console.error('Stripe error:', error);
     return {
       statusCode: 500,
+      headers: {
+        "Access-Control-Allow-Origin": "https://outbackgems.com.au",
+        "Access-Control-Allow-Headers": "Content-Type",
+      },
       body: JSON.stringify({ error: error.message }),
     };
   }

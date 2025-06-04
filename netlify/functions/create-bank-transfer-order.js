@@ -83,7 +83,7 @@ Please use the reference number above when making your transfer.
   <table style="margin-top:20px;">
     <tr>
       <td style="vertical-align:top;padding-right:12px;">
-        <img src="https://yourdomain.com/images/favicon.png" alt="Outback Gems Logo" style="height:48px;width:48px;border-radius:8px;">
+        <img src="https://outbackgems.com.au/images/favicon.png" alt="Outback Gems Logo" style="height:48px;width:48px;border-radius:8px;">
       </td>
       <td style="vertical-align:top;">
         <div style="font-size:1.1em;color:#cc5500;font-weight:bold;">Customer Support</div>
@@ -124,7 +124,11 @@ Please use the reference number above when making your transfer.
   } catch (error) {
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: error.message })
+      headers: {
+        "Access-Control-Allow-Origin": "https://outbackgems.com.au",
+        "Access-Control-Allow-Headers": "Content-Type",
+      },
+      body: JSON.stringify({ error: error.message }),
     };
   }
 };
