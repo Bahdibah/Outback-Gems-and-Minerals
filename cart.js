@@ -326,7 +326,7 @@ document.addEventListener('DOMContentLoaded', () => {
             shippingCost = shippingMethod === 'standard' ? 10.95 : 14.45;
           }
 
-          const response = await fetch('/.netlify/functions/create-checkout-session', {
+          const response = await fetch('https://outbackgems.netlify.app/.netlify/functions/create-checkout-session', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ cart, shippingCost, shippingMethod }),
@@ -367,7 +367,7 @@ document.addEventListener('DOMContentLoaded', () => {
           }
 
           // Call your backend to create the PayPal order
-          const response = await fetch('/.netlify/functions/create-paypal-order', {
+          const response = await fetch('https://outbackgems.netlify.app/.netlify/functions/create-paypal-order', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ cart, shippingCost, shippingMethod }),
@@ -408,7 +408,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const shippingMethod = localStorage.getItem('selectedShippingMethod') || 'standard';
 
     // Send to Netlify function
-    const response = await fetch('/.netlify/functions/create-bank-transfer-order', {
+    const response = await fetch('https://outbackgems.netlify.app/.netlify/functions/create-bank-transfer-order', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ cart, shippingMethod, customerEmail: email }),

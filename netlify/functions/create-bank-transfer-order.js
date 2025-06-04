@@ -108,6 +108,11 @@ Please use the reference number above when making your transfer.
 
     return {
       statusCode: 200,
+      headers: {
+        "Access-Control-Allow-Origin": "https://outbackgems.com.au",
+        "Access-Control-Allow-Headers": "Content-Type",
+        // ...other headers as needed
+      },
       body: JSON.stringify({
         reference,
         bankDetails,
