@@ -41,15 +41,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "Failed to send email. Please try again later.";
         }
     } else {
-        // Display errors
-        echo "The form contains the following errors:<br>";
-        foreach ($errors as $error) {
-            echo "- $error<br>";
-        }
-    }
-} else {
-    // Not a POST request, display a 403 forbidden error
-    header("HTTP/1.1 403 Forbidden");
-    echo "You are not allowed to access this page.";
-}
-?>
+    // Format errors as a single string
+    echo "The form contains the following errors:\n" . implode("\n", $errors);
