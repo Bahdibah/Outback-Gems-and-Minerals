@@ -99,29 +99,7 @@
       document.getElementById("home").style.backgroundImage = `url('${images[current]}')`;
     }, 15000); // Change image every 15 seconds
 
-    // Add contact form handling
-    document.getElementById('contact-form').addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const formData = new FormData(this);
-        
-        fetch('form-to-email.php', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.text())
-        .then(data => {
-            alert(data); // Show response in alert
-            if (data === "Email sent successfully!") {
-                document.getElementById('contact-form').reset(); // Clear form
-            }
-        })
-        .catch(error => {
-            alert('An error occurred. Please try again later.');
-            console.error('Error:', error);
-        });
-    });
-</script>
+ </script>   
 
 
 </body>
