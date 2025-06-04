@@ -99,11 +99,20 @@ Please use the reference number above when making your transfer.
     // Send email with Resend
     const resend = new Resend(process.env.RESEND_API_KEY);
 
+    // Send to customer
     await resend.emails.send({
       from: 'Outback Gems <support@outbackgems.com.au>',
       to: customerEmail,
       subject: 'Your Outback Gems & Minerals Order - Bank Transfer Details',
-      html: emailBodyHtml // Use html instead of text
+      html: emailBodyHtml
+    });
+
+    // Send to business
+    await resend.emails.send({
+      from: 'Outback Gems <support@outbackgems.com.au>',
+      to: 'support@outbackgems.com.au',
+      subject: 'NEW Bank Transfer Order Received',
+      html: emailBodyHtml
     });
 
     return {
