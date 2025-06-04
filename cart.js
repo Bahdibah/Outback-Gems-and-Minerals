@@ -381,7 +381,7 @@ document.addEventListener('DOMContentLoaded', () => {
           window.location.href = data.approvalUrl;
         } else if (method === 'pay-bank') {
           // Show the modal/section for bank transfer
-          document.getElementById('bank-transfer-modal').style.display = 'block';
+          document.getElementById('bank-transfer-modal').style.display = 'flex';
           // Optionally, fill in the order summary
           const cart = JSON.parse(localStorage.getItem('cart')) || [];
           let summaryHtml = '<ul>';
