@@ -608,29 +608,35 @@ footer >div{
 /* Responsive modal for bank transfer (and all modals) */
 @media (max-width: 900px) {
   #bank-transfer-modal .modal-content,
-  .modal-content {
+  .modal-content,
+  div.modal-content {
     width: 80% !important;
-    max-width: 98vw;
-    margin-top: 60px !important; /* or more if needed */
+    max-width: 80% !important;
+    margin-top: 60px !important;
     margin-bottom: 40px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
     padding: 1em !important;
+    box-sizing: border-box !important;
   }
 }
 
 @media (max-width: 600px) {
-  .cart-buttons button{
+  .cart-buttons button {
     width: 100%;
   }
 }
 
 /* Additional styles for very small screens */
 @media (max-width: 425px) {
-  .modal-content {
-    width: 96vw !important;
-    max-width: 98vw !important;
+  #bank-transfer-modal .modal-content,
+  .modal-content,
+  div.modal-content {
+    width: 80% !important;
+    max-width: 80% !important;
     margin-left: auto !important;
     margin-right: auto !important;
-    margin-top: 80px !important; /* or more if needed */
+    margin-top: 40px !important;
     margin-bottom: 16px !important;
     padding: 8px !important;
     box-sizing: border-box !important;
