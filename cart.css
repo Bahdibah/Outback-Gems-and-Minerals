@@ -642,3 +642,38 @@ footer >div{
     box-sizing: border-box !important;
   }
 }
+
+/* Universal modal content width and text wrapping */
+#bank-transfer-modal .modal-content,
+.modal-content,
+div.modal-content {
+  width: 80% !important;
+  max-width: 80% !important;
+  min-width: unset !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  box-sizing: border-box !important;
+  word-break: break-word !important;
+  white-space: normal !important;
+  overflow-wrap: break-word !important;
+}
+
+/* Responsive vertical spacing for modal */
+@media (max-width: 900px) {
+  #bank-transfer-modal .modal-content,
+  .modal-content,
+  div.modal-content {
+    margin-top: 60px !important;
+    margin-bottom: 40px !important;
+    padding: 1em !important;
+  }
+}
+@media (max-width: 425px) {
+  #bank-transfer-modal .modal-content,
+  .modal-content,
+  div.modal-content {
+    margin-top: 40px !important;
+    margin-bottom: 16px !important;
+    padding: 8px !important;
+  }
+}
