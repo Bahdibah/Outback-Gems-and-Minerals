@@ -24,9 +24,9 @@
     <div class="view-product-page-layout">
   <div id="side-menu-container"></div>
   <div class="view-product-container">
-    <div class="view-product-detail">
+    <div class="view-product-detail" aria-label="Product details">
       <div class="view-product-header-container">
-        <h1 id="view-product-name" class="view-product-title">Loading...</h1>
+        <h1 id="view-product-name" class="view-product-title" aria-live="polite">Loading...</h1>
       </div>
       <div class="divider"></div>
       <div class="view-product-main">
@@ -83,7 +83,7 @@
   </footer>
 
     <!-- Pop-out image overlay -->
-    <div id="image-modal-overlay">
+    <div id="image-modal-overlay" aria-expanded>
   <div class="image-modal-content">
     <span class="image-modal-close"><i class="fa fa-times" aria-hidden="true"></i></span>
     <img id="image-modal-img" src=" " alt="Enlarged product image" />

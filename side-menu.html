@@ -1,31 +1,31 @@
-<div class="side-menu" id="side-menu">
+<div class="side-menu" id="side-menu" aria-label="Category navigation">
  
-  <div class="category-card" id="synthetic-card" style="background-image: url('images/side menu/Synthetic.jfif');">
+  <div class="category-card" id="synthetic-card" style="background-image: url('images/side menu/Synthetic.jfif');" role="region" aria-label="Synthetic products category">
     <div class="category-overlay">
       <span class="category-title side-menu-toggle" data-category="synthetic">Synthetic Products</span>
-      <button class="category-expand" type="button">&#9662;</button>
+      <button class="category-expand" type="button" aria-expanded="false" aria-controls="synthetic-subcategories" aria-label="Expand synthetic products menu">&#9662;</button>
     </div>
-    <ul class="subcategory-list" id="synthetic-subcategories">
+    <ul class="subcategory-list" id="synthetic-subcategories" role="list" aria-label="Synthetic product subcategories">
       <!-- Synthetic subcategories will be loaded here -->
     </ul>
   </div>
   
-  <div class="category-card" id="natural-card" style="background-image: url('images/side menu/Natural.jfif');">
+  <div class="category-card" id="natural-card" style="background-image: url('images/side menu/Natural.jfif');" role="region" aria-label="Synthetic products category">
     <div class="category-overlay">
       <span class="category-title side-menu-toggle" data-category="natural">Natural Products</span>
-      <button class="category-expand" type="button">&#9662;</button>
+      <button class="category-expand" type="button" aria-expanded="false" aria-controls="synthetic-subcategories" aria-label="Expand synthetic products menu">&#9662;</button>
     </div>
-    <ul class="subcategory-list" id="natural-subcategories">
+    <ul class="subcategory-list" id="natural-subcategories" role="list" aria-label="Synthetic product subcategories">
       <!-- Natural subcategories will be loaded here -->
     </ul>
   </div>
   
-  <div class="category-card" id="other-card" style="background-image: url('images/side menu/Other.jfif');">
+  <div class="category-card" id="other-card" style="background-image: url('images/side menu/Other.jfif');" role="region" aria-label="Synthetic products category">
     <div class="category-overlay">
       <span class="category-title side-menu-toggle" data-category="other">Other Products</span>
-      <button class="category-expand" type="button">&#9662;</button>
+      <button class="category-expand" type="button" aria-expanded="false" aria-controls="synthetic-subcategories" aria-label="Expand synthetic products menu">&#9662;</button>
     </div>
-    <ul class="subcategory-list" id="other-subcategories">
+    <ul class="subcategory-list" id="other-subcategories" role="list" aria-label="Synthetic product subcategories">
       <!-- Other subcategories will be loaded here -->
     </ul>
   </div>
@@ -38,7 +38,7 @@
     </div>
   </div>
 
-  <div class="side-menu-close-bar" id="side-menu-close-bar">
+  <div class="side-menu-close-bar" id="side-menu-close-bar"  role="button" aria-label="Close category menu" tabindex="0">
     <span class="side-menu-close-arrow">&#x25C0;</span>
   </div>
 </div>

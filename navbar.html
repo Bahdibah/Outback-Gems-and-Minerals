@@ -1,4 +1,4 @@
-<nav>
+<nav role="navigation">
   <div class="navbar-left">
     <div class="main-logo">
       <a href="index.html">
@@ -11,19 +11,19 @@
   </div>
 
   <div class="navbar-middle">
-    <button class="burger" id="burger-menu" aria-label="Open navigation" aria-expanded="false">
+    <button class="burger" id="burger-menu" aria-label="Open navigation" aria-controls="burger-nav-links" aria-expanded="false">
       <span></span>
       <span></span>
       <span></span>
     </button>
-    <ul class="nav-links">
+    <ul class="nav-links" role="list">
       <li><a href="index.html">Home</a></li>
       <li><a href="synthetic.html">Synthetic<br>Rough</a></li>
       <li><a href="natural.html">Natural<br>Rough</a></li>
       <li><a href="other.html">Other<br>Products</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
-    <ul class="burger-nav-links">
+    <ul class="burger-nav-links" role="list">
       <li><a href="index.html">Home</a></li>
       <li><a href="synthetic.html">Synthetic Rough</a></li>
       <li><a href="natural.html">Natural Rough</a></li>
@@ -38,12 +38,12 @@
       <button id="search-button" class="navbar-search-btn" data-navbar-search="true" aria-label="Submit search">
         <i class="fa fa-search"></i>
 </button>
-      <div class="search-results-container" id="search-results-container">
+      <div class="search-results-container" id="search-results-container" aria-expanded="false">
         <ul id="results" class="search-results"></ul>
       </div>
     </div>
     <ul>
-      <li class="cart-dropdown">
+      <li class="cart-dropdown" aria-live="polite">
         <a href="cart.html" class="cart-link" style="position:relative;">
           <i class="fa fa-shopping-cart" aria-hidden="true" style="color:white"></i>
           <span id="cart-count" style="background-color: red; color: white; border-radius: 50%; padding: 2px 6px; font-size: 12px; position: absolute; top: 5px; right: 5px;">0</span>

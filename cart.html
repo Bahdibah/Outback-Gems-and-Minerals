@@ -26,7 +26,7 @@
       </h1>
       
       <!-- Shipping Options -->
-      <div class="shipping-options">
+      <div class="shipping-options" aria-label="Shipping method selection">
         <p>How do you want this delivered?</p>
         <label>
           <input type="radio" name="shipping" value="standard" checked aria-label="Standard shipping"/>
@@ -81,7 +81,7 @@
       </div>
 
       <!-- Payment Options Box (hidden by default) -->
-      <div id="payment-options-box" style="display: none;" role="dialog" aria-labelledby="payment-options-title">
+      <div id="payment-options-box" style="display: none;" role="dialogue" aria-labelledby="payment-options-title">
         <h2 class="payment-options-title">Choose Your Payment Method</h2>
         <div class="payment-options-row">
           <div class="payment-option" id="pay-card">
@@ -118,7 +118,7 @@
       </div>
 
       <!-- Order Confirmation Modal (newly added) -->
-      <div id="order-confirmation-modal" class="modal-overlay" style="display:none;">
+      <div id="order-confirmation-modal" class="modal-overlay" style="display:none;" aria-live="assertive">
         <div class="modal-content">
           <h2 class="modal-title">Order Placed!</h2>
           <p class="modal-instructions">
@@ -147,9 +147,9 @@ Account Number: 1104 2381
   </div>
 
   <!-- Please Wait Overlay -->
-<div id="please-wait-overlay" style="display:none; position:fixed; z-index:9999; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.7); color:#fff; font-size:2em; align-items:center; justify-content:center;">
+<div id="please-wait-overlay" style="display:none; position:fixed; z-index:9999; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.7); color:#fff; font-size:2em; align-items:center; justify-content:center;" aria-describedby="please-wait-content">
   <div>
-    <span style="margin-right: 12px;">⏳</span>
+    <span style="margin-right: 12px;" id="please-wait-content">⏳</span>
     Please wait, this may take a few moments...
   </div>
 </div>
