@@ -619,3 +619,17 @@ footer >div{
     width: 100%;
   }
 }
+
+/* Additional styles for very small screens */
+@media (max-width: 425px) {
+  .modal-content {
+    width: 96vw !important;
+    max-width: 98vw !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    margin-top: 16px !important;
+    margin-bottom: 16px !important;
+    padding: 8px !important;
+    box-sizing: border-box !important;
+  }
+}
