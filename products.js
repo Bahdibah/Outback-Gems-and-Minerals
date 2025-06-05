@@ -26,7 +26,34 @@ fetch("side-menu.html")
       return urlParams.get(param);
     }
 
+    // Add this function after the getQueryParam function in products.js
+    // Combine your duplicate setupCanonicalUrl function references
+    function setupCanonicalUrl() {
+      const categoryKeyword = getQueryParam("category");
+      
+      // Find existing canonical link or create a new one
+      let canonicalLink = document.querySelector('link[rel="canonical"]');
+      if (!canonicalLink) {
+        canonicalLink = document.createElement('link');
+        canonicalLink.rel = 'canonical';
+        document.head.appendChild(canonicalLink);
+      }
+      
+      // Set the appropriate URL based on whether there's a category
+      if (!categoryKeyword) {
+        // Base products page with no category
+        canonicalLink.href = 'https://www.outbackgems.com.au/products.html';
+      } else {
+        // For specific category pages, include the category in the canonical URL
+        canonicalLink.href = `https://www.outbackgems.com.au/products.html?category=${encodeURIComponent(categoryKeyword)}`;
+      }
+    }
+
     const categoryKeyword = getQueryParam("category");
+
+    // Add this line after:
+    // const categoryKeyword = getQueryParam("category");
+    setupCanonicalUrl();
 
     if (categoryKeyword) {
       loadProductsByCategory(categoryKeyword);
@@ -42,6 +69,7 @@ fetch("side-menu.html")
         // Update the URL dynamically without reloading the page
         const newUrl = `${window.location.pathname}?category=${encodeURIComponent(categoryKeyword)}`;
         history.pushState({ category: categoryKeyword }, "", newUrl);
+        setupCanonicalUrl(); // Update the canonical URL
         loadProductsByCategory(categoryKeyword);
       });
     });

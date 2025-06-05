@@ -24,17 +24,21 @@ width: 100%;
 #page-wrapper {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  height: auto;
   padding-top: var(--navbar-height); /* This adds space at the top for the fixed navbar */
 }
 
 /* page layout for main products page (body container)*/
 .page-layout {
   display: flex;
-  flex-direction: row;
-  align-items: flex-start;
+  flex-direction: column;
+  align-items: center;
   width: 100%;
-  margin-bottom: 5%;
+  /* Remove fixed height constraints */
+  min-height: auto;
+  position: relative;
+  /* This ensures the container expands to fit its content */
+  overflow: visible;
 }
 
 section {
@@ -50,7 +54,7 @@ section {
   align-items: center;
   transition: background-image 1s ease-in-out;
   Max-width: 100%;  
-  background-size: cover !important;
+  background-size: 100% 100% !important;
   background-position: center center !important;
   background-repeat: no-repeat !important;
   height: 30vh;  
@@ -69,7 +73,7 @@ section {
   border: #cc5500 3px solid;
   text-align: center;
 }
-.hero-overlay h2 {
+.hero-overlay h1 {
   font-size: 2rem; 
   font-weight: bold;
   margin-bottom: 15px;
@@ -113,36 +117,38 @@ section {
   font-weight: bold;
 }
 
-button:hover, .button:hover {
+.view-all-button:hover, .product-button:hover {
   background-color: #ff7f33;
   transform: scale(1.04) translateY(-1px);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.35), 0 0 8px rgba(255, 127, 51, 0.5);
 }
 
-button:active, .button:active {
+.view-all-button:active, .product-button:active {
   background-color: #b34700;
   transform: scale(0.98) translateY(0);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .view-all-button {
-  width: auto;
-  min-width: 0;
-  max-width: 100%;
-  padding: 12px 28px;
-  margin: 40px auto 0 auto;
   display: block;
+  text-decoration: none;
+  color: #fff;
+  background: #cc5500;
+  padding: 12px 28px;
+  /* Use a reasonable default margin */
+  margin: 40px auto 40px auto; 
   font-size: 1.1rem;
   font-weight: bold;
-  background: #cc5500;
-  color: #fff;
   border: none;
   border-radius: 6px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
   cursor: pointer;
-  transition: background 0.2s, transform 0.2s;
   text-align: center;
   white-space: nowrap;
+  transition: background 0.2s, transform 0.2s;
+  position: relative;
+  z-index: 2; 
+  clear: both;
 }
 
 .view-all-button:hover {
@@ -167,7 +173,11 @@ footer {
     flex-direction: row;
     gap: 5%;
     width: 100%;
-    margin-top: 2%;
+    /* Add this to ensure spacing from other content */
+    margin-top: 50px;
+    padding-top: 30px;
+    position: relative;
+    z-index: 2;
 }
 
 footer >div{
@@ -202,33 +212,27 @@ footer >div{
 }
 
 /* Container for the dynamic product cards */
-#product-container {
-  display: flex;
-  flex-wrap: wrap; /* Enables wrapping into new rows */
-  gap: 3%; /* Same spacing as before */
+.product-card-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6%; /* Same spacing as before */
   padding: 20px;
-  height: fit-content;
-  min-height: 150vh;
+  height: auto;
   width: 90%;
-  margin: 0 3% 3% auto;
+  margin: 50px 5% 50px 5%;;
   box-sizing: border-box;
   align-items: flex-start;
-  height: fit-content;
-  min-height: 150vh;
-  justify-content: center; /* Center the cards horizontally */
+  justify-content: center; /* Center the cards horizontally */  
+  /* Add this to ensure container extends to hold all cards */
+  overflow: visible;
+  /* Fix positioning in the layout flow */
+  position: relative;
+  z-index: 1;
 }
 
 .product-header-container, .product-description-container {
   flex: 0 0 100%;
   font-size: 4rem;
-}
-
-.product-card-container {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 6%;
-  margin: 50px 10%;
-  justify-items: center;
 }
 
 .product-header-title {
@@ -265,6 +269,7 @@ font-size: 4.5rem;
   font-weight: bold;
   }
 
+
 /* Dynamic Product Card Styling */
 .product-card {
   display: flex;
@@ -278,12 +283,13 @@ font-size: 4.5rem;
   border: 3px solid #cc5500;
   box-sizing: border-box;
   width: 100%;
-  height: auto;
+  height: auto; /* Add this to allow dynamic height */
   background-size: cover !important;
   background-repeat: no-repeat !important;
   background-position: center !important;
   position: relative;
-  overflow: hidden;
+  overflow: hidden; /* Add this to prevent content overflow */
+  min-height: 300px; /* Provides minimum height for all cards */
 }
 
 /* Heading Styling */
@@ -300,6 +306,10 @@ font-size: 4.5rem;
   margin-bottom: 10px;
   max-width: 90%;
   word-wrap: break-word;
+  min-height: 3.5rem; /* Provides consistent height for titles */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Text Styling */
@@ -313,6 +323,10 @@ font-size: 4.5rem;
   max-height: 6rem;
   overflow: hidden;
   text-overflow: ellipsis;
+  min-height: 4.5rem; /* Ensures consistent space */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
 }
 
 /* CTA Button Styling */
@@ -320,7 +334,8 @@ font-size: 4.5rem;
   width: auto;
   min-width: 120px;
   padding: 10px 24px;
-  margin-top: 10px;
+  margin-top: auto; /* Add this to push button to bottom */
+  margin-bottom: 10px; /* Add this for spacing at bottom */
   font-size: 1.1rem;
   font-weight: bold;
   background: #cc5500;
@@ -331,6 +346,9 @@ font-size: 4.5rem;
   transition: background 0.2s, transform 0.2s;
   text-align: center;
   position: relative;
+  width: 70%; /* Add this to match button width */
+  /* Add this to force consistent position: */
+  align-self: center;
 }
 
 .product-button:hover {
@@ -339,17 +357,70 @@ font-size: 4.5rem;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.35), 0 0 8px rgba(255, 127, 51, 0.5);
 }
 
-/* Responsive Adjustments */
+.view-all-button a {
+  text-decoration: none;
+  color: inherit; /* Ensure the text color matches the button */
+}
+
+@media (max-width: 1024px) {
+  .product-card-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 4%;
+    margin: 70px 2%;
+  }
+  .product-header-title {
+    font-size: 2.5rem;
+    width: 95%;
+  }
+  .hero-overlay {
+    max-width: 80%;
+    padding: 18px 8px;
+    font-size: 1.2rem;
+  }
+  #home {
+    height: 22vh;
+    min-height: 120px;
+  }
+}
+
+/* Large phones and small tablets (max-width: 900px) */
 @media (max-width: 900px) {
+  .product-card-container {
+    grid-template-columns: 1fr;
+    width: 100%;
+    gap: 30px; /* Increased gap for better spacing */
+    margin: 8px 0; /* Much more bottom margin */
+  }
   .product-card {
     width: 90%;
     margin: 10px auto;
-    height: auto;
+    height: auto;    
   }
-
   .product-card p {
     max-height: none;
     overflow: visible;
+  }
+  .product-button {
+    width: 50%;
+  }
+  #home {
+    height: 22vh;
+    min-height: 120px;
+  }
+  .hero-overlay {
+    width: 70%;
+    height: 100%;
+  }
+  .hero-overlay p {
+    display: none;
+  }
+  #page-wrapper > a {
+    width: 70%;
+    text-align: center;
+  }   
+   .view-all-button {
+    margin: 30px auto 60px auto;
+    width: 70%;
   }
 }
 
@@ -377,93 +448,4 @@ font-size: 4.5rem;
     font-size: 0.85rem;
     line-height: 1.5;
   }
-}
-
-@media (max-width: 1024px) {
-  .product-card-container {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 4%;
-    margin: 30px 2%;
-  }
-  #product-container {
-      grid-template-columns: repeat(2, 1fr); /* 2 cards on medium screens */
-    }
-  .product-header-title {
-    font-size: 2.5rem;
-    width: 95%;
-  }
-  .hero-overlay {
-    max-width: 80%;
-    padding: 18px 8px;
-    font-size: 1.2rem;
-  }
-  #home {
-    height: 22vh;
-    min-height: 120px;
-  }
-}
-
-/* Large phones and small tablets (max-width: 900px) */
-@media (max-width: 900px) {
-  .product-card-container {
-    grid-template-columns: 1fr;
-    width: 100%;
-  }
-  .product-card {
-    width: 80%;
-    margin: 2% auto;
-  }
-  .product-button {
-    width: 50%;
-  }
-  #home {
-    height: 22vh;
-    min-height: 120px;
-  }
-  .hero-overlay {
-    width: 70%;
-    height: 100%;
-  }
-  .hero-overlay p {
-    display: none;
-  }
-  #page-wrapper > a {
-    width: 70%;
-    text-align: center;
-    margin: 0 auto;
-  } 
-}
-
-@media (max-width: 600px) {
-    #product-container {
-      grid-template-columns: 1fr; /* 1 card per row on small screens */
-    }
-  }
-
-/* Phones (max-width: 480px) */
-@media (max-width: 480px) {
-  .product-card-container {
-    grid-template-columns: 1fr;
-    gap: 1%;
-    margin: 8px 0;
-  }
-  .product-header-title {
-    font-size: 1.1rem;
-    width: 100%;
-    padding: 4px;
-  }
-  .hero-overlay {
-    max-width: 100%;
-    padding: 6px 2px;
-    font-size: 0.95rem;
-  }
-  #home {
-    height: 12vh;
-    min-height: 40px;
-  }
-}
-
-.view-all-button a {
-  text-decoration: none;
-  color: inherit; /* Ensure the text color matches the button */
 }

@@ -103,7 +103,7 @@ header {
   border: #cc5500 3px solid;
   text-align: center;
 }
-.hero-overlay h2 {
+.hero-overlay h1 {
   font-size: 2rem; 
   font-weight: bold;
   margin-bottom: 15px;
@@ -741,7 +741,7 @@ button {
     width: 70%;
     height: 100%;
   }
-  .hero-overlay h2 {
+  .hero-overlay h1 {
     font-size: 1.5rem;
   }
   .hero-overlay p {
@@ -810,7 +810,7 @@ button {
   .hero-overlay {
     padding: 10px 4px;
   }
-  .hero-overlay h2 {    
+  .hero-overlay h1 {    
     font-size: 1rem;
   }
   .banner-slider {

@@ -1,0 +1,9 @@
+# _redirects file
+/termsofuse    /termsofuse.html    200
+/privacypolicy    /privacypolicy.html    200
+/contact    /contact.html    200
+/cart    /cart.html    200
+/synthetic    /synthetic.html    200
+/natural    /natural.html    200
+/other    /other.html    200
+/view-product    /view-product.html    200
