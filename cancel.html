@@ -2,17 +2,48 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Checkout Cancelled</title>
+  <title>Checkout Cancelled | Outback Gems & Minerals</title>
+  <link href="https://fonts.googleapis.com/css2?family=Parisienne&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Allura&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Satisfy&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="icon" type="image/png" href="images/favicon.png">
-  <style>
-    body { font-family: Arial, sans-serif; text-align: center; padding: 3em; }
-    .cancel { color: #e74c3c; font-size: 2em; margin-bottom: 1em; }
-    a { color: #3498db; text-decoration: none; }
-  </style>
+  <link rel="stylesheet" href="contact.css">
+  <link rel="stylesheet" href="cancel.css">
+  <link rel="stylesheet" href="navbar.css">
 </head>
 <body>
-  <div class="cancel">❌ Checkout Cancelled</div>
-  <p>Your payment was not completed. You can try again or return to your cart.</p>
-  <p><a href="cart.html">Return to Cart</a></p>
+  <header id="navbar-container"></header>
+  <script src="navbar.js"></script>
+
+  <main>
+    <div class="cancel-container" role="alert">
+      <h1>Order Cancelled</h1>
+      <p>
+        Your checkout was not completed and no payment was processed.<br>
+        If this was a mistake, you can return to your cart and try again.<br>
+        If you have any questions, please <a href="contact.html" class="contact-link">contact us</a>.
+      </p>
+      <a href="cart.html" class="return-home-btn">Return to Cart</a>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-left">
+      <p><a href="privacypolicy.html">Privacy Policy</a></p>
+      <p><a href="termsofuse.html">Terms Of Use</a></p>
+    </div>
+    <div class="footer-middle">
+      <p>&copy; 2025 Outback Gems &amp; Minerals. All rights reserved.</p>
+      <p>ABN: 53 418 745 121</p>
+    </div>
+    <div class="footer-right">
+      <p><a href="mailto:support@outbackgems.com.au"><i class="fa fa-envelope" aria-hidden="true" style="color:white"></i></a></p>
+      <p><a href="https://www.facebook.com/profile.php?id=61576738875731"><i class="fa fa-facebook-square" aria-hidden="true"
+            style="color:white"></i></a></p>
+    </div>
+  </footer>
 </body>
 </html>
