@@ -404,10 +404,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const suburb = document.getElementById('bank-shipping-suburb').value.trim();
     const state = document.getElementById('bank-shipping-state').value.trim();
     const postcode = document.getElementById('bank-shipping-postcode').value.trim();
+    // Phone is optional
     const phone = document.getElementById('bank-shipping-phone').value.trim();
 
+    // Validate required fields
     if (!email || !street || !suburb || !state || !postcode) {
-      alert('Please enter your email and complete all shipping address fields.');
+      alert('Please fill out your email and all shipping address fields.');
       return;
     }
 
