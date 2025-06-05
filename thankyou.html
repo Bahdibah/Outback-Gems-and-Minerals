@@ -2,23 +2,49 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Thank You for Your Purchase!</title>
+  <title>Thank You for Your Purchase! | Outback Gems & Minerals</title>
+  <link href="https://fonts.googleapis.com/css2?family=Parisienne&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Allura&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Satisfy&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="icon" type="image/png" href="images/favicon.png">
-  <style>
-    body { font-family: Arial, sans-serif; text-align: center; padding: 3em; }
-    .success { color: #27ae60; font-size: 2em; margin-bottom: 1em; }
-    a { color: #3498db; text-decoration: none; }
-  </style>
+  <link rel="stylesheet" href="contact.css">
+  <link rel="stylesheet" href="thankyou.css">
+  <link rel="stylesheet" href="navbar.css">
 </head>
 <body>
-  <div class="success" role="alert">🎉 Thank you for your purchase!</div>
-  <p>Your order has been received and is being processed.</p>
-  <p><a href="index.html">Return to Home</a></p>
-  <script>
-  localStorage.removeItem('cart');
-  if (typeof updateCartCount === 'function') {
-    updateCartCount();
-  }
-  </script>
+  <header id="navbar-container"></header>
+
+  <main>
+    <div class="thankyou-container" role="alert">
+      <h1>Thank You for Your Purchase!</h1>
+      <p>
+        We have received your order and payment.<br>
+        You will receive a confirmation email with tracking details as soon as your order is dispatched.<br>
+        If you have any questions, please <a href="contact.html" class="contact-link">contact us</a>.
+      </p>
+      <a href="index.html" class="return-home-btn">Return to Home</a>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-left">
+      <p><a href="privacypolicy.html">Privacy Policy</a></p>
+      <p><a href="termsofuse.html">Terms Of Use</a></p>
+    </div>
+    <div class="footer-middle">
+      <p>&copy; 2025 Outback Gems &amp; Minerals. All rights reserved.</p>
+      <p>ABN: 53 418 745 121</p>
+    </div>
+    <div class="footer-right">
+      <p><a href="mailto:support@outbackgems.com.au"><i class="fa fa-envelope" aria-hidden="true" style="color:white"></i></a></p>
+      <p><a href="https://www.facebook.com/profile.php?id=61576738875731"><i class="fa fa-facebook-square" aria-hidden="true"
+            style="color:white"></i></a></p>
+    </div>
+  </footer>
+
+  <script src="navbar.js"></script>
 </body>
 </html>

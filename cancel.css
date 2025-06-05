@@ -1,0 +1,89 @@
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+}
+
+/* Main content grows to fill space between navbar and footer */
+main {
+  flex: 1 0 auto;
+}
+
+/* Cancel container sits below navbar with a good gap */
+.cancel-container {
+  background-color: #444;
+  border: 2px solid #cc5500;   /* Use the standard orange border */
+  padding: 40px 24px;
+  width: 65%;
+  margin: 60px auto 40px auto;
+  border-radius: 15px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.6);
+  color: #bfbfbfd2;
+  text-align: center;
+  max-width: 600px;
+  margin-top: 110px; /* Adjust as needed for your navbar height */
+}
+.cancel-container h1 {
+  color: #e74c3c; /* Keep the red heading */
+  font-size: 2.5rem;
+  margin-bottom: 0.5em;
+  font-family: 'Montserrat', Arial, sans-serif;
+}
+.cancel-container p {
+  font-size: 1.2rem;
+  margin-bottom: 1.5em;
+}
+.cancel-container .return-home-btn {
+  background-color: #cc5500;
+  color: #fff;
+  font-weight: bold;
+  border: none;
+  padding: 14px 32px;
+  font-size: 1.25rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  text-decoration: none;
+  display: inline-block;
+}
+.cancel-container .return-home-btn:hover {
+  background-color: #ff7f33;
+  transform: scale(1.04) translateY(-1px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.35), 0 0 8px rgba(255, 127, 51, 0.5);
+  color: #fff;
+}
+.cancel-container .contact-link {
+  color: #cc5500;
+  text-decoration: underline;
+}
+@media (max-width: 900px) {
+  .cancel-container {
+    width: 90%;
+    padding: 24px 8px;
+    margin: 40px auto 24px auto;
+  }
+  .cancel-container h1 {
+    font-size: 2rem;
+  }
+}
+@media (max-width: 480px) {
+  .cancel-container {
+    width: 98%;
+    padding: 12px 2px;
+    margin: 24px auto 12px auto;
+  }
+  .cancel-container h1 {
+    font-size: 1.4rem;
+  }
+  .cancel-container p {
+    font-size: 1rem;
+  }
+}
+
+/* Footer always at the bottom */
+footer {
+  flex-shrink: 0;
+  width: 100%;
+}

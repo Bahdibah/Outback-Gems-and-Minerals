@@ -2,6 +2,19 @@ const fetch = require('node-fetch');
 const { Resend } = require('resend');
 
 exports.handler = async (event) => {
+  // Handle CORS preflight request
+  if (event.httpMethod === "OPTIONS") {
+    return {
+      statusCode: 200,
+      headers: {
+        "Access-Control-Allow-Origin": "https://outbackgems.com.au",
+        "Access-Control-Allow-Headers": "Content-Type",
+        "Access-Control-Allow-Methods": "POST, OPTIONS",
+      },
+      body: "",
+    };
+  }
+
   try {
     const { cart, shippingMethod, customerEmail } = JSON.parse(event.body);
 
@@ -20,6 +33,7 @@ exports.handler = async (event) => {
       if (!Number.isInteger(item.quantity) || item.quantity < 1) throw new Error(`Invalid quantity for: ${item.id}`);
       if (product.stock && item.quantity > product.stock) throw new Error(`Not enough stock for: ${item.id}`);
       return {
+        id: item.id, // <-- Add this line
         name: `${product["product name"]} (${product["weight"]}${product["unit"] || ""})`,
         price,
         quantity: item.quantity,
@@ -37,12 +51,12 @@ exports.handler = async (event) => {
     const total = itemsTotal + validatedShippingCost;
 
     // Generate reference number
-    const reference = 'OGM-' + Date.now();
+    const reference = 'OGM-' + Math.floor(100000 + Math.random() * 900000); // 6 digits
 
     // Compose order summary
     const orderSummary = [
       ...validatedCart.map(item =>
-        `${item.name} x${item.quantity} – $${(item.price * item.quantity).toFixed(2)}`
+        `${item.name} (ID: ${item.id}) x${item.quantity} – $${(item.price * item.quantity).toFixed(2)}`
       ),
       `Shipping (${shippingMethod === 'express' ? 'Express' : 'Standard'}) – $${validatedShippingCost.toFixed(2)}`
     ].join('\n');
@@ -82,7 +96,7 @@ Please use the reference number above when making your transfer.
   <hr>
   <table style="margin-top:20px;">
     <tr>
-      <td style="vertical-align:top;padding-right:12px;">
+      <td style="vertical-align:middle;padding-right:12px;">
         <img src="https://outbackgems.com.au/images/favicon.png" alt="Outback Gems Logo" style="height:48px;width:48px;border-radius:8px;">
       </td>
       <td style="vertical-align:top;">
@@ -99,11 +113,20 @@ Please use the reference number above when making your transfer.
     // Send email with Resend
     const resend = new Resend(process.env.RESEND_API_KEY);
 
+    // Send to customer
     await resend.emails.send({
       from: 'Outback Gems <support@outbackgems.com.au>',
       to: customerEmail,
       subject: 'Your Outback Gems & Minerals Order - Bank Transfer Details',
-      html: emailBodyHtml // Use html instead of text
+      html: emailBodyHtml
+    });
+
+    // Send to business
+    await resend.emails.send({
+      from: 'Outback Gems <support@outbackgems.com.au>',
+      to: 'support@outbackgems.com.au',
+      subject: 'NEW Bank Transfer Order Received',
+      html: emailBodyHtml
     });
 
     return {

@@ -600,10 +600,123 @@ footer >div{
     gap: 18px;
     align-items: center;
   }
+  .modal-content {
+    margin-top: 60px !important; /* or more if needed */
+  }
+}
+
+/* Responsive modal for bank transfer (and all modals) */
+@media (max-width: 900px) {
+  #bank-transfer-modal .modal-content,
+  .modal-content,
+  div.modal-content {
+    width: 80% !important;
+    max-width: 80% !important;
+    margin-top: 60px !important;
+    margin-bottom: 40px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding: 1em !important;
+    box-sizing: border-box !important;
+  }
 }
 
 @media (max-width: 600px) {
-  .cart-buttons button{
+  .cart-buttons button {
     width: 100%;
   }
+}
+
+/* Additional styles for very small screens */
+@media (max-width: 425px) {
+  #bank-transfer-modal .modal-content,
+  .modal-content,
+  div.modal-content {
+    width: 80% !important;
+    max-width: 80% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    margin-top: 40px !important;
+    margin-bottom: 16px !important;
+    padding: 8px !important;
+    box-sizing: border-box !important;
+  }
+}
+
+/* Universal modal content width and text wrapping */
+#bank-transfer-modal .modal-content,
+.modal-content,
+div.modal-content {
+  width: 80% !important;
+  max-width: 80% !important;
+  min-width: unset !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  box-sizing: border-box !important;
+  word-break: break-word !important;
+  white-space: normal !important;
+  overflow-wrap: break-word !important;
+}
+
+#bank-transfer-modal .modal-content pre,
+.modal-content pre,
+div.modal-content pre {
+  white-space: pre-wrap !important;
+  word-break: break-word !important;
+  overflow-wrap: break-word !important;
+  max-width: 100% !important;
+}
+
+/* Responsive vertical spacing for modal */
+@media (max-width: 900px) {
+  #bank-transfer-modal .modal-content,
+  .modal-content,
+  div.modal-content {
+    margin-top: 60px !important;
+    margin-bottom: 40px !important;
+    padding: 1em !important;
+  }
+}
+@media (max-width: 425px) {
+  #bank-transfer-modal .modal-content,
+  .modal-content,
+  div.modal-content {
+    margin-top: 40px !important;
+    margin-bottom: 16px !important;
+    padding: 8px !important;
+  }
+}
+
+/* More vertical space for modal on all screens */
+#bank-transfer-modal .modal-content,
+.modal-content,
+div.modal-content {
+  margin-top: 100px !important;
+  margin-bottom: 100px !important;
+}
+
+/* Even more space on small screens */
+@media (max-width: 900px) {
+  #bank-transfer-modal .modal-content,
+  .modal-content,
+  div.modal-content {
+    margin-top: 120px !important;
+    margin-bottom: 80px !important;
+  }
+}
+@media (max-width: 425px) {
+  #bank-transfer-modal .modal-content,
+  .modal-content,
+  div.modal-content {
+    margin-top: 140px !important;
+    margin-bottom: 60px !important;
+  }
+}
+
+#bank-transfer-modal .modal-content *,
+.modal-content *,
+div.modal-content * {
+  word-break: break-word !important;
+  overflow-wrap: break-word !important;
+  max-width: 100% !important;
 }
