@@ -16,7 +16,7 @@ exports.handler = async (event) => {
   }
 
   try {
-    const { cart, shippingMethod, customerEmail, shippingAddress } = JSON.parse(event.body);
+    const { cart, shippingMethod, customerEmail, shippingAddress, phone } = JSON.parse(event.body);
 
     // Fetch trusted products
     const trustedProducts = await fetch('https://script.google.com/macros/s/AKfycbyCY8VW0D1A7AFJiU7X6tN5-RTrnYxQIV4QCzmFprxYrCVv2o4uKWnmKfJ6Xh40H4uqXA/exec').then(res => res.json());
@@ -74,6 +74,7 @@ Reference: ${reference}
 Shipping Address:
 ${shippingAddress.street}
 ${shippingAddress.suburb}, ${shippingAddress.state} ${shippingAddress.postcode}
+${phone ? `Phone: ${phone}` : ''}
 `;
 
     // Compose email
