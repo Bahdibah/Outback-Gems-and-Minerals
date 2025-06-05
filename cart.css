@@ -752,3 +752,12 @@ div.modal-content * {
 #bank-transfer-modal .modal-input:not(:last-child) {
   margin-right: 8px;
 }
+
+#bank-transfer-modal label[for="bank-email"],
+#bank-transfer-modal label[for="bank-shipping-phone"] {
+  color: #cc5500 !important;
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 6px;
+  display: block;
+}
