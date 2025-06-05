@@ -728,3 +728,27 @@ div.modal-content * {
   margin-top: 60px !important;
   margin-bottom: 60px !important;
 }
+
+/* Style for all modal input fields */
+#bank-transfer-modal .modal-input {
+  width: 100%;
+  margin-bottom: 12px;
+  padding: 8px 12px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background: #fff;
+  color: #222;
+  font-size: 1rem;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+}
+
+#bank-transfer-modal .modal-input:focus {
+  border-color: #cc5500;
+  outline: none;
+}
+
+/* Add spacing to the flex row for suburb/state/postcode */
+#bank-transfer-modal .modal-input:not(:last-child) {
+  margin-right: 8px;
+}
