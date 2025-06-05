@@ -722,7 +722,7 @@ div.modal-content * {
 }
 
 #bank-transfer-modal .modal-content {
-  max-width: 380px !important;
+  max-width: 40% !important;
   width: 95% !important;
   padding: 1.2em !important;
   margin-top: 60px !important;
