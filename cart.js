@@ -382,12 +382,23 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (method === 'pay-bank') {
           // Show the modal/section for bank transfer
           document.getElementById('bank-transfer-modal').style.display = 'flex';
-          // Optionally, fill in the order summary
+          // Fill in the order summary with shipping
           const cart = JSON.parse(localStorage.getItem('cart')) || [];
+          const shippingMethod = localStorage.getItem('selectedShippingMethod') || 'standard';
+          let shippingCost = 0;
+          const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+          if (subtotal >= 100) {
+            shippingCost = shippingMethod === 'standard' ? 0 : 5.00;
+          } else {
+            shippingCost = shippingMethod === 'standard' ? 10.95 : 14.45;
+          }
+          const shippingLabel = shippingMethod === 'express' ? 'Express' : 'Standard';
+
           let summaryHtml = '<ul>';
           cart.forEach(item => {
             summaryHtml += `<li>${item.name} x${item.quantity} - $${(item.price * item.quantity).toFixed(2)}</li>`;
           });
+          summaryHtml += `<li>Shipping (${shippingLabel}) – $${shippingCost.toFixed(2)}</li>`;
           summaryHtml += '</ul>';
           document.getElementById('bank-order-summary').innerHTML = summaryHtml;
         }
