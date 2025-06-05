@@ -720,3 +720,11 @@ div.modal-content * {
   overflow-wrap: break-word !important;
   max-width: 100% !important;
 }
+
+#bank-transfer-modal .modal-content {
+  max-width: 380px !important;
+  width: 95% !important;
+  padding: 1.2em !important;
+  margin-top: 60px !important;
+  margin-bottom: 60px !important;
+}
