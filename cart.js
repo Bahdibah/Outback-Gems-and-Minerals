@@ -400,10 +400,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.getElementById('place-bank-order').addEventListener('click', async () => {
     const email = document.getElementById('bank-email').value.trim();
-    if (!email) {
-      alert('Please enter your email address.');
+    const street = document.getElementById('bank-shipping-street').value.trim();
+    const suburb = document.getElementById('bank-shipping-suburb').value.trim();
+    const state = document.getElementById('bank-shipping-state').value.trim();
+    const postcode = document.getElementById('bank-shipping-postcode').value.trim();
+
+    if (!email || !street || !suburb || !state || !postcode) {
+      alert('Please enter your email and complete all shipping address fields.');
       return;
     }
+
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
     const shippingMethod = localStorage.getItem('selectedShippingMethod') || 'standard';
 
@@ -411,7 +417,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const response = await fetch('https://outbackgems.netlify.app/.netlify/functions/create-bank-transfer-order', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ cart, shippingMethod, customerEmail: email }),
+      body: JSON.stringify({
+        cart,
+        shippingMethod,
+        customerEmail: email,
+        shippingAddress: { street, suburb, state, postcode }
+      }),
     });
     const data = await response.json();
     if (data.error) {
