@@ -34,6 +34,39 @@ fetch("side-menu.html")
     document.body.appendChild(script);
   });
 
+  // Add this function just before your fetchProductDetails function
+function highlightNavigation(category) {
+  if (!category) return;
+  
+  const mainCategory = category.split(',')[0].split('-')[0].toLowerCase();
+  const categoryToPage = {
+    synthetic: "synthetic.html",
+    natural: "natural.html",
+    other: "other.html"
+  };
+  
+  // Wait until navbar links are available
+  const checkNavLinks = setInterval(() => {
+    const navLinks = document.querySelectorAll("nav ul li a");
+    if (navLinks.length > 0) {
+      clearInterval(checkNavLinks);
+      
+      // Clear any existing active classes
+      navLinks.forEach(link => link.classList.remove("active"));
+      
+      // Set the appropriate link as active
+      if (mainCategory && categoryToPage[mainCategory]) {
+        navLinks.forEach(link => {
+          const href = link.getAttribute("href").replace(/^\//, '').toLowerCase();
+          if (href === categoryToPage[mainCategory]) {
+            link.classList.add("active");
+          }
+        });
+      }
+    }
+  }, 100); // Check every 100ms
+}
+
 // Fetch product details from the cache
 async function fetchProductDetails() {
   try {
@@ -77,6 +110,12 @@ async function fetchProductDetails() {
     currentVariation = variations[0];
     updateProductDetails(currentVariation);
     updateMetaTags(currentVariation); // Add this line
+
+    // Add this line to highlight navigation based on the category
+    if (variations[0] && variations[0].category) {
+      highlightNavigation(variations[0].category);
+    }
+    
     
 
     // Add event listener for dropdown changes (only once)
