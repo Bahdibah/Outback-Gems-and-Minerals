@@ -34,6 +34,39 @@ fetch("side-menu.html")
     document.body.appendChild(script);
   });
 
+  // Add this function just before your fetchProductDetails function
+function highlightNavigation(category) {
+  if (!category) return;
+  
+  const mainCategory = category.split(',')[0].split('-')[0].toLowerCase();
+  const categoryToPage = {
+    synthetic: "synthetic.html",
+    natural: "natural.html",
+    other: "other.html"
+  };
+  
+  // Wait until navbar links are available
+  const checkNavLinks = setInterval(() => {
+    const navLinks = document.querySelectorAll("nav ul li a");
+    if (navLinks.length > 0) {
+      clearInterval(checkNavLinks);
+      
+      // Clear any existing active classes
+      navLinks.forEach(link => link.classList.remove("active"));
+      
+      // Set the appropriate link as active
+      if (mainCategory && categoryToPage[mainCategory]) {
+        navLinks.forEach(link => {
+          const href = link.getAttribute("href").replace(/^\//, '').toLowerCase();
+          if (href === categoryToPage[mainCategory]) {
+            link.classList.add("active");
+          }
+        });
+      }
+    }
+  }, 100); // Check every 100ms
+}
+
 // Fetch product details from the cache
 async function fetchProductDetails() {
   try {
@@ -76,6 +109,14 @@ async function fetchProductDetails() {
     // Update product details for the first variation by default
     currentVariation = variations[0];
     updateProductDetails(currentVariation);
+    updateMetaTags(currentVariation); // Add this line
+
+    // Add this line to highlight navigation based on the category
+    if (variations[0] && variations[0].category) {
+      highlightNavigation(variations[0].category);
+    }
+    
+    
 
     // Add event listener for dropdown changes (only once)
     variationSelector.addEventListener("change", (event) => {
@@ -308,6 +349,77 @@ return title + info;
 };}
 
 fetchProductDetails();
+
+// Add this function after the fetchProductDetails function
+function updateMetaTags(product) {
+  if (!product) return;
+  
+  // Update page title
+  document.title = `${product["product name"]} | Outback Gems & Minerals`;
+  
+  // Find or create meta tags
+  let metaDescription = document.querySelector('meta[name="description"]');
+  if (!metaDescription) {
+    metaDescription = document.createElement('meta');
+    metaDescription.setAttribute('name', 'description');
+    document.head.appendChild(metaDescription);
+  }
+  
+  // Set description based on product data
+  const descText = product.description || 'View detailed product information, pricing, and options for this premium gemstone product from Outback Gems & Minerals.';
+  metaDescription.setAttribute('content', descText);
+  
+  // Update Open Graph tags
+  let ogTitle = document.querySelector('meta[property="og:title"]');
+  if (!ogTitle) {
+    ogTitle = document.createElement('meta');
+    ogTitle.setAttribute('property', 'og:title');
+    document.head.appendChild(ogTitle);
+  }
+  ogTitle.setAttribute('content', `${product["product name"]} | Outback Gems & Minerals`);
+  
+  let ogDesc = document.querySelector('meta[property="og:description"]');
+  if (!ogDesc) {
+    ogDesc = document.createElement('meta');
+    ogDesc.setAttribute('property', 'og:description');
+    document.head.appendChild(ogDesc);
+  }
+  ogDesc.setAttribute('content', descText);
+  
+  let ogUrl = document.querySelector('meta[property="og:url"]');
+  if (!ogUrl) {
+    ogUrl = document.createElement('meta');
+    ogUrl.setAttribute('property', 'og:url');
+    document.head.appendChild(ogUrl);
+  }
+  ogUrl.setAttribute('content', `https://www.outbackgems.com.au/view-product.html?productid=${productId}`);
+  
+  let ogImage = document.querySelector('meta[property="og:image"]');
+  if (!ogImage) {
+    ogImage = document.createElement('meta');
+    ogImage.setAttribute('property', 'og:image');
+    document.head.appendChild(ogImage);
+  }
+  ogImage.setAttribute('content', product["image url"] || 'https://www.outbackgems.com.au/images/general/Facebook%20Logo.jpg');
+  
+  // Update Twitter Card tags similarly
+  let twitterTitle = document.querySelector('meta[name="twitter:title"]');
+  if (!twitterTitle) {
+    twitterTitle = document.createElement('meta');
+    twitterTitle.setAttribute('name', 'twitter:title');
+    document.head.appendChild(twitterTitle);
+  }
+  twitterTitle.setAttribute('content', `${product["product name"]} | Outback Gems & Minerals`);
+  
+  // Add canonical URL
+  let canonicalLink = document.querySelector('link[rel="canonical"]');
+  if (!canonicalLink) {
+    canonicalLink = document.createElement('link');
+    canonicalLink.setAttribute('rel', 'canonical');
+    document.head.appendChild(canonicalLink);
+  }
+  canonicalLink.setAttribute('href', `https://www.outbackgems.com.au/view-product.html?productid=${productId}`);
+}
 
 // Modal image expand setup (add this after fetchProductDetails();)
 document.addEventListener("DOMContentLoaded", function() {

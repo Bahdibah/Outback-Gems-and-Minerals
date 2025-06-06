@@ -416,6 +416,12 @@ button {
   }
 }
 
+@media (max-width: 700px) {
+        .footer-left {
+            display: flex;
+            flex-direction: column;
+        }
+      }
 /* Phones (max-width: 500px) */
 @media (max-width: 500px) {
   .dynamic-product-card {

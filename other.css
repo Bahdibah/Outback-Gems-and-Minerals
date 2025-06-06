@@ -408,6 +408,13 @@ footer >div{
   }
 }
 
+@media (max-width: 700px) {
+        .footer-left {
+            display: flex;
+            flex-direction: column;
+        }
+      }
+
 @media (max-width: 600px) {
   .product-card-image { height: 120px; }
   .product-card-content { padding: 18px 8px 12px 8px; }
