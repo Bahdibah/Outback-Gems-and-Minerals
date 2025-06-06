@@ -720,3 +720,44 @@ div.modal-content * {
   overflow-wrap: break-word !important;
   max-width: 100% !important;
 }
+
+#bank-transfer-modal .modal-content {
+  max-width: 40% !important;
+  width: 95% !important;
+  padding: 1.2em !important;
+  margin-top: 60px !important;
+  margin-bottom: 60px !important;
+}
+
+/* Style for all modal input fields */
+#bank-transfer-modal .modal-input {
+  width: 100%;
+  margin-bottom: 12px;
+  padding: 8px 12px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background: #fff;
+  color: #222;
+  font-size: 1rem;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+}
+
+#bank-transfer-modal .modal-input:focus {
+  border-color: #cc5500;
+  outline: none;
+}
+
+/* Add spacing to the flex row for suburb/state/postcode */
+#bank-transfer-modal .modal-input:not(:last-child) {
+  margin-right: 8px;
+}
+
+#bank-transfer-modal label[for="bank-email"],
+#bank-transfer-modal label[for="bank-shipping-phone"] {
+  color: #cc5500 !important;
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 6px;
+  display: block;
+}

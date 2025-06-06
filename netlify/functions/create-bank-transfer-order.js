@@ -16,7 +16,7 @@ exports.handler = async (event) => {
   }
 
   try {
-    const { cart, shippingMethod, customerEmail } = JSON.parse(event.body);
+    const { cart, shippingMethod, customerEmail, shippingAddress, phone } = JSON.parse(event.body);
 
     // Fetch trusted products
     const trustedProducts = await fetch('https://script.google.com/macros/s/AKfycbyCY8VW0D1A7AFJiU7X6tN5-RTrnYxQIV4QCzmFprxYrCVv2o4uKWnmKfJ6Xh40H4uqXA/exec').then(res => res.json());
@@ -69,6 +69,14 @@ Account Number: 1104 2381
 Reference: ${reference}
 `;
 
+    // In your email body:
+    const shippingAddressText = `
+Shipping Address:
+${shippingAddress.street}
+${shippingAddress.suburb}, ${shippingAddress.state} ${shippingAddress.postcode}
+${phone ? `Phone: ${phone}` : ''}
+`;
+
     // Compose email
     const emailBody = `
 Thank you for your order!
@@ -80,6 +88,10 @@ ${bankDetails}
 Order Summary:
 ${orderSummary}
 
+Shipping Address:
+${shippingAddress.street}
+${shippingAddress.suburb}, ${shippingAddress.state} ${shippingAddress.postcode}
+
 Total: $${total.toFixed(2)}
 
 Please use the reference number above when making your transfer.
@@ -90,6 +102,7 @@ Please use the reference number above when making your transfer.
   <p>Please transfer the total amount to the following bank account to complete your order:</p>
   <pre>${bankDetails}</pre>
   <p><strong>Order Summary:</strong><br>${orderSummary.replace(/\n/g, '<br>')}</p>
+  <p><strong>Shipping Address:</strong><br>${shippingAddress.street}<br>${shippingAddress.suburb}, ${shippingAddress.state} ${shippingAddress.postcode}</p>
   <p><strong>Total:</strong> $${total.toFixed(2)}</p>
   <p>Please use the reference number above when making your transfer.</p>
   <br>

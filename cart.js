@@ -382,12 +382,23 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (method === 'pay-bank') {
           // Show the modal/section for bank transfer
           document.getElementById('bank-transfer-modal').style.display = 'flex';
-          // Optionally, fill in the order summary
+          // Fill in the order summary with shipping
           const cart = JSON.parse(localStorage.getItem('cart')) || [];
+          const shippingMethod = localStorage.getItem('selectedShippingMethod') || 'standard';
+          let shippingCost = 0;
+          const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+          if (subtotal >= 100) {
+            shippingCost = shippingMethod === 'standard' ? 0 : 5.00;
+          } else {
+            shippingCost = shippingMethod === 'standard' ? 10.95 : 14.45;
+          }
+          const shippingLabel = shippingMethod === 'express' ? 'Express' : 'Standard';
+
           let summaryHtml = '<ul>';
           cart.forEach(item => {
             summaryHtml += `<li>${item.name} x${item.quantity} - $${(item.price * item.quantity).toFixed(2)}</li>`;
           });
+          summaryHtml += `<li>Shipping (${shippingLabel}) – $${shippingCost.toFixed(2)}</li>`;
           summaryHtml += '</ul>';
           document.getElementById('bank-order-summary').innerHTML = summaryHtml;
         }
@@ -400,10 +411,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.getElementById('place-bank-order').addEventListener('click', async () => {
     const email = document.getElementById('bank-email').value.trim();
-    if (!email) {
-      alert('Please enter your email address.');
+    const street = document.getElementById('bank-shipping-street').value.trim();
+    const suburb = document.getElementById('bank-shipping-suburb').value.trim();
+    const state = document.getElementById('bank-shipping-state').value.trim();
+    const postcode = document.getElementById('bank-shipping-postcode').value.trim();
+    // Phone is optional
+    const phone = document.getElementById('bank-shipping-phone').value.trim();
+
+    // Validate required fields
+    if (!email || !street || !suburb || !state || !postcode) {
+      alert('Please fill out your email and all shipping address fields.');
       return;
     }
+
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
     const shippingMethod = localStorage.getItem('selectedShippingMethod') || 'standard';
 
@@ -411,7 +431,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const response = await fetch('https://outbackgems.netlify.app/.netlify/functions/create-bank-transfer-order', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ cart, shippingMethod, customerEmail: email }),
+      body: JSON.stringify({
+        cart,
+        shippingMethod,
+        customerEmail: email,
+        shippingAddress: { street, suburb, state, postcode },
+        phone // <-- add this line
+      }),
     });
     const data = await response.json();
     if (data.error) {
