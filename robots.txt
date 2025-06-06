@@ -1,0 +1,11 @@
+# robots.txt for Outback Gems & Minerals
+User-agent: *
+Allow: /
+
+# Disallow transaction and user-specific pages
+Disallow: /cart.html
+Disallow: /thankyou.html
+Disallow: /cancel.html
+
+# Specify sitemap location
+Sitemap: https://www.outbackgems.com.au/sitemap.xml
