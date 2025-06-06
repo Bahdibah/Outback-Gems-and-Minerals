@@ -68,6 +68,12 @@ main {
     font-size: 2rem;
   }
 }
+@media (max-width: 700px) {
+        .footer-left {
+            display: flex;
+            flex-direction: column;
+        }
+      }
 @media (max-width: 480px) {
   .cancel-container {
     width: 98%;

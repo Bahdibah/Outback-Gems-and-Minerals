@@ -424,6 +424,13 @@ font-size: 4.5rem;
   }
 }
 
+@media (max-width: 700px) {
+        .footer-left {
+            display: flex;
+            flex-direction: column;
+        }
+      }
+
 @media (max-width: 600px) {
   .product-card {
     width: 95%;

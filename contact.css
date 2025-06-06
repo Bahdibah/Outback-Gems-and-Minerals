@@ -312,6 +312,12 @@ form textarea {
     display: none;
   }
 }
+@media (max-width: 700px) {
+        .footer-left {
+            display: flex;
+            flex-direction: column;
+        }
+      }
 
 /* Phones (max-width: 480px) */
 @media (max-width: 480px) {
