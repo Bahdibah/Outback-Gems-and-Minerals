@@ -57,28 +57,34 @@ async function loadOtherProducts() {
     const description = localInfo?.["category-description"] || "No description available.";
     const title = formatSubcategory(product.category);
 
-    // Build card using your existing structure
+    // Build card using the unified structure
     const card = document.createElement("div");
     card.className = "product-card";
-    card.style.backgroundImage = `url('images/category cards/${image}')`;
-    card.style.backgroundSize = "100%";
-    card.style.backgroundRepeat = "no-repeat";
-    card.style.backgroundPosition = "center";
-
     card.innerHTML = `
+      <div class="product-card-image" style="background-image:url('images/category cards/${image}')"></div>
       <div class="product-card-content">
         <h3 class="product-card-title">${title}</h3>
         <p class="product-card-description">${description}</p>
-        <a href="/products.html?category=${encodeURIComponent(product.category)}" data-category="${product.category}">
-           <button class="product-button">
-            View All
-          </button>
+        <a href="/products.html?category=${encodeURIComponent(product.category)}" class="product-card-button" data-category="${product.category}">
+          VIEW ALL
         </a>
       </div>
     `;
-
     container.appendChild(card);
   });
+
+  // Add ghost cards for grid alignment
+  const cardsPerRow = 3;
+  const realCards = container.querySelectorAll('.product-card:not(.ghost-card)').length;
+  const remainder = realCards % cardsPerRow;
+  if (remainder !== 0) {
+    const ghostsToAdd = cardsPerRow - remainder;
+    for (let i = 0; i < ghostsToAdd; i++) {
+      const ghost = document.createElement('div');
+      ghost.className = 'product-card ghost-card';
+      container.appendChild(ghost);
+    }
+  }
 }
 
 document.addEventListener("DOMContentLoaded", loadOtherProducts);

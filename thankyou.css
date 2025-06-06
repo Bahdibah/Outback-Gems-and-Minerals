@@ -22,7 +22,6 @@ main {
   color: #bfbfbfd2;
   text-align: center;
   max-width: 600px;
-  margin-top: 110px; /* Adjust as needed for your navbar height */
 }
 .thankyou-container h1 {
   color: #cc5500;
