@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
-    <!-- Basic SEO Meta Tags -->
+  <!-- Basic SEO Meta Tags -->
   <meta name="description" content="Thank you for your purchase at Outback Gems & Minerals. We appreciate your business and will process your order promptly.">
   <meta name="keywords" content="order confirmation, gemstone purchase, mineral order, Australian gems thank you">
   <meta name="author" content="Outback Gems & Minerals">
@@ -32,11 +32,11 @@
   <link rel="canonical" href="https://www.outbackgems.com.au/thankyou.html" />
   <title>Thank You for Your Purchase! | Outback Gems & Minerals</title>
   <link href="https://fonts.googleapis.com/css2?family=Parisienne&display=swap" rel="stylesheet" />
-<link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Allura&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Satisfy&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Allura&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Satisfy&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="icon" type="image/png" href="images/favicon.png">
   <link rel="stylesheet" href="contact.css">
   <link rel="stylesheet" href="thankyou.css">
@@ -56,6 +56,9 @@
         If you have any questions, please <a href="contact.html" class="contact-link">contact us</a>.
       </p>
       <a href="index.html" class="return-home-btn">Return to Home</a>
+    </div>
+    <div id="paypal-status-message" style="margin:2em 0; text-align:center; font-size:1.2em;">
+      Processing your payment, please wait...
     </div>
   </main>
 
@@ -77,33 +80,6 @@
   </footer>
 
   <script src="navbar.js"></script>
-
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-  const urlParams = new URLSearchParams(window.location.search);
-  const orderId = urlParams.get('token');
-  if (orderId) {
-    fetch('/.netlify/functions/capture-paypal-order', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ orderId })
-    })
-    .then(res => res.json())
-    .then(data => {
-      if (data.status === 'COMPLETED') {
-        // Optionally show a "Payment completed!" message
-        // (Your current thank you message is fine)
-      } else if (data.status === 'PENDING') {
-        alert("Your payment is pending. We'll notify you when it's complete.");
-      } else if (data.error) {
-        alert("There was a problem capturing your payment: " + data.error);
-      }
-    })
-    .catch(err => {
-      alert("There was a network error capturing your payment.");
-    });
-  }
-});
-</script>
+    <script src="thankyou.js"></script>
 </body>
 </html>
