@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function() {
   const statusMessageDiv = document.getElementById('paypal-status-message');
   if (orderId) {
     statusMessageDiv.innerHTML = '<span class="fa fa-spinner fa-spin"></span> Processing your payment, please wait...';
-    fetch('/.netlify/functions/capture-paypal-order', {
+    fetch('https://outbackgems.netlify.app/.netlify/functions/capture-paypal-order', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ orderId })
