@@ -310,5 +310,13 @@
       "images/products/mb003/image2.jpg",
       "images/products/mb003/image3.jpg"
     ]
+  },
+  {
+    "productid": "yn001",
+    "images": [
+      "images/products/yn001/image1.jpg",
+      "images/products/yn001/image2.jpg",
+      "images/products/yn001/image3.jpg"
+    ]
   }
 ]
