@@ -1,18 +1,18 @@
 # --- Existing Redirect Rules ---
 RewriteEngine On
 
-# Redirect non-www to www (and force HTTPS)
-RewriteCond %{HTTP_HOST} ^outbackgems\.com\.au [NC]
-RewriteRule ^(.*)$ https://www.outbackgems.com.au/$1 [L,R=301]
-
-# Redirect HTTP to HTTPS (for www)
-RewriteCond %{HTTPS} off
+# Redirect www to non-www (and force HTTPS)
 RewriteCond %{HTTP_HOST} ^www\.outbackgems\.com\.au [NC]
-RewriteRule ^(.*)$ https://www.outbackgems.com.au/$1 [L,R=301]
+RewriteRule ^(.*)$ https://outbackgems.com.au/$1 [L,R=301]
+
+# Redirect HTTP to HTTPS (for non-www)
+RewriteCond %{HTTPS} off
+RewriteCond %{HTTP_HOST} ^outbackgems\.com\.au [NC]
+RewriteRule ^(.*)$ https://outbackgems.com.au/$1 [L,R=301]
 
 # --- Security Headers ---
 
-Header set Content-Security-Policy "default-src 'self'; img-src 'self' data: https: *.paypal.com *.paypalobjects.com www.facebook.com www.gstatic.com *.synchronycredit.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdnjs.cloudflare.com https://fonts.googleapis.com https://cdn.jsdelivr.net https://js.stripe.com https://www.paypal.com https://www.paypalobjects.com https://www.sandbox.paypal.com https://checkout.paypal.com https://*.paypal.cn https://objects.paypal.cn https://www.gstatic.com https://*.synchronycredit.com https://synchronycredit.com https://www.datadoghq-browser-agent.com https://static.novacredit.com https://script.googleusercontent.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://www.paypalobjects.com; font-src 'self' data: https://fonts.gstatic.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; connect-src 'self' https://script.googleusercontent.com https://script.google.com https://cdn.jsdelivr.net https://js.stripe.com https://www.paypal.com https://www.paypalobjects.com https://www.sandbox.paypal.com https://checkout.paypal.com https://cors-anywhere.herokuapp.com https://www.datadoghq-browser-agent.com; worker-src 'self' blob: https://*.paypal.com; frame-src 'self' https://*.paypal.com https://*.paypalobjects.com https://www.sandbox.paypal.com;"
+Header set Content-Security-Policy "default-src 'self'; img-src 'self' data: https: *.paypal.com *.paypalobjects.com www.facebook.com www.gstatic.com *.synchronycredit.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdnjs.cloudflare.com https://fonts.googleapis.com https://cdn.jsdelivr.net https://js.stripe.com https://www.paypal.com https://www.paypalobjects.com https://www.sandbox.paypal.com https://checkout.paypal.com https://*.paypal.cn https://objects.paypal.cn https://www.gstatic.com https://*.synchronycredit.com https://synchronycredit.com https://www.datadoghq-browser-agent.com https://static.novacredit.com https://script.googleusercontent.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://www.paypalobjects.com; font-src 'self' data: https://fonts.gstatic.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; connect-src 'self' https://script.googleusercontent.com https://script.google.com https://cdn.jsdelivr.net https://js.stripe.com https://www.paypal.com https://www.paypalobjects.com https://www.sandbox.paypal.com https://checkout.paypal.com https://cors-anywhere.herokuapp.com https://www.datadoghq-browser-agent.com https://outbackgems.netlify.app; worker-src 'self' blob: https://*.paypal.com; frame-src 'self' https://*.paypal.com https://*.paypalobjects.com https://www.sandbox.paypal.com https://js.stripe.com;"
 
 Header set X-Content-Type-Options "nosniff"
 Header always set Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
