@@ -110,6 +110,7 @@ async function fetchProductDetails() {
     currentVariation = variations[0];
     updateProductDetails(currentVariation);
     updateMetaTags(currentVariation); // Add this line
+    injectProductSchema(currentVariation);
 
     // Add this line to highlight navigation based on the category
     if (variations[0] && variations[0].category) {
@@ -353,23 +354,26 @@ fetchProductDetails();
 // Add this function after the fetchProductDetails function
 function updateMetaTags(product) {
   if (!product) return;
+  let shortDesc = product.short_description || product.description || 'View detailed product information, pricing, and options for this premium gemstone product from Outback Gems & Minerals.';
   
-  // Update page title
+  // Append static phrase if not already present
+  const cta = " Shop and buy online at Outback Gems & Minerals.";
+  if (!shortDesc.toLowerCase().includes("outback gems")) {
+    shortDesc += cta;
+  }
+
   document.title = `${product["product name"]} | Outback Gems & Minerals`;
-  
-  // Find or create meta tags
+
+  // Meta Description
   let metaDescription = document.querySelector('meta[name="description"]');
   if (!metaDescription) {
     metaDescription = document.createElement('meta');
     metaDescription.setAttribute('name', 'description');
     document.head.appendChild(metaDescription);
   }
-  
-  // Set description based on product data
-  const descText = product.description || 'View detailed product information, pricing, and options for this premium gemstone product from Outback Gems & Minerals.';
-  metaDescription.setAttribute('content', descText);
-  
-  // Update Open Graph tags
+  metaDescription.setAttribute('content', shortDesc);
+
+  // Open Graph
   let ogTitle = document.querySelector('meta[property="og:title"]');
   if (!ogTitle) {
     ogTitle = document.createElement('meta');
@@ -377,14 +381,14 @@ function updateMetaTags(product) {
     document.head.appendChild(ogTitle);
   }
   ogTitle.setAttribute('content', `${product["product name"]} | Outback Gems & Minerals`);
-  
+
   let ogDesc = document.querySelector('meta[property="og:description"]');
   if (!ogDesc) {
     ogDesc = document.createElement('meta');
     ogDesc.setAttribute('property', 'og:description');
     document.head.appendChild(ogDesc);
   }
-  ogDesc.setAttribute('content', descText);
+  ogDesc.setAttribute('content', shortDesc);
   
   let ogUrl = document.querySelector('meta[property="og:url"]');
   if (!ogUrl) {
@@ -410,6 +414,30 @@ function updateMetaTags(product) {
     document.head.appendChild(twitterTitle);
   }
   twitterTitle.setAttribute('content', `${product["product name"]} | Outback Gems & Minerals`);
+  
+  let twitterImage = document.querySelector('meta[name="twitter:image"]');
+  if (!twitterImage) {
+    twitterImage = document.createElement('meta');
+    twitterImage.setAttribute('name', 'twitter:image');
+    document.head.appendChild(twitterImage);
+  }
+  twitterImage.setAttribute('content', product["image url"] || 'https://www.outbackgems.com.au/images/general/Twitter%20Logo.jpg');
+  
+  let twitterDesc = document.querySelector('meta[name="twitter:description"]');
+if (!twitterDesc) {
+  twitterDesc = document.createElement('meta');
+  twitterDesc.setAttribute('name', 'twitter:description');
+  document.head.appendChild(twitterDesc);
+}
+twitterDesc.setAttribute('content', shortDesc);
+
+let twitterUrl = document.querySelector('meta[name="twitter:url"]');
+if (!twitterUrl) {
+  twitterUrl = document.createElement('meta');
+  twitterUrl.setAttribute('name', 'twitter:url');
+  document.head.appendChild(twitterUrl);
+}
+twitterUrl.setAttribute('content', `https://www.outbackgems.com.au/view-product.html?productid=${productId}`);
   
   // Add canonical URL
   let canonicalLink = document.querySelector('link[rel="canonical"]');
@@ -458,4 +486,35 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 });
+
+function injectProductSchema(product) {
+  if (!product) return;
+  const shortDesc = product.short_description || product.description || '';
+  const schema = {
+    "@context": "https://schema.org/",
+    "@type": "Product",
+    "name": product["product name"],
+    "image": [product["image url"] || "https://www.outbackgems.com.au/images/general/Facebook%20Logo.jpg"],
+    "description": shortDesc,
+    "sku": product["product id"],
+    "brand": {
+      "@type": "Brand",
+      "name": "Outback Gems & Minerals"
+    },
+    "offers": {
+      "@type": "Offer",
+      "url": window.location.href,
+      "priceCurrency": "AUD",
+      "price": product["total price"],
+      "availability": (product.stock > 0) ? "https://schema.org/InStock" : "https://schema.org/OutOfStock"
+    }
+  };
+  // Remove any existing schema
+  document.querySelectorAll('script[type="application/ld+json"]').forEach(el => el.remove());
+  // Inject new schema
+  const script = document.createElement('script');
+  script.type = 'application/ld+json';
+  script.textContent = JSON.stringify(schema);
+  document.head.appendChild(script);
+}
 

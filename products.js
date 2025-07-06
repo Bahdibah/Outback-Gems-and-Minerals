@@ -50,10 +50,8 @@ fetch("side-menu.html")
     }
 
     const categoryKeyword = getQueryParam("category");
-
-    // Add this line after:
-    // const categoryKeyword = getQueryParam("category");
     setupCanonicalUrl();
+    updateCategoryMetaTags(categoryKeyword);
 
     if (categoryKeyword) {
       loadProductsByCategory(categoryKeyword);
@@ -367,4 +365,47 @@ function formatCategoryHeader(keyword) {
   return keyword
     .replace(/-/g, ' ')
     .replace(/\b\w/g, c => c.toUpperCase());
+}
+
+function updateCategoryMetaTags(categoryKeyword) {
+  // Format category for display
+  const formatted = categoryKeyword ? formatCategoryHeader(categoryKeyword) : "All Products";
+  // Set dynamic title
+  document.title = categoryKeyword
+    ? `${formatted} - Outback Gems`
+    : "Products - Outback Gems";
+  // Set dynamic description
+  const description = categoryKeyword
+    ? `Browse our selection of ${formatted.toLowerCase()} at Outback Gems & Minerals.`
+    : "Browse our complete collection of natural and synthetic gemstones, crystals, minerals and fossicking supplies. Find high-quality specimens at Outback Gems & Minerals.";
+
+  // Update or create meta description
+  let metaDesc = document.querySelector('meta[name="description"]');
+  if (!metaDesc) {
+    metaDesc = document.createElement('meta');
+    metaDesc.setAttribute('name', 'description');
+    document.head.appendChild(metaDesc);
+  }
+  metaDesc.setAttribute('content', description);
+
+  // Update Open Graph and Twitter tags
+  const ogTitle = document.querySelector('meta[property="og:title"]');
+  if (ogTitle) ogTitle.setAttribute('content', document.title);
+
+  const ogDesc = document.querySelector('meta[property="og:description"]');
+  if (ogDesc) ogDesc.setAttribute('content', description);
+
+  const twitterTitle = document.querySelector('meta[name="twitter:title"]');
+  if (twitterTitle) twitterTitle.setAttribute('content', document.title);
+
+  const twitterDesc = document.querySelector('meta[name="twitter:description"]');
+  if (twitterDesc) twitterDesc.setAttribute('content', description);
+
+  const ogUrl = document.querySelector('meta[property="og:url"]');
+  if (ogUrl) ogUrl.setAttribute('content', window.location.href);
+
+  const twitterUrl = document.querySelector('meta[name="twitter:url"]');
+  if (twitterUrl) twitterUrl.setAttribute('content', window.location.href);
+
+  // Optionally update canonical URL (already handled by setupCanonicalUrl)
 }
