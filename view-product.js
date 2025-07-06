@@ -396,7 +396,7 @@ function updateMetaTags(product) {
     ogUrl.setAttribute('property', 'og:url');
     document.head.appendChild(ogUrl);
   }
-  ogUrl.setAttribute('content', `https://www.outbackgems.com.au/view-product.html?productid=${productId}`);
+  ogUrl.setAttribute('content', `https://outbackgems.com.au/view-product.html?productid=${productId}`);
   
   let ogImage = document.querySelector('meta[property="og:image"]');
   if (!ogImage) {
@@ -404,7 +404,7 @@ function updateMetaTags(product) {
     ogImage.setAttribute('property', 'og:image');
     document.head.appendChild(ogImage);
   }
-  ogImage.setAttribute('content', product["image url"] || 'https://www.outbackgems.com.au/images/general/Facebook%20Logo.jpg');
+  ogImage.setAttribute('content', product["image url"] || 'https://outbackgems.com.au/images/general/Facebook%20Logo.jpg');
   
   // Update Twitter Card tags similarly
   let twitterTitle = document.querySelector('meta[name="twitter:title"]');
@@ -421,23 +421,23 @@ function updateMetaTags(product) {
     twitterImage.setAttribute('name', 'twitter:image');
     document.head.appendChild(twitterImage);
   }
-  twitterImage.setAttribute('content', product["image url"] || 'https://www.outbackgems.com.au/images/general/Twitter%20Logo.jpg');
+  twitterImage.setAttribute('content', product["image url"] || 'https://outbackgems.com.au/images/general/Twitter%20Logo.jpg');
   
   let twitterDesc = document.querySelector('meta[name="twitter:description"]');
-if (!twitterDesc) {
-  twitterDesc = document.createElement('meta');
-  twitterDesc.setAttribute('name', 'twitter:description');
-  document.head.appendChild(twitterDesc);
-}
-twitterDesc.setAttribute('content', shortDesc);
+  if (!twitterDesc) {
+    twitterDesc = document.createElement('meta');
+    twitterDesc.setAttribute('name', 'twitter:description');
+    document.head.appendChild(twitterDesc);
+  }
+  twitterDesc.setAttribute('content', shortDesc);
 
-let twitterUrl = document.querySelector('meta[name="twitter:url"]');
-if (!twitterUrl) {
-  twitterUrl = document.createElement('meta');
-  twitterUrl.setAttribute('name', 'twitter:url');
-  document.head.appendChild(twitterUrl);
-}
-twitterUrl.setAttribute('content', `https://www.outbackgems.com.au/view-product.html?productid=${productId}`);
+  let twitterUrl = document.querySelector('meta[name="twitter:url"]');
+  if (!twitterUrl) {
+    twitterUrl = document.createElement('meta');
+    twitterUrl.setAttribute('name', 'twitter:url');
+    document.head.appendChild(twitterUrl);
+  }
+  twitterUrl.setAttribute('content', `https://outbackgems.com.au/view-product.html?productid=${productId}`);
   
   // Add canonical URL
   let canonicalLink = document.querySelector('link[rel="canonical"]');
@@ -446,7 +446,7 @@ twitterUrl.setAttribute('content', `https://www.outbackgems.com.au/view-product.
     canonicalLink.setAttribute('rel', 'canonical');
     document.head.appendChild(canonicalLink);
   }
-  canonicalLink.setAttribute('href', `https://www.outbackgems.com.au/view-product.html?productid=${productId}`);
+  canonicalLink.setAttribute('href', `https://outbackgems.com.au/view-product.html?productid=${productId}`);
 }
 
 // Modal image expand setup (add this after fetchProductDetails();)
