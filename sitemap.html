@@ -110,7 +110,22 @@
         <li><a href="other.html">Other Products</a></li>
       </ul>
     </div>
-    
+
+    <!-- ADD THE NEW CATEGORY PRODUCT LISTS HERE -->
+    <div class="sitemap-section">
+      <h2>Natural Products</h2>
+      <ul class="sitemap-list" id="sitemap-natural-list"></ul>
+    </div>
+    <div class="sitemap-section">
+      <h2>Synthetic Products</h2>
+      <ul class="sitemap-list" id="sitemap-synthetic-list"></ul>
+    </div>
+    <div class="sitemap-section">
+      <h2>Other Products</h2>
+      <ul class="sitemap-list" id="sitemap-other-list"></ul>
+    </div>
+    <!-- END NEW SECTION -->
+
     <div class="sitemap-section">
       <h2>Legal Information</h2>
       <ul class="sitemap-list">
@@ -136,5 +151,39 @@
             style="color:white"></i></a></p>
     </div>
   </footer>
+  <script src="productCache.js"></script>
+<script>
+getProductData().then(products => {
+  // Only keep unique product ids (same as products.js)
+  const seen = new Set();
+  const uniqueProducts = products.filter(product => {
+    if (seen.has(product["product id"])) return false;
+    seen.add(product["product id"]);
+    return true;
+  });
+
+  uniqueProducts.forEach(product => {
+    const category = (product.category || "").toLowerCase();
+    if (category.includes("natural")) {
+      addProductToList("sitemap-natural-list", product);
+    } else if (category.includes("synthetic")) {
+      addProductToList("sitemap-synthetic-list", product);
+    } else {
+      addProductToList("sitemap-other-list", product);
+    }
+  });
+});
+
+function addProductToList(listId, product) {
+  const ul = document.getElementById(listId);
+  if (!ul) return;
+  const li = document.createElement('li');
+  const a = document.createElement('a');
+  a.href = `view-product.html?productid=${encodeURIComponent(product["product id"])}`;
+  a.textContent = product["product name"];
+  li.appendChild(a);
+  ul.appendChild(li);
+}
+</script>
 </body>
 </html>
