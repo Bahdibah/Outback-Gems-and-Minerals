@@ -8,4 +8,4 @@ Disallow: /thankyou.html
 Disallow: /cancel.html
 
 # Specify sitemap location
-Sitemap: https://www.outbackgems.com.au/sitemap.xml
+Sitemap: https://outbackgems.com.au/sitemap.xml
