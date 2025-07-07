@@ -140,15 +140,15 @@ fetch("side-menu.html")
       productContainer.innerHTML = "";
 
       const headerContainer = document.createElement("div");
-      headerContainer.className = "dynamic-product-header-container";
-      const headerTitleDiv = document.createElement("div");
-      headerTitleDiv.className = "dynamic-product-header-title";
-      headerTitleDiv.textContent = headerTitle;
-      const divider = document.createElement("hr");
-      divider.className = "product-header-divider";
-      headerContainer.appendChild(headerTitleDiv);
-      headerContainer.appendChild(divider);
-      productContainer.appendChild(headerContainer);
+headerContainer.className = "dynamic-product-header-container";
+const headerTitleH1 = document.createElement("h1");
+headerTitleH1.className = "dynamic-product-header-title";
+headerTitleH1.textContent = headerTitle;
+headerContainer.appendChild(headerTitleH1);
+const divider = document.createElement("hr");
+divider.className = "product-header-divider";
+headerContainer.appendChild(divider);
+productContainer.appendChild(headerContainer);
 
       if (productsToShow.length > 0) {
         productsToShow.forEach(product => {
@@ -160,6 +160,7 @@ fetch("side-menu.html")
           const img = document.createElement("img");
           img.src = product["image url"];
           img.alt = product["product name"] || "Product Image";
+          img.loading = "lazy"; // <-- Add this line
           imageContainer.appendChild(img);
 
           const productName = document.createElement("h3");
@@ -326,6 +327,7 @@ fetch("side-menu.html")
           const img = document.createElement("img");
           img.src = product["image url"];
           img.alt = product["product name"] || "Product Image";
+          img.loading = "lazy";
           imageContainer.appendChild(img);
 
           const productName = document.createElement("h3");

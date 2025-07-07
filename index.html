@@ -314,6 +314,7 @@
         const img = document.createElement("img");
         img.src = product["image url"];
         img.alt = product["product name"] || "Product Image";
+        img.loading = "lazy"; // Add this line
         imageContainer.appendChild(img);
 
         // Name
@@ -374,7 +375,7 @@ getProductData()
         slide.innerHTML = `
           <div class="whatsnew-product-card">
             <div class="image-container">
-              <img src="${product["image url"]}" alt="${product["product name"] || "Product Image"}">
+              <img src="${product["image url"]}" alt="${product["product name"] || "Product Image"}" loading="lazy">
             </div>
             <h3>${product["product name"]}</h3>
             <p>${product.description}</p>

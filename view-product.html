@@ -61,7 +61,7 @@
         <!-- Left: Main image and thumbnails -->
         <div class="view-product-images">
           <div class="view-product-thumbnails" id="view-product-thumbnails"></div>
-           <img id="view-product-image" src=" " alt="Product Image" class="view-product-main-image" />
+           <img id="view-product-image" src=" " alt="Product Image" class="view-product-main-image" loading="lazy" />
         </div>
         <!-- Right: Product info -->
         <div class="view-product-info">
@@ -76,7 +76,7 @@
             <span id="view-product-price"></span>
           </div>
           <div class="view-product-description-block">
-            <div class="view-product-description-title">Description:</div>
+            <h2 class="view-product-description-title">Description</h2>
             <p id="view-product-description" class="view-product-description">Loading product description...</p>
           </div>
           <button id="view-product-add-to-cart">Add to Cart</button>
@@ -86,6 +86,7 @@
         </div>
       </div>
       <div class="divider"></div>
+      <h2 class="sr-only">Technical Information</h2>
       <div id="view-product-technical-info"></div>
       <script src="productCache.js"></script>
       <script src="navbar.js"></script>
@@ -116,7 +117,7 @@
     <div id="image-modal-overlay" aria-expanded>
   <div class="image-modal-content">
     <span class="image-modal-close"><i class="fa fa-times" aria-hidden="true"></i></span>
-    <img id="image-modal-img" src=" " alt="Enlarged product image" />
+    <img id="image-modal-img" src=" " alt="Enlarged product image" loading="lazy" />
   </div>
 </div>
 

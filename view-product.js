@@ -323,7 +323,10 @@ return title + info;
         const allThumbs = [apiImage, ...extraImages];
 
         // Set the main image to the API image by default
-        if (mainImage) mainImage.src = apiImage;
+        if (mainImage) {
+          mainImage.src = apiImage;
+          mainImage.setAttribute("loading", "lazy"); // Add this line
+        }
 
         // Render thumbnails
         thumbnailsContainer.innerHTML = "";
@@ -333,6 +336,7 @@ return title + info;
           thumb.alt = `Thumbnail ${idx + 1}`;
           thumb.className = "view-product-image-placeholder";
           thumb.style.cursor = "pointer";
+          thumb.loading = "lazy"; // Add this line
           // Highlight the selected thumbnail
           if (idx === 0) thumb.style.border = "2px solid #cc5500";
           thumb.addEventListener("click", function() {
@@ -406,7 +410,15 @@ function updateMetaTags(product) {
   }
   ogImage.setAttribute('content', product["image url"] || 'https://outbackgems.com.au/images/general/Facebook%20Logo.jpg');
   
-  // Update Twitter Card tags similarly
+
+  let twitterCard = document.querySelector('meta[name="twitter:card"]');
+  if (!twitterCard) {
+    twitterCard = document.createElement('meta');
+    twitterCard.setAttribute('name', 'twitter:card');
+    document.head.appendChild(twitterCard);
+  }
+  twitterCard.setAttribute('content', 'summary_large_image');
+
   let twitterTitle = document.querySelector('meta[name="twitter:title"]');
   if (!twitterTitle) {
     twitterTitle = document.createElement('meta');
