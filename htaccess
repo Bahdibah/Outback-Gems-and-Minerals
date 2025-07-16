@@ -1,5 +1,60 @@
+# --- MIME Types for Images ---
+AddType image/jpeg .jpeg .jpg
+AddType image/png .png
+AddType image/gif .gif
+AddType image/webp .webp
+AddType image/bmp .bmp
+AddType image/tiff .tif .tiff
+
+# Force correct MIME types for images (especially in directories with spaces)
+<Files ~ "\.(jpe?g)$">
+    ForceType image/jpeg
+</Files>
+
+<Files ~ "\.png$">
+    ForceType image/png
+</Files>
+
+<Files ~ "\.gif$">
+    ForceType image/gif
+</Files>
+
+<Files ~ "\.webp$">
+    ForceType image/webp
+</Files>
+
+<Files ~ "\.bmp$">
+    ForceType image/bmp
+</Files>
+
+<Files ~ "\.(tif|tiff)$">
+    ForceType image/tiff
+</Files>
+
 # --- Existing Redirect Rules ---
 RewriteEngine On
+
+# ✅ Exclude critical static files from Prerender.io
+RewriteCond %{REQUEST_URI} ^/robots\.txt([/?].*)?$ [NC]
+RewriteRule .* - [L]
+
+RewriteCond %{REQUEST_URI} ^/sitemap\.xml([/?].*)?$ [NC]
+RewriteRule .* - [L]
+
+RewriteCond %{REQUEST_URI} ^/favicon\.ico$ [NC]
+RewriteRule .* - [L]
+
+# ✅ Specifically exclude images directory from Prerender (PRIORITY - must be before general static files rule)
+RewriteCond %{REQUEST_URI} ^/images/ [NC]
+RewriteRule .* - [L]
+
+# Exclude other static files from Prerender
+RewriteCond %{REQUEST_URI} \.(js|css|xml|gif|jpg|jpeg|png|svg|webp|woff|woff2|ttf|eot|ico|bmp|tiff)$ [NC]
+RewriteRule .* - [L]
+
+# ✅ Redirect sitemap.txt -> sitemap.xml
+RewriteCond %{REQUEST_URI} ^/sitemap\.txt$ [NC]
+RewriteRule ^sitemap\.txt$ https://outbackgems.com.au/sitemap.xml [R=301,L]
 
 # Redirect www to non-www (and force HTTPS)
 RewriteCond %{HTTP_HOST} ^www\.outbackgems\.com\.au [NC]
@@ -9,6 +64,12 @@ RewriteRule ^(.*)$ https://outbackgems.com.au/$1 [L,R=301]
 RewriteCond %{HTTPS} off
 RewriteCond %{HTTP_HOST} ^outbackgems\.com\.au [NC]
 RewriteRule ^(.*)$ https://outbackgems.com.au/$1 [L,R=301]
+
+# Only apply Prerender to bot user agents, not regular users
+RewriteCond %{HTTP_USER_AGENT} (googlebot|yahoo|baiduspider|facebookexternalhit|twitterbot) [NC]
+RequestHeader set X-Prerender-Token "jB2NVBnrYbku2t67YS1V"
+RewriteRule ^(.*)$ https://service.prerender.io/https://outbackgems.com.au/$1 [P,L]
+
 
 # --- Security Headers ---
 
