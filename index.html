@@ -379,10 +379,15 @@ getProductData()
             </div>
             <h3>${product["product name"]}</h3>
             <p>${product.description}</p>
-            <button class="whatsnew-product-button" onclick="window.location.href='view-product.html?productid=${encodeURIComponent(product["product id"])}'">View</button>
+            <button class="whatsnew-product-button">View</button>
           </div>
         `;
         swiperWrapper.appendChild(slide);
+        // Add event listener to the button
+        const btn = slide.querySelector(".whatsnew-product-button");
+        btn.addEventListener("click", function() {
+          window.location.href = `view-product.html?productid=${encodeURIComponent(product["product id"])}`;
+        });
       });
 
       // Initialize Swiper after slides are added
