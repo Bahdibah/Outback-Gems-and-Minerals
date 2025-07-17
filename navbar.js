@@ -222,6 +222,13 @@ document.addEventListener("DOMContentLoaded", () => {
         });
           }
         // --- End burger menu toggle ---
+        // Add event listener for checkout button
+        const checkoutBtn = document.getElementById("checkout-button");
+        if (checkoutBtn) {
+          checkoutBtn.addEventListener("click", function() {
+            window.location.href = "cart.html";
+          });
+        }
 
   
         const searchButton = document.getElementById('search-button');
