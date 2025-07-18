@@ -26,7 +26,6 @@
   {
     "productid": "s105",
     "images": [
-      "images/products/s105/image1.jpg",
       "images/products/s105/image2.jpg",
       "images/products/s105/image3.jpg"
     ]
@@ -35,7 +34,6 @@
     "productid": "s106",
     "images": [
       "images/products/s106/image1.jpg",
-      "images/products/s106/image2.jpg",
       "images/products/s106/image3.jpg"
     ]
   },
@@ -43,7 +41,6 @@
     "productid": "s107",
     "images": [
       "images/products/s107/image1.jpg",
-      "images/products/s107/image2.jpg",
       "images/products/s107/image3.jpg"
     ]
   },
@@ -67,7 +64,6 @@
     "productid": "s112",
     "images": [
       "images/products/s112/image1.jpg",
-      "images/products/s112/image2.jpg",
       "images/products/s112/image3.jpg"
     ]
   },
@@ -75,7 +71,6 @@
     "productid": "s113",
     "images": [
       "images/products/s113/image1.jpg",
-      "images/products/s113/image2.jpg",
       "images/products/s113/image3.jpg"
     ]
   },
@@ -83,7 +78,6 @@
     "productid": "s114",
     "images": [
       "images/products/s114/image1.jpg",
-      "images/products/s114/image2.jpg",
       "images/products/s114/image3.jpg"
     ]
   },
@@ -91,7 +85,6 @@
     "productid": "s119",
     "images": [
       "images/products/s119/image1.jpg",
-      "images/products/s119/image2.jpg",
       "images/products/s119/image3.jpg"
     ]
   },
@@ -99,7 +92,6 @@
     "productid": "s120",
     "images": [
       "images/products/s120/image1.jpg",
-      "images/products/s120/image2.jpg",
       "images/products/s120/image3.jpg"
     ]
   },
@@ -195,40 +187,31 @@
     "productid": "sq002",
     "images": [
       "images/products/sq002/image1.jpg",
-      "images/products/sq002/image2.jpg",
-      "images/products/sq002/image3.jpg"
+      "images/products/sq002/image2.jpg"
     ]
   },
   {
     "productid": "waam001",
     "images": [
-      "images/products/waam001/image1.jpg",
-      "images/products/waam001/image2.jpg",
-      "images/products/waam001/image3.jpg"
+      "images/products/waam001/image1.jpg"
     ]
   },
   {
     "productid": "waam002",
     "images": [
-      "images/products/waam002/image1.jpg",
-      "images/products/waam002/image2.jpg",
-      "images/products/waam002/image3.jpg"
+      "images/products/waam002/image1.jpg"
     ]
   },  
   {
     "productid": "hzr002",
     "images": [
-      "images/products/hzr002/image1.jpg",
-      "images/products/hzr002/image2.jpg",
-      "images/products/hzr002/image3.jpg"
+      "images/products/hzr002/image2.jpg"
     ]
   },  
   {
     "productid": "hzr003",
     "images": [
-      "images/products/hzr003/image1.jpg",
-      "images/products/hzr003/image2.jpg",
-      "images/products/hzr003/image3.jpg"
+      "images/products/hzr003/image1.jpg"
     ]
   },
   {
@@ -242,7 +225,6 @@
   {
     "productid": "fb002",
     "images": [
-      "images/products/fb002/image1.jpg",
       "images/products/fb002/image2.jpg",
       "images/products/fb002/image3.jpg"
     ]
@@ -266,9 +248,7 @@
   {
     "productid": "sw001",
     "images": [
-      "images/products/sw001/image1.jpg",
-      "images/products/sw001/image2.jpg",
-      "images/products/sw001/image3.jpg"
+      "images/products/sw001/image2.jpg"
     ]
   },
   {
@@ -314,7 +294,7 @@
   {
     "productid": "yn001",
     "images": [
-      "images/products/yn001/image1.jpg",
+      "images/products/yn001/image1.jpeg",
       "images/products/yn001/image2.jpg",
       "images/products/yn001/image3.jpg"
     ]
@@ -331,7 +311,7 @@
     "productid": "yn003",
     "images": [
       "images/products/yn003/image1.jpg",
-      "images/products/yn003/image2.jpg",
+      "images/products/yn003/image2.jpeg",
       "images/products/yn003/image3.jpg"
     ]
   },
@@ -339,32 +319,34 @@
     "productid": "tb001",
     "images": [
       "images/products/tb001/image1.jpg",
-      "images/products/tb001/image2.jpg",
-      "images/products/tb001/image3.jpg"
+      "images/products/tb001/image2.jpg"
     ]
   },
   {
     "productid": "tb002",
     "images": [
       "images/products/tb002/image1.jpg",
-      "images/products/tb002/image2.jpg",
-      "images/products/tb002/image3.jpg"
+      "images/products/tb002/image2.jpg"
     ]
   },
   {
     "productid": "tb003",
     "images": [
       "images/products/tb003/image1.jpg",
-      "images/products/tb003/image2.jpg",
-      "images/products/tb003/image3.jpg"
+      "images/products/tb003/image2.jpg"
     ]
   },
   {
     "productid": "hd001",
     "images": [
       "images/products/hd001/image1.jpg",
-      "images/products/hd001/image2.jpg",
-      "images/products/hd001/image3.jpg"
+      "images/products/hd001/image2.jpg"
+    ]
+  },
+  {
+    "productid": "as001",
+    "images": [
+      "images/products/as001/image3.jpg"
     ]
   }
 ]
