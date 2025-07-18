@@ -66,7 +66,7 @@ RewriteCond %{HTTP_HOST} ^outbackgems\.com\.au [NC]
 RewriteRule ^(.*)$ https://outbackgems.com.au/$1 [L,R=301]
 
 # Only apply Prerender to bot user agents, not regular users
-RewriteCond %{HTTP_USER_AGENT} (googlebot|yahoo|baiduspider|facebookexternalhit|twitterbot) [NC]
+RewriteCond %{HTTP_USER_AGENT} (googlebot|bingbot|yahoo|baiduspider|facebookexternalhit|twitterbot) [NC]
 RequestHeader set X-Prerender-Token "jB2NVBnrYbku2t67YS1V"
 RewriteRule ^(.*)$ https://service.prerender.io/https://outbackgems.com.au/$1 [P,L]
 
