@@ -1,3 +1,5 @@
+# Disable directory listing
+Options -Indexes
 # --- MIME Types for Images ---
 AddType image/jpeg .jpeg .jpg
 AddType image/png .png
