@@ -175,4 +175,26 @@
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
+</url>
+  <url>
+    <loc>https://outbackgems.com.au/view-product.html?productid=tb001</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://outbackgems.com.au/view-product.html?productid=tb002</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://outbackgems.com.au/view-product.html?productid=tb003</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://outbackgems.com.au/view-product.html?productid=hd001</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+</urlset>
 </urlset>
