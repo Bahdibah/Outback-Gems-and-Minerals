@@ -364,10 +364,10 @@ productContainer.appendChild(headerContainer);
 // Helper function for formatting category headers
 function formatCategoryHeader(keyword) {
   if (!keyword) return "All Products";
-  const formatted = keyword
-    .replace(/-/g, ' ')
-    .replace(/\b\w/g, c => c.toUpperCase());
-  return `Buy ${formatted}`; // or "Shop", if you prefer
+  const parts = keyword.split("-");
+  const subcategory = parts[parts.length - 1];
+  const formatted = subcategory.replace(/\b\w/g, c => c.toUpperCase());
+  return `Buy ${formatted}`;
 }
 
 function updateCategoryMetaTags(categoryKeyword) {
