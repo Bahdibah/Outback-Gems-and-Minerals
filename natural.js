@@ -60,7 +60,7 @@ async function loadNaturalProducts() {
     card.className = "product-card";
 
     card.innerHTML = `
-      <div class="product-card-image" style="background-image:url('images/category cards/${image}')"></div>
+      <div class="product-card-image" style="background-image:url('images/category-cards/${image}')"></div>
       <div class="product-card-content">
         <h3 class="product-card-title">${title}</h3>
         <p class="product-card-description">${description}</p>
