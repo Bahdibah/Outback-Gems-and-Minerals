@@ -46,7 +46,6 @@
       max-width: 1200px;
       margin: 110px auto auto auto;
       padding: 0 20px;
-      min-height: calc(100vh - 200px);
     }
     .sitemap-section {
       margin-bottom: 30px;
@@ -62,7 +61,7 @@
       padding-left: 20px;
     }
     .sitemap-list li {
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
     .sitemap-list a {
       color: #bfbfbfd2;
@@ -74,23 +73,17 @@
       color: #cc5500;
       text-decoration: underline;
     }
-    .loading-message {
-      color: #cc5500;
-      font-style: italic;
-      text-align: center;
-      padding: 20px;
-    }
     /* Footer always at the bottom */
     footer {
-      flex-shrink: 0;
-      width: 100%;
+    flex-shrink: 0;
+    width: 100%;
     }
     @media (max-width: 700px) {
-      .footer-left {
-        display: flex;
-        flex-direction: column;
-      }
-    }
+        .footer-left {
+            display: flex;
+            flex-direction: column;
+        }
+        }
   </style>
 </head>
 <body>
@@ -105,35 +98,39 @@
       <ul class="sitemap-list">
         <li><a href="/">Home</a></li>
         <li><a href="products.html">All Products</a></li>
-        <li><a href="natural.html">Natural Products</a></li>
-        <li><a href="synthetic.html">Synthetic Products</a></li>
-        <li><a href="other.html">Other Products</a></li>
         <li><a href="contact.html">Contact Us</a></li>
       </ul>
     </div>
-
-    <!-- Dynamic Product Categories Section -->
+    
     <div class="sitemap-section">
       <h2>Product Categories</h2>
-      <ul class="sitemap-list" id="sitemap-categories-list">
-        <li class="loading-message">Loading categories...</li>
+      <ul class="sitemap-list">
+        <li><a href="natural.html">Natural Products</a></li>
+        <li><a href="synthetic.html">Synthetic Products</a></li>
+        <li><a href="other.html">Other Products</a></li>
       </ul>
     </div>
 
-    <!-- Dynamic Individual Products Section -->
+    <!-- ADD THE NEW CATEGORY PRODUCT LISTS HERE -->
     <div class="sitemap-section">
-      <h2>Individual Products</h2>
-      <ul class="sitemap-list" id="sitemap-products-list">
-        <li class="loading-message">Loading products...</li>
-      </ul>
+      <h2>Natural Products</h2>
+      <ul class="sitemap-list" id="sitemap-natural-list"></ul>
     </div>
+    <div class="sitemap-section">
+      <h2>Synthetic Products</h2>
+      <ul class="sitemap-list" id="sitemap-synthetic-list"></ul>
+    </div>
+    <div class="sitemap-section">
+      <h2>Other Products</h2>
+      <ul class="sitemap-list" id="sitemap-other-list"></ul>
+    </div>
+    <!-- END NEW SECTION -->
 
     <div class="sitemap-section">
       <h2>Legal Information</h2>
       <ul class="sitemap-list">
         <li><a href="privacypolicy.html">Privacy Policy</a></li>
         <li><a href="termsofuse.html">Terms of Use</a></li>
-        <li><a href="sitemap.html">Site Map</a></li>
       </ul>
     </div>
   </div>
@@ -154,106 +151,39 @@
             style="color:white"></i></a></p>
     </div>
   </footer>
-  
   <script src="productCache.js"></script>
-  <script>
-    // Function to format category names for display
-    function formatCategoryName(category) {
-      return category
-        .replace(/-/g, ' ')
-        .replace(/\b\w/g, l => l.toUpperCase());
-    }
+<script>
+getProductData().then(products => {
+  // Only keep unique product ids (same as products.js)
+  const seen = new Set();
+  const uniqueProducts = products.filter(product => {
+    if (seen.has(product["product id"])) return false;
+    seen.add(product["product id"]);
+    return true;
+  });
 
-    // Function to add links to lists
-    function addLinkToList(listId, href, text) {
-      const ul = document.getElementById(listId);
-      if (!ul) return;
-      
-      const li = document.createElement('li');
-      const a = document.createElement('a');
-      a.href = href;
-      a.textContent = text;
-      li.appendChild(a);
-      ul.appendChild(li);
+  uniqueProducts.forEach(product => {
+    const category = (product.category || "").toLowerCase();
+    if (category.includes("natural")) {
+      addProductToList("sitemap-natural-list", product);
+    } else if (category.includes("synthetic")) {
+      addProductToList("sitemap-synthetic-list", product);
+    } else {
+      addProductToList("sitemap-other-list", product);
     }
+  });
+});
 
-    // Load and populate dynamic content
-    async function populateSitemap() {
-      try {
-        const products = await getProductData();
-        const categoriesList = document.getElementById('sitemap-categories-list');
-        const productsList = document.getElementById('sitemap-products-list');
-        
-        // Clear loading messages
-        categoriesList.innerHTML = '';
-        productsList.innerHTML = '';
-        
-        // Get unique categories
-        const categories = new Set();
-        const uniqueProducts = [];
-        const seenProductIds = new Set();
-        
-        products.forEach(product => {
-          // Track unique products
-          if (!seenProductIds.has(product["product id"])) {
-            seenProductIds.add(product["product id"]);
-            uniqueProducts.push(product);
-          }
-          
-          // Track categories (excluding multi-category products)
-          if (product.category && !product.category.includes(',')) {
-            categories.add(product.category);
-          }
-        });
-        
-        // Sort categories alphabetically
-        const sortedCategories = Array.from(categories).sort();
-        
-        // Add category links
-        sortedCategories.forEach(category => {
-          const displayName = formatCategoryName(category);
-          addLinkToList(
-            'sitemap-categories-list',
-            `products.html?category=${encodeURIComponent(category)}`,
-            displayName
-          );
-        });
-        
-        // Sort products by name
-        uniqueProducts.sort((a, b) => (a["product name"] || '').localeCompare(b["product name"] || ''));
-        
-        // Add product links
-        uniqueProducts.forEach(product => {
-          if (product["product id"] && product["product name"]) {
-            addLinkToList(
-              'sitemap-products-list',
-              `view-product.html?productid=${encodeURIComponent(product["product id"])}`,
-              product["product name"]
-            );
-          }
-        });
-        
-        // If no categories found, show message
-        if (sortedCategories.length === 0) {
-          categoriesList.innerHTML = '<li style="color: #999; font-style: italic;">No categories available</li>';
-        }
-        
-        // If no products found, show message
-        if (uniqueProducts.length === 0) {
-          productsList.innerHTML = '<li style="color: #999; font-style: italic;">No products available</li>';
-        }
-        
-      } catch (error) {
-        console.error('Error loading sitemap data:', error);
-        document.getElementById('sitemap-categories-list').innerHTML = 
-          '<li style="color: #cc5500;">Error loading categories</li>';
-        document.getElementById('sitemap-products-list').innerHTML = 
-          '<li style="color: #cc5500;">Error loading products</li>';
-      }
-    }
-
-    // Initialize sitemap when page loads
-    document.addEventListener('DOMContentLoaded', populateSitemap);
-  </script>
+function addProductToList(listId, product) {
+  const ul = document.getElementById(listId);
+  if (!ul) return;
+  const li = document.createElement('li');
+  const a = document.createElement('a');
+  a.href = `view-product.html?productid=${encodeURIComponent(product["product id"])}`;
+  a.textContent = product["product name"];
+  li.appendChild(a);
+  ul.appendChild(li);
+}
+</script>
 </body>
 </html>
