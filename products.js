@@ -370,17 +370,92 @@ function formatCategoryHeader(keyword) {
   return `Buy ${formatted}`;
 }
 
+// Mapping for custom SEO meta tags per category
+const categoryMeta = {
+  "synthetic-spinel": {
+    title: "Buy Synthetic Spinel from Our Range of Premium Faceting Material – Outback Gems",
+    description: "Shop our range of vivid synthetic spinel gemstones. Perfect for collectors and cutters. High-quality, affordable, and available in a variety of colours at Outback Gems & Minerals."
+  },
+  "synthetic-sapphire": {
+    title: "Buy Synthetic Sapphire from Our Range of Premium Faceting Material – Outback Gems",
+    description: "Discover durable, brilliantly coloured synthetic sapphires for faceting and jewellery. Shop now at Outback Gems & Minerals."
+  },
+  "synthetic-cubic-zirconia": {
+    title: "Buy Synthetic Cubic Zirconia from Our Range of Premium Faceting Material – Outback Gems",
+    description: "Browse our selection of high-brilliance synthetic cubic zirconia. Perfect for faceting projects and jewellery. Outback Gems & Minerals."
+  },
+  "natural-zircon": {
+    title: "Buy Natural Zircon from Our Range of Premium Natural Rough and Faceting Material – Outback Gems",
+    description: "Shop natural zircon gemstones with rich tones and ancient origins. Brilliant, fiery, and unique. Outback Gems & Minerals."
+  },
+  "natural-sapphire": {
+    title: "Buy Natural Sapphire from Our Range of Premium Natural Rough and Faceting Material – Outback Gems",
+    description: "Explore the timeless beauty of natural sapphires. Vivid colours, exceptional durability. Outback Gems & Minerals."
+  },
+  "natural-garnet": {
+    title: "Buy Natural Garnet from Our Range of Premium Natural Rough and Faceting Material – Outback Gems",
+    description: "Shop natural garnet gemstones known for their brilliance and fire. Rich tones and ancient origins. Outback Gems & Minerals."
+  },
+  "natural-apatite": {
+    title: "Buy Natural Apatite from Our Range of Premium Natural Rough and Faceting Material – Outback Gems",
+    description: "Apatite in vibrant blue and green hues. Unique phosphate mineral specimens. Outback Gems & Minerals."
+  },
+  "natural-amethyst": {
+    title: "Buy Natural Amethyst Specimens from Our Range of Gems and Minerals – Outback Gems",
+    description: "Amethyst: the purple variety of quartz. Rich colour, perfect for collections and creative projects. Outback Gems & Minerals."
+  },
+  "natural-smoky-quartz": {
+    title: "Buy Natural Smoky Quartz - Outback Gems",
+    description: "Smoky Quartz: brown to grey quartz, valued for grounding tones and natural crystal formations. Outback Gems & Minerals."
+  },
+  "natural-peridot": {
+    title: "Buy Natural Peridot Specimens from Our Range of Gems and Minerals – Outback Gems",
+    description: "Peridot (olivine): vibrant green gemstone formed deep within the Earth. Distinctive lime-green hue. Outback Gems & Minerals."
+  },
+  "other-olivine": {
+    title: "Buy Olivine (Peridot) Specimens from Our Range of Gems and Minerals – Outback Gems",
+    description: "Olivine, also known as peridot, is a vibrant green gemstone from deep within the Earth. Shop at Outback Gems & Minerals."
+  },
+  "other-sapphire-wash-bags": {
+    title: "Buy Sapphire Washbags for Gem Fossicking – Direct from Queensland Gemfields | Outback Gems",
+    description: "Experience fossicking at home with our Sapphire Washbags from the Queensland Gemfields. Outback Gems & Minerals."
+  },
+  "other-thunder-eggs": {
+    title: "Buy Thunder Eggs - Outback Gems",
+    description: "Thunder eggs: crack them open to reveal vibrant patterns and hidden crystals. Outback Gems & Minerals."
+  },
+  "other-agate-slices": {
+    title: "Buy Agate Slices - Outback Gems",
+    description: "Agate slices: natural banding and vibrant colours for display, decoration, or creative use. Outback Gems & Minerals."
+  },
+  "other-yowah-nuts": {
+    title: "Buy Unopened Yowah Nuts – Single, Small, Medium, Large & 3-Packs | Direct from the Queensland Opal Fields | Outback Gems",
+    description: "Shop genuine unopened Yowah nuts in single, small, medium, large, and 3-pack options. Direct from Queensland Opal fields. Each unopened nut is a natural surprise—may reveal beautiful banded ironstone or hidden opal. Outback Gems & Minerals."
+  },
+  "other-tumbles": {
+    title: "Buy Tumbled Stones – Mixed Gemstone & Mineral Tumbles for Collectors, Gifts & Display | Outback Gems",
+    description: "Discover the beauty of nature in miniature with our range of tumbled stones. Outback Gems & Minerals."
+  },
+  "natural-herkimer-diamonds": {
+    title: "Buy Herkimer Diamonds – Facetable and Specimen Quartz Crystals | Outback Gems",
+    description: "Herkimer diamonds: naturally double-terminated quartz crystals prized for their distinctive formation and sparkle. Outback Gems & Minerals."
+  }
+};
+
 function updateCategoryMetaTags(categoryKeyword) {
-  // Format category for display
+  let meta = null;
+  if (categoryKeyword && categoryMeta[categoryKeyword]) {
+    meta = categoryMeta[categoryKeyword];
+  }
+  // Fallback to generic if not found
   const formatted = categoryKeyword ? formatCategoryHeader(categoryKeyword) : "All Products";
-  // Set dynamic title
-  document.title = categoryKeyword
-    ? `${formatted} - Outback Gems`
-    : "Products - Outback Gems";
-  // Set dynamic description
-  const description = categoryKeyword
+  const title = meta ? meta.title : (categoryKeyword ? `${formatted} - Outback Gems` : "Products - Outback Gems");
+  const description = meta ? meta.description : (categoryKeyword
     ? `Browse our selection of ${formatted.toLowerCase()} at Outback Gems & Minerals.`
-    : "Browse our complete collection of natural and synthetic gemstones, crystals, minerals and fossicking supplies. Find high-quality specimens at Outback Gems & Minerals.";
+    : "Browse our complete collection of natural and synthetic gemstones, crystals, minerals and fossicking supplies. Find high-quality specimens at Outback Gems & Minerals.");
+
+  // Set dynamic title
+  document.title = title;
 
   // Update or create meta description
   let metaDesc = document.querySelector('meta[name="description"]');
@@ -393,13 +468,13 @@ function updateCategoryMetaTags(categoryKeyword) {
 
   // Update Open Graph and Twitter tags
   const ogTitle = document.querySelector('meta[property="og:title"]');
-  if (ogTitle) ogTitle.setAttribute('content', document.title);
+  if (ogTitle) ogTitle.setAttribute('content', title);
 
   const ogDesc = document.querySelector('meta[property="og:description"]');
   if (ogDesc) ogDesc.setAttribute('content', description);
 
   const twitterTitle = document.querySelector('meta[name="twitter:title"]');
-  if (twitterTitle) twitterTitle.setAttribute('content', document.title);
+  if (twitterTitle) twitterTitle.setAttribute('content', title);
 
   const twitterDesc = document.querySelector('meta[name="twitter:description"]');
   if (twitterDesc) twitterDesc.setAttribute('content', description);
