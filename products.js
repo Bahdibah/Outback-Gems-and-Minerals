@@ -502,5 +502,25 @@ function updateCategoryMetaTags(categoryKeyword) {
   const twitterUrl = document.querySelector('meta[name="twitter:url"]');
   if (twitterUrl) twitterUrl.setAttribute('content', window.location.href);
 
+  // Set Open Graph and Twitter image tags
+  const image = meta && meta.image ? meta.image : "https://www.outbackgems.com.au/images/logo.png"; // fallback image
+
+  // og:image
+  let ogImage = document.querySelector('meta[property="og:image"]');
+  if (!ogImage) {
+    ogImage = document.createElement('meta');
+    ogImage.setAttribute('property', 'og:image');
+    document.head.appendChild(ogImage);
+  }
+  ogImage.setAttribute('content', image);
+
+  // twitter:image
+  let twitterImage = document.querySelector('meta[name="twitter:image"]');
+  if (!twitterImage) {
+    twitterImage = document.createElement('meta');
+    twitterImage.setAttribute('name', 'twitter:image');
+    document.head.appendChild(twitterImage);
+  }
+  twitterImage.setAttribute('content', image);
   // Optionally update canonical URL (already handled by setupCanonicalUrl)
 }
