@@ -1,3 +1,5 @@
+
+
 getProductData().then(products => {
   // Only keep unique product ids (same as products.js)
   const seen = new Set();
@@ -8,12 +10,17 @@ getProductData().then(products => {
   });
 
   uniqueProducts.forEach(product => {
-    const category = (product.category || "").toLowerCase();
-    if (category.includes("natural")) {
+    const categories = (product.category || "").toLowerCase().split(",").map(c => c.trim());
+    let added = false;
+    if (categories.some(cat => cat.includes("natural"))) {
       addProductToList("sitemap-natural-list", product);
-    } else if (category.includes("synthetic")) {
+      added = true;
+    }
+    if (categories.some(cat => cat.includes("synthetic"))) {
       addProductToList("sitemap-synthetic-list", product);
-    } else {
+      added = true;
+    }
+    if (!added) {
       addProductToList("sitemap-other-list", product);
     }
   });
@@ -24,8 +31,12 @@ function addProductToList(listId, product) {
   if (!ul) return;
   const li = document.createElement('li');
   const a = document.createElement('a');
-  a.href = `view-product.html?productid=${encodeURIComponent(product["product id"])} `;
+  a.href = `view-product.html?productid=${encodeURIComponent(product["product id"])}`;
   a.textContent = product["product name"];
   li.appendChild(a);
   ul.appendChild(li);
 }
+
+
+
+
