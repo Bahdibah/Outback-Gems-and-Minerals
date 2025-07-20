@@ -374,71 +374,88 @@ function formatCategoryHeader(keyword) {
 const categoryMeta = {
   "synthetic-spinel": {
     title: "Buy Synthetic Spinel from Our Range of Premium Faceting Material – Outback Gems",
-    description: "Shop our range of vivid synthetic spinel gemstones. Perfect for collectors and cutters. High-quality, affordable, and available in a variety of colours at Outback Gems & Minerals."
+    description: "Shop our range of vivid synthetic spinel gemstones. Perfect for collectors and cutters. High-quality, affordable, and available in a variety of colours at Outback Gems & Minerals.",
+    image: "https://www.outbackgems.com.au/images/category cards/Synthetic Spinel.jpg"
   },
   "synthetic-sapphire": {
     title: "Buy Synthetic Sapphire from Our Range of Premium Faceting Material – Outback Gems",
-    description: "Discover durable, brilliantly coloured synthetic sapphires for faceting and jewellery. Shop now at Outback Gems & Minerals."
+    description: "Discover durable, brilliantly coloured synthetic sapphires for faceting and jewellery. Shop now at Outback Gems & Minerals.",
+    image: "https://www.outbackgems.com.au/images/category cards/Synthetic CZ.jpg"
   },
   "synthetic-cubic-zirconia": {
     title: "Buy Synthetic Cubic Zirconia from Our Range of Premium Faceting Material – Outback Gems",
-    description: "Browse our selection of high-brilliance synthetic cubic zirconia. Perfect for faceting projects and jewellery. Outback Gems & Minerals."
+    description: "Browse our selection of high-brilliance synthetic cubic zirconia. Perfect for faceting projects and jewellery. Outback Gems & Minerals.",
+    image: "https://www.outbackgems.com.au/images/category cards/Synthetic CZ.jpg"
   },
   "natural-zircon": {
     title: "Buy Natural Zircon from Our Range of Premium Natural Rough and Faceting Material – Outback Gems",
-    description: "Shop natural zircon gemstones with rich tones and ancient origins. Brilliant, fiery, and unique. Outback Gems & Minerals."
+    description: "Shop natural zircon gemstones with rich tones and ancient origins. Brilliant, fiery, and unique. Outback Gems & Minerals.",
+    image: "https://www.outbackgems.com.au/images/category cards/Natural Zircon.jpg"
   },
   "natural-sapphire": {
     title: "Buy Natural Sapphire from Our Range of Premium Natural Rough and Faceting Material – Outback Gems",
-    description: "Explore the timeless beauty of natural sapphires. Vivid colours, exceptional durability. Outback Gems & Minerals."
+    description: "Explore the timeless beauty of natural sapphires. Vivid colours, exceptional durability. Outback Gems & Minerals.",
+    image: "https://www.outbackgems.com.au/images/category cards/Natural Zircon.jpg"
   },
   "natural-garnet": {
     title: "Buy Natural Garnet from Our Range of Premium Natural Rough and Faceting Material – Outback Gems",
-    description: "Shop natural garnet gemstones known for their brilliance and fire. Rich tones and ancient origins. Outback Gems & Minerals."
+    description: "Shop natural garnet gemstones known for their brilliance and fire. Rich tones and ancient origins. Outback Gems & Minerals.",
+    image: "https://www.outbackgems.com.au/images/category cards/Other Amethyst.jpg"
   },
   "natural-apatite": {
     title: "Buy Natural Apatite from Our Range of Premium Natural Rough and Faceting Material – Outback Gems",
-    description: "Apatite in vibrant blue and green hues. Unique phosphate mineral specimens. Outback Gems & Minerals."
+    description: "Apatite in vibrant blue and green hues. Unique phosphate mineral specimens. Outback Gems & Minerals.",
+    image: "https://www.outbackgems.com.au/images/category cards/Other Amethyst.jpg"
   },
   "natural-amethyst": {
     title: "Buy Natural Amethyst Specimens from Our Range of Gems and Minerals – Outback Gems",
-    description: "Amethyst: the purple variety of quartz. Rich colour, perfect for collections and creative projects. Outback Gems & Minerals."
+    description: "Amethyst: the purple variety of quartz. Rich colour, perfect for collections and creative projects. Outback Gems & Minerals.",
+    image: "https://www.outbackgems.com.au/images/category cards/Other Amethyst.jpg"
   },
   "natural-smoky-quartz": {
     title: "Buy Natural Smoky Quartz - Outback Gems",
-    description: "Smoky Quartz: brown to grey quartz, valued for grounding tones and natural crystal formations. Outback Gems & Minerals."
+    description: "Smoky Quartz: brown to grey quartz, valued for grounding tones and natural crystal formations. Outback Gems & Minerals.",
+    image: "https://www.outbackgems.com.au/images/category cards/Other Smoky Quartz.jpg"
   },
   "natural-peridot": {
     title: "Buy Natural Peridot Specimens from Our Range of Gems and Minerals – Outback Gems",
-    description: "Peridot (olivine): vibrant green gemstone formed deep within the Earth. Distinctive lime-green hue. Outback Gems & Minerals."
+    description: "Peridot (olivine): vibrant green gemstone formed deep within the Earth. Distinctive lime-green hue. Outback Gems & Minerals.",
+    image: "https://www.outbackgems.com.au/images/category cards/Other Olivine.jpg"
   },
   "other-olivine": {
     title: "Buy Olivine (Peridot) Specimens from Our Range of Gems and Minerals – Outback Gems",
-    description: "Olivine, also known as peridot, is a vibrant green gemstone from deep within the Earth. Shop at Outback Gems & Minerals."
+    description: "Olivine, also known as peridot, is a vibrant green gemstone from deep within the Earth. Shop at Outback Gems & Minerals.",
+    image: "https://www.outbackgems.com.au/images/category cards/Other Olivine.jpg"
   },
   "other-sapphire-wash-bags": {
     title: "Buy Sapphire Washbags for Gem Fossicking – Direct from Queensland Gemfields | Outback Gems",
-    description: "Experience fossicking at home with our Sapphire Washbags from the Queensland Gemfields. Outback Gems & Minerals."
+    description: "Experience fossicking at home with our Sapphire Washbags from the Queensland Gemfields. Outback Gems & Minerals.",
+    image: "https://www.outbackgems.com.au/images/category cards/Other Washbag.jpg"
   },
   "other-thunder-eggs": {
     title: "Buy Thunder Eggs - Outback Gems",
-    description: "Thunder eggs: crack them open to reveal vibrant patterns and hidden crystals. Outback Gems & Minerals."
+    description: "Thunder eggs: crack them open to reveal vibrant patterns and hidden crystals. Outback Gems & Minerals.",
+    image: "https://www.outbackgems.com.au/images/category cards/Other Thunder Egg.jpg"
   },
   "other-agate-slices": {
     title: "Buy Agate Slices - Outback Gems",
-    description: "Agate slices: natural banding and vibrant colours for display, decoration, or creative use. Outback Gems & Minerals."
+    description: "Agate slices: natural banding and vibrant colours for display, decoration, or creative use. Outback Gems & Minerals.",
+    image: "https://www.outbackgems.com.au/images/category cards/Other Agate Slice.jpg"
   },
   "other-yowah-nuts": {
     title: "Buy Unopened Yowah Nuts – Single, Small, Medium, Large & 3-Packs | Direct from the Queensland Opal Fields | Outback Gems",
-    description: "Shop genuine unopened Yowah nuts in single, small, medium, large, and 3-pack options. Direct from Queensland Opal fields. Each unopened nut is a natural surprise—may reveal beautiful banded ironstone or hidden opal. Outback Gems & Minerals."
+    description: "Shop genuine unopened Yowah nuts in single, small, medium, large, and 3-pack options. Direct from Queensland Opal fields. Each unopened nut is a natural surprise—may reveal beautiful banded ironstone or hidden opal. Outback Gems & Minerals.",
+    image: "https://www.outbackgems.com.au/images/category cards/Other Yowah Nuts.jpg"
   },
   "other-tumbles": {
     title: "Buy Tumbled Stones – Mixed Gemstone & Mineral Tumbles for Collectors, Gifts & Display | Outback Gems",
-    description: "Discover the beauty of nature in miniature with our range of tumbled stones. Outback Gems & Minerals."
+    description: "Discover the beauty of nature in miniature with our range of tumbled stones. Outback Gems & Minerals.",
+    image: "https://www.outbackgems.com.au/images/category cards/other-tumbles.jpeg"
   },
   "natural-herkimer-diamonds": {
     title: "Buy Herkimer Diamonds – Facetable and Specimen Quartz Crystals | Outback Gems",
-    description: "Herkimer diamonds: naturally double-terminated quartz crystals prized for their distinctive formation and sparkle. Outback Gems & Minerals."
+    description: "Herkimer diamonds: naturally double-terminated quartz crystals prized for their distinctive formation and sparkle. Outback Gems & Minerals.",
+    image: "https://www.outbackgems.com.au/images/category cards/other-herkimer-diamonds.jpeg"
   }
 };
 
