@@ -2102,3 +2102,95 @@ div.modal-content * {
     font-size: 14px;
   }
 }
+
+/* CSP Compliance - Inline Style Fixes */
+#loading-message {
+  display: none;
+}
+
+.checkout-security {
+  display: none;
+}
+
+#payment-options-box {
+  display: none;
+}
+
+#final-checkout-button {
+  margin-top: 36px;
+}
+
+#bank-transfer-modal {
+  display: none;
+}
+
+#order-confirmation-modal {
+  display: none;
+}
+
+.bank-transfer-shipping-title {
+  margin-top: 1em;
+  color: #cc5500;
+}
+
+.bank-transfer-address-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.bank-transfer-suburb {
+  flex: 2;
+}
+
+.bank-transfer-state {
+  flex: 1;
+}
+
+.bank-transfer-postcode {
+  flex: 1;
+}
+
+.bank-transfer-phone-label {
+  color: #fff;
+  margin-bottom: 4px;
+  display: block;
+}
+
+.bank-transfer-phone {
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+#please-wait-overlay {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  font-size: 2em;
+  align-items: center;
+  justify-content: center;
+}
+
+#please-wait-content {
+  margin-right: 12px;
+}
+
+/* Table column widths */
+#cart-table colgroup col:nth-child(1) { width: 40%; }
+#cart-table colgroup col:nth-child(2) { width: 12%; }
+#cart-table colgroup col:nth-child(3) { width: 15%; }
+#cart-table colgroup col:nth-child(4) { width: 11%; }
+#cart-table colgroup col:nth-child(5) { width: 11%; }
+#cart-table colgroup col:nth-child(6) { width: 11%; }
+
+/* Footer icon colors */
+.footer-right .fa-envelope,
+.footer-right .fa-facebook-square {
+  color: white;
+}
