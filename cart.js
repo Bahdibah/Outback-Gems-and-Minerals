@@ -788,8 +788,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
     const stripe = Stripe('pk_live_51RSrS62LkmYKgi6m273LNQSjpKI8SnxNtiQMGcHijiiL3eliZZzqKDR00BL8uNlwYFloGGO3kyNQJKctTvEK4eB000e8dIlEQd');
-    localStorage.removeItem('cart');
-    updateCartCount();
+    // DON'T clear cart here - only clear on successful payment
     stripe.redirectToCheckout({ sessionId: data.id });
   }
 
@@ -817,8 +816,7 @@ document.addEventListener('DOMContentLoaded', () => {
       alert('PayPal checkout failed: ' + (data.error || 'No approval URL returned.'));
       return;
     }
-    localStorage.removeItem('cart');
-    updateCartCount();
+    // DON'T clear cart here - only clear on successful payment
     window.location.href = data.approvalUrl;
   }
 
