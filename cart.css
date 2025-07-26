@@ -964,6 +964,11 @@ body {
   font-weight: bold;
 }
 
+/* Checkout Button States */
+.checkout-button-enabled {
+  opacity: 1 !important;
+}
+
 /* Enhanced Product Cell */
 .product-info {
   display: flex;

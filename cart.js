@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (subtotal >= 100) {
       shippingOptionsContainer.innerHTML = `
-        <div class="shipping-header" onclick="toggleShippingSection()">
+        <div class="shipping-header" id="shipping-header">
           <div class="shipping-header-left">
             <i class="fa fa-truck" aria-hidden="true"></i>
             <h3>Delivery Options</h3>
@@ -109,7 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       const remaining = (100 - subtotal).toFixed(2);
       shippingOptionsContainer.innerHTML = `
-        <div class="shipping-header" onclick="toggleShippingSection()">
+        <div class="shipping-header" id="shipping-header">
           <div class="shipping-header-left">
             <i class="fa fa-truck" aria-hidden="true"></i>
             <h3>Delivery Options</h3>
@@ -179,6 +179,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
     });
+
+    // Set up shipping header click event listener
+    const shippingHeader = shippingOptionsContainer.querySelector('#shipping-header');
+    if (shippingHeader) {
+      shippingHeader.addEventListener('click', toggleShippingSection);
+    }
 
     shippingCostElement.textContent = `Shipping: $${shippingCost.toFixed(2)}`;
     totalPriceElement.textContent = `Total Price: $${(subtotal + shippingCost).toFixed(2)}`;
@@ -643,15 +649,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  document.getElementById('close-bank-modal').onclick = function() {
+  document.getElementById('close-bank-modal').addEventListener('click', function() {
     document.getElementById('bank-transfer-modal').classList.remove('show-flex');
-  };
-  window.onclick = function(event) {
+  });
+  window.addEventListener('click', function(event) {
     const modal = document.getElementById('bank-transfer-modal');
     if (event.target === modal) {
       modal.classList.remove('show-flex');
     }
-  };
+  });
 
   function showOrderConfirmationModal(order) {
 
@@ -710,7 +716,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Enable checkout button
         if (checkoutNowButton) {
           checkoutNowButton.disabled = false;
-          checkoutNowButton.style.opacity = '1';
+          checkoutNowButton.classList.add('checkout-button-enabled');
         }
         
         // Store selected payment method and update security info
