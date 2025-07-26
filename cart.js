@@ -1,4 +1,28 @@
 document.addEventListener('DOMContentLoaded', () => {
+  // Payment Method Security Information Configuration
+  window.paymentSecurityInfo = {
+    'default': [
+      { icon: 'fa-shield', text: 'SSL Encrypted' },
+      { icon: 'fa-lock', text: 'Secure Payment' },
+      { icon: 'fa-check-circle', text: 'Trusted Checkout' }
+    ],
+    'card': [
+      { icon: 'fa-credit-card', text: 'Powered by Stripe' },
+      { icon: 'fa-shield', text: 'Bank-Level Security' },
+      { icon: 'fa-lock', text: 'PCI DSS Compliant' }
+    ],
+    'paypal': [
+      { icon: 'fa-paypal', text: 'PayPal Protection' },
+      { icon: 'fa-undo', text: 'Buyer Protection' },
+      { icon: 'fa-shield', text: 'Purchase Coverage' }
+    ],
+    'bank': [
+      { icon: 'fa-university', text: 'Direct Bank Transfer' },
+      { icon: 'fa-phone', text: 'Personal Service' },
+      { icon: 'fa-clock-o', text: 'Manual Verification' }
+    ]
+  };
+
   // DOM references
   const cartTableBody = document.getElementById('cart-items');
   const subtotalElement = document.getElementById('subtotal');
