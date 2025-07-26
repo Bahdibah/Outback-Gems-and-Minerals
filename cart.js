@@ -649,13 +649,30 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  // Helper function to close bank transfer modal
+  function closeBankTransferModal() {
+    const modal = document.getElementById('bank-transfer-modal');
+    modal.classList.remove('show-flex');
+    modal.classList.remove('show-block');
+  }
+
   document.getElementById('close-bank-modal').addEventListener('click', function() {
-    document.getElementById('bank-transfer-modal').classList.remove('show-flex');
+    closeBankTransferModal();
   });
   window.addEventListener('click', function(event) {
     const modal = document.getElementById('bank-transfer-modal');
     if (event.target === modal) {
-      modal.classList.remove('show-flex');
+      closeBankTransferModal();
+    }
+  });
+
+  // Close modal on Escape key
+  document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape' || event.keyCode === 27) {
+      const modal = document.getElementById('bank-transfer-modal');
+      if (modal.classList.contains('show-flex') || modal.classList.contains('show-block')) {
+        closeBankTransferModal();
+      }
     }
   });
 
@@ -845,7 +862,7 @@ document.addEventListener('DOMContentLoaded', () => {
     summaryHtml += '</ul>';
     document.getElementById('bank-order-summary').innerHTML = summaryHtml;
     
-    document.getElementById('bank-transfer-modal').classList.add('show-block');
+    document.getElementById('bank-transfer-modal').classList.add('show-flex');
   }
 
   function getShippingCostForMethod(method) {
