@@ -917,6 +917,53 @@ body {
   padding: 10px;
 }
 
+/* Empty Cart Message */
+.empty-cart-message {
+  text-align: center;
+  padding: 40px;
+  color: #ccc;
+  font-style: italic;
+}
+
+/* Row Error State */
+.row-error {
+  background-color: #ffe5e5 !important;
+}
+
+/* Utility Classes for CSP Compliance */
+.show-block {
+  display: block !important;
+}
+
+.show-flex {
+  display: flex !important;
+}
+
+.hide {
+  display: none !important;
+}
+
+/* Order Success Styling */
+.order-success-title {
+  color: #cc5500;
+}
+
+.order-section-title {
+  color: #cc5500;
+  font-weight: bold;
+}
+
+.order-summary-text {
+  color: #fff;
+  font-size: 1.1em;
+  font-family: 'Inter', Arial, sans-serif;
+}
+
+.order-confirmation-text {
+  color: #cc5500;
+  font-weight: bold;
+}
+
 /* Enhanced Product Cell */
 .product-info {
   display: flex;

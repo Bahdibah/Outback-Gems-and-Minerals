@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ],
     'paypal': [
       { icon: 'fa-paypal', text: 'PayPal Protection' },
-      { icon: 'fa-undo', text: 'Buyer Protection' },
+      { icon: 'fa-shield', text: 'Buyer Protection' },
       { icon: 'fa-shield', text: 'Purchase Coverage' }
     ],
     'bank': [
@@ -190,7 +190,7 @@ document.addEventListener('DOMContentLoaded', () => {
     cartTableBody.innerHTML = '';
     
     if (cart.length === 0) {
-      cartTableBody.innerHTML = '<tr><td colspan="6" style="text-align: center; padding: 40px; color: #ccc; font-style: italic;">Your cart is empty. Start shopping to add items here.</td></tr>';
+      cartTableBody.innerHTML = '<tr><td colspan="6" class="empty-cart-message">Your cart is empty. Start shopping to add items here.</td></tr>';
       subtotalElement.textContent = 'Subtotal: $0.00';
       shippingCostElement.textContent = 'Shipping: $0.00';
       totalPriceElement.textContent = 'Total Price: $0.00';
@@ -255,7 +255,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (item.quantity > product.stock) {
           stockOk = false;
           if (row) {
-            row.style.backgroundColor = "#ffe5e5";
+            row.classList.add("row-error");
             row.title = `Only ${product.stock} in stock`;
           }
           if (item.quantity !== product.stock) {
@@ -263,13 +263,13 @@ document.addEventListener('DOMContentLoaded', () => {
             item.quantity = product.stock;
           }
         } else if (row) {
-          row.style.backgroundColor = "";
+          row.classList.remove("row-error");
           row.title = "";
         }
       } else {
         // No matching product found
         if (row) {
-          row.style.backgroundColor = "#ffe5e5";
+          row.classList.add("row-error");
           row.title = `Product not found in stock data`;
         }
         adjustedItems.push(`"${item.name}" (not found in stock data)`);
@@ -460,7 +460,7 @@ document.addEventListener('DOMContentLoaded', () => {
         alert("Please adjust your cart to available stock before checking out.");
         return;
       }
-      paymentOptionsBox.style.display = "block";
+      paymentOptionsBox.classList.add("show-block");
       paymentOptionsBox.scrollIntoView({ behavior: "smooth" });
     });
   }
@@ -480,7 +480,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (finalCheckoutButton) {
     finalCheckoutButton.addEventListener('click', async function() {
       const overlay = document.getElementById('please-wait-overlay');
-      if (overlay) overlay.style.display = 'flex'; // Show overlay
+      if (overlay) overlay.classList.add('show-flex'); // Show overlay
 
       try {
         const method = finalCheckoutButton.dataset.method;
@@ -560,7 +560,7 @@ document.addEventListener('DOMContentLoaded', () => {
           window.location.href = data.approvalUrl;
         } else if (method === 'pay-bank') {
           // Show the modal/section for bank transfer
-          document.getElementById('bank-transfer-modal').style.display = 'flex';
+          document.getElementById('bank-transfer-modal').classList.add('show-flex');
           // Fill in the order summary with shipping
           const cart = JSON.parse(localStorage.getItem('cart')) || [];
           const shippingMethod = localStorage.getItem('selectedShippingMethod') || 'standard';
@@ -583,7 +583,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         // ...handle other payment methods...
       } finally {
-        if (overlay) overlay.style.display = 'none'; // Hide overlay when done
+        if (overlay) overlay.classList.remove('show-flex'); // Hide overlay when done
       }
     });
   }
@@ -623,17 +623,17 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('bank-transfer-result').textContent = 'Error: ' + data.error;
     } else {
 
-      document.getElementById('bank-transfer-form-section').style.display = 'none';
+      document.getElementById('bank-transfer-form-section').classList.add('hide');
 
       // Show confirmation and bank details
       document.getElementById('bank-transfer-result').innerHTML = `
-        <h3 style="color:#cc5500;">Order Placed!</h3>
+        <h3 class="order-success-title">Order Placed!</h3>
         <p>To complete your order, please transfer the total amount to:</p>
         <pre>${data.bankDetails}</pre>
-        <div class="modal-section-title" style="color:#cc5500; font-weight:bold;">Order Summary:</div>
-        <pre style="color:#fff; font-size:1.1em; font-family:'Inter',Arial,sans-serif;">${data.orderSummary}</pre>
+        <div class="modal-section-title order-section-title">Order Summary:</div>
+        <pre class="order-summary-text">${data.orderSummary}</pre>
         <div class="modal-total"><strong>Total:</strong> $${data.total}</div>
-        <p class="modal-confirmation" style="color:#cc5500; font-weight:bold;">
+        <p class="modal-confirmation order-confirmation-text">
           We've also sent these details to your email.
         </p>
       `;
@@ -644,12 +644,12 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   document.getElementById('close-bank-modal').onclick = function() {
-    document.getElementById('bank-transfer-modal').style.display = 'none';
+    document.getElementById('bank-transfer-modal').classList.remove('show-flex');
   };
   window.onclick = function(event) {
     const modal = document.getElementById('bank-transfer-modal');
     if (event.target === modal) {
-      modal.style.display = 'none';
+      modal.classList.remove('show-flex');
     }
   };
 
@@ -667,7 +667,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('.modal-order-summary').innerHTML = summaryItems.join('');
     document.querySelector('.modal-total strong').textContent = `Total: $${order.total.toFixed(2)}`;
 
-    document.getElementById('order-confirmation-modal').style.display = 'block';
+    document.getElementById('order-confirmation-modal').classList.add('show-block');
   }
 
   // Enhanced Checkout: Payment Method Selection
@@ -682,14 +682,15 @@ document.addEventListener('DOMContentLoaded', () => {
       
       if (!paymentMethod || paymentMethod === 'default') {
         // Hide the security bar when no payment method is selected
-        securityContainer.style.display = 'none';
+        securityContainer.classList.add('hide');
         return;
       }
       
       const securityInfo = window.paymentSecurityInfo[paymentMethod];
       if (securityInfo) {
         // Show the security bar and update content
-        securityContainer.style.display = 'flex';
+        securityContainer.classList.remove('hide');
+        securityContainer.classList.add('show-flex');
         securityContainer.innerHTML = securityInfo.map(item => `
           <div class="security-item">
             <i class="fa ${item.icon}" aria-hidden="true"></i>
@@ -735,7 +736,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Show loading overlay
         const overlay = document.getElementById('please-wait-overlay');
-        if (overlay) overlay.style.display = 'flex';
+        if (overlay) overlay.classList.add('show-flex');
         
         try {
           // Use existing payment processing logic based on selected method
@@ -749,7 +750,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (error) {
           console.error('Checkout error:', error);
           alert('An error occurred during checkout. Please try again.');
-          if (overlay) overlay.style.display = 'none';
+          if (overlay) overlay.classList.remove('show-flex');
         }
       });
     }
@@ -822,7 +823,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function processBankTransfer() {
     const overlay = document.getElementById('please-wait-overlay');
-    if (overlay) overlay.style.display = 'none';
+    if (overlay) overlay.classList.remove('show-flex');
     
     // Fill in the order summary with shipping
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -838,7 +839,7 @@ document.addEventListener('DOMContentLoaded', () => {
     summaryHtml += '</ul>';
     document.getElementById('bank-order-summary').innerHTML = summaryHtml;
     
-    document.getElementById('bank-transfer-modal').style.display = 'block';
+    document.getElementById('bank-transfer-modal').classList.add('show-block');
   }
 
   function getShippingCostForMethod(method) {
