@@ -263,8 +263,9 @@ return title + info;
     productNameElement.textContent = "Error loading product";
     productDescriptionElement.textContent = "Please try again later.";
   }
+}
 
-  function updateProductDetails(selectedVariation) {
+function updateProductDetails(selectedVariation) {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
     // Find the matching item in the cart for the selected variation
@@ -351,22 +352,370 @@ return title + info;
 
     quantityInputElement.setAttribute("max", availableStock);
     quantityInputElement.value = 1;
-};}
+}
 
 fetchProductDetails();
 
-// Add this function after the fetchProductDetails function
+// Product SEO meta mapping for enhanced optimization
+const productSEOMeta = {
+  // Synthetic Spinel Products
+  "s104": {
+    titleTemplate: "Buy {name} {weight}{unit} Faceting Rough - ${price} | Premium Synthetic Spinel | Outback Gems & Minerals",
+    description: "Premium {color} synthetic spinel faceting rough. Brilliant clarity, vibrant color. {weight}{unit} available at ${price}. Perfect for collectors and lapidary enthusiasts.",
+    keywords: "synthetic spinel, silver blue spinel, faceting rough, lapidary, gemstone cutting, Australian gems",
+    image: "https://outbackgems.com.au/images/main/s104.jpeg",
+    altText: "Silver Blue Synthetic Spinel faceting rough - Premium gemstone for lapidary projects at Outback Gems & Minerals",
+    categoryImage: "https://outbackgems.com.au/images/category-cards/Synthetic-Spinel.jpeg",
+    categoryAltText: "Synthetic spinel rough material specimens - Premium faceting gemstones at Outback Gems & Minerals"
+  },
+  "s105": {
+    titleTemplate: "Buy {name} {weight}{unit} Faceting Rough - ${price} | Premium Synthetic Spinel | Outback Gems & Minerals",
+    description: "Premium {color} synthetic spinel faceting rough. Soft pale blue clarity. {weight}{unit} available at ${price}. Ideal for faceting and lapidary projects.",
+    keywords: "synthetic spinel, powder blue spinel, faceting rough, lapidary, gemstone cutting",
+    image: "https://outbackgems.com.au/images/main/s105.jpeg",
+    altText: "Powder Blue Synthetic Spinel faceting rough - Premium gemstone for lapidary projects at Outback Gems & Minerals",
+    categoryImage: "https://outbackgems.com.au/images/category-cards/Synthetic-Spinel.jpeg",
+    categoryAltText: "Synthetic spinel rough material specimens - Premium faceting gemstones at Outback Gems & Minerals"
+  },
+  "s106": {
+    titleTemplate: "Buy {name} {weight}{unit} Faceting Rough - ${price} | Premium Synthetic Spinel | Outback Gems & Minerals",
+    description: "Premium {color} synthetic spinel faceting rough. Crisp icy blue clarity. {weight}{unit} available at ${price}. Outstanding for faceting projects.",
+    keywords: "synthetic spinel, ice blue spinel, faceting rough, lapidary, gemstone cutting",
+    image: "https://outbackgems.com.au/images/main/s106.jpeg",
+    altText: "Ice Blue Synthetic Spinel faceting rough - Premium gemstone for lapidary projects at Outback Gems & Minerals",
+    categoryImage: "https://outbackgems.com.au/images/category-cards/Synthetic-Spinel.jpeg",
+    categoryAltText: "Synthetic spinel rough material specimens - Premium faceting gemstones at Outback Gems & Minerals"
+  },
+  "s107": {
+    titleTemplate: "Buy {name} {weight}{unit} Faceting Rough - ${price} | Premium Synthetic Spinel | Outback Gems & Minerals",
+    description: "Premium {color} synthetic spinel faceting rough. Clear summer sky blue. {weight}{unit} available at ${price}. Perfect for faceting and lapidary.",
+    keywords: "synthetic spinel, sky blue spinel, faceting rough, lapidary, gemstone cutting",
+    image: "https://outbackgems.com.au/images/main/s107.jpeg",
+    altText: "Sky Blue Synthetic Spinel faceting rough - Premium gemstone for lapidary projects at Outback Gems & Minerals",
+    categoryImage: "https://outbackgems.com.au/images/category-cards/Synthetic-Spinel.jpeg",
+    categoryAltText: "Synthetic spinel rough material specimens - Premium faceting gemstones at Outback Gems & Minerals"
+  },
+  "s112": {
+    titleTemplate: "Buy {name} {weight}{unit} Faceting Rough - ${price} | Premium Synthetic Spinel | Outback Gems & Minerals",
+    description: "Premium {color} synthetic spinel faceting rough. Rich deep blue hue with excellent clarity. {weight}{unit} at ${price}. Ideal for collectors.",
+    keywords: "synthetic spinel, royal blue spinel, faceting rough, lapidary, gemstone cutting",
+    image: "https://outbackgems.com.au/images/main/s112.jpeg",
+    altText: "Royal Blue Synthetic Spinel faceting rough - Premium gemstone for lapidary projects at Outback Gems & Minerals",
+    categoryImage: "https://outbackgems.com.au/images/category-cards/Synthetic-Spinel.jpeg",
+    categoryAltText: "Synthetic spinel rough material specimens - Premium faceting gemstones at Outback Gems & Minerals"
+  },
+  "s113": {
+    titleTemplate: "Buy {name} {weight}{unit} Faceting Rough - ${price} | Premium Synthetic Spinel | Outback Gems & Minerals",
+    description: "Premium {color} synthetic spinel faceting rough. Classic sapphire-blue with vibrant clarity. {weight}{unit} at ${price}. Perfect for faceting.",
+    keywords: "synthetic spinel, sapphire blue spinel, faceting rough, lapidary, gemstone cutting",
+    image: "https://outbackgems.com.au/images/main/s113.jpeg",
+    altText: "Sapphire Blue Synthetic Spinel faceting rough - Premium gemstone for lapidary projects at Outback Gems & Minerals",
+    categoryImage: "https://outbackgems.com.au/images/category-cards/Synthetic-Spinel.jpeg",
+    categoryAltText: "Synthetic spinel rough material specimens - Premium faceting gemstones at Outback Gems & Minerals"
+  },
+  "s114": {
+    titleTemplate: "Buy {name} {weight}{unit} Faceting Rough - ${price} | Premium Synthetic Spinel | Outback Gems & Minerals",
+    description: "Premium {color} synthetic spinel faceting rough. Dark midnight blue with excellent clarity. {weight}{unit} at ${price}. Ideal for lapidary.",
+    keywords: "synthetic spinel, midnight blue spinel, faceting rough, lapidary, gemstone cutting",
+    image: "https://outbackgems.com.au/images/main/s114.jpeg",
+    altText: "Midnight Blue Synthetic Spinel faceting rough - Premium gemstone for lapidary projects at Outback Gems & Minerals",
+    categoryImage: "https://outbackgems.com.au/images/category-cards/Synthetic-Spinel.jpeg",
+    categoryAltText: "Synthetic spinel rough material specimens - Premium faceting gemstones at Outback Gems & Minerals"
+  },
+  "s119": {
+    titleTemplate: "Buy {name} {weight}{unit} Faceting Rough - ${price} | Premium Synthetic Spinel | Outback Gems & Minerals",
+    description: "Premium {color} synthetic spinel faceting rough. Vibrant ocean blue with great clarity. {weight}{unit} at ${price}. Perfect for faceting.",
+    keywords: "synthetic spinel, ocean blue spinel, faceting rough, lapidary, gemstone cutting",
+    image: "https://outbackgems.com.au/images/main/s119.jpeg",
+    altText: "Ocean Blue Synthetic Spinel faceting rough - Premium gemstone for lapidary projects at Outback Gems & Minerals",
+    categoryImage: "https://outbackgems.com.au/images/category-cards/Synthetic-Spinel.jpeg",
+    categoryAltText: "Synthetic spinel rough material specimens - Premium faceting gemstones at Outback Gems & Minerals"
+  },
+  "s120": {
+    titleTemplate: "Buy {name} {weight}{unit} Faceting Rough - ${price} | Premium Synthetic Spinel | Outback Gems & Minerals",
+    description: "Premium {color} synthetic spinel faceting rough. Subtle blue-grey tone with high clarity. {weight}{unit} at ${price}. Ideal for lapidary.",
+    keywords: "synthetic spinel, slate blue spinel, faceting rough, lapidary, gemstone cutting",
+    image: "https://outbackgems.com.au/images/main/s120.jpeg",
+    altText: "Slate Blue Synthetic Spinel faceting rough - Premium gemstone for lapidary projects at Outback Gems & Minerals",
+    categoryImage: "https://outbackgems.com.au/images/category-cards/Synthetic-Spinel.jpeg",
+    categoryAltText: "Synthetic spinel rough material specimens - Premium faceting gemstones at Outback Gems & Minerals"
+  },
+  
+  // Cubic Zirconia Products
+  "cz001": {
+    titleTemplate: "Buy {name} {weight}{unit} Faceting Rough - ${price} | Premium Cubic Zirconia | Outback Gems & Minerals",
+    description: "Premium {color} cubic zirconia faceting rough. Warm golden color with excellent clarity. {weight}{unit} at ${price}. Perfect for faceting projects.",
+    keywords: "cubic zirconia, champagne CZ, faceting rough, lapidary, gemstone cutting",
+    image: "https://outbackgems.com.au/images/main/CZ-Champagne.jpeg",
+    altText: "Champagne Cubic Zirconia faceting rough - Premium gemstone for lapidary projects at Outback Gems & Minerals",
+    categoryImage: "https://outbackgems.com.au/images/category-cards/Synthetic-CZ.jpeg",
+    categoryAltText: "Synthetic cubic zirconia rough material specimens - Premium faceting gemstones at Outback Gems & Minerals"
+  },
+  "cz002": {
+    titleTemplate: "Buy {name} {weight}{unit} Faceting Rough - ${price} | Premium Cubic Zirconia | Outback Gems & Minerals",
+    description: "Premium {color} cubic zirconia faceting rough. Delicate lavender hue with brilliant clarity. {weight}{unit} at ${price}. Ideal for faceting.",
+    keywords: "cubic zirconia, lavender CZ, faceting rough, lapidary, gemstone cutting",
+    image: "https://outbackgems.com.au/images/main/CZ-Lavender.jpeg",
+    altText: "Lavender Cubic Zirconia faceting rough - Premium gemstone for lapidary projects at Outback Gems & Minerals",
+    categoryImage: "https://outbackgems.com.au/images/category-cards/Synthetic-CZ.jpeg",
+    categoryAltText: "Synthetic cubic zirconia rough material specimens - Premium faceting gemstones at Outback Gems & Minerals"
+  },
+  "cz003": {
+    titleTemplate: "Buy {name} {weight}{unit} Faceting Rough - ${price} | Premium Cubic Zirconia | Outback Gems & Minerals",
+    description: "Premium {color} cubic zirconia faceting rough. Vibrant golden yellow with high clarity. {weight}{unit} at ${price}. Perfect for lapidary.",
+    keywords: "cubic zirconia, golden yellow CZ, faceting rough, lapidary, gemstone cutting",
+    image: "https://outbackgems.com.au/images/main/CZ-Golden.jpeg",
+    altText: "Golden Yellow Cubic Zirconia faceting rough - Premium gemstone for lapidary projects at Outback Gems & Minerals",
+    categoryImage: "https://outbackgems.com.au/images/category-cards/Synthetic-CZ.jpeg",
+    categoryAltText: "Synthetic cubic zirconia rough material specimens - Premium faceting gemstones at Outback Gems & Minerals"
+  },
+  "cz004": {
+    titleTemplate: "Buy {name} {weight}{unit} Faceting Rough - ${price} | Premium Cubic Zirconia | Outback Gems & Minerals",
+    description: "Premium {color} cubic zirconia faceting rough. Bright orange color with excellent clarity. {weight}{unit} at ${price}. Ideal for faceting.",
+    keywords: "cubic zirconia, orange CZ, faceting rough, lapidary, gemstone cutting",
+    image: "https://outbackgems.com.au/images/main/CZ-Orange.jpeg",
+    altText: "Orange Cubic Zirconia faceting rough - Premium gemstone for lapidary projects at Outback Gems & Minerals",
+    categoryImage: "https://outbackgems.com.au/images/category-cards/Synthetic-CZ.jpeg",
+    categoryAltText: "Synthetic cubic zirconia rough material specimens - Premium faceting gemstones at Outback Gems & Minerals"
+  },
+  
+  // Natural Zircon Products
+  "hzr002": {
+    titleTemplate: "Buy {name} 300ct Bag - ${price} | Natural Zircon from Harts Range NT | Outback Gems & Minerals",
+    description: "300ct bag of mixed natural zircons from Harts Range, NT. Colorful assortment in various shapes and sizes. Perfect for lapidary practice at ${price}.",
+    keywords: "natural zircon, Harts Range zircon, Australian gemstones, lapidary supplies, NT minerals",
+    image: "https://outbackgems.com.au/images/main/hzr002.jpeg",
+    altText: "Natural Zircon crystals from Harts Range NT - Premium Australian gemstones at Outback Gems & Minerals",
+    categoryImage: "https://outbackgems.com.au/images/category-cards/Natural-Zircon.jpeg",
+    categoryAltText: "Natural zircon rough specimens - Premium gemstones at Outback Gems & Minerals"
+  },
+  "hzr003": {
+    titleTemplate: "Buy {name} 145ct Bag - ${price} | Natural Zircon from Harts Range NT | Outback Gems & Minerals",
+    description: "145ct bag of mixed natural zircons from Harts Range, NT. Various colors suitable for faceting. Premium quality at ${price}.",
+    keywords: "natural zircon, Harts Range zircon, Australian gemstones, faceting material, NT minerals",
+    image: "https://outbackgems.com.au/images/main/hzr003.jpeg",
+    altText: "Natural Zircon crystals from Harts Range NT - Premium Australian gemstones at Outback Gems & Minerals",
+    categoryImage: "https://outbackgems.com.au/images/category-cards/Natural-Zircon.jpeg",
+    categoryAltText: "Natural zircon rough specimens - Premium gemstones at Outback Gems & Minerals"
+  },
+  
+  // Amethyst Products
+  "waam001": {
+    titleTemplate: "Buy {name} 1200ct Bag - ${price} | Natural Amethyst from WA | Outback Gems & Minerals",
+    description: "1200ct bag of natural amethyst crystals from Western Australia. Beautiful purple shades for display at ${price}. Premium Australian minerals.",
+    keywords: "natural amethyst, WA amethyst, Australian minerals, purple crystals, display specimens",
+    image: "https://outbackgems.com.au/images/main/waam001.jpeg",
+    altText: "Natural Western Australian Amethyst crystals - Premium purple gemstones at Outback Gems & Minerals",
+    categoryImage: "https://outbackgems.com.au/images/category-cards/Other-Amethyst.jpeg",
+    categoryAltText: "Natural amethyst specimens - Premium Australian minerals at Outback Gems & Minerals"
+  },
+  "waam002": {
+    titleTemplate: "Buy {name} 1000ct Bag - ${price} | Natural Amethyst from WA | Outback Gems & Minerals",
+    description: "1000ct bag of natural amethyst from WA. Various shapes and shades from clear to deep purple. Perfect for collections at ${price}.",
+    keywords: "natural amethyst, WA amethyst, Australian minerals, purple quartz, crystal specimens",
+    image: "https://outbackgems.com.au/images/main/waam002.jpeg",
+    altText: "Natural Western Australian Amethyst crystals - Premium purple gemstones at Outback Gems & Minerals",
+    categoryImage: "https://outbackgems.com.au/images/category-cards/Other-Amethyst.jpeg",
+    categoryAltText: "Natural amethyst specimens - Premium Australian minerals at Outback Gems & Minerals"
+  },
+  
+  // Smoky Quartz
+  "sq002": {
+    titleTemplate: "Buy {name} 108ct Crystal - ${price} | Natural Smoky Quartz from Mooralla VIC | Outback Gems & Minerals",
+    description: "Beautiful 108ct smoky quartz crystal from Mooralla, Victoria. Well-defined crystal structure. Outstanding display piece at ${price}.",
+    keywords: "smoky quartz, Mooralla quartz, Victorian minerals, crystal specimens, display crystals",
+    image: "https://outbackgems.com.au/images/main/sq002.jpeg",
+    altText: "Natural Smoky Quartz crystal from Mooralla VIC - Premium crystal specimen at Outback Gems & Minerals",
+    categoryImage: "https://outbackgems.com.au/images/category-cards/Other-Smoky-Quartz.jpeg",
+    categoryAltText: "Natural smoky quartz specimens - Premium Australian minerals at Outback Gems & Minerals"
+  },
+  
+  // Mixed Faceting Bags
+  "fb001": {
+    titleTemplate: "Buy {name} 1000ct Bulk Bag - ${price} | Mixed Cubic Zirconia Faceting Rough | Outback Gems & Minerals",
+    description: "1000ct bulk bag of mixed cubic zirconia. Various colors and sizes for faceting practice. Great value at ${price}.",
+    keywords: "bulk cubic zirconia, faceting practice, mixed CZ rough, lapidary supplies, gemstone cutting",
+    image: "https://outbackgems.com.au/images/main/fb001.jpeg",
+    altText: "Mixed Cubic Zirconia bulk faceting rough - Premium lapidary supplies at Outback Gems & Minerals",
+    categoryImage: "https://outbackgems.com.au/images/category-cards/Synthetic-CZ.jpeg",
+    categoryAltText: "Synthetic cubic zirconia rough material specimens - Premium faceting gemstones at Outback Gems & Minerals"
+  },
+  "fb002": {
+    titleTemplate: "Buy {name} 300ct Bulk Bag - ${price} | Mixed Synthetic Spinel Faceting Rough | Outback Gems & Minerals",
+    description: "300ct bulk bag of mixed synthetic spinel. Various colors and sizes for faceting practice. Excellent value at ${price}.",
+    keywords: "bulk synthetic spinel, faceting practice, mixed spinel rough, lapidary supplies",
+    image: "https://outbackgems.com.au/images/main/fb002.jpeg",
+    altText: "Mixed Synthetic Spinel bulk faceting rough - Premium lapidary supplies at Outback Gems & Minerals",
+    categoryImage: "https://outbackgems.com.au/images/category-cards/Synthetic-Spinel.jpeg",
+    categoryAltText: "Synthetic spinel rough material specimens - Premium faceting gemstones at Outback Gems & Minerals"
+  },
+  "fb003": {
+    titleTemplate: "Buy {name} 500ct Bulk Bag - ${price} | Mixed CZ & Spinel Faceting Rough | Outback Gems & Minerals",
+    description: "500ct bulk bag of mixed cubic zirconia and synthetic spinel. Various colors for faceting practice. Perfect value at ${price}.",
+    keywords: "bulk faceting rough, mixed CZ spinel, faceting practice, lapidary supplies, gemstone cutting",
+    image: "https://outbackgems.com.au/images/main/fb003.jpeg",
+    altText: "Mixed CZ & Spinel bulk faceting rough - Premium lapidary supplies at Outback Gems & Minerals",
+    categoryImage: "https://outbackgems.com.au/images/category-cards/Synthetic-Spinel.jpeg",
+    categoryAltText: "Synthetic spinel rough material specimens - Premium faceting gemstones at Outback Gems & Minerals"
+  },
+  
+  // Agate Products
+  "as001": {
+    titleTemplate: "Buy {name} - ${price} | Thunder Egg Agate Slice from Agate Creek QLD | Outback Gems & Minerals",
+    description: "Thunder egg agate slice from Agate Creek, QLD. Vivid red swirls with crystalline sections. Unpolished specimen at ${price}.",
+    keywords: "agate slice, thunder egg, Agate Creek QLD, Australian agate, mineral specimens",
+    image: "https://outbackgems.com.au/images/main/Other-Agate-Slice.jpeg",
+    altText: "Thunder Egg Agate Slice from Agate Creek QLD - Premium Australian mineral specimen at Outback Gems & Minerals",
+    categoryImage: "https://outbackgems.com.au/images/category-cards/Other-Agate-Slice.jpeg",
+    categoryAltText: "Natural agate slice specimens - Premium Australian minerals at Outback Gems & Minerals"
+  },
+  
+  // Sapphire Washbags
+  "sw001": {
+    titleTemplate: "Buy {name} 1kg Bag - ${price} | Sapphire Fossicking from Queensland Gemfields | Outback Gems & Minerals",
+    description: "1kg sapphire washbag from Queensland Gemfields. Includes bonus cut sapphire. Home fossicking experience at ${price}.",
+    keywords: "sapphire washbag, Queensland sapphires, fossicking, gemfield dirt, sapphire hunting",
+    image: "https://outbackgems.com.au/images/main/sw001.jpeg",
+    altText: "Queensland Sapphire Washbag - Premium fossicking experience from Queensland Gemfields at Outback Gems & Minerals",
+    categoryImage: "https://outbackgems.com.au/images/category-cards/Other-Washbag.jpeg",
+    categoryAltText: "Sapphire washbag specimens - Premium fossicking supplies at Outback Gems & Minerals"
+  },
+  
+  // Yowah Nuts
+  "yn001": {
+    titleTemplate: "Buy {name} 501-1000ct - ${price} | Large Unopened Yowah Nut from QLD | Outback Gems & Minerals",
+    description: "Large unopened Yowah Nut (501-1000ct) from Queensland opal fields. Chance at precious opal discovery. Exciting find at ${price}.",
+    keywords: "Yowah nut, Queensland opal, unopened ironstone, opal hunting, opal nuts",
+    image: "https://outbackgems.com.au/images/main/yn001.jpeg",
+    altText: "Large Unopened Yowah Nut from Queensland - Premium opal hunting specimen at Outback Gems & Minerals",
+    categoryImage: "https://outbackgems.com.au/images/category-cards/Other-Yowah-Nuts.jpeg",
+    categoryAltText: "Yowah nut specimens - Premium opal hunting supplies at Outback Gems & Minerals"
+  },
+  "yn002": {
+    titleTemplate: "Buy {name} 150-500ct - ${price} | Medium Unopened Yowah Nut from QLD | Outback Gems & Minerals",
+    description: "Medium unopened Yowah Nut (150-500ct) from Queensland opal fields. Perfect for opal hunting enthusiasts at ${price}.",
+    keywords: "Yowah nut, Queensland opal, unopened ironstone, opal hunting, medium opal nuts",
+    image: "https://outbackgems.com.au/images/main/yn002.jpeg",
+    altText: "Medium Unopened Yowah Nut from Queensland - Premium opal hunting specimen at Outback Gems & Minerals",
+    categoryImage: "https://outbackgems.com.au/images/category-cards/Other-Yowah-Nuts.jpeg",
+    categoryAltText: "Yowah nut specimens - Premium opal hunting supplies at Outback Gems & Minerals"
+  },
+  "yn003": {
+    titleTemplate: "Buy {name} 3-Pack - ${price} | Medium Unopened Yowah Nuts from QLD | Outback Gems & Minerals",
+    description: "3-pack of medium Yowah Nuts (150-500ct each) from Queensland. Increase your opal discovery chances at ${price}.",
+    keywords: "Yowah nut pack, Queensland opal, unopened ironstone, opal hunting, value pack",
+    image: "https://outbackgems.com.au/images/main/yn003.jpeg",
+    altText: "3-Pack Medium Yowah Nuts from Queensland - Premium opal hunting value pack at Outback Gems & Minerals",
+    categoryImage: "https://outbackgems.com.au/images/category-cards/Other-Yowah-Nuts.jpeg",
+    categoryAltText: "Yowah nut specimens - Premium opal hunting supplies at Outback Gems & Minerals"
+  },
+  
+  // Tumbles
+  "tb001": {
+    titleTemplate: "Buy {name} 100g Bag - ${price} | Quartz Tumbled Stones | Outback Gems & Minerals",
+    description: "100g bag of quartz tumbles. Milky white to clear varieties. Perfect for collectors and crafts at ${price}.",
+    keywords: "quartz tumbles, tumbled stones, crystal specimens, craft supplies, clear quartz",
+    image: "https://outbackgems.com.au/images/main/tb001.jpeg",
+    altText: "Quartz Tumbled Stones 100g bag - Premium crystal specimens at Outback Gems & Minerals",
+    categoryImage: "https://outbackgems.com.au/images/category-cards/other-tumbles.jpeg",
+    categoryAltText: "Tumbled stone specimens - Premium crystal collections at Outback Gems & Minerals"
+  },
+  "tb002": {
+    titleTemplate: "Buy {name} 100g Bag - ${price} | Amethyst Tumbled Stones | Outback Gems & Minerals",
+    description: "100g bag of amethyst tumbles. Beautiful purple hues from pale lilac to deep violet. Ideal for jewelry making at ${price}.",
+    keywords: "amethyst tumbles, purple tumbles, tumbled stones, jewelry supplies, crystal specimens",
+    image: "https://outbackgems.com.au/images/main/other-amethyst-tumbles.jpeg",
+    altText: "Amethyst Tumbled Stones 100g bag - Premium purple crystal specimens at Outback Gems & Minerals",
+    categoryImage: "https://outbackgems.com.au/images/category-cards/other-tumbles.jpeg",
+    categoryAltText: "Tumbled stone specimens - Premium crystal collections at Outback Gems & Minerals"
+  },
+  "tb003": {
+    titleTemplate: "Buy {name} 100g Bag - ${price} | Agate Tumbled Stones | Outback Gems & Minerals",
+    description: "100g bag of colorful agate tumbles. Natural banded patterns in vibrant colors. Great for jewelry making at ${price}.",
+    keywords: "agate tumbles, banded agate, tumbled stones, jewelry supplies, decorative stones",
+    image: "https://outbackgems.com.au/images/main/other-agate-tumbles.jpeg",
+    altText: "Agate Tumbled Stones 100g bag - Premium banded crystal specimens at Outback Gems & Minerals",
+    categoryImage: "https://outbackgems.com.au/images/category-cards/other-tumbles.jpeg",
+    categoryAltText: "Tumbled stone specimens - Premium crystal collections at Outback Gems & Minerals"
+  },
+  
+  // Herkimer Diamonds
+  "hd001": {
+    titleTemplate: "Buy {name} 100g - ${price} | Natural Herkimer Diamond Quartz Crystals | Outback Gems & Minerals",
+    description: "100g of natural Herkimer Diamonds from New York. Exceptional double-terminated quartz crystals. Unique formation at ${price}.",
+    keywords: "Herkimer diamonds, double terminated quartz, New York crystals, facetable crystals, specimen crystals",
+    image: "https://outbackgems.com.au/images/main/other-herkimer-diamonds.jpeg",
+    altText: "Natural Herkimer Diamond Quartz Crystals - Premium double-terminated specimens at Outback Gems & Minerals",
+    categoryImage: "https://outbackgems.com.au/images/category-cards/other-herkimer-diamonds.jpeg",
+    categoryAltText: "Herkimer diamond specimens - Premium quartz crystals at Outback Gems & Minerals"
+  }
+};
+
+// Enhanced function to extract color from product name
+function extractColor(productName) {
+  const colorMap = {
+    'Silver Blue': 'silver blue',
+    'Powder Blue': 'powder blue', 
+    'Ice Blue': 'ice blue',
+    'Sky Blue': 'sky blue',
+    'Royal Blue': 'royal blue',
+    'Sapphire Blue': 'sapphire blue',
+    'Midnight Blue': 'midnight blue',
+    'Ocean Blue': 'ocean blue',
+    'Slate Blue': 'slate blue',
+    'Champagne': 'champagne',
+    'Lavender': 'lavender',
+    'Golden Yellow': 'golden yellow',
+    'Orange': 'orange'
+  };
+  
+  for (const [key, value] of Object.entries(colorMap)) {
+    if (productName.includes(key)) {
+      return value;
+    }
+  }
+  return '';
+}
+
+// Enhanced meta tags function with product-specific optimization
 function updateMetaTags(product) {
   if (!product) return;
-  let shortDesc = product.short_description || product.description || 'View detailed product information, pricing, and options for this premium gemstone product from Outback Gems & Minerals.';
   
-  // Append static phrase if not already present
-  const cta = " Shop and buy online at Outback Gems & Minerals.";
-  if (!shortDesc.toLowerCase().includes("outback gems")) {
-    shortDesc += cta;
+  const productMeta = productSEOMeta[productId];
+  const color = extractColor(product["product name"]);
+  const stockStatus = product.stock > 0 ? 'In Stock' : 'Out of Stock';
+  const stockText = product.stock > 0 ? ` ${stockStatus} -` : ` ${stockStatus}.`;
+  
+  let title, description, ogImage, altText;
+  
+  if (productMeta) {
+    // Use optimized templates with dynamic data
+    title = productMeta.titleTemplate
+      .replace('{name}', product["product name"])
+      .replace('{weight}', product.weight)
+      .replace('{unit}', product.unit)
+      .replace('{color}', color)
+      .replace('${price}', product["total price"].toFixed(2));
+      
+    description = productMeta.description
+      .replace('{name}', product["product name"])
+      .replace('{weight}', product.weight)
+      .replace('{unit}', product.unit)
+      .replace('{color}', color)
+      .replace('${price}', product["total price"].toFixed(2)) + stockText + " Shop online at Outback Gems & Minerals.";
+    
+    // Use product-specific image, fallback to API image, then category image
+    ogImage = productMeta.image || product["image url"] || productMeta.categoryImage || 'https://outbackgems.com.au/images/general/Facebook%20Logo.jpg';
+    altText = productMeta.altText || `${product["product name"]} ${product.weight}${product.unit} - Premium ${color || 'gemstone'} specimen at Outback Gems & Minerals`;
+  } else {
+    // Fallback for products not in mapping
+    title = `Buy ${product["product name"]} ${product.weight}${product.unit} - $${product["total price"].toFixed(2)} | Outback Gems & Minerals`;
+    description = `${product.description || 'Premium gemstone product'}${stockText} Available for $${product["total price"].toFixed(2)}. Shop online at Outback Gems & Minerals.`;
+    ogImage = product["image url"] || 'https://outbackgems.com.au/images/general/Facebook%20Logo.jpg';
+    altText = `${product["product name"]} ${product.weight}${product.unit} - Premium ${color || 'gemstone'} specimen at Outback Gems & Minerals`;
   }
 
-  document.title = `${product["product name"]} | Outback Gems & Minerals`;
+  document.title = title;
 
   // Meta Description
   let metaDescription = document.querySelector('meta[name="description"]');
@@ -375,7 +724,17 @@ function updateMetaTags(product) {
     metaDescription.setAttribute('name', 'description');
     document.head.appendChild(metaDescription);
   }
-  metaDescription.setAttribute('content', shortDesc);
+  metaDescription.setAttribute('content', description);
+
+  // Meta Keywords
+  let metaKeywords = document.querySelector('meta[name="keywords"]');
+  if (!metaKeywords) {
+    metaKeywords = document.createElement('meta');
+    metaKeywords.setAttribute('name', 'keywords');
+    document.head.appendChild(metaKeywords);
+  }
+  const keywords = productMeta?.keywords || 'gemstones, minerals, crystals, specimen details, gem pricing, faceting rough';
+  metaKeywords.setAttribute('content', keywords);
 
   // Open Graph
   let ogTitle = document.querySelector('meta[property="og:title"]');
@@ -384,7 +743,7 @@ function updateMetaTags(product) {
     ogTitle.setAttribute('property', 'og:title');
     document.head.appendChild(ogTitle);
   }
-  ogTitle.setAttribute('content', `${product["product name"]} | Outback Gems & Minerals`);
+  ogTitle.setAttribute('content', title);
 
   let ogDesc = document.querySelector('meta[property="og:description"]');
   if (!ogDesc) {
@@ -392,7 +751,7 @@ function updateMetaTags(product) {
     ogDesc.setAttribute('property', 'og:description');
     document.head.appendChild(ogDesc);
   }
-  ogDesc.setAttribute('content', shortDesc);
+  ogDesc.setAttribute('content', description);
   
   let ogUrl = document.querySelector('meta[property="og:url"]');
   if (!ogUrl) {
@@ -402,15 +761,15 @@ function updateMetaTags(product) {
   }
   ogUrl.setAttribute('content', `https://outbackgems.com.au/view-product.html?productid=${productId}`);
   
-  let ogImage = document.querySelector('meta[property="og:image"]');
-  if (!ogImage) {
-    ogImage = document.createElement('meta');
-    ogImage.setAttribute('property', 'og:image');
-    document.head.appendChild(ogImage);
+  let ogImageMeta = document.querySelector('meta[property="og:image"]');
+  if (!ogImageMeta) {
+    ogImageMeta = document.createElement('meta');
+    ogImageMeta.setAttribute('property', 'og:image');
+    document.head.appendChild(ogImageMeta);
   }
-  ogImage.setAttribute('content', product["image url"] || 'https://outbackgems.com.au/images/general/Facebook%20Logo.jpg');
+  ogImageMeta.setAttribute('content', ogImage);
   
-
+  // Twitter Cards
   let twitterCard = document.querySelector('meta[name="twitter:card"]');
   if (!twitterCard) {
     twitterCard = document.createElement('meta');
@@ -425,7 +784,7 @@ function updateMetaTags(product) {
     twitterTitle.setAttribute('name', 'twitter:title');
     document.head.appendChild(twitterTitle);
   }
-  twitterTitle.setAttribute('content', `${product["product name"]} | Outback Gems & Minerals`);
+  twitterTitle.setAttribute('content', title);
   
   let twitterImage = document.querySelector('meta[name="twitter:image"]');
   if (!twitterImage) {
@@ -433,7 +792,7 @@ function updateMetaTags(product) {
     twitterImage.setAttribute('name', 'twitter:image');
     document.head.appendChild(twitterImage);
   }
-  twitterImage.setAttribute('content', product["image url"] || 'https://outbackgems.com.au/images/general/Twitter%20Logo.jpg');
+  twitterImage.setAttribute('content', ogImage);
   
   let twitterDesc = document.querySelector('meta[name="twitter:description"]');
   if (!twitterDesc) {
@@ -441,7 +800,7 @@ function updateMetaTags(product) {
     twitterDesc.setAttribute('name', 'twitter:description');
     document.head.appendChild(twitterDesc);
   }
-  twitterDesc.setAttribute('content', shortDesc);
+  twitterDesc.setAttribute('content', description);
 
   let twitterUrl = document.querySelector('meta[name="twitter:url"]');
   if (!twitterUrl) {
@@ -459,6 +818,11 @@ function updateMetaTags(product) {
     document.head.appendChild(canonicalLink);
   }
   canonicalLink.setAttribute('href', `https://outbackgems.com.au/view-product.html?productid=${productId}`);
+
+  // Enhanced image alt text using product-specific alt text
+  if (productImageElement) {
+    productImageElement.alt = altText;
+  }
 }
 
 // Modal image expand setup (add this after fetchProductDetails();)
