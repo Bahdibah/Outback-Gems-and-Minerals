@@ -166,6 +166,11 @@ productContainer.appendChild(headerContainer);
           const productName = document.createElement("h3");
           productName.textContent = product["product name"];
 
+          // Add price display
+          const productPrice = document.createElement("p");
+          productPrice.className = "product-price";
+          productPrice.textContent = calculatePriceDisplay(data, product["product id"]);
+
           const productDescription = document.createElement("p");
           productDescription.textContent = product.description;
 
@@ -178,6 +183,7 @@ productContainer.appendChild(headerContainer);
 
           productCard.appendChild(imageContainer);
           productCard.appendChild(productName);
+          productCard.appendChild(productPrice);
           productCard.appendChild(productDescription);
           productCard.appendChild(productButton);
 
@@ -333,6 +339,11 @@ productContainer.appendChild(headerContainer);
           const productName = document.createElement("h3");
           productName.textContent = product["product name"];
 
+          // Add price display for suggestions
+          const productPrice = document.createElement("p");
+          productPrice.className = "product-price";
+          productPrice.textContent = calculatePriceDisplay(data, product["product id"]);
+
           const productDescription = document.createElement("p");
           productDescription.textContent = product.description;
 
@@ -345,6 +356,7 @@ productContainer.appendChild(headerContainer);
 
           productCard.appendChild(imageContainer);
           productCard.appendChild(productName);
+          productCard.appendChild(productPrice);
           productCard.appendChild(productDescription);
           productCard.appendChild(productButton);
 

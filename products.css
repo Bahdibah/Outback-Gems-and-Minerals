@@ -212,18 +212,20 @@ footer >div{
   margin-bottom: 8px;
 }
 
+/* Product Price Styling */
+.dynamic-product-card .product-price {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #ffd580;
+  margin: 8px 0 12px 0;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
 /* Description Styling */
 .dynamic-product-card p {
   font-size: 1.1rem;
   color: #bfbfbfd2;
   margin: 8px 0;
-}
-
-/* Price Line Styling */
-.dynamic-product-card p:nth-of-type(2) {
-  font-weight: bold;
-  color: #ffd580;
-  font-size: 1.2rem;
 }
 
 /* Image container */

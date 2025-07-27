@@ -31,3 +31,30 @@ async function getProductData() {
   localStorage.setItem(CACHE_TIME_KEY, now);
   return data;
 }
+
+// Utility function to calculate price display for product cards
+function calculatePriceDisplay(products, productId) {
+  // Filter all variations of this product
+  const variations = products.filter(product => product["product id"] === productId);
+  
+  if (variations.length === 0) return "Price unavailable";
+  
+  if (variations.length === 1) {
+    // Single variant: show exact price
+    return `$${variations[0]["total price"].toFixed(2)}`;
+  }
+  
+  // Multiple variants: show price range
+  const prices = variations.map(v => v["total price"]).filter(p => p > 0);
+  if (prices.length === 0) return "Price unavailable";
+  
+  const minPrice = Math.min(...prices);
+  const maxPrice = Math.max(...prices);
+  
+  if (minPrice === maxPrice) {
+    return `$${minPrice.toFixed(2)}`;
+  }
+  
+  // Show range for multiple prices
+  return `$${minPrice.toFixed(2)} - $${maxPrice.toFixed(2)}`;
+}
