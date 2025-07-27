@@ -124,7 +124,7 @@ footer >div{
 #dynamic-product-container {
   display: flex;
   flex-wrap: wrap; /* Enables wrapping into new rows */
-  gap: 3%; /* Same spacing as before */
+  gap: 15px; /* Fixed gap for consistent spacing */
   padding: 20px;
   width: 100% !important;
   margin: 0 0 0 340px !important;
@@ -178,38 +178,30 @@ footer >div{
 
 /* Dynamic Product Card Styling */
 .dynamic-product-card {
-  flex: 1 1 28%;
-  max-width: 28%;  
+  flex: 1 1 30%;
+  max-width: 30%;  
   background-color: #444;
   border-radius: 10px;
-  padding: 16px;           /* was 20px */
+  padding: 18px 18px 12px 18px; /* Reduced top padding for tighter spacing */
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
   text-align: center;
   border: 3px solid #cc5500;
   box-sizing: border-box;
-  margin-bottom: 24px;     /* was 32px */
-  height: 500px;  
+  margin-bottom: 24px;     
+  height: 550px;           /* Slightly increased height for better proportions */
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 6px;                /* Reduced gap for tighter spacing */
   justify-content: flex-start;
   align-items: center;
   position: relative;
-}
-
-/* Image Styling */
-.dynamic-product-card img {
-  width: 100%; /* Ensure the image scales within the card */
-  height: auto;
-  border-radius: 10px;
-  margin-bottom: 12px;
 }
 
 /* Product Name Styling */
 .dynamic-product-card h3 {
   font-size: 1.2rem;
   color: #cc5500;
-  margin-bottom: 8px;
+  margin: 0 0 4px 0; /* Reduced top and bottom margins for tighter spacing */
 }
 
 /* Product Price Styling */
@@ -217,7 +209,7 @@ footer >div{
   font-size: 1.3rem;
   font-weight: bold;
   color: #ffd580;
-  margin: 8px 0 12px 0;
+  margin: 8px 0 6px 0; /* Reduced bottom margin to bring closer to description */
   text-shadow: 0 1px 2px rgba(0,0,0,0.3);
 }
 
@@ -225,16 +217,19 @@ footer >div{
 .dynamic-product-card p {
   font-size: 1.1rem;
   color: #bfbfbfd2;
-  margin: 8px 0;
+  margin: 4px 0 12px 0;     /* Reduced top margin to bring closer to price */
+  flex-grow: 1;             /* Allow description to grow */
+  line-height: 1.4;         /* Better readability */
 }
 
-/* Image container */
+/* Image container and styling */
 .dynamic-product-card .image-container {
   width: 100%;
-  height: 250px; /* Fixed height for images */
+  height: 240px; /* Reduced height to give more space for other elements */
   overflow: hidden;
   border-radius: 10px;
-  margin-bottom: 15px;
+  margin-bottom: 12px;
+  flex-shrink: 0; /* Prevent the container from shrinking in flexbox */
 }
 
 .dynamic-product-card img {
@@ -248,23 +243,11 @@ footer >div{
   transform: scale(1.05); /* Slight zoom effect on hover */
 }
 
-.dynamic-product-card .image-container {
+/* Button styling - position at bottom */
+.dynamic-product-card .dynamic-product-button {
+  margin-top: auto; /* This pushes the button to the bottom */
   width: 100%;
-  height: 250px;
-  overflow: hidden;
-  border-radius: 10px;
-  margin-bottom: 15px;
-}
-
-.dynamic-product-card img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.3s ease;
-}
-
-.dynamic-product-card:hover img {
-  transform: scale(1.05);
+  padding: 12px;
 }
 
 /* Buttons styling */
@@ -281,7 +264,7 @@ button {
 .suggestion-container {
   display: flex;
   flex-wrap: wrap; /* Allow wrapping for responsiveness */
-  gap: 3%; /* Same gap as the main product grid */
+  gap: 15px; /* Same gap as the main product grid */
   justify-content: center; /* Center the suggested products */
   width: 100%; /* Match the width of the main container */
   margin-top: 20px; /* Add spacing above the suggestions */
@@ -349,9 +332,10 @@ button {
   .dynamic-product-card {
     flex: 1 1 30%;
     max-width: 30%;
+    height: 500px; /* Slightly smaller on larger tablets */
   }
   #dynamic-product-container {
-    gap: 2.5%;
+    gap: 12px; /* Slightly smaller gap */
   }
 }
 
@@ -359,7 +343,7 @@ button {
   .dynamic-product-card {
     flex: 1 1 45%;
     max-width: 45%;
-    height: 420px;
+    height: 450px; /* Adjusted height for tablets */
     margin-bottom: 18px;
   }
   .dynamic-product-header-title {
@@ -367,7 +351,7 @@ button {
     padding: 18px 0;
   }
   #dynamic-product-container {
-    gap: 2%;
+    gap: 10px; /* Smaller gap for tablets */
     padding: 10px;
     margin: 0 0 0 220px !important; /* Adjusted for smaller side menu */
   }

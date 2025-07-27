@@ -17,6 +17,131 @@ fetch("side-menu.html")
     };
     document.body.appendChild(script);
 
+    // Function to show description tooltip expansion
+    function showDescriptionExpansion(fullText, productTitle, descriptionElement) {
+      // Create tooltip overlay
+      const tooltip = document.createElement('div');
+      tooltip.style.cssText = `
+        position: absolute;
+        background-color: #444;
+        border: 2px solid #cc5500;
+        border-radius: 8px;
+        padding: 12px 15px;
+        width: calc(100% - 36px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+        z-index: 1000;
+        color: #bfbfbfd2;
+        font-size: 1.1rem;
+        line-height: 1.4;
+        pointer-events: auto;
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: left;
+      `;
+      
+      // Add the full text
+      tooltip.textContent = fullText;
+      
+      // Position the tooltip centered horizontally and above the button
+      const card = descriptionElement.closest('.dynamic-product-card');
+      const button = card.querySelector('.dynamic-product-button');
+      const buttonRect = button.getBoundingClientRect();
+      const cardRect = card.getBoundingClientRect();
+      
+      // Position it above the button with some spacing
+      const buttonTopRelativeToCard = buttonRect.top - cardRect.top;
+      tooltip.style.bottom = (550 - buttonTopRelativeToCard + 10) + 'px'; // 10px gap above button
+      
+      // Add the tooltip to the card (which has position: relative)
+      card.appendChild(tooltip);
+      
+      // Close when clicking anywhere (including on the tooltip itself)
+      const closeTooltip = (e) => {
+        if (card.contains(tooltip)) {
+          card.removeChild(tooltip);
+        }
+        document.removeEventListener('click', closeTooltip);
+      };
+      
+      // Add slight delay before adding listener to prevent immediate closure
+      setTimeout(() => {
+        document.addEventListener('click', closeTooltip);
+      }, 50);
+    }
+
+    // Function to handle description overflow
+    function handleDescriptionOverflow(descriptionElement, originalText) {
+      console.log('Checking overflow for text:', originalText.substring(0, 50) + '...');
+      
+      // Wait for the element to be fully rendered
+      setTimeout(() => {
+        // Calculate actual line height based on CSS: 1.1rem * 1.4 line-height
+        const computedStyle = window.getComputedStyle(descriptionElement);
+        const fontSize = parseFloat(computedStyle.fontSize);
+        const lineHeight = parseFloat(computedStyle.lineHeight);
+        const actualLineHeight = lineHeight || (fontSize * 1.4);
+        
+        console.log('Computed line height:', actualLineHeight);
+        
+        // Set original text to measure actual height
+        descriptionElement.textContent = originalText;
+        const originalHeight = descriptionElement.scrollHeight;
+        
+        // Calculate maximum height for 4 complete lines
+        const maxHeight = actualLineHeight * 4;
+        
+        console.log('Original height:', originalHeight, 'Max height for 4 lines:', maxHeight);
+        
+        // Only truncate if text actually exceeds 4 lines by a meaningful margin
+        if (originalHeight > maxHeight + 5) { // +5px buffer to avoid edge cases
+          console.log('Text exceeds 4 lines, truncating...');
+          
+          const words = originalText.split(' ');
+          let bestFitText = '';
+          
+          // Find the longest text that fits within 4 lines
+          for (let i = 1; i <= words.length; i++) {
+            const testText = words.slice(0, i).join(' ') + '...';
+            descriptionElement.textContent = testText;
+            
+            if (descriptionElement.scrollHeight > maxHeight) {
+              // This word made it too long, use the previous iteration
+              bestFitText = words.slice(0, Math.max(1, i - 1)).join(' ');
+              break;
+            }
+          }
+          
+          if (bestFitText) {
+            // Clear and rebuild with truncated text + Read More
+            descriptionElement.innerHTML = '';
+            descriptionElement.appendChild(document.createTextNode(bestFitText + '... '));
+            
+            // Create "Read More" link
+            const readMoreLink = document.createElement('span');
+            readMoreLink.textContent = 'Read More';
+            readMoreLink.style.color = '#cc5500';
+            readMoreLink.style.cursor = 'pointer';
+            readMoreLink.style.textDecoration = 'underline';
+            readMoreLink.style.fontWeight = 'bold';
+            
+            descriptionElement.appendChild(readMoreLink);
+            
+            // Add click handler for "Read More" - show tooltip expansion
+            readMoreLink.onclick = (e) => {
+              e.stopPropagation();
+              showDescriptionExpansion(originalText, descriptionElement.closest('.dynamic-product-card').querySelector('h3').textContent, descriptionElement);
+            };
+            
+            console.log('Truncation applied successfully');
+          }
+        } else {
+          console.log('Text fits within 4 lines, no truncation needed');
+          // Ensure original text is displayed
+          descriptionElement.textContent = originalText;
+        }
+      }, 10);
+    }
+
     // --- Product loading logic STARTS here ---
     const productContainer = document.getElementById("dynamic-product-container");
     const productHeader = document.querySelector(".dynamic-product-header-title");
@@ -172,11 +297,12 @@ productContainer.appendChild(headerContainer);
           productPrice.textContent = calculatePriceDisplay(data, product["product id"]);
 
           const productDescription = document.createElement("p");
+          productDescription.className = "card-description";
           productDescription.textContent = product.description;
 
           const productButton = document.createElement("button");
           productButton.classList.add("dynamic-product-button");
-          productButton.textContent = "View Details";
+          productButton.textContent = "Shop Now";
           productButton.onclick = () => {
             window.location.href = `view-product.html?productid=${encodeURIComponent(product["product id"])}`;
           };
@@ -188,6 +314,11 @@ productContainer.appendChild(headerContainer);
           productCard.appendChild(productButton);
 
           productContainer.appendChild(productCard);
+
+          // Handle description overflow after DOM is rendered
+          setTimeout(() => {
+            handleDescriptionOverflow(productDescription, product.description);
+          }, 10);
         });
 
         // Add ghost cards to maintain grid layout
@@ -345,11 +476,12 @@ productContainer.appendChild(headerContainer);
           productPrice.textContent = calculatePriceDisplay(data, product["product id"]);
 
           const productDescription = document.createElement("p");
+          productDescription.className = "card-description";
           productDescription.textContent = product.description;
 
           const productButton = document.createElement("button");
           productButton.classList.add("dynamic-product-button");
-          productButton.textContent = "View Details";
+          productButton.textContent = "Shop Now";
           productButton.onclick = () => {
             window.location.href = `view-product.html?productid=${encodeURIComponent(product["product id"])}`;
           };
@@ -361,6 +493,11 @@ productContainer.appendChild(headerContainer);
           productCard.appendChild(productButton);
 
           suggestionContainer.appendChild(productCard);
+
+          // Handle description overflow after DOM is rendered
+          setTimeout(() => {
+            handleDescriptionOverflow(productDescription, product.description);
+          }, 10);
         });
       } else {
         const noSuggestionsMessage = document.createElement("p");
