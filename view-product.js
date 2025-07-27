@@ -34,6 +34,72 @@ fetch("side-menu.html")
     document.body.appendChild(script);
   });
 
+  // Function to show banner notifications
+  function showBannerNotification(message, type = 'success') {
+    console.log(`Showing banner: ${message} (${type})`); // Debug log
+    
+    // Remove any existing banners first
+    const existingBanners = document.querySelectorAll('.notification-banner');
+    existingBanners.forEach(banner => banner.remove());
+    
+    // Create notification banner
+    const banner = document.createElement('div');
+    banner.className = 'notification-banner';
+    const isSuccess = type === 'success';
+    
+    // Use fixed positioning but calculate navbar height and align with content area
+    const navbar = document.querySelector('nav') || document.querySelector('.navbar') || document.querySelector('header');
+    const navbarHeight = navbar ? navbar.offsetHeight + 10 : 70; // Add 10px padding, fallback to 70px
+    
+    // Find the main content container to align with
+    const mainContent = document.querySelector('.view-product-container') || 
+                       document.querySelector('main') || 
+                       document.querySelector('.container') ||
+                       document.body;
+    
+    // Get the content area's position and width for alignment
+    const contentRect = mainContent.getBoundingClientRect();
+    const contentLeft = contentRect.left + (contentRect.width / 2); // Center of content area
+    
+    banner.style.cssText = `
+      position: fixed !important;
+      top: ${navbarHeight}px !important;
+      left: ${contentLeft}px !important;
+      transform: translateX(-50%) !important;
+      background-color: ${isSuccess ? '#4CAF50' : '#f44336'} !important;
+      color: white !important;
+      padding: 20px 40px !important;
+      border-radius: 8px !important;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3) !important;
+      z-index: 999999 !important;
+      font-size: 16px !important;
+      font-weight: bold !important;
+      text-align: center !important;
+      min-width: 300px !important;
+      max-width: 600px !important;
+      opacity: 1 !important;
+      display: block !important;
+    `;
+    
+    banner.textContent = message;
+    
+    // Add to body for fixed positioning
+    document.body.appendChild(banner);
+    console.log("Banner added with fixed positioning relative to navbar:", banner);
+    
+    // Auto fade out after 4 seconds
+    setTimeout(() => {
+      if (document.body.contains(banner)) {
+        banner.style.opacity = '0';
+        setTimeout(() => {
+          if (document.body.contains(banner)) {
+            document.body.removeChild(banner);
+          }
+        }, 300);
+      }
+    }, 4000);
+  }
+
   // Add this function just before your fetchProductDetails function
 function highlightNavigation(category) {
   if (!category) return;
@@ -128,6 +194,19 @@ async function fetchProductDetails() {
 
     // Add to cart functionality (only once)
     addToCartButton.addEventListener("click", () => {
+      // Prevent multiple clicks during processing
+      if (addToCartButton.disabled) return;
+      
+      // Add click animation and disable button
+      addToCartButton.style.transform = 'scale(0.95)';
+      addToCartButton.style.transition = 'transform 0.1s ease';
+      addToCartButton.disabled = true;
+      
+      // Reset button appearance after animation
+      setTimeout(() => {
+        addToCartButton.style.transform = 'scale(1)';
+      }, 100);
+      
       const selectedIndex = parseInt(variationSelector.value, 10);
       const selectedVariation = variations[selectedIndex];
       const quantity = parseInt(quantityInputElement.value, 10) || 0;
@@ -138,51 +217,69 @@ async function fetchProductDetails() {
         ? parseInt(stockText.replace("Stock: ", ""), 10)
         : 0;
 
+      // Function to reset button state
+      const resetButton = () => {
+        addToCartButton.disabled = false;
+      };
+
       // Check for out of stock
       if (displayedStock <= 0) {
-        alert("This item is currently out of stock.");
+        setTimeout(() => {
+          showBannerNotification("This item is currently out of stock.", 'error');
+          resetButton();
+        }, 600);
         return;
       }
 
       // Validate the quantity against the displayed stock
       if (quantity > displayedStock || quantity <= 0) {
-        alert(`Only ${displayedStock} units are available.`);
+        setTimeout(() => {
+          showBannerNotification(`Only ${displayedStock} units are available.`, 'error');
+          resetButton();
+        }, 600);
         return;
       }
 
-      // Add the item to the cart
-      const cart = JSON.parse(localStorage.getItem("cart")) || [];
-      const existingItem = cart.find(
-        item =>
-          item.id === productId &&
-          item.weight === selectedVariation.weight &&
-          item.unit === selectedVariation.unit
-      );
+      // Add the item to the cart after a brief delay
+      setTimeout(() => {
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+        const existingItem = cart.find(
+          item =>
+            item.id === productId &&
+            item.weight === selectedVariation.weight &&
+            item.unit === selectedVariation.unit
+        );
 
-      if (existingItem) {
-        existingItem.quantity += quantity;
-      } else {
-        cart.push({
-          id: productId,
-          name: selectedVariation["product name"],
-          price: selectedVariation["total price"],
-          image: selectedVariation["image url"] || "images/placeholder.png",
-          weight: selectedVariation.weight,
-          unit: selectedVariation.unit,
-          quantity: quantity
-        });
-      }
+        if (existingItem) {
+          existingItem.quantity += quantity;
+        } else {
+          cart.push({
+            id: productId,
+            name: selectedVariation["product name"],
+            price: selectedVariation["total price"],
+            image: selectedVariation["image url"] || "images/placeholder.png",
+            weight: selectedVariation.weight,
+            unit: selectedVariation.unit,
+            quantity: quantity
+          });
+        }
 
-      localStorage.setItem("cart", JSON.stringify(cart));
+        localStorage.setItem("cart", JSON.stringify(cart));
 
-      // Dispatch the custom "cartUpdated" event
-      const totalItems = cart.reduce((sum, cartItem) => sum + cartItem.quantity, 0);
-      document.dispatchEvent(new CustomEvent("cartUpdated", { detail: { totalItems } }));
+        // Dispatch the custom "cartUpdated" event
+        const totalItems = cart.reduce((sum, cartItem) => sum + cartItem.quantity, 0);
+        document.dispatchEvent(new CustomEvent("cartUpdated", { detail: { totalItems } }));
 
-      // Force the stock display to recalculate and update
-      updateProductDetails(selectedVariation);
+        // Force the stock display to recalculate and update
+        updateProductDetails(selectedVariation);
 
-      alert(`${quantity} item(s) added to the cart.`);
+        // Show success banner notification
+        const totalPrice = selectedVariation["total price"] * quantity;
+        showBannerNotification(`${quantity} × ${selectedVariation["product name"]} added to cart for $${totalPrice.toFixed(2)}`, 'success');
+        
+        // Reset button state
+        resetButton();
+      }, 600);
     });
 
     // Set up quantity input event listener (only once)
