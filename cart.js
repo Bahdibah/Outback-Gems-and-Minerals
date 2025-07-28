@@ -219,7 +219,7 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
           </div>
         </td>
-        <td class="weight-cell">${item.weight || ''} ${item.unit || ''}</td>
+        <td class="unit-cell">${item.weight || ''} ${item.unit || ''}</td>
         <td class="quantity-cell">   
           <div class="quantity-controls">
             <button class="quantity-btn decrease-quantity" data-index="${idx}">-</button>

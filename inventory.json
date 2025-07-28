@@ -116,7 +116,7 @@
     "stock": 1,
     "image url": "images\\main\\s105.jpeg",
     "total price": 13.6,
-    "bestseller": "y",
+    "bestseller": "",
     "newitem": ""
   },
   {
@@ -192,7 +192,7 @@
     "image url": "images\\main\\s106.jpeg",
     "total price": 9.8,
     "bestseller": "",
-    "newitem": "y"
+    "newitem": ""
   },
   {
     "product name": "Spinel Rough - Ice Blue",
@@ -341,7 +341,7 @@
     "stock": 1,
     "image url": "images\\main\\s112.jpeg",
     "total price": 6.6,
-    "bestseller": "y",
+    "bestseller": "",
     "newitem": ""
   },
   {
@@ -507,7 +507,7 @@
     "image url": "images\\main\\s113.jpeg",
     "total price": 11.4,
     "bestseller": "",
-    "newitem": "y"
+    "newitem": ""
   },
   {
     "product name": "Spinel Rough - Sapphire Blue",
@@ -671,7 +671,7 @@
     "stock": 1,
     "image url": "images\\main\\s119.jpeg",
     "total price": 10.4,
-    "bestseller": "y",
+    "bestseller": "",
     "newitem": ""
   },
   {
@@ -776,7 +776,7 @@
     "stock": 1,
     "image url": "images\\main\\CZ-Champagne.jpeg",
     "total price": 6.2,
-    "bestseller": "y",
+    "bestseller": "",
     "newitem": ""
   },
   {
@@ -957,7 +957,7 @@
     "image url": "images\\main\\CZ-Golden.jpeg",
     "total price": 40.3,
     "bestseller": "",
-    "newitem": "y"
+    "newitem": ""
   },
   {
     "product name": "Cubic Zirconia Rough - Golden Yellow",
@@ -1136,7 +1136,7 @@
     "stock": 1,
     "image url": "images\\main\\hzr003.jpeg",
     "total price": 60,
-    "bestseller": "y",
+    "bestseller": "",
     "newitem": ""
   },
   {
@@ -1181,7 +1181,7 @@
     "stock": 1,
     "image url": "images\\main\\sq002.jpeg",
     "total price": 25,
-    "bestseller": "y",
+    "bestseller": "",
     "newitem": ""
   },
   {
@@ -1257,7 +1257,7 @@
     "image url": "images\\main\\Other-Agate-Slice.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": "y"
+    "newitem": ""
   },
   {
     "product name": "Sapphire Washbags",
@@ -1316,7 +1316,7 @@
     "stock": 5,
     "image url": "images\\main\\yn003.jpeg",
     "total price": 65,
-    "bestseller": "",
+    "bestseller": "y",
     "newitem": "y"
   },
   {
@@ -1346,7 +1346,7 @@
     "stock": 9,
     "image url": "images\\main\\other-amethyst-tumbles.jpeg",
     "total price": 10,
-    "bestseller": "",
+    "bestseller": "y",
     "newitem": "y"
   },
   {
@@ -1361,7 +1361,7 @@
     "stock": 9,
     "image url": "images\\main\\other-agate-tumbles.jpeg",
     "total price": 12.5,
-    "bestseller": "",
+    "bestseller": "y",
     "newitem": "y"
   },
   {

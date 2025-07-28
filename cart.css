@@ -175,16 +175,57 @@ body {
 }
 
 /* Responsive Design for Trust Elements */
-/* Responsive Design for Trust Elements */
-@media (max-width: 768px) {
+/* Large tablets and smaller desktops (max-width: 1024px) */
+@media (max-width: 1024px) {
   .trust-badges {
-    flex-wrap: wrap;
-    gap: 15px;
+    gap: 0;
+    margin-bottom: 35px;
   }
   
   .trust-badge {
-    flex: 1;
-    min-width: 120px;
+    padding: 18px 12px;
+    font-size: 13px;
+    min-width: 180px;
+  }
+  
+  .trust-badge i {
+    font-size: 18px;
+  }
+}
+
+/* Tablets (max-width: 768px) */
+@media (max-width: 768px) {
+  .trust-badges {
+    flex-direction: column;
+    gap: 0;
+    margin-bottom: 30px;
+    border-radius: 8px;
+  }
+  
+  .trust-badge {
+    flex: none;
+    min-width: 100%;
+    padding: 15px 20px;
+    border-right: none;
+    border-bottom: 1px solid rgba(204, 85, 0, 0.3);
+    flex-direction: row;
+    justify-content: flex-start;
+    text-align: left;
+    gap: 15px;
+  }
+  
+  .trust-badge:last-child {
+    border-bottom: none;
+  }
+  
+  .trust-badge i {
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  
+  .trust-badge span {
+    white-space: normal;
+    text-align: left;
   }
   
   .cart-buttons {
@@ -193,6 +234,46 @@ body {
   
   .cart-btn {
     min-width: 100%;
+  }
+}
+
+/* Mobile phones (max-width: 480px) */
+@media (max-width: 480px) {
+  .trust-badges {
+    margin-bottom: 25px;
+    border-radius: 6px;
+  }
+  
+  .trust-badge {
+    padding: 12px 15px;
+    font-size: 12px;
+    gap: 12px;
+  }
+  
+  .trust-badge i {
+    font-size: 16px;
+  }
+  
+  .trust-badge span {
+    font-size: 12px;
+    letter-spacing: 0.3px;
+  }
+}
+
+/* Small mobile phones (max-width: 360px) */
+@media (max-width: 360px) {
+  .trust-badge {
+    padding: 10px 12px;
+    font-size: 11px;
+    gap: 10px;
+  }
+  
+  .trust-badge i {
+    font-size: 14px;
+  }
+  
+  .trust-badge span {
+    font-size: 11px;
   }
 }
 
@@ -270,7 +351,7 @@ body {
   border-left: 3px solid #cc5500;
   margin-bottom: 15px;
   color: #fff;
-  font-size: 14px;
+  font-size: 16px;
 }
 
 .shipping-summary.show {
@@ -300,12 +381,12 @@ body {
 
 .shipping-benefit i {
   color: #cc5500;
-  font-size: 14px;
+  font-size: 16px;
 }
 
 .shipping-benefit span {
   color: #fff;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 500;
 }
 
@@ -322,24 +403,24 @@ body {
 
 .shipping-incentive-subtle i {
   color: #cc5500;
-  font-size: 14px;
+  font-size: 16px;
 }
 
 .shipping-incentive-subtle span:first-of-type {
   color: #fff;
-  font-size: 14px;
+  font-size: 16px;
   flex-grow: 1;
 }
 
 .remaining-amount {
   color: #cc5500 !important;
   font-weight: 600;
-  font-size: 14px;
+  font-size: 16px;
 }
 
 .shipping-coverage {
   color: #ccc;
-  font-size: 13px;
+  font-size: 15px;
   margin: 0;
   display: flex;
   align-items: center;
@@ -349,7 +430,7 @@ body {
 
 .shipping-coverage i {
   color: #cc5500;
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .shipping-coverage strong {
@@ -427,7 +508,7 @@ body {
 .shipping-badge {
   padding: 6px 14px;
   border-radius: 20px;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.8px;
@@ -462,14 +543,14 @@ body {
 
 .delivery-time {
   color: #cc5500;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 600;
   font-family: 'Inter', Arial, sans-serif;
 }
 
 .australia-post {
   color: #aaa;
-  font-size: 12px;
+  font-size: 14px;
   font-style: italic;
 }
 
@@ -696,16 +777,6 @@ body {
 
 /* Responsive Design for Trust Elements */
 @media (max-width: 768px) {
-  .trust-badges {
-    flex-wrap: wrap;
-    gap: 15px;
-  }
-  
-  .trust-badge {
-    flex: 1;
-    min-width: 120px;
-  }
-  
   .payment-providers {
     flex-direction: column;
     align-items: center;
@@ -836,7 +907,7 @@ body {
   padding-left: 15px;
 }
 
-.weight-header {
+.unit-header {
   text-align: center !important;
   padding-left: 15px;
   padding-right: 15px;
@@ -894,7 +965,7 @@ body {
   padding-left: 15px;
 }
 
-#cart-table td.weight-cell {
+#cart-table td.unit-cell {
   text-align: center;
   font-weight: 500;
 }
