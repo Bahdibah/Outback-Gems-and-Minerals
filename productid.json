@@ -316,6 +316,21 @@
     ]
   },
   {
+    "productid": "yn004",
+    "images": [
+      "images/products/yn004/image1.jpg",
+      "images/products/yn004/image3.jpg"
+    ]
+  },
+  {
+    "productid": "yn005",
+    "images": [
+      "images/products/yn005/image1.jpg",
+      "images/products/yn005/image2.jpeg",
+      "images/products/yn005/image3.jpg"
+    ]
+  },
+  {
     "productid": "tb001",
     "images": [
       "images/products/tb001/image1.jpg",
