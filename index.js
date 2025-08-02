@@ -143,6 +143,11 @@ document.addEventListener("DOMContentLoaded", function () {
         const name = document.createElement("h3");
         name.textContent = product["product name"];
 
+        // Price
+        const price = document.createElement("p");
+        price.className = "bestseller-price";
+        price.textContent = calculatePriceDisplay(data, product["product id"]);
+
         // Description
         const desc = document.createElement("p");
         desc.textContent = product.description;
@@ -158,6 +163,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // Assemble card
         card.appendChild(imageContainer);
         card.appendChild(name);
+        card.appendChild(price);
         card.appendChild(desc);
         card.appendChild(button);
 
@@ -200,6 +206,7 @@ document.addEventListener("DOMContentLoaded", function () {
               <img src="${product["image url"]}" alt="${product["product name"] || "Product Image"}" loading="lazy">
             </div>
             <h3>${product["product name"]}</h3>
+            <p class="whatsnew-price">${calculatePriceDisplay(data, product["product id"])}</p>
             <p>${product.description}</p>
             <button class="whatsnew-product-button">View</button>
           </div>

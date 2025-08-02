@@ -160,6 +160,16 @@
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
+    <url>
+    <loc>https://outbackgems.com.au/view-product.html?productid=yn004</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://outbackgems.com.au/view-product.html?productid=yn005</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
   <url>
     <loc>https://outbackgems.com.au/sitemap.html</loc>
     <changefreq>monthly</changefreq>

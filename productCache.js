@@ -11,9 +11,50 @@ async function getProductData() {
     return JSON.parse(cached);
   }
 
-  const response = await fetch("https://script.google.com/macros/s/AKfycbyCY8VW0D1A7AFJiU7X6tN5-RTrnYxQIV4QCzmFprxYrCVv2o4uKWnmKfJ6Xh40H4uqXA/exec");
+  // Try local inventory.json file first (instant load)
+  try {
+    const localResponse = await fetch("inventory.json");
+    if (localResponse.ok) {
+      const data = await localResponse.json();
+      localStorage.setItem(CACHE_KEY, JSON.stringify(data));
+      localStorage.setItem(CACHE_TIME_KEY, now);
+      return data;
+    }
+  } catch (error) {
+    console.log('Local inventory.json not found, using Apps Script API fallback');
+  }
+
+  // Fallback to Apps Script API (2-3 second delay)
+  const response = await fetch("https://script.google.com/macros/s/AKfycbyCY8VW0D1A7AFJiU7X6tN5-RTrnYxQIV4QCzmFprxYrCVv2o4uKWnmKfJ6Xh40H4uqqXA/exec");
   const data = await response.json();
   localStorage.setItem(CACHE_KEY, JSON.stringify(data));
   localStorage.setItem(CACHE_TIME_KEY, now);
   return data;
+}
+
+// Utility function to calculate price display for product cards
+function calculatePriceDisplay(products, productId) {
+  // Filter all variations of this product
+  const variations = products.filter(product => product["product id"] === productId);
+  
+  if (variations.length === 0) return "Price unavailable";
+  
+  if (variations.length === 1) {
+    // Single variant: show exact price
+    return `$${variations[0]["total price"].toFixed(2)}`;
+  }
+  
+  // Multiple variants: show price range
+  const prices = variations.map(v => v["total price"]).filter(p => p > 0);
+  if (prices.length === 0) return "Price unavailable";
+  
+  const minPrice = Math.min(...prices);
+  const maxPrice = Math.max(...prices);
+  
+  if (minPrice === maxPrice) {
+    return `$${minPrice.toFixed(2)}`;
+  }
+  
+  // Show range for multiple prices
+  return `$${minPrice.toFixed(2)} - $${maxPrice.toFixed(2)}`;
 }

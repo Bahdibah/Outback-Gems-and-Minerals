@@ -558,6 +558,22 @@ button {
   margin-bottom: 8px;
 }
 
+.bestseller-price {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #ffd580 !important;
+  margin: 8px 0 12px 0;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
+.whatsnew-price {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #ffd580 !important;
+  margin: 8px 0 12px 0;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
 .bestseller-product-card p {
   font-size: 1.1rem;
   color: #bfbfbfd2;

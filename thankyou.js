@@ -1,8 +1,25 @@
 document.addEventListener("DOMContentLoaded", function() {
   const urlParams = new URLSearchParams(window.location.search);
-  const orderId = urlParams.get('token');
+  const orderId = urlParams.get('token'); // PayPal token
+  const sessionId = urlParams.get('session_id'); // Stripe session_id
   const statusMessageDiv = document.getElementById('paypal-status-message');
   const thankyouBox = document.querySelector('.thankyou-container');
+  
+  // Handle Stripe success
+  if (sessionId) {
+    // Clear cart for successful Stripe payment
+    localStorage.removeItem('cart');
+    if (typeof updateCartCount === 'function') {
+      updateCartCount();
+    }
+    if (thankyouBox) thankyouBox.style.display = 'block';
+    if (statusMessageDiv) {
+      statusMessageDiv.innerHTML = '<span style="color: #27ae60;"><i class="fa fa-check-circle"></i> Payment completed successfully!</span>';
+    }
+    return; // Exit early for Stripe
+  }
+  
+  // Handle PayPal success
   if (orderId) {
     statusMessageDiv.innerHTML = '<span class="fa fa-spinner fa-spin"></span> Processing your payment, please wait...';
     fetch('https://outbackgems.netlify.app/.netlify/functions/capture-paypal-order', {
@@ -13,6 +30,11 @@ document.addEventListener("DOMContentLoaded", function() {
     .then(res => res.json())
     .then(data => {
       if (data.status === 'COMPLETED') {
+        // Clear cart only on successful payment completion
+        localStorage.removeItem('cart');
+        if (typeof updateCartCount === 'function') {
+          updateCartCount();
+        }
         if (thankyouBox) thankyouBox.style.display = 'block';
         statusMessageDiv.innerHTML = '<span style="color: #27ae60;"><i class="fa fa-check-circle"></i> Payment completed successfully!</span>';
       } else if (data.status === 'PENDING') {

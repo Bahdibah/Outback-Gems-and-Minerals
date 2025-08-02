@@ -17,6 +17,131 @@ fetch("side-menu.html")
     };
     document.body.appendChild(script);
 
+    // Function to show description tooltip expansion
+    function showDescriptionExpansion(fullText, productTitle, descriptionElement) {
+      // Create tooltip overlay
+      const tooltip = document.createElement('div');
+      tooltip.style.cssText = `
+        position: absolute;
+        background-color: #444;
+        border: 2px solid #cc5500;
+        border-radius: 8px;
+        padding: 12px 15px;
+        width: calc(100% - 36px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+        z-index: 1000;
+        color: #bfbfbfd2;
+        font-size: 1.1rem;
+        line-height: 1.4;
+        pointer-events: auto;
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: left;
+      `;
+      
+      // Add the full text
+      tooltip.textContent = fullText;
+      
+      // Position the tooltip centered horizontally and above the button
+      const card = descriptionElement.closest('.dynamic-product-card');
+      const button = card.querySelector('.dynamic-product-button');
+      const buttonRect = button.getBoundingClientRect();
+      const cardRect = card.getBoundingClientRect();
+      
+      // Position it above the button with some spacing
+      const buttonTopRelativeToCard = buttonRect.top - cardRect.top;
+      tooltip.style.bottom = (550 - buttonTopRelativeToCard + 10) + 'px'; // 10px gap above button
+      
+      // Add the tooltip to the card (which has position: relative)
+      card.appendChild(tooltip);
+      
+      // Close when clicking anywhere (including on the tooltip itself)
+      const closeTooltip = (e) => {
+        if (card.contains(tooltip)) {
+          card.removeChild(tooltip);
+        }
+        document.removeEventListener('click', closeTooltip);
+      };
+      
+      // Add slight delay before adding listener to prevent immediate closure
+      setTimeout(() => {
+        document.addEventListener('click', closeTooltip);
+      }, 50);
+    }
+
+    // Function to handle description overflow
+    function handleDescriptionOverflow(descriptionElement, originalText) {
+      console.log('Checking overflow for text:', originalText.substring(0, 50) + '...');
+      
+      // Wait for the element to be fully rendered
+      setTimeout(() => {
+        // Calculate actual line height based on CSS: 1.1rem * 1.4 line-height
+        const computedStyle = window.getComputedStyle(descriptionElement);
+        const fontSize = parseFloat(computedStyle.fontSize);
+        const lineHeight = parseFloat(computedStyle.lineHeight);
+        const actualLineHeight = lineHeight || (fontSize * 1.4);
+        
+        console.log('Computed line height:', actualLineHeight);
+        
+        // Set original text to measure actual height
+        descriptionElement.textContent = originalText;
+        const originalHeight = descriptionElement.scrollHeight;
+        
+        // Calculate maximum height for 4 complete lines
+        const maxHeight = actualLineHeight * 4;
+        
+        console.log('Original height:', originalHeight, 'Max height for 4 lines:', maxHeight);
+        
+        // Only truncate if text actually exceeds 4 lines by a meaningful margin
+        if (originalHeight > maxHeight + 5) { // +5px buffer to avoid edge cases
+          console.log('Text exceeds 4 lines, truncating...');
+          
+          const words = originalText.split(' ');
+          let bestFitText = '';
+          
+          // Find the longest text that fits within 4 lines
+          for (let i = 1; i <= words.length; i++) {
+            const testText = words.slice(0, i).join(' ') + '...';
+            descriptionElement.textContent = testText;
+            
+            if (descriptionElement.scrollHeight > maxHeight) {
+              // This word made it too long, use the previous iteration
+              bestFitText = words.slice(0, Math.max(1, i - 1)).join(' ');
+              break;
+            }
+          }
+          
+          if (bestFitText) {
+            // Clear and rebuild with truncated text + Read More
+            descriptionElement.innerHTML = '';
+            descriptionElement.appendChild(document.createTextNode(bestFitText + '... '));
+            
+            // Create "Read More" link
+            const readMoreLink = document.createElement('span');
+            readMoreLink.textContent = 'Read More';
+            readMoreLink.style.color = '#cc5500';
+            readMoreLink.style.cursor = 'pointer';
+            readMoreLink.style.textDecoration = 'underline';
+            readMoreLink.style.fontWeight = 'bold';
+            
+            descriptionElement.appendChild(readMoreLink);
+            
+            // Add click handler for "Read More" - show tooltip expansion
+            readMoreLink.onclick = (e) => {
+              e.stopPropagation();
+              showDescriptionExpansion(originalText, descriptionElement.closest('.dynamic-product-card').querySelector('h3').textContent, descriptionElement);
+            };
+            
+            console.log('Truncation applied successfully');
+          }
+        } else {
+          console.log('Text fits within 4 lines, no truncation needed');
+          // Ensure original text is displayed
+          descriptionElement.textContent = originalText;
+        }
+      }, 10);
+    }
+
     // --- Product loading logic STARTS here ---
     const productContainer = document.getElementById("dynamic-product-container");
     const productHeader = document.querySelector(".dynamic-product-header-title");
@@ -166,22 +291,34 @@ productContainer.appendChild(headerContainer);
           const productName = document.createElement("h3");
           productName.textContent = product["product name"];
 
+          // Add price display
+          const productPrice = document.createElement("p");
+          productPrice.className = "product-price";
+          productPrice.textContent = calculatePriceDisplay(data, product["product id"]);
+
           const productDescription = document.createElement("p");
+          productDescription.className = "card-description";
           productDescription.textContent = product.description;
 
           const productButton = document.createElement("button");
           productButton.classList.add("dynamic-product-button");
-          productButton.textContent = "View Details";
+          productButton.textContent = "Shop Now";
           productButton.onclick = () => {
             window.location.href = `view-product.html?productid=${encodeURIComponent(product["product id"])}`;
           };
 
           productCard.appendChild(imageContainer);
           productCard.appendChild(productName);
+          productCard.appendChild(productPrice);
           productCard.appendChild(productDescription);
           productCard.appendChild(productButton);
 
           productContainer.appendChild(productCard);
+
+          // Handle description overflow after DOM is rendered
+          setTimeout(() => {
+            handleDescriptionOverflow(productDescription, product.description);
+          }, 10);
         });
 
         // Add ghost cards to maintain grid layout
@@ -333,22 +470,34 @@ productContainer.appendChild(headerContainer);
           const productName = document.createElement("h3");
           productName.textContent = product["product name"];
 
+          // Add price display for suggestions
+          const productPrice = document.createElement("p");
+          productPrice.className = "product-price";
+          productPrice.textContent = calculatePriceDisplay(data, product["product id"]);
+
           const productDescription = document.createElement("p");
+          productDescription.className = "card-description";
           productDescription.textContent = product.description;
 
           const productButton = document.createElement("button");
           productButton.classList.add("dynamic-product-button");
-          productButton.textContent = "View Details";
+          productButton.textContent = "Shop Now";
           productButton.onclick = () => {
             window.location.href = `view-product.html?productid=${encodeURIComponent(product["product id"])}`;
           };
 
           productCard.appendChild(imageContainer);
           productCard.appendChild(productName);
+          productCard.appendChild(productPrice);
           productCard.appendChild(productDescription);
           productCard.appendChild(productButton);
 
           suggestionContainer.appendChild(productCard);
+
+          // Handle description overflow after DOM is rendered
+          setTimeout(() => {
+            handleDescriptionOverflow(productDescription, product.description);
+          }, 10);
         });
       } else {
         const noSuggestionsMessage = document.createElement("p");
@@ -373,89 +522,106 @@ function formatCategoryHeader(keyword) {
 // Mapping for custom SEO meta tags per category
 const categoryMeta = {
   "synthetic-spinel": {
-    title: "Buy Synthetic Spinel from Our Range of Premium Faceting Material – Outback Gems",
+    title: "Buy Synthetic Spinel from Our Range of Premium Faceting Material – Outback Gems & Minerals",
     description: "Shop our range of vivid synthetic spinel gemstones. Perfect for collectors and cutters. High-quality, affordable, and available in a variety of colours at Outback Gems & Minerals.",
-    image: "https://www.outbackgems.com.au/images/category-cards/synthetic-spinel.jpeg"
+    image: "https://www.outbackgems.com.au/images/category-cards/synthetic-spinel.jpeg",
+    altText: "Synthetic spinel rough material specimens - Premium faceting gemstones at Outback Gems & Minerals"
   },
   "synthetic-sapphire": {
-    title: "Buy Synthetic Sapphire from Our Range of Premium Faceting Material – Outback Gems",
+    title: "Buy Synthetic Sapphire from Our Range of Premium Faceting Material – Outback Gems & Minerals",
     description: "Discover durable, brilliantly coloured synthetic sapphires for faceting and jewellery. Shop now at Outback Gems & Minerals.",
-    image: "https://www.outbackgems.com.au/images/category-cards/synthetic-sapphire.jpeg"
+    image: "https://www.outbackgems.com.au/images/category-cards/synthetic-sapphire.jpeg",
+    altText: "Synthetic sapphire rough material specimens - Premium faceting gemstones at Outback Gems & Minerals"
   },
   "synthetic-cubic-zirconia": {
-    title: "Buy Synthetic Cubic Zirconia from Our Range of Premium Faceting Material – Outback Gems",
+    title: "Buy Synthetic Cubic Zirconia from Our Range of Premium Faceting Material – Outback Gems & Minerals",
     description: "Browse our selection of high-brilliance synthetic cubic zirconia. Perfect for faceting projects and jewellery. Outback Gems & Minerals.",
-    image: "https://www.outbackgems.com.au/images/category-cards/synthetic-cubic-zirconia.jpeg"
+    image: "https://www.outbackgems.com.au/images/category-cards/synthetic-cubic-zirconia.jpeg",
+    altText: "Synthetic cubic zirconia rough material specimens - Premium faceting gemstones at Outback Gems & Minerals"
   },
   "natural-zircon": {
-    title: "Buy Natural Zircon from Our Range of Premium Natural Rough and Faceting Material – Outback Gems",
+    title: "Buy Natural Zircon from Our Range of Premium Natural Rough and Faceting Material – Outback Gems & Minerals",
     description: "Shop natural zircon gemstones with rich tones and ancient origins. Brilliant, fiery, and unique. Outback Gems & Minerals.",
-    image: "https://www.outbackgems.com.au/images/category-cards/natural-zircon.jpeg"
+    image: "https://www.outbackgems.com.au/images/category-cards/natural-zircon.jpeg",
+    altText: "Natural zircon rough specimens - Premium gemstones at Outback Gems & Minerals"
   },
   "natural-sapphire": {
-    title: "Buy Natural Sapphire from Our Range of Premium Natural Rough and Faceting Material – Outback Gems",
+    title: "Buy Natural Sapphire from Our Range of Premium Natural Rough and Faceting Material – Outback Gems & Minerals",
     description: "Explore the timeless beauty of natural sapphires. Vivid colours, exceptional durability. Outback Gems & Minerals.",
-    image: "https://www.outbackgems.com.au/images/category-cards/natural-sapphire.jpeg"
+    image: "https://www.outbackgems.com.au/images/category-cards/natural-sapphire.jpeg",
+    altText: "Natural sapphire rough specimens - Premium gemstones at Outback Gems & Minerals"
   },
   "natural-garnet": {
-    title: "Buy Natural Garnet from Our Range of Premium Natural Rough and Faceting Material – Outback Gems",
+    title: "Buy Natural Garnet from Our Range of Premium Natural Rough and Faceting Material – Outback Gems & Minerals",
     description: "Shop natural garnet gemstones known for their brilliance and fire. Rich tones and ancient origins. Outback Gems & Minerals.",
-    image: "https://www.outbackgems.com.au/images/category-cards/natural-garnet.jpeg"
+    image: "https://www.outbackgems.com.au/images/category-cards/natural-garnet.jpeg",
+    altText: "Natural garnet rough specimens - Premium gemstones at Outback Gems & Minerals"
   },
   "natural-apatite": {
-    title: "Buy Natural Apatite from Our Range of Premium Natural Rough and Faceting Material – Outback Gems",
+    title: "Buy Natural Apatite from Our Range of Premium Natural Rough and Faceting Material – Outback Gems & Minerals",
     description: "Apatite in vibrant blue and green hues. Unique phosphate mineral specimens. Outback Gems & Minerals.",
-    image: "https://www.outbackgems.com.au/images/category-cards/natural-apatite.jpeg"
+    image: "https://www.outbackgems.com.au/images/category-cards/natural-apatite.jpeg",
+    altText: "Natural apatite rough specimens - Premium gemstones at Outback Gems & Minerals"
   },
   "natural-amethyst": {
-    title: "Buy Natural Amethyst Specimens from Our Range of Gems and Minerals – Outback Gems",
+    title: "Buy Natural Amethyst Specimens from Our Range of Gems and Minerals – Outback Gems & Minerals",
     description: "Amethyst: the purple variety of quartz. Rich colour, perfect for collections and creative projects. Outback Gems & Minerals.",
-    image: "https://www.outbackgems.com.au/images/category-cards/natural-amethyst.jpeg"
+    image: "https://www.outbackgems.com.au/images/category-cards/natural-amethyst.jpeg",
+    altText: "Natural amethyst rough specimens - Premium gemstones at Outback Gems & Minerals"
   },
   "natural-smoky-quartz": {
-    title: "Buy Natural Smoky Quartz - Outback Gems",
+    title: "Buy Natural Smoky Quartz - Outback Gems & Minerals",
     description: "Smoky Quartz: brown to grey quartz, valued for grounding tones and natural crystal formations. Outback Gems & Minerals.",
-    image: "https://www.outbackgems.com.au/images/category-cards/natural-smoky-quartz.jpeg"
+    image: "https://www.outbackgems.com.au/images/category-cards/natural-smoky-quartz.jpeg",
+    altText: "Natural smoky quartz rough specimens - Premium gemstones at Outback Gems & Minerals"
   },
   "natural-peridot": {
-    title: "Buy Natural Peridot Specimens from Our Range of Gems and Minerals – Outback Gems",
+    title: "Buy Natural Peridot Specimens from Our Range of Gems and Minerals – Outback Gems & Minerals",
     description: "Peridot (olivine): vibrant green gemstone formed deep within the Earth. Distinctive lime-green hue. Outback Gems & Minerals.",
-    image: "https://www.outbackgems.com.au/images/category-cards/natural-peridot.jpeg"
+    image: "https://www.outbackgems.com.au/images/category-cards/natural-peridot.jpeg",
+    altText: "Natural peridot rough specimens - Premium gemstones at Outback Gems & Minerals"
   },
   "other-olivine": {
-    title: "Buy Olivine (Peridot) Specimens from Our Range of Gems and Minerals – Outback Gems",
+    title: "Buy Olivine (Peridot) Specimens from Our Range of Gems and Minerals – Outback Gems & Minerals",
     description: "Olivine, also known as peridot, is a vibrant green gemstone from deep within the Earth. Shop at Outback Gems & Minerals.",
-    image: "https://www.outbackgems.com.au/images/category-cards/other-olivine.jpeg"
+    image: "https://www.outbackgems.com.au/images/category-cards/other-olivine.jpeg",
+    altText: "Olivine peridot specimens - Premium gemstone collection at Outback Gems & Minerals"
   },
   "other-sapphire-wash-bags": {
-    title: "Buy Sapphire Washbags for Gem Fossicking – Direct from Queensland Gemfields | Outback Gems",
+    title: "Buy Sapphire Washbags for Gem Fossicking – Direct from Queensland Gemfields | Outback Gems & Minerals",
     description: "Experience fossicking at home with our Sapphire Washbags from the Queensland Gemfields. Outback Gems & Minerals.",
-    image: "https://www.outbackgems.com.au/images/category-cards/other-sapphire-wash-bags.jpeg"
+    image: "https://www.outbackgems.com.au/images/category-cards/other-sapphire-wash-bags.jpeg",
+    altText: "Sapphire washbags for fossicking - Queensland gemfield dirt bags at Outback Gems & Minerals"
   },
   "other-thunder-eggs": {
-    title: "Buy Thunder Eggs - Outback Gems",
+    title: "Buy Thunder Eggs - Outback Gems & Minerals",
     description: "Thunder eggs: crack them open to reveal vibrant patterns and hidden crystals. Outback Gems & Minerals.",
-    image: "https://www.outbackgems.com.au/images/category-cards/other-thunder-eggs.jpeg"
+    image: "https://www.outbackgems.com.au/images/category-cards/other-thunder-eggs.jpeg",
+    altText: "Thunder egg specimens - Natural geodes available at Outback Gems & Minerals"
   },
   "other-agate-slices": {
-    title: "Buy Agate Slices - Outback Gems",
+    title: "Buy Agate Slices - Outback Gems & Minerals",
     description: "Agate slices: natural banding and vibrant colours for display, decoration, or creative use. Outback Gems & Minerals.",
-    image: "https://www.outbackgems.com.au/images/category-cards/other-agate-slices.jpeg"
+    image: "https://www.outbackgems.com.au/images/category-cards/other-agate-slices.jpeg",
+    altText: "Agate slice specimens with natural banding - Premium stones at Outback Gems & Minerals"
   },
   "other-yowah-nuts": {
-    title: "Buy Unopened Yowah Nuts – Single, Small, Medium, Large & 3-Packs | Direct from the Queensland Opal Fields | Outback Gems",
-    description: "Shop genuine unopened Yowah nuts in single, small, medium, large, and 3-pack options. Direct from Queensland Opal fields. Each unopened nut is a natural surprise—may reveal beautiful banded ironstone or hidden opal. Outback Gems & Minerals.",
-    image: "https://www.outbackgems.com.au/images/category-cards/other-yowah-nuts.jpeg"
+    title: "Buy Unopened Yowah Nuts – Single, Small, Medium, Large & 3-Packs | Direct from the Queensland Opal Fields | Outback Gems & Minerals",
+    description: "Shop genuine unopened Yowah nuts in single, small, medium, large, and 3-pack options. Direct from Queensland Opal fields. Each unopened nut is a natural surprise which may reveal beautiful banded ironstone or hidden opal. Outback Gems & Minerals.",
+    image: "https://www.outbackgems.com.au/images/category-cards/other-yowah-nuts.jpeg",
+    altText: "Unopened Yowah nuts specimens - Queensland opal bearing ironstone at Outback Gems & Minerals"
   },
   "other-tumbles": {
-    title: "Buy Tumbled Stones – Mixed Gemstone & Mineral Tumbles for Collectors, Gifts & Display | Outback Gems",
+    title: "Buy Tumbled Stones – Mixed Gemstone & Mineral Tumbles for Collectors, Gifts & Display | Outback Gems & Minerals",
     description: "Discover the beauty of nature in miniature with our range of tumbled stones. Outback Gems & Minerals.",
-    image: "https://www.outbackgems.com.au/images/category-cards/other-tumbles.jpeg"
+    image: "https://www.outbackgems.com.au/images/category-cards/other-tumbles.jpeg",
+    altText: "Tumbled stone specimens - Mixed gemstone and mineral collection at Outback Gems & Minerals"
   },
   "natural-herkimer-diamonds": {
-    title: "Buy Herkimer Diamonds – Facetable and Specimen Quartz Crystals | Outback Gems",
+    title: "Buy Herkimer Diamonds – Facetable and Specimen Quartz Crystals | Outback Gems & Minerals",
     description: "Herkimer diamonds: naturally double-terminated quartz crystals prized for their distinctive formation and sparkle. Outback Gems & Minerals.",
-    image: "https://www.outbackgems.com.au/images/category-cards/natural-herkimer-diamonds.jpeg"
+    image: "https://www.outbackgems.com.au/images/category-cards/natural-herkimer-diamonds.jpeg",
+    altText: "Natural herkimer diamond specimens - Herkimer Diamond quartz crystals at Outback Gems & Minerals"
   }
 };
 
@@ -466,7 +632,7 @@ function updateCategoryMetaTags(categoryKeyword) {
   }
   // Fallback to generic if not found
   const formatted = categoryKeyword ? formatCategoryHeader(categoryKeyword) : "All Products";
-  const title = meta ? meta.title : (categoryKeyword ? `${formatted} - Outback Gems` : "Products - Outback Gems");
+  const title = meta ? meta.title : (categoryKeyword ? `${formatted} - Outback Gems & Minerals` : "Products - Outback Gems & Minerals");
   const description = meta ? meta.description : (categoryKeyword
     ? `Browse our selection of ${formatted.toLowerCase()} at Outback Gems & Minerals.`
     : "Browse our complete collection of natural and synthetic gemstones, crystals, minerals and fossicking supplies. Find high-quality specimens at Outback Gems & Minerals.");
