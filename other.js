@@ -1,3 +1,20 @@
+// Background image rotation for other.html
+document.addEventListener('DOMContentLoaded', function() {
+  const images = [
+    "images/banners/Other Banner 1.jpg",
+    "images/banners/Other Banner 2.jpg",
+    "images/banners/Other Banner 3.jpg",
+    "images/banners/Other Banner 4.jpg"
+  ];
+  let current = 0;
+  const homeSection = document.getElementById("home");
+  if (homeSection) {
+    setInterval(() => {
+      current = (current + 1) % images.length;
+      homeSection.style.backgroundImage = `url('${images[current]}')`;
+    }, 15000); // Change image every 15 seconds
+  }
+});
 function formatSubcategory(cat) {
   return cat.replace(/^[^-]+-/, '')
             .replace(/-/g, ' ')
