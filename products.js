@@ -71,8 +71,6 @@ fetch("side-menu.html")
 
     // Function to handle description overflow
     function handleDescriptionOverflow(descriptionElement, originalText) {
-      console.log('Checking overflow for text:', originalText.substring(0, 50) + '...');
-      
       // Wait for the element to be fully rendered
       setTimeout(() => {
         // Calculate actual line height based on CSS: 1.1rem * 1.4 line-height
@@ -81,8 +79,6 @@ fetch("side-menu.html")
         const lineHeight = parseFloat(computedStyle.lineHeight);
         const actualLineHeight = lineHeight || (fontSize * 1.4);
         
-        console.log('Computed line height:', actualLineHeight);
-        
         // Set original text to measure actual height
         descriptionElement.textContent = originalText;
         const originalHeight = descriptionElement.scrollHeight;
@@ -90,12 +86,8 @@ fetch("side-menu.html")
         // Calculate maximum height for 4 complete lines
         const maxHeight = actualLineHeight * 4;
         
-        console.log('Original height:', originalHeight, 'Max height for 4 lines:', maxHeight);
-        
         // Only truncate if text actually exceeds 4 lines by a meaningful margin
         if (originalHeight > maxHeight + 5) { // +5px buffer to avoid edge cases
-          console.log('Text exceeds 4 lines, truncating...');
-          
           const words = originalText.split(' ');
           let bestFitText = '';
           
@@ -131,11 +123,8 @@ fetch("side-menu.html")
               e.stopPropagation();
               showDescriptionExpansion(originalText, descriptionElement.closest('.dynamic-product-card').querySelector('h3').textContent, descriptionElement);
             };
-            
-            console.log('Truncation applied successfully');
           }
         } else {
-          console.log('Text fits within 4 lines, no truncation needed');
           // Ensure original text is displayed
           descriptionElement.textContent = originalText;
         }
@@ -291,6 +280,45 @@ productContainer.appendChild(headerContainer);
           const productName = document.createElement("h3");
           productName.textContent = product["product name"];
 
+          // Add size info for Yowah Nuts products
+          let sizeElement = null;
+          if (product["product id"] && product["product id"].startsWith('yn')) {
+            // Extract size info from product name for cleaner display
+            let sizeInfo = '';
+            const name = product["product name"];
+            if (name.includes('Large')) {
+              if (name.includes('Extra Large')) {
+                sizeInfo = '1001-1750ct';
+              } else {
+                sizeInfo = '501-1000ct';
+              }
+            } else if (name.includes('Medium')) {
+              sizeInfo = '150-500ct';
+            } else if (name.includes('Small')) {
+              sizeInfo = '≤150ct';
+            }
+            
+            // Add pack info if applicable
+            if (name.includes('3 Pack')) {
+              sizeInfo += ' (3 Pack)';
+            } else if (name.includes('Single')) {
+              sizeInfo += ' (Single)';
+            }
+
+            if (sizeInfo) {
+              sizeElement = document.createElement("div");
+              sizeElement.className = "product-size-info";
+              sizeElement.textContent = sizeInfo;
+              sizeElement.style.cssText = `
+                color: #ffb366;
+                font-size: 0.9rem;
+                font-weight: 600;
+                margin: 2px 0 4px 0;
+                text-align: center;
+              `;
+            }
+          }
+
           // Add price display
           const productPrice = document.createElement("p");
           productPrice.className = "product-price";
@@ -309,6 +337,12 @@ productContainer.appendChild(headerContainer);
 
           productCard.appendChild(imageContainer);
           productCard.appendChild(productName);
+          
+          // Add size element for Yowah Nuts if it exists
+          if (sizeElement) {
+            productCard.appendChild(sizeElement);
+          }
+          
           productCard.appendChild(productPrice);
           productCard.appendChild(productDescription);
           productCard.appendChild(productButton);
@@ -470,6 +504,45 @@ productContainer.appendChild(headerContainer);
           const productName = document.createElement("h3");
           productName.textContent = product["product name"];
 
+          // Add size info for Yowah Nuts products in suggestions
+          let sizeElement = null;
+          if (product["product id"] && product["product id"].startsWith('yn')) {
+            // Extract size info from product name for cleaner display
+            let sizeInfo = '';
+            const name = product["product name"];
+            if (name.includes('Large')) {
+              if (name.includes('Extra Large')) {
+                sizeInfo = '1001-1750ct';
+              } else {
+                sizeInfo = '501-1000ct';
+              }
+            } else if (name.includes('Medium')) {
+              sizeInfo = '150-500ct';
+            } else if (name.includes('Small')) {
+              sizeInfo = '≤150ct';
+            }
+            
+            // Add pack info if applicable
+            if (name.includes('3 Pack')) {
+              sizeInfo += ' (3 Pack)';
+            } else if (name.includes('Single')) {
+              sizeInfo += ' (Single)';
+            }
+
+            if (sizeInfo) {
+              sizeElement = document.createElement("div");
+              sizeElement.className = "product-size-info";
+              sizeElement.textContent = sizeInfo;
+              sizeElement.style.cssText = `
+                color: #ffb366;
+                font-size: 0.9rem;
+                font-weight: 600;
+                margin: 2px 0 4px 0;
+                text-align: center;
+              `;
+            }
+          }
+
           // Add price display for suggestions
           const productPrice = document.createElement("p");
           productPrice.className = "product-price";
@@ -488,6 +561,12 @@ productContainer.appendChild(headerContainer);
 
           productCard.appendChild(imageContainer);
           productCard.appendChild(productName);
+          
+          // Add size element for Yowah Nuts if it exists in suggestions
+          if (sizeElement) {
+            productCard.appendChild(sizeElement);
+          }
+          
           productCard.appendChild(productPrice);
           productCard.appendChild(productDescription);
           productCard.appendChild(productButton);

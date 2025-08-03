@@ -182,7 +182,7 @@ footer >div{
   max-width: 30%;  
   background-color: #444;
   border-radius: 10px;
-  padding: 18px 18px 12px 18px; /* Reduced top padding for tighter spacing */
+  padding: 15px 18px 10px 18px; /* Further reduced top and bottom padding */
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
   text-align: center;
   border: 3px solid #cc5500;
@@ -191,7 +191,7 @@ footer >div{
   height: 550px;           /* Slightly increased height for better proportions */
   display: flex;
   flex-direction: column;
-  gap: 6px;                /* Reduced gap for tighter spacing */
+  gap: 4px;                /* Further reduced gap for tighter spacing */
   justify-content: flex-start;
   align-items: center;
   position: relative;
@@ -201,7 +201,7 @@ footer >div{
 .dynamic-product-card h3 {
   font-size: 1.2rem;
   color: #cc5500;
-  margin: 0 0 4px 0; /* Reduced top and bottom margins for tighter spacing */
+  margin: 0 0 2px 0; /* Further reduced bottom margin for tighter spacing */
 }
 
 /* Product Price Styling */
@@ -209,7 +209,7 @@ footer >div{
   font-size: 1.3rem;
   font-weight: bold;
   color: #ffd580;
-  margin: 8px 0 6px 0; /* Reduced bottom margin to bring closer to description */
+  margin: 2px 0 4px 0; /* Reduced margins to accommodate size info line */
   text-shadow: 0 1px 2px rgba(0,0,0,0.3);
 }
 
@@ -217,7 +217,7 @@ footer >div{
 .dynamic-product-card p {
   font-size: 1.1rem;
   color: #bfbfbfd2;
-  margin: 4px 0 12px 0;     /* Reduced top margin to bring closer to price */
+  margin: 2px 0 8px 0;     /* Further reduced margins for tighter spacing */
   flex-grow: 1;             /* Allow description to grow */
   line-height: 1.4;         /* Better readability */
 }

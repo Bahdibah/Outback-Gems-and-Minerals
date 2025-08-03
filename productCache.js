@@ -21,7 +21,7 @@ async function getProductData() {
       return data;
     }
   } catch (error) {
-    console.log('Local inventory.json not found, using Apps Script API fallback');
+    // Local inventory.json not found, using Apps Script API fallback
   }
 
   // Fallback to Apps Script API (2-3 second delay)

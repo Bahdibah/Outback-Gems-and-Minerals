@@ -10,9 +10,41 @@ const addToCartButton = document.getElementById("view-product-add-to-cart");
 const variationSelector = document.getElementById("view-product-variation-selector");
 const productStockElement = document.getElementById("view-product-stock");
 const productPriceElement = document.getElementById("view-product-price");
+const productUnitInfoElement = document.getElementById("view-product-unit-info");
+const productUnitPriceElement = document.getElementById("view-product-unit-price");
 
 let variations = [];
 let currentVariation = null;
+
+// Function to update quantity button states (global scope)
+function updateQuantityButtons() {
+  const currentQty = parseInt(quantityInputElement.value, 10) || 1;
+  
+  // Extract stock number from HTML content
+  const stockElement = productStockElement;
+  let displayedStock = 0;
+  
+  if (stockElement) {
+    const stockText = stockElement.textContent || stockElement.innerText;
+    if (stockText.includes('Out of Stock')) {
+      displayedStock = 0;
+    } else {
+      // Extract number from the stock display
+      const stockMatch = stockText.match(/\d+/);
+      displayedStock = stockMatch ? parseInt(stockMatch[0], 10) : 0;
+    }
+  }
+  
+  const quantityDecrease = document.getElementById("quantity-decrease");
+  const quantityIncrease = document.getElementById("quantity-increase");
+  
+  if (quantityDecrease) {
+    quantityDecrease.disabled = currentQty <= 1;
+  }
+  if (quantityIncrease) {
+    quantityIncrease.disabled = currentQty >= displayedStock || displayedStock <= 0;
+  }
+}
 
 // Dynamically load the side menu HTML
 fetch("side-menu.html")
@@ -36,8 +68,6 @@ fetch("side-menu.html")
 
   // Function to show banner notifications
   function showBannerNotification(message, type = 'success') {
-    console.log(`Showing banner: ${message} (${type})`); // Debug log
-    
     // Remove any existing banners first
     const existingBanners = document.querySelectorAll('.notification-banner');
     existingBanners.forEach(banner => banner.remove());
@@ -85,7 +115,6 @@ fetch("side-menu.html")
     
     // Add to body for fixed positioning
     document.body.appendChild(banner);
-    console.log("Banner added with fixed positioning relative to navbar:", banner);
     
     // Auto fade out after 4 seconds
     setTimeout(() => {
@@ -133,6 +162,111 @@ function highlightNavigation(category) {
   }, 100); // Check every 100ms
 }
 
+// Function to extract disclaimer text from technical information
+function extractDisclaimerText(techInfos) {
+  let disclaimerText = '';
+  
+  for (const techInfo of techInfos) {
+    const fullText = techInfo.fullText;
+    // Look for disclaimer section in the HTML content - multiple patterns
+    let disclaimerMatch = fullText.match(/<p><strong>Disclaimer:<\/strong><\/p><p>(.*?)<\/p>/s);
+    
+    // Also check for "Important Notice" pattern and convert to "Disclaimer"
+    if (!disclaimerMatch) {
+      disclaimerMatch = fullText.match(/<p><strong>Important Notice:<\/strong><\/p><p>(.*?)<\/p>/s);
+    }
+    
+    if (disclaimerMatch) {
+      disclaimerText = `<p><strong>Disclaimer:</strong></p><p>${disclaimerMatch[1]}</p>`;
+      break; // Use the first disclaimer found
+    }
+  }
+  
+  return disclaimerText;
+}
+
+// Function to match disclaimer height with right column content
+function matchDisclaimerHeight() {
+  const disclaimerSection = document.querySelector('.view-product-disclaimer-desktop');
+  const disclaimerContent = document.querySelector('.disclaimer-content');
+  
+  if (disclaimerSection && disclaimerContent) {
+    // Reset any forced height to get natural content height
+    disclaimerContent.style.height = 'auto';
+    disclaimerContent.style.minHeight = 'auto';
+    
+    // Let the content determine its natural height
+    const naturalHeight = disclaimerContent.scrollHeight;
+    
+    // Apply the natural height to ensure consistent sizing
+    disclaimerContent.style.height = naturalHeight + 'px';
+    disclaimerContent.style.minHeight = naturalHeight + 'px';
+    
+    // Optimize spacing for better visual balance
+    disclaimerSection.style.marginBottom = '15px';
+    disclaimerSection.style.paddingBottom = '8px';
+    disclaimerSection.style.marginTop = '8px';
+    disclaimerSection.style.paddingTop = '4px';
+    
+    // Add subtle visual enhancement
+    disclaimerContent.style.borderRadius = '4px';
+    disclaimerContent.style.transition = 'all 0.3s ease';
+  }
+}
+
+// Function to fix quantity input styling and behavior
+function fixQuantityInputStyling() {
+  const quantityInput = document.getElementById("view-product-quantity");
+  if (quantityInput) {
+    // Enhanced dark theme styling with better UX
+    quantityInput.style.outline = 'none';
+    quantityInput.style.boxShadow = 'none';
+    quantityInput.style.border = '2px solid #555';
+    quantityInput.style.borderRadius = '6px';
+    quantityInput.style.padding = '10px 14px';
+    quantityInput.style.margin = '0';
+    quantityInput.style.backgroundColor = '#2a2a2a';
+    quantityInput.style.color = '#ffffff';
+    quantityInput.style.fontSize = '16px';
+    quantityInput.style.fontWeight = '500';
+    quantityInput.style.textAlign = 'center';
+    quantityInput.style.verticalAlign = 'middle';
+    quantityInput.style.display = 'inline-block';
+    quantityInput.style.transition = 'all 0.3s ease';
+    quantityInput.style.minWidth = '80px';
+    quantityInput.readOnly = false;
+    quantityInput.disabled = false;
+    
+    // Enhanced focus styles with smooth transitions
+    quantityInput.addEventListener('focus', function() {
+      this.style.borderColor = '#ffb366';
+      this.style.backgroundColor = '#333333';
+      this.style.boxShadow = '0 0 0 3px rgba(255, 179, 102, 0.2)';
+      this.style.transform = 'scale(1.02)';
+    });
+    
+    quantityInput.addEventListener('blur', function() {
+      this.style.borderColor = '#555';
+      this.style.backgroundColor = '#2a2a2a';
+      this.style.boxShadow = 'none';
+      this.style.transform = 'scale(1)';
+    });
+    
+    // Add hover effect for better interactivity
+    quantityInput.addEventListener('mouseenter', function() {
+      if (document.activeElement !== this) {
+        this.style.borderColor = '#777';
+      }
+    });
+    
+    quantityInput.addEventListener('mouseleave', function() {
+      if (document.activeElement !== this) {
+        this.style.borderColor = '#555';
+      }
+    });
+  }
+}
+
 // Fetch product details from the cache
 async function fetchProductDetails() {
   try {
@@ -172,6 +306,23 @@ async function fetchProductDetails() {
       variationSelector.appendChild(option);
     });
 
+    // Hide/show size selector based on number of variations
+    const variationRow = variationSelector.closest('.view-product-row');
+    const variationLabel = document.getElementById('view-product-variation-label');
+    const stockElement = document.getElementById('view-product-stock');
+    
+    if (variations.length === 1) {
+      // Hide the entire variation row when there's only one option
+      if (variationRow) {
+        variationRow.style.display = 'none';
+      }
+    } else {
+      // Show the variation row when there are multiple options
+      if (variationRow) {
+        variationRow.style.display = 'flex';
+      }
+    }
+
     // Update product details for the first variation by default
     currentVariation = variations[0];
     updateProductDetails(currentVariation);
@@ -183,6 +334,15 @@ async function fetchProductDetails() {
       highlightNavigation(variations[0].category);
     }
     
+    // Set up disclaimer height matching after content loads
+    setTimeout(() => {
+      matchDisclaimerHeight();
+      fixQuantityInputStyling(); // Fix quantity input issues
+      optimizeImageLoading(); // Add image optimization
+      enhanceAccessibility(); // Improve accessibility
+      setupRelatedYowahNuts(); // Setup related Yowah Nuts section
+    }, 100);
+    
     
 
     // Add event listener for dropdown changes (only once)
@@ -190,6 +350,12 @@ async function fetchProductDetails() {
       const selectedIndex = parseInt(event.target.value, 10);
       currentVariation = variations[selectedIndex];
       updateProductDetails(currentVariation);
+      // Recalculate disclaimer height after variation change
+      setTimeout(() => {
+        matchDisclaimerHeight();
+        fixQuantityInputStyling(); // Ensure input remains functional
+        updateQuantityButtons(); // Update button states
+      }, 50);
     });
 
     // Add to cart functionality (only once)
@@ -197,25 +363,36 @@ async function fetchProductDetails() {
       // Prevent multiple clicks during processing
       if (addToCartButton.disabled) return;
       
-      // Add click animation and disable button
+      // Enhanced click animation with better feedback
       addToCartButton.style.transform = 'scale(0.95)';
-      addToCartButton.style.transition = 'transform 0.1s ease';
+      addToCartButton.style.transition = 'transform 0.15s ease';
+      addToCartButton.style.opacity = '0.8';
       addToCartButton.disabled = true;
       
       // Reset button appearance after animation
       setTimeout(() => {
         addToCartButton.style.transform = 'scale(1)';
-      }, 100);
+        addToCartButton.style.opacity = '1';
+      }, 150);
       
       const selectedIndex = parseInt(variationSelector.value, 10);
       const selectedVariation = variations[selectedIndex];
       const quantity = parseInt(quantityInputElement.value, 10) || 0;
 
       // Get the displayed stock from the productStockElement
-      const stockText = productStockElement.textContent;
-      const displayedStock = stockText.startsWith("Stock: ")
-        ? parseInt(stockText.replace("Stock: ", ""), 10)
-        : 0;
+      const stockElement = productStockElement;
+      let displayedStock = 0;
+      
+      if (stockElement) {
+        const stockText = stockElement.textContent || stockElement.innerText;
+        if (stockText.includes('Out of Stock')) {
+          displayedStock = 0;
+        } else {
+          // Extract number from the stock display
+          const stockMatch = stockText.match(/\d+/);
+          displayedStock = stockMatch ? parseInt(stockMatch[0], 10) : 0;
+        }
+      }
 
       // Function to reset button state
       const resetButton = () => {
@@ -286,7 +463,21 @@ async function fetchProductDetails() {
     quantityInputElement.addEventListener("input", () => {
       if (!currentVariation) return;
       let quantity = parseInt(quantityInputElement.value, 10) || 1;
-      const displayedStock = parseInt(productStockElement.textContent.replace("Stock: ", ""), 10);
+      
+      // Extract stock number from HTML content
+      const stockElement = productStockElement;
+      let displayedStock = 0;
+      
+      if (stockElement) {
+        const stockText = stockElement.textContent || stockElement.innerText;
+        if (stockText.includes('Out of Stock')) {
+          displayedStock = 0;
+        } else {
+          // Extract number from the stock display
+          const stockMatch = stockText.match(/\d+/);
+          displayedStock = stockMatch ? parseInt(stockMatch[0], 10) : 0;
+        }
+      }
 
       if (quantity > displayedStock) {
         quantity = displayedStock;
@@ -294,8 +485,56 @@ async function fetchProductDetails() {
       }
 
       const totalPrice = currentVariation["total price"] * quantity;
-      productPriceElement.textContent = `Price: $${totalPrice.toFixed(2)}`;
+      productPriceElement.textContent = `Subtotal: $${totalPrice.toFixed(2)}`;
     });
+
+    // Set up quantity selector buttons
+    const quantityDecrease = document.getElementById("quantity-decrease");
+    const quantityIncrease = document.getElementById("quantity-increase");
+
+    if (quantityDecrease && quantityIncrease) {
+      quantityDecrease.addEventListener("click", () => {
+        if (!currentVariation) return;
+        let currentQty = parseInt(quantityInputElement.value, 10) || 1;
+        if (currentQty > 1) {
+          currentQty--;
+          quantityInputElement.value = currentQty;
+          const totalPrice = currentVariation["total price"] * currentQty;
+          productPriceElement.textContent = `Subtotal: $${totalPrice.toFixed(2)}`;
+        }
+        // Update button states
+        updateQuantityButtons();
+      });
+
+      quantityIncrease.addEventListener("click", () => {
+        if (!currentVariation) return;
+        let currentQty = parseInt(quantityInputElement.value, 10) || 1;
+        
+        // Extract stock number from HTML content
+        const stockElement = productStockElement;
+        let displayedStock = 0;
+        
+        if (stockElement) {
+          const stockText = stockElement.textContent || stockElement.innerText;
+          if (stockText.includes('Out of Stock')) {
+            displayedStock = 0;
+          } else {
+            // Extract number from the stock display
+            const stockMatch = stockText.match(/\d+/);
+            displayedStock = stockMatch ? parseInt(stockMatch[0], 10) : 0;
+          }
+        }
+        
+        if (currentQty < displayedStock) {
+          currentQty++;
+          quantityInputElement.value = currentQty;
+          const totalPrice = currentVariation["total price"] * currentQty;
+          productPriceElement.textContent = `Subtotal: $${totalPrice.toFixed(2)}`;
+        }
+        // Update button states
+        updateQuantityButtons();
+      });
+    }
 
     // After you set variations and before using category:
     const category = variations[0]?.category;
@@ -322,10 +561,24 @@ async function fetchProductDetails() {
   ? `<h3 style="color:#cc5500; margin-top:1.5em;">${product["product name"]}</h3>`
   : "";
 const info = product?.["product-description"] || "<p>No technical info available.</p>";
-return title + info;
+return { title: title, info: info, fullText: title + info };
           });
+          
+          // Populate technical info section
           const techDiv = document.getElementById("view-product-technical-info");
-          if (techDiv) techDiv.innerHTML = techInfos.join("<hr>");
+          if (techDiv) techDiv.innerHTML = techInfos.map(item => item.fullText).join("<hr>");
+          
+          // Extract and populate disclaimer for desktop section
+          const disclaimerText = extractDisclaimerText(techInfos);
+          const desktopDisclaimerDiv = document.getElementById("disclaimer-text");
+          if (desktopDisclaimerDiv && disclaimerText) {
+            desktopDisclaimerDiv.innerHTML = disclaimerText;
+          }
+          
+          // Recalculate disclaimer height after content loads
+          setTimeout(() => {
+            matchDisclaimerHeight();
+          }, 100);
         })
         .catch(err => {
           const techDiv = document.getElementById("view-product-technical-info");
@@ -357,6 +610,7 @@ return title + info;
 
   } catch (error) {
     console.error("Error fetching product details:", error);
+    handleProductLoadError(error); // Use enhanced error handling
     productNameElement.textContent = "Error loading product";
     productDescriptionElement.textContent = "Please try again later.";
   }
@@ -384,16 +638,42 @@ function updateProductDetails(selectedVariation) {
     productImageElement.src = selectedVariation["image url"] || "images/placeholder.png";
     productDescriptionElement.textContent = selectedVariation.description;
         if (availableStock > 0) {
-          productStockElement.textContent = `Stock: ${availableStock}`;
+          // Format stock with centered number under "Stock" label
+          productStockElement.innerHTML = `
+            <div style="text-align: center; line-height: 1.2;">
+              <div>Stock</div>
+              <div style="font-weight: bold; color: #ffb366; font-size: 1.1em;">${availableStock}</div>
+            </div>
+          `;
           quantityInputElement.disabled = false;
           quantityInputElement.value = 1;
         } else {
-          productStockElement.textContent = 'Out of Stock';
+          productStockElement.innerHTML = `
+            <div style="text-align: center; line-height: 1.2;">
+              <div style="color: #f44336;">Out of Stock</div>
+            </div>
+          `;
           quantityInputElement.disabled = true;
           quantityInputElement.value = 0;
         }
     addToCartButton.disabled = false; // Always enabled
-    productPriceElement.textContent = `Price: $${selectedVariation["total price"].toFixed(2)}`;
+    productPriceElement.textContent = `Subtotal: $${selectedVariation["total price"].toFixed(2)}`;
+
+    // Update unit information
+    if (productUnitInfoElement) {
+      // Format the unit info more clearly
+      const unitText = selectedVariation.unit.toLowerCase() === 'each' || selectedVariation.unit.toLowerCase() === 'bag' || selectedVariation.unit.toLowerCase() === 'piece' 
+        ? `${selectedVariation.weight} ${selectedVariation.unit}`
+        : `${selectedVariation.weight} ${selectedVariation.unit}`;
+      productUnitInfoElement.textContent = unitText;
+      productUnitInfoElement.style.fontWeight = 'bold';
+      productUnitInfoElement.style.color = '#ffb366';
+    }
+    if (productUnitPriceElement) {
+      productUnitPriceElement.textContent = `$${selectedVariation["total price"].toFixed(2)}`;
+      productUnitPriceElement.style.fontWeight = 'bold';
+      productUnitPriceElement.style.color = '#ffb366';
+    }
 
     quantityInputElement.setAttribute("max", availableStock);
     quantityInputElement.value = 1;
@@ -449,9 +729,115 @@ function updateProductDetails(selectedVariation) {
 
     quantityInputElement.setAttribute("max", availableStock);
     quantityInputElement.value = 1;
+    
+    // Update quantity button states after setting values
+    setTimeout(updateQuantityButtons, 100);
 }
 
 fetchProductDetails();
+
+// Function to optimize image loading performance
+function optimizeImageLoading() {
+  const mainImage = document.getElementById("view-product-image");
+  const thumbnails = document.querySelectorAll(".view-product-image-placeholder");
+  
+  if (mainImage) {
+    // Add smooth transition for main image
+    mainImage.style.transition = 'opacity 0.3s ease';
+    mainImage.style.borderRadius = '8px';
+    
+    // Optimize loading with intersection observer
+    const imageObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const img = entry.target;
+          img.style.opacity = '1';
+        }
+      });
+    });
+    
+    imageObserver.observe(mainImage);
+  }
+  
+  // Enhance thumbnail interactions
+  thumbnails.forEach(thumb => {
+    thumb.style.transition = 'all 0.2s ease';
+    thumb.style.borderRadius = '4px';
+    
+    thumb.addEventListener('mouseenter', function() {
+      this.style.transform = 'scale(1.05)';
+      this.style.opacity = '0.8';
+    });
+    
+    thumb.addEventListener('mouseleave', function() {
+      this.style.transform = 'scale(1)';
+      this.style.opacity = '1';
+    });
+  });
+}
+
+// Function to enhance accessibility
+function enhanceAccessibility() {
+  // Add ARIA labels for screen readers
+  const quantityInput = document.getElementById("view-product-quantity");
+  const addToCartButton = document.getElementById("view-product-add-to-cart");
+  const variationSelector = document.getElementById("view-product-variation-selector");
+  
+  if (quantityInput) {
+    quantityInput.setAttribute('aria-label', 'Product quantity');
+    quantityInput.setAttribute('role', 'spinbutton');
+  }
+  
+  if (addToCartButton) {
+    addToCartButton.setAttribute('aria-label', 'Add product to shopping cart');
+  }
+  
+  if (variationSelector) {
+    variationSelector.setAttribute('aria-label', 'Select product variation');
+  }
+  
+  // Improve keyboard navigation
+  const focusableElements = document.querySelectorAll('button, input, select, [tabindex]');
+  focusableElements.forEach(element => {
+    element.addEventListener('focus', function() {
+      this.style.outline = '2px solid #ffb366';
+      this.style.outlineOffset = '2px';
+    });
+    
+    element.addEventListener('blur', function() {
+      this.style.outline = 'none';
+    });
+  });
+}
+
+// Enhanced error handling for product loading
+function handleProductLoadError(error) {
+  console.error("Enhanced error handling:", error);
+  
+  // Show user-friendly error message
+  const errorContainer = document.createElement('div');
+  errorContainer.className = 'product-error-message';
+  errorContainer.style.cssText = `
+    background-color: #f44336;
+    color: white;
+    padding: 15px;
+    border-radius: 8px;
+    margin: 20px 0;
+    text-align: center;
+    font-weight: bold;
+  `;
+  errorContainer.textContent = 'Unable to load product details. Please refresh the page or try again later.';
+  
+  const container = document.querySelector('.view-product-container') || document.body;
+  container.prepend(errorContainer);
+  
+  // Auto-hide error after 10 seconds
+  setTimeout(() => {
+    if (errorContainer.parentNode) {
+      errorContainer.remove();
+    }
+  }, 10000);
+}
 
 // Product SEO meta mapping for enhanced optimization
 const productSEOMeta = {
@@ -991,3 +1377,204 @@ function injectProductSchema(product) {
   document.head.appendChild(script);
 }
 
+// Function to setup Related Yowah Nuts section (Dual Layout: Grid + Swiper)
+async function setupRelatedYowahNuts() {
+  // Check if current product is a Yowah Nut
+  if (!productId || !productId.startsWith('yn')) {
+    return; // Not a Yowah Nut, exit early
+  }
+
+  try {
+    const products = await getProductData();
+    
+    // Filter all Yowah Nut products (product IDs starting with 'yn')
+    const yowahNuts = products.filter(item => 
+      item["product id"] && 
+      item["product id"].startsWith('yn')
+    );
+
+    if (yowahNuts.length === 0) {
+      return; // No Yowah Nuts to show
+    }
+
+    // Group by product ID to get unique products
+    const uniqueYowahNuts = [];
+    const seenIds = new Set();
+    
+    yowahNuts.forEach(item => {
+      const id = item["product id"].trim();
+      if (!seenIds.has(id)) {
+        seenIds.add(id);
+        uniqueYowahNuts.push(item);
+      }
+    });
+
+    // Sort by product ID and limit to first 4 products
+    uniqueYowahNuts.sort((a, b) => a["product id"].localeCompare(b["product id"]));
+    const displayProducts = uniqueYowahNuts.slice(0, 4);
+
+    // Show the related products section
+    const relatedSection = document.getElementById('related-yowah-nuts-section');
+    if (relatedSection) {
+      relatedSection.style.display = 'block';
+    }
+
+    // Generate the related products HTML for both layouts
+    const gridWrapper = document.getElementById('related-yowah-nuts-wrapper');
+    const swiperWrapper = document.getElementById('related-yowah-nuts-swiper-wrapper');
+    
+    if (!gridWrapper || !swiperWrapper) return;
+
+    // Get cart data to calculate stock
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    // Clear existing content
+    gridWrapper.innerHTML = '';
+    swiperWrapper.innerHTML = '';
+
+    displayProducts.forEach(product => {
+      // Calculate available stock
+      const cartItem = cart.find(item => 
+        item.id === product["product id"] && 
+        item.weight === product.weight && 
+        item.unit === product.unit
+      );
+      const cartQuantity = cartItem ? cartItem.quantity : 0;
+      const availableStock = product.stock - cartQuantity;
+      
+      // Determine stock status
+      let stockClass = availableStock > 0 ? 'in-stock' : 'out-of-stock';
+      let stockText = availableStock > 0 ? `${availableStock} in stock` : 'Out of stock';
+      
+      // Extract size info from product name for cleaner display
+      let sizeInfo = '';
+      const name = product["product name"];
+      if (name.includes('Large')) {
+        if (name.includes('Extra Large')) {
+          sizeInfo = '1001-1750ct';
+        } else {
+          sizeInfo = '501-1000ct';
+        }
+      } else if (name.includes('Medium')) {
+        sizeInfo = '150-500ct';
+      } else if (name.includes('Small')) {
+        sizeInfo = '≤150ct';
+      }
+      
+      // Add pack info if applicable
+      if (name.includes('3 Pack')) {
+        sizeInfo += ' (3 Pack)';
+      } else if (name.includes('Single')) {
+        sizeInfo += ' (Single)';
+      }
+
+      // Create card HTML content
+      const cardContent = `
+        <img src="${product["image url"] || 'images/placeholder.png'}" 
+             alt="${product["product name"]}" 
+             class="related-product-image"
+             loading="lazy">
+        <div class="related-product-name">${product["product name"]}</div>
+        <div class="related-product-size">${sizeInfo}</div>
+        <div class="related-product-price">$${product["total price"].toFixed(2)}</div>
+        <div class="related-product-stock ${stockClass}">${stockText}</div>
+      `;
+
+      // Create grid card
+      const gridCard = document.createElement('div');
+      gridCard.className = 'yowah-card';
+      gridCard.innerHTML = cardContent;
+      gridCard.style.cursor = 'pointer';
+      gridCard.addEventListener('click', () => {
+        window.location.href = `view-product.html?productid=${product["product id"]}`;
+      });
+      gridWrapper.appendChild(gridCard);
+
+      // Create swiper slide
+      const swiperSlide = document.createElement('div');
+      swiperSlide.className = 'swiper-slide';
+      const swiperCard = document.createElement('div');
+      swiperCard.className = 'yowah-card';
+      swiperCard.innerHTML = cardContent;
+      swiperCard.style.cursor = 'pointer';
+      swiperCard.addEventListener('click', () => {
+        window.location.href = `view-product.html?productid=${product["product id"]}`;
+      });
+      swiperSlide.appendChild(swiperCard);
+      swiperWrapper.appendChild(swiperSlide);
+    });
+
+    // Initialize Swiper for mobile layout
+    initializeRelatedYowahNutsSwiper();
+
+  } catch (error) {
+    console.error("Error setting up related Yowah Nuts:", error);
+  }
+}
+
+// Function to initialize Swiper for related Yowah Nuts
+function initializeRelatedYowahNutsSwiper() {
+  // Destroy existing swiper if it exists
+  if (window.relatedYowahNutsSwiper) {
+    window.relatedYowahNutsSwiper.destroy(true, true);
+  }
+
+  // Initialize new swiper
+  window.relatedYowahNutsSwiper = new Swiper('#related-yowah-nuts-swiper', {
+    // Basic configuration
+    loop: false,
+    autoplay: false,
+    
+    // Responsive breakpoints
+    breakpoints: {
+      // Mobile (up to 767px) - 1 slide
+      0: {
+        slidesPerView: 1,
+        spaceBetween: 10,
+        centeredSlides: true,
+      },
+      // Small tablet (768px and up) - 2 slides  
+      768: {
+        slidesPerView: 2,
+        spaceBetween: 15,
+        centeredSlides: false,
+      }
+    },
+    
+    // Navigation arrows
+    navigation: {
+      nextEl: '.related-yowah-nuts-swiper .swiper-button-next',
+      prevEl: '.related-yowah-nuts-swiper .swiper-button-prev',
+    },
+    
+    // Pagination dots
+    pagination: {
+      el: '.related-yowah-nuts-swiper .swiper-pagination',
+      clickable: true,
+      dynamicBullets: true,
+    },
+    
+    // Touch/swipe settings
+    touchEventsTarget: 'container',
+    simulateTouch: true,
+    allowTouchMove: true,
+    touchStartPreventDefault: false,
+    
+    // Additional options
+    grabCursor: true,
+    watchOverflow: true,
+    
+    // Keyboard navigation
+    keyboard: {
+      enabled: true,
+      onlyInViewport: true,
+    },
+    
+    // Accessibility
+    a11y: {
+      enabled: true,
+      prevSlideMessage: 'Previous Yowah Nut',
+      nextSlideMessage: 'Next Yowah Nut',
+    }
+  });
+}

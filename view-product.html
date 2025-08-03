@@ -39,6 +39,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Allura&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Satisfy&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- Swiper CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/swiper@11/swiper-bundle.min.css" />
   <link rel="icon" type="image/png" href="images/favicon.png">  
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta name="referrer" content="strict-origin-when-cross-origin">
@@ -56,28 +58,47 @@
       <div class="view-product-header-container">
         <h1 id="view-product-name" class="view-product-title" aria-live="polite">Loading...</h1>
       </div>
-      <div class="divider"></div>
       <div class="view-product-main">
         <!-- Left: Main image and thumbnails -->
         <div class="view-product-images">
-          <div class="view-product-thumbnails" id="view-product-thumbnails"></div>
-           <img id="view-product-image" src=" " alt="Product Image" class="view-product-main-image" loading="lazy" />
+          <div class="view-product-images-row">
+            <div class="view-product-thumbnails" id="view-product-thumbnails"></div>
+            <img id="view-product-image" src=" " alt="Product Image" class="view-product-main-image" loading="lazy" />
+          </div>
+           
+           <!-- Desktop disclaimer section (below images) -->
+           <div class="view-product-disclaimer-desktop" id="view-product-disclaimer-desktop">
+             <div class="disclaimer-content">
+               <div id="disclaimer-text"></div>
+             </div>
+           </div>
         </div>
+        
         <!-- Right: Product info -->
         <div class="view-product-info">
           <div class="view-product-row">
             <label id="view-product-variation-label" for="view-product-variation-selector">Select Size:</label>
             <select id="view-product-variation-selector"></select>
-            <span id="view-product-stock">Stock: Loading...</span>
           </div>
           <div class="view-product-row">
             <label id="view-product-quantity-label" for="view-product-quantity">Select Quantity:</label>
-            <input type="number" id="view-product-quantity" name="quantity" min="1" value="1">
-            <span id="view-product-price"></span>
+            <div class="quantity-selector-container">
+              <button type="button" class="quantity-btn" id="quantity-decrease">−</button>
+              <input type="number" id="view-product-quantity" name="quantity" min="1" value="1" readonly>
+              <button type="button" class="quantity-btn" id="quantity-increase">+</button>
+            </div>
+            <span id="view-product-stock">Stock: Loading...</span>
+          </div>
+          <div class="view-product-row">
+            <span id="view-product-unit-info">Loading...</span>
+            <span id="view-product-unit-price">Loading...</span>
           </div>
           <div class="view-product-description-block">
             <h2 class="view-product-description-title">Description</h2>
             <p id="view-product-description" class="view-product-description">Loading product description...</p>
+          </div>
+          <div class="view-product-subtotal">
+            <span id="view-product-price">Subtotal: Loading...</span>
           </div>
           <button id="view-product-add-to-cart">Add to Cart</button>
           <a id="view-product-continue-shopping-link" href="#"><button id="view-product-continue-shopping-button" class="theme-button">
@@ -85,11 +106,39 @@
           </button></a>
         </div>
       </div>
+      
+      <!-- Related Yowah Nuts Section -->
+      <div id="related-yowah-nuts-section" class="related-products-section" style="display: none;">
+        <div class="divider"></div>
+        <h2 class="related-products-title">Other Yowah Nuts Available</h2>
+        
+        <!-- Desktop Grid Layout -->
+        <div class="related-yowah-nuts-container">
+          <div class="related-yowah-nuts-grid" id="related-yowah-nuts-wrapper">
+            <!-- Dynamic grid content will be inserted here -->
+          </div>
+          
+          <!-- Mobile Swiper Layout -->
+          <div class="related-yowah-nuts-swiper" id="related-yowah-nuts-swiper">
+            <div class="swiper-wrapper" id="related-yowah-nuts-swiper-wrapper">
+              <!-- Dynamic swiper slides will be inserted here -->
+            </div>
+            <!-- Navigation buttons -->
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+            <!-- Pagination dots -->
+            <div class="swiper-pagination"></div>
+          </div>
+        </div>
+      </div>
+      
       <div class="divider"></div>
       <h2 class="sr-only">Technical Information</h2>
       <div id="view-product-technical-info"></div>
       <script src="productCache.js"></script>
       <script src="navbar.js"></script>
+      <!-- Swiper JS -->
+      <script src="https://unpkg.com/swiper@11/swiper-bundle.min.js"></script>
       <script src="view-product.js"></script>
 
   </div> 
