@@ -1379,8 +1379,16 @@ function injectProductSchema(product) {
 
 // Function to setup Related Yowah Nuts section (Dual Layout: Grid + Swiper)
 async function setupRelatedYowahNuts() {
+  // Get the related section element first
+  const relatedSection = document.getElementById('related-yowah-nuts-section');
+  
   // Check if current product is a Yowah Nut
   if (!productId || !productId.startsWith('yn')) {
+    // Not a Yowah Nut - ensure section is hidden
+    if (relatedSection) {
+      relatedSection.classList.add('hidden');
+      relatedSection.style.display = 'none';
+    }
     return; // Not a Yowah Nut, exit early
   }
 
@@ -1394,6 +1402,11 @@ async function setupRelatedYowahNuts() {
     );
 
     if (yowahNuts.length === 0) {
+      // No Yowah Nuts to show - hide the section
+      if (relatedSection) {
+        relatedSection.classList.add('hidden');
+        relatedSection.style.display = 'none';
+      }
       return; // No Yowah Nuts to show
     }
 
@@ -1414,8 +1427,8 @@ async function setupRelatedYowahNuts() {
     const displayProducts = uniqueYowahNuts.slice(0, 4);
 
     // Show the related products section
-    const relatedSection = document.getElementById('related-yowah-nuts-section');
     if (relatedSection) {
+      relatedSection.classList.remove('hidden');
       relatedSection.style.display = 'block';
     }
 
