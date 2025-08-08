@@ -32,7 +32,7 @@
   <title>Products - Outback Gems</title>
   <link rel="stylesheet" href="products.css" />
   <link rel="stylesheet" href="navbar.css" />
-  <link rel="stylesheet" href="breadcrumb.css" />
+  <link rel="stylesheet" href="side-menu.css" />
   <link href="https://fonts.googleapis.com/css2?family=Parisienne&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap" rel="stylesheet">
@@ -48,11 +48,19 @@
   <div id="page-wrapper">
     <header id="navbar-container"></header>
     <script src="navbar.js"></script>
-    <script src="breadcrumb.js"></script>
     <script src="productCache.js"></script>
     <script src="products.js"></script>
 
-    <div class="main-content-container">
+  <div class="side-menu-tab" id="side-menu-toggle-btn" role="button" aria-expanded="false" aria-controls="side-menu-container" aria-label="Category filter">
+  <span class="side-menu-tab-arrow">&#x25B6;</span>
+  <span class="side-menu-tab-label">Categories</span>
+</div>
+
+    <!-- Overlay background -->
+    <div class="side-menu-overlay" id="side-menu-overlay"></div>
+
+    <div class="page-layout">
+      <div id="side-menu-container" aria-controls="dynamic-product-container"></div>
       <div id="dynamic-product-container" class="product-container">
         <div class="dynamic-product-header-container">
           <div class="dynamic-product-header-title">Product Header</div>

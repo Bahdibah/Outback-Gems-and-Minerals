@@ -335,12 +335,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
           });
         }
-        
-        // Initialize breadcrumb navigation after navbar is loaded
-        if (typeof BreadcrumbManager !== 'undefined') {
-          const breadcrumbManager = new BreadcrumbManager();
-          breadcrumbManager.init();
-        }
       } else {
         console.error("Navbar container not found in the DOM.");
       }

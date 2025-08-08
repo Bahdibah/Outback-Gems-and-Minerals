@@ -30,15 +30,14 @@ width: 100%;
 
 /* page layout for main products page (body container)*/
 .page-layout {
-  width: 80%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
+  /* Remove fixed height constraints */
   min-height: auto;
   position: relative;
+  /* This ensures the container expands to fit its content */
   overflow: visible;
 }
 
