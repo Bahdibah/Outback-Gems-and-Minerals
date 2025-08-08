@@ -15,19 +15,21 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  margin-top: 1%; /* Reduced from 2% to 1% */
-  padding-top: var(--navbar-height); /* This adds space at the top for the fixed navbar */
+  margin-top: 1%;
+  padding-top: var(--navbar-height);
 }
 
-/* page layout for main products page (body container)*/
+/* Main content container - centered at 80% width */
+.main-content-container {
+  width: 80%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Remove old page layout (was for side menu layout) */
 .page-layout {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  gap: 8px; /* space between menu and products */
-  width: 100%;
-  margin: 0 !important;
-  padding: 0 !important;
+  display: none; /* Hide old layout */
 }
 
 .dynamic-product-button {

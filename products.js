@@ -1,21 +1,9 @@
-// Dynamically load the side menu first
-fetch("side-menu.html")
-  .then(response => response.text())
-  .then(html => {
-    document.getElementById("side-menu-container").innerHTML = html;
-    // Now dynamically load side-menu.js AFTER the HTML is present
-    const script = document.createElement('script');
-    script.src = 'side-menu.js';
-    script.onload = () => {
-      // Now that side-menu.js is loaded, fetchAndLoadMenu will run and work as expected
-      if (typeof fetchAndLoadMenu === "function") {
-        fetchAndLoadMenu();
-      }
-      if (typeof setupSideMenuListeners === "function") {
-        setupSideMenuListeners();
-      }
-    };
-    document.body.appendChild(script);
+// Products page main functionality
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize page functionality after DOM is loaded
+    if (typeof setupProductListeners === "function") {
+        setupProductListeners();
+    }
 
     // Function to show description tooltip expansion
     function showDescriptionExpansion(fullText, productTitle, descriptionElement) {

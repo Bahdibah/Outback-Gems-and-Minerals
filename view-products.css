@@ -31,23 +31,19 @@ body {
 
 
 .view-product-page-layout {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  gap: 8px;
-  width: 100%;
-  margin: 0 !important;
-  padding: 0 !important;
+  width: 80%;
+  margin: 0 auto;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 .view-product-container {
   padding: 4px;
-  flex: 1 1 0;
   display: flex;
   flex-direction: column;
   align-items: stretch;
   min-width: 0; 
-  margin: 0 0 0 340px !important;
+  margin: 0 !important;
 }
 
 button:hover, .button:hover {
