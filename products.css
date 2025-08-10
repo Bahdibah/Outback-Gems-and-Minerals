@@ -1,3 +1,144 @@
+/* Ensure main categories are horizontal and subcategories are below */
+.category-navigation {
+  width: 100%;
+  max-width: 80%;
+  margin: calc(var(--navbar-height, 70px) + 10px) auto 35px auto;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+}
+
+.main-categories {
+  display: flex;
+/* Sleek, stylish navigation buttons with visual hierarchy */
+.category-nav-btn {
+  font-size: 1.18rem;
+  padding: 18px 30px;
+  font-weight: 800;
+  color: #cc5500;
+  background: linear-gradient(120deg, #fffbe6 0%, #ffe0b2 100%);
+  border: 2px solid #ff9800;
+  border-radius: 14px;
+  margin: 0 12px 0 0;
+  box-shadow: 0 3px 14px 0 rgba(204, 85, 0, 0.10), 0 1.5px 0 #fff inset;
+  cursor: pointer;
+  transition: all 0.22s cubic-bezier(.4,0,.2,1);
+  outline: none;
+  letter-spacing: 0.7px;
+  min-width: 160px;
+  position: relative;
+  z-index: 1;
+  text-shadow: 0 1px 0 #fff8e1;
+}
+.category-nav-btn.active {
+  background: linear-gradient(90deg, #ff9800 0%, #ffb74d 100%);
+  color: #fff;
+  border: 2px solid #ff9800;
+  box-shadow: 0 6px 24px rgba(204, 85, 0, 0.22), 0 1.5px 0 #fff8e1 inset;
+  text-shadow: 0 2px 8px #ffb74d99;
+}
+.category-nav-btn:hover:not(.active) {
+  background: linear-gradient(120deg, #fff3e0 0%, #ffe0b2 100%);
+  color: #cc5500;
+  border: 2px solid #ffb74d;
+  box-shadow: 0 4px 18px rgba(204, 85, 0, 0.16), 0 1.5px 0 #fff8e1 inset;
+  filter: brightness(1.04);
+}
+
+.subcategory-nav-btn {
+  font-size: 0.97rem;
+  padding: 9px 18px;
+  font-weight: 700;
+  color: #181818;
+  background: linear-gradient(120deg, #f7f7f7 0%, #f0f0f0 100%);
+  border: 2px solid #ff9800;
+  border-radius: 10px;
+  margin: 0 8px 0 0;
+  box-shadow: 0 1.5px 8px rgba(204, 85, 0, 0.08), 0 1px 0 #fff inset;
+  cursor: pointer;
+  transition: all 0.22s cubic-bezier(.4,0,.2,1);
+  outline: none;
+  letter-spacing: 0.2px;
+  min-width: 110px;
+  position: relative;
+  z-index: 1;
+  text-shadow: 0 1px 0 #fff;
+}
+.subcategory-nav-btn.active {
+  background: linear-gradient(90deg, #ff9800 0%, #ffb74d 100%);
+  color: #fff;
+  border: 2px solid #ff9800;
+  box-shadow: 0 4px 16px rgba(204, 85, 0, 0.18), 0 1.5px 0 #fff8e1 inset;
+  text-shadow: 0 2px 8px #ffb74d99;
+}
+.subcategory-nav-btn:hover:not(.active) {
+  background: linear-gradient(120deg, #fff3e0 0%, #ffe0b2 100%);
+  color: #cc5500;
+  border: 2px solid #ffb74d;
+  box-shadow: 0 2.5px 12px rgba(204, 85, 0, 0.13), 0 1px 0 #fff inset;
+  filter: brightness(1.04);
+}
+
+/* Layout for navigation containers */
+.category-navigation {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto 30px auto;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+.main-categories {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  gap: 0.5rem;
+}
+.subcategory-navigation {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem;
+  margin-left: 2px;
+}
+  margin: 0 6px 8px 0;
+  position: relative;
+  backdrop-filter: blur(8px);
+  transform: translateZ(0);
+}
+
+.category-nav-btn.active,
+.subcategory-nav-btn.active {
+  background: linear-gradient(135deg, #cc5500 0%, #e66600 100%) !important;
+  color: #fff !important;
+  border: 2px solid #cc5500 !important;
+  box-shadow: 0 4px 16px rgba(204, 85, 0, 0.3), inset 0 1px 0 rgba(255,255,255,0.3);
+}
+
+.category-nav-btn:hover,
+.subcategory-nav-btn:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 6px 20px rgba(204, 85, 0, 0.25), inset 0 1px 0 rgba(255,255,255,0.4);
+  border-color: #cc5500;
+  background: linear-gradient(135deg, #cc5500 0%, #e66600 100%);
+  color: #fff;
+}
+
+/* Active state for category and subcategory buttons */
+.category-nav-btn.active,
+.subcategory-nav-btn.active {
+  background: #cc5500 !important; /* Orange fill */
+  color: #fff !important; /* White text */
+  border-color: #cc5500 !important;
+  box-shadow: 0 4px 16px rgba(204,85,0,0.18), 0 1.5px 0 rgba(255,255,255,0.5) inset;
+}
 :root {
   --navbar-height: 70px;
 }
@@ -5,12 +146,15 @@ body {
   
     background-color: #2e2e2e;
     color: #cc5500;
-    font-family: 'Georgia', serif; 
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; 
     margin: 0;
     padding: 0;
     height: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
 }
-
+git branch
 #page-wrapper {
   display: flex;
   flex-direction: column;
@@ -22,39 +166,42 @@ body {
 /* page layout for main products page (body container)*/
 .page-layout {
   display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  gap: 8px; /* space between menu and products */
+  flex-direction: column;
+  align-items: center;
   width: 100%;
   margin: 0 !important;
   padding: 0 !important;
 }
 
 .dynamic-product-button {
-  background-color: #cc5500;
+  background: linear-gradient(135deg, #cc5500 0%, #b84700 100%);
   color: #fff;
-  font-weight: bold;
-  border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border stays */
+  font-weight: 600;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  border: none;
   padding: 14px 32px;
-  font-size: 1.25rem;
-  border-radius: 5px;
+  font-size: 1.1rem;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  transition: all 0.3s ease;
   display: inline-block;
-  margin-top: 10px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  margin-top: auto; /* Push button to bottom */
+  margin-bottom: 0; /* Flush with bottom of card */
+  box-shadow: 0 4px 15px rgba(204, 85, 0, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-button:hover, .button:hover {
-  background-color: #ff7f33;
-  transform: scale(1.04) translateY(-1px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.35), 0 0 8px rgba(255, 127, 51, 0.5);
+button:hover, .button:hover, .dynamic-product-button:hover {
+  background: linear-gradient(135deg, #ff7f33 0%, #cc5500 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(204, 85, 0, 0.4);
 }
 
-button:active, .button:active {
-  background-color: #b34700;
-  transform: scale(0.98) translateY(0);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+button:active, .button:active, .dynamic-product-button:active {
+  background: linear-gradient(135deg, #b34700 0%, #994000 100%);
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(204, 85, 0, 0.3);
 }
 
 .view-all-button {
@@ -124,26 +271,25 @@ footer >div{
 #dynamic-product-container {
   display: flex;
   flex-wrap: wrap; /* Enables wrapping into new rows */
-  gap: 15px; /* Fixed gap for consistent spacing */
-  padding: 20px;
-  width: 100% !important;
-  margin: 0 0 0 340px !important;
+  gap: 30px; /* Increased gap from 20px to 30px for better spacing */
+  padding: 30px 40px;
+  width: 100% !important; /* Reverted back to 100% to maintain 4-card width */
+  max-width: 1400px; /* Maximum container width for very large screens */
+  margin: 0 auto !important; /* Center the container */
   box-sizing: border-box;
   align-items: flex-start;
   height: fit-content;
-  min-height: 150vh;
+  min-height: 100vh;
   justify-content: center; /* Center the cards horizontally */
   background-color: transparent !important;
   box-shadow: none !important;
   border-radius: 0 !important;
   border: none !important;
-  padding-left: 0;
-  padding-right: 0;
 }
 
 .dynamic-product-header-container {
   width: 100%;
-  margin-bottom: 32px;
+  margin-bottom: 40px;
   padding: 0;
   background: transparent;
   border: none;
@@ -154,100 +300,162 @@ footer >div{
 .dynamic-product-header-title {
   width: 100%;
   margin: 0;
-  padding: 30px 0;
-  padding-top: 0;
-  padding-bottom: 30px;
+  padding: 20px 0 25px 0;
   text-align: center;
-  font-size: 2.2rem;      /* Match header font size */
-  font-weight: bold;
-  letter-spacing: 1.5px;
+  font-size: 2.4rem;
+  font-weight: 700;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  letter-spacing: 1px;
   background: transparent;
   border: none;
   box-shadow: none;
-  color: #cc5500;          /* Match your theme color */
+  color: #cc5500;
+  text-transform: uppercase;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Divider styling for product headers */
 .product-header-divider {
   border: none;
-  border-top: 2px solid #cc5500; /* Use your accent color */
-  margin: 0 auto 24px auto;
-  width: 90%; /* Or 100% if you want it edge-to-edge */
-  opacity: 0.8;
+  border-top: 3px solid #cc5500;
+  margin: 0 auto 30px auto;
+  width: 120px;
+  opacity: 0.9;
+  border-radius: 2px;
 }
 
 /* Dynamic Product Card Styling */
 .dynamic-product-card {
-  flex: 1 1 30%;
-  max-width: 30%;  
-  background-color: #444;
-  border-radius: 10px;
-  padding: 15px 18px 10px 18px; /* Further reduced top and bottom padding */
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  flex: 1 1 calc(25% - 22.5px); /* Adjusted for 30px gap - each card gets 3/4 of gap space (22.5px) */
+  min-width: 280px; /* Minimum width for proper display */
+  max-width: 340px; /* Increased max width to better utilize available space */
+  background-color: #3a3a3a;
+  border-radius: 12px;
+  padding: 18px; /* Equal padding all around */
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4), 0 2px 6px rgba(0, 0, 0, 0.2);
   text-align: center;
-  border: 3px solid #cc5500;
+  border: 2px solid #555;
   box-sizing: border-box;
-  margin-bottom: 24px;     
-  height: 550px;           /* Slightly increased height for better proportions */
+  margin-bottom: 0;     
+  height: 520px; /* Increased from 490px for even more space */
   display: flex;
   flex-direction: column;
-  gap: 4px;                /* Further reduced gap for tighter spacing */
-  justify-content: flex-start;
+  gap: 0; /* Remove gap, use margins instead for precise control */
+  justify-content: flex-start; /* Start from top */
   align-items: center;
   position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  overflow: hidden; /* Prevent content from overflowing */
+}
+
+.dynamic-product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), 0 4px 12px rgba(204, 85, 0, 0.3);
+  border-color: #cc5500;
 }
 
 /* Product Name Styling */
 .dynamic-product-card h3 {
-  font-size: 1.2rem;
+  font-size: 1.4rem; /* Increased from 1.25rem for larger text */
   color: #cc5500;
-  margin: 0 0 2px 0; /* Further reduced bottom margin for tighter spacing */
+  margin: 0 0 8px 0; /* Consistent bottom margin */
+  font-weight: 700; /* Increased from 600 for bolder text */
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  line-height: 1.3; /* Better line height for two-line titles */
+  flex-shrink: 0; /* Prevent title from shrinking */
+  height: 60px; /* Fixed height instead of min-height for consistent alignment */
+  display: flex;
+  align-items: flex-start; /* Changed from center to flex-start for top alignment */
+  justify-content: center;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Product Size Info Styling (for Yowah Nuts, etc.) - Legacy class for backwards compatibility */
+.dynamic-product-card .product-size-info {
+  color: #ffb366 !important;
+  font-size: 0.9rem !important;
+  font-weight: 600 !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  margin: 0 0 8px 0 !important; /* Consistent bottom margin */
+  text-align: center !important;
+  background: rgba(204, 85, 0, 0.1);
+  padding: 4px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(204, 85, 0, 0.3);
+  flex-shrink: 0; /* Prevent from shrinking */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Unified Product Size/Range Info - Lighter styling for all products */
+.dynamic-product-card .product-range-info {
+  color: #bfbfbf;
+  font-size: 1.0rem; /* Increased from 0.85rem for better visibility */
+  font-weight: 600; /* Increased from 500 for better prominence */
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  margin: 0 0 10px 0; /* Increased margin for more spacing */
+  text-align: center;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 6px 14px; /* Increased padding for larger appearance */
+  border-radius: 12px; /* Increased border radius to match larger size */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  flex-shrink: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Product Price Styling */
 .dynamic-product-card .product-price {
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   font-weight: bold;
-  color: #ffd580;
-  margin: 2px 0 4px 0; /* Reduced margins to accommodate size info line */
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  color: #ffb366;
+  margin: 15px 0 8px 0; /* Increased top margin from 0 to 15px for more space from size info */
   text-shadow: 0 1px 2px rgba(0,0,0,0.3);
-}
-
-/* Description Styling */
-.dynamic-product-card p {
-  font-size: 1.1rem;
-  color: #bfbfbfd2;
-  margin: 2px 0 8px 0;     /* Further reduced margins for tighter spacing */
-  flex-grow: 1;             /* Allow description to grow */
-  line-height: 1.4;         /* Better readability */
+  flex-shrink: 0; /* Prevent price from shrinking */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Image container and styling */
 .dynamic-product-card .image-container {
   width: 100%;
-  height: 240px; /* Reduced height to give more space for other elements */
+  height: 240px; /* Reduced to make more room for other elements */
   overflow: hidden;
-  border-radius: 10px;
-  margin-bottom: 12px;
-  flex-shrink: 0; /* Prevent the container from shrinking in flexbox */
+  border-radius: 8px;
+  margin-bottom: 12px; /* Consistent margin */
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .dynamic-product-card img {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Ensures image scales and covers the area */
+  object-fit: cover;
   transition: transform 0.3s ease;
 }
 
 .dynamic-product-card:hover img {
-  transform: scale(1.05); /* Slight zoom effect on hover */
+  transform: scale(1.08);
 }
 
 /* Button styling - position at bottom */
 .dynamic-product-card .dynamic-product-button {
   margin-top: auto; /* This pushes the button to the bottom */
-  width: 100%;
-  padding: 12px;
+  margin-bottom: 0; /* No bottom margin - button sits at card bottom */
+  margin-left: 0; /* Reset any left margin */
+  margin-right: 0; /* Reset any right margin */
+  width: 100%; /* Full width within the card padding */
+  padding: 12px 20px; /* Consistent padding */
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  align-self: center; /* Center the button horizontally */
+  flex-shrink: 0; /* Prevent button from shrinking */
+  position: relative;
 }
 
 /* Buttons styling */
@@ -263,31 +471,25 @@ button {
 
 .suggestion-container {
   display: flex;
-  flex-wrap: wrap; /* Allow wrapping for responsiveness */
-  gap: 15px; /* Same gap as the main product grid */
-  justify-content: center; /* Center the suggested products */
-  width: 100%; /* Match the width of the main container */
-  margin-top: 20px; /* Add spacing above the suggestions */
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  width: 100%;
+  max-width: 1400px;
+  margin: 40px auto 0 auto;
+  padding: 0 40px;
 }
 
 
 
-.dynamic-product-cards {
-  width: 90%;
-  margin: 0 auto;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 3%;
-  justify-content: center;
-  }
-
-
+/* Pagination controls styling */
 .pagination-controls {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 16px;
-  margin: 24px 0;
+  margin: 40px 0 20px 0;
+  width: 100%;
 }
 
 .pagination-controls button {
@@ -330,93 +532,108 @@ button {
 
 @media (max-width: 1280px) {
   .dynamic-product-card {
-    flex: 1 1 30%;
-    max-width: 30%;
-    height: 500px; /* Slightly smaller on larger tablets */
+    flex: 1 1 calc(25% - 18px); /* Still 4 cards per row */
+    min-width: 260px;
+    max-width: 300px;
+    height: 400px; /* Reduced height */
   }
   #dynamic-product-container {
-    gap: 12px; /* Slightly smaller gap */
+    padding: 25px 30px;
+    gap: 18px;
   }
 }
 
 @media (max-width: 1024px) {
   .dynamic-product-card {
-    flex: 1 1 45%;
-    max-width: 45%;
-    height: 450px; /* Adjusted height for tablets */
-    margin-bottom: 18px;
+    flex: 1 1 calc(33.333% - 16px); /* 3 cards per row on smaller screens */
+    min-width: 250px;
+    max-width: 320px;
+    height: 380px; /* Reduced height */
   }
   .dynamic-product-header-title {
-    font-size: 1.7rem;
-    padding: 18px 0;
+    font-size: 2rem;
+    padding: 20px 0;
   }
   #dynamic-product-container {
-    gap: 10px; /* Smaller gap for tablets */
-    padding: 10px;
-    margin: 0 0 0 220px !important; /* Adjusted for smaller side menu */
-  }
-  .dynamic-product-cards {
-    width: 98%;
+    padding: 20px 25px;
+    gap: 16px;
   }
 }
 
-/* Side menu collapses here (max-width: 900px) */
+/* Tablet view - 2 cards per row */
 @media (max-width: 900px) {
   .dynamic-product-card {
-    flex: 1 1 45%;
-    max-width: 45%;
+    flex: 1 1 calc(50% - 16px); /* 2 cards per row on tablets */
+    min-width: 240px;
     height: auto;
-    margin-bottom: 12px;
+    min-height: 360px; /* Reduced min-height */
   }
   .dynamic-product-header-title {
-    font-size: 1.2rem;
-    padding: 10px 0;
+    font-size: 1.8rem;
+    padding: 18px 0;
   }
   #dynamic-product-container {
-    padding: 4px;
-    margin: 0 0 0 44px !important; /* Adjusted for side menu tab */
-    width: 80% !important; /* 10% margin on each side */
-  }
-  .dynamic-product-cards {
-    width: 100%;
-    justify-content: center;
+    padding: 15px 20px;
+    gap: 16px;
   }
 }
 
 /* Small tablets and large phones (max-width: 768px) */
 @media (max-width: 768px) {
   .dynamic-product-card {
-    flex: 1 1 80%;
-    max-width: 80%;
+    flex: 1 1 calc(100% - 16px);
+    min-width: 250px;
+    max-width: 500px;
+    height: auto;
+    min-height: 320px; /* Reduced min-height */
   }
   .dynamic-product-card .image-container {
-    min-height: 140px;
+    height: 200px;
   }
-  .dynamic-product-card img {
-    min-height: 140px;
-    object-fit: cover;
+  #dynamic-product-container {
+    padding: 15px;
+    gap: 16px;
+  }
+  .dynamic-product-header-title {
+    font-size: 1.6rem;
   }
   .pagination-controls {
     gap: 8px;
     margin: 12px 0;
   }
+  .breadcrumb-container {
+    padding: 8px 15px !important;
+  }
 }
 
 @media (max-width: 700px) {
-        .footer-left {
-            display: flex;
-            flex-direction: column;
-        }
-      }
+  .footer-left {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
 /* Phones (max-width: 500px) */
 @media (max-width: 500px) {
   .dynamic-product-card {
     flex: 1 1 100%;
-    max-width: 100%;
-    height: auto !important;
-    min-height: 220px;
+    min-width: 200px;
+    height: auto;
+    min-height: 280px; /* Reduced min-height */
+    padding: 15px;
+  }
+  .dynamic-product-card .image-container {
+    height: 180px;
   }
   #dynamic-product-container {
-    width: 90% !important; /* 5% margin on each side for phones */
+    padding: 10px;
+    gap: 12px;
+  }
+  .dynamic-product-header-title {
+    font-size: 1.4rem;
+    padding: 15px 0;
+  }
+  .breadcrumb-container {
+    padding: 6px 12px !important;
   }
 }

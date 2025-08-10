@@ -303,6 +303,23 @@ document.addEventListener("DOMContentLoaded", () => {
         const categoryParam = urlParams.get("category");
         const mainCategory = categoryParam ? categoryParam.split('-')[0].toLowerCase() : null;
 
+        // Clear all existing active classes first
+        navLinks.forEach(link => {
+          link.classList.remove("active");
+        });
+
+        // EXPLICIT: Remove active class from category links (synthetic, natural, other)
+        const categoryLinks = document.querySelectorAll('a[href*="synthetic"], a[href*="natural"], a[href*="other"]');
+        categoryLinks.forEach(link => {
+          link.classList.remove("active");
+        });
+
+        // Additional timeout to ensure active classes stay removed
+        setTimeout(() => {
+          navLinks.forEach(link => link.classList.remove("active"));
+          categoryLinks.forEach(link => link.classList.remove("active"));
+        }, 100);
+
         // Map mainCategory to high-level page
         const categoryToPage = {
           synthetic: "synthetic.html",
@@ -312,29 +329,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
         let categoryLinkHighlighted = false;
 
-        if (
-          (currentPath === "products.html" || currentPath === "view-product.html") &&
-          mainCategory &&
-          categoryToPage[mainCategory]
-        ) {
-          navLinks.forEach(link => {
-            const href = link.getAttribute("href").replace(/^\//, '').toLowerCase();
-            if (href === categoryToPage[mainCategory]) {
-              link.classList.add("active");
-              categoryLinkHighlighted = true;
-            }
-          });
-        }
+        // Removed category highlighting logic - no highlighting when viewing filtered products page
+        // if (
+        //   (currentPath === "products.html" || currentPath === "view-product.html") &&
+        //   mainCategory &&
+        //   categoryToPage[mainCategory]
+        // ) {
+        //   navLinks.forEach(link => {
+        //     const href = link.getAttribute("href").replace(/^\//, '').toLowerCase();
+        //     if (href === categoryToPage[mainCategory]) {
+        //       link.classList.add("active");
+        //       categoryLinkHighlighted = true;
+        //     }
+        //   });
+        // }
 
-        // If not on a category, or no category link matched, highlight the page link
-        if (!categoryLinkHighlighted) {
-          navLinks.forEach(link => {
-            const linkPath = link.getAttribute("href").replace(/^\//, '').split("?")[0].split("#")[0].toLowerCase();
-            if (linkPath === currentPath) {
-              link.classList.add("active");
-            }
-          });
-        }
+        // Highlight only exact page matches (not filtered category pages)
+        // DISABLED: We don't want category highlighting on filtered pages
+        // if (!categoryLinkHighlighted) {
+        //   navLinks.forEach(link => {
+        //     const linkPath = link.getAttribute("href").replace(/^\//, '').split("?")[0].split("#")[0].toLowerCase();
+        //     if (linkPath === currentPath) {
+        //       link.classList.add("active");
+        //     }
+        //   });
+        // }
       } else {
         console.error("Navbar container not found in the DOM.");
       }
@@ -344,21 +363,22 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
-document.addEventListener("productCategoryLoaded", function(e) {
-  const category = e.detail.category;
-  const mainCategory = category ? category.split('-')[0].toLowerCase() : null;
-  const categoryToPage = {
-    synthetic: "synthetic.html",
-    natural: "natural.html",
-    other: "other.html"
-  };
-  const navLinks = document.querySelectorAll("nav ul li a");
-  if (mainCategory && categoryToPage[mainCategory]) {
-    navLinks.forEach(link => {
-      const href = link.getAttribute("href").replace(/^\//, '').toLowerCase();
-      if (href === categoryToPage[mainCategory]) {
-        link.classList.add("active");
-      }
-    });
-  }
-});
+// Removed category highlighting event listener - no highlighting for filtered category pages
+// document.addEventListener("productCategoryLoaded", function(e) {
+//   const category = e.detail.category;
+//   const mainCategory = category ? category.split('-')[0].toLowerCase() : null;
+//   const categoryToPage = {
+//     synthetic: "synthetic.html",
+//     natural: "natural.html",
+//     other: "other.html"
+//   };
+//   const navLinks = document.querySelectorAll("nav ul li a");
+//   if (mainCategory && categoryToPage[mainCategory]) {
+//     navLinks.forEach(link => {
+//       const href = link.getAttribute("href").replace(/^\//, '').toLowerCase();
+//       if (href === categoryToPage[mainCategory]) {
+//         link.classList.add("active");
+//       }
+//     });
+//   }
+// });

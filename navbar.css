@@ -63,8 +63,8 @@ nav {
 nav ul.nav-links {
   display: flex;
   flex-direction: row;
-  align-items: center;
-  gap: 10px;
+  align-items: flex-end;
+  gap: 20px;
   position: static;        /* Ensure links are within the navbar */
   height: 100%;
   margin: 0;
@@ -75,26 +75,91 @@ nav ul.nav-links li a {
   color: #cc5500;
   text-decoration: none;
   font-weight: bold;
-  font-size: 1.05rem;
-  min-width: 100px;
-  max-width: 120px;
+  font-size: 1.3rem;
+  min-width: 120px;
+  max-width: 140px;
   height: 48px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 8px;
-  border-radius: 5px;
+  padding: 0 16px;
+  border-radius: 5px 5px 0 0;
   text-align: center;
   line-height: 1.1;
   transition: background 0.3s, color 0.3s;
   white-space: normal;
   word-break: break-word;
+  margin-bottom: 0;
 }
 
 nav ul.nav-links li a:hover,
 nav ul.nav-links li a.active {
   background-color: #cc5500;
   color: #1e1e1e;
+}
+
+/* Shop dropdown styles */
+.shop-dropdown {
+  position: relative;
+}
+
+.shop-dropdown-toggle {
+  cursor: pointer;
+}
+
+.shop-dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #2e2e2e;
+  border: 2px solid #cc5500;
+  border-radius: 8px;
+  min-width: 180px;
+  width: max-content;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+  z-index: 1000;
+  padding: 10px 0;
+  margin-top: 0;
+}
+
+.shop-dropdown-menu li {
+  list-style: none;
+  margin: 0;
+  border-bottom: 1px solid #444;
+}
+
+.shop-dropdown-menu li:last-child {
+  border-bottom: none;
+}
+
+.shop-dropdown-menu li a {
+  display: block;
+  padding: 14px 20px;
+  color: #ffffff !important;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1.05rem;
+  transition: all 0.2s ease;
+  border-radius: 0;
+  min-width: auto;
+  max-width: none;
+  height: auto;
+  white-space: nowrap;
+  text-align: left;
+  line-height: 1.2;
+  border-left: 4px solid transparent;
+}
+
+.shop-dropdown-menu li a:hover {
+  background-color: #cc5500 !important;
+  color: #ffffff !important;
+  border-left: 4px solid #ffffff !important;
+}
+
+.shop-dropdown:hover .shop-dropdown-menu,
+.shop-dropdown-menu:hover {
+  display: block;
 }
 
 nav li {
@@ -641,6 +706,32 @@ nav ul.burger-nav-links.open {
     background: #cc5500 !important;
     color: #fff !important;
   }
+
+  /* Mobile shop dropdown styles */
+  .shop-dropdown-menu {
+    position: static !important;
+    display: block !important;
+    background: #1a1a1a !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    min-width: auto !important;
+    border-radius: 0 !important;
+  }
+
+  .shop-dropdown-menu li a {
+    padding: 16px 44px !important;
+    font-size: 1.1rem !important;
+    background: #1a1a1a !important;
+    border-left: 4px solid transparent !important;
+  }
+
+  .shop-dropdown-menu li a:hover {
+    background: #cc5500 !important;
+    border-left: 4px solid #ffffff !important;
+  }
+
   .navbar-right {
     width: auto;
     padding: 0;

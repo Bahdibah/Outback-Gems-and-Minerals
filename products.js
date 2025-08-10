@@ -1,21 +1,4 @@
-// Dynamically load the side menu first
-fetch("side-menu.html")
-  .then(response => response.text())
-  .then(html => {
-    document.getElementById("side-menu-container").innerHTML = html;
-    // Now dynamically load side-menu.js AFTER the HTML is present
-    const script = document.createElement('script');
-    script.src = 'side-menu.js';
-    script.onload = () => {
-      // Now that side-menu.js is loaded, fetchAndLoadMenu will run and work as expected
-      if (typeof fetchAndLoadMenu === "function") {
-        fetchAndLoadMenu();
-      }
-      if (typeof setupSideMenuListeners === "function") {
-        setupSideMenuListeners();
-      }
-    };
-    document.body.appendChild(script);
+// Side menu loading removed - product functionality remains intact
 
     // Function to show description tooltip expansion
     function showDescriptionExpansion(fullText, productTitle, descriptionElement) {
@@ -132,8 +115,9 @@ fetch("side-menu.html")
     }
 
     // --- Product loading logic STARTS here ---
-    const productContainer = document.getElementById("dynamic-product-container");
-    const productHeader = document.querySelector(".dynamic-product-header-title");
+    // These will be initialized when DOM is ready
+    let productContainer;
+    let productHeader;
 
     function getQueryParam(param) {
       const urlParams = new URLSearchParams(window.location.search);
@@ -163,26 +147,352 @@ fetch("side-menu.html")
       }
     }
 
-    const categoryKeyword = getQueryParam("category");
-    setupCanonicalUrl();
-    updateCategoryMetaTags(categoryKeyword);
-
-    if (categoryKeyword) {
-      loadProductsByCategory(categoryKeyword);
-    } else {
-      loadProductsByCategory(); // Load all products if no category is specified
+    // Create page title at the top of the page
+    function createPageTitle(categoryKeyword) {
+      // Remove any existing page title
+      const existingTitle = document.getElementById('page-title-container');
+      if (existingTitle) {
+        existingTitle.remove();
+      }
+      
+      const headerTitle = categoryKeyword ? formatCategoryHeader(categoryKeyword) : "All Products";
+      
+      const titleHTML = `
+        <div id="page-title-container" style="
+          width: 100%;
+          max-width: 1400px;
+          margin: calc(var(--navbar-height, 70px) + -20px) auto 40px auto;
+          padding: 0 20px;
+          text-align: center;
+          position: relative;
+        ">
+          <h1 style="
+            color: #cc5500;
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 2px 4px rgba(204, 85, 0, 0.1);
+            position: relative;
+            display: inline-block;
+            padding: 0 30px;
+          ">${headerTitle}</h1>
+          <div style="
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, #cc5500, transparent);
+            border-radius: 2px;
+          "></div>
+          <div style="
+            position: absolute;
+            bottom: -16px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 2px;
+            background: #cc5500;
+            border-radius: 1px;
+            opacity: 0.6;
+          "></div>
+        </div>
+      `;
+      
+      // Insert at the very top of the page content
+      const body = document.body;
+      const navbar = document.getElementById('navbar-container');
+      if (navbar && navbar.nextSibling) {
+        navbar.insertAdjacentHTML('afterend', titleHTML);
+      } else {
+        body.insertAdjacentHTML('afterbegin', titleHTML);
+      }
     }
 
-    // Add event listeners to side menu toggles (for in-page filtering)
-    const sideMenuToggles = document.querySelectorAll(".side-menu-toggle");
-    sideMenuToggles.forEach(toggle => {
-      toggle.addEventListener("click", function () {
-        const categoryKeyword = this.getAttribute("data-category");
-        // Update the URL dynamically without reloading the page
-        const newUrl = `${window.location.pathname}?category=${encodeURIComponent(categoryKeyword)}`;
-        history.pushState({ category: categoryKeyword }, "", newUrl);
-        setupCanonicalUrl(); // Update the canonical URL
+    // Create modern navigation buttons at the top
+    function createNavigationButtons(activeCategory) {
+      // Remove any existing navigation buttons
+      const existingNav = document.getElementById('category-navigation');
+      if (existingNav) {
+        existingNav.remove();
+      }
+
+      const categories = [
+        { key: 'synthetic', label: 'Synthetic Rough' },
+        { key: 'natural', label: 'Natural Rough' },
+        { key: 'other', label: 'Other Products' },
+        { key: 'carvings', label: 'Carvings' },
+        { key: 'rough-slabs', label: 'Rough & Slabs' }
+      ];
+
+      const navigationHTML = `
+        <div id="category-navigation" class="category-navigation">
+          <div id="main-categories" class="main-categories">
+            ${categories.map(category => `
+              <button class="category-nav-btn${(activeCategory === category.key || (activeCategory && activeCategory.startsWith(category.key + '-'))) ? ' active' : ''}" data-category="${category.key}">
+                ${category.label}
+              </button>
+            `).join('')}
+            <button class="category-nav-btn${!activeCategory ? ' active' : ''}" data-category="">
+              All Products
+            </button>
+          </div>
+          <div id="subcategory-navigation" class="subcategory-navigation">
+            <!-- Subcategories will be inserted here -->
+          </div>
+        </div>
+      `;
+
+      // Insert at the top of the page content
+      const body = document.body;
+      const navbar = document.getElementById('navbar-container');
+      if (navbar && navbar.nextSibling) {
+        navbar.insertAdjacentHTML('afterend', navigationHTML);
+      } else {
+        body.insertAdjacentHTML('afterbegin', navigationHTML);
+      }
+
+      // Add subcategories if a main category is selected
+      if (activeCategory) {
+        createSubcategoryButtons(activeCategory);
+      }
+
+      // Add click event listeners to navigation buttons
+      document.querySelectorAll('.category-nav-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const categoryKeyword = this.getAttribute('data-category');
+          
+          // Update URL
+          const newUrl = categoryKeyword ? 
+            `${window.location.pathname}?category=${encodeURIComponent(categoryKeyword)}` :
+            window.location.pathname;
+          history.pushState({ category: categoryKeyword }, "", newUrl);
+          
+          if (categoryKeyword) {
+            // Update main category active states
+            updateMainCategoryActiveStates(categoryKeyword);
+            
+            // Create/update subcategory buttons for the selected category
+            createSubcategoryButtons(categoryKeyword);
+            
+            // Clear any active subcategory states (show all subcategories as inactive)
+            setTimeout(() => {
+              document.querySelectorAll('.subcategory-nav-btn').forEach(subBtn => {
+                subBtn.style.background = 'linear-gradient(135deg, #f0f0f0, #e8e8e8)';
+                subBtn.style.color = '#555555';
+                subBtn.style.border = '2px solid #cccccc';
+              });
+            }, 50);
+          } else {
+            // "All Products" clicked - recreate full navigation
+            createNavigationButtons(null);
+          }
+          
+          // Update breadcrumb
+          if (typeof createBreadcrumb === 'function') {
+            createBreadcrumb(categoryKeyword);
+          }
+          
+          // Load products
+          loadProductsByCategory(categoryKeyword || null);
+        });
+      });
+    }
+
+    // Create subcategory buttons based on available products
+    async function createSubcategoryButtons(mainCategory) {
+      try {
+        const products = await getProductData();
+        const subcategories = new Set();
+        
+        // Find all subcategories for this main category
+        products.forEach(product => {
+          if (product.category) {
+            const categories = product.category.split(',').map(cat => cat.trim().toLowerCase());
+            categories.forEach(category => {
+              if (category.startsWith(mainCategory) && category.includes('-')) {
+                subcategories.add(category);
+              }
+            });
+          }
+        });
+
+        const subcategoryContainer = document.getElementById('subcategory-navigation');
+        if (!subcategoryContainer) return;
+
+        // Clear container if no subcategories exist
+        if (subcategories.size === 0) {
+          subcategoryContainer.innerHTML = '';
+          return;
+        }
+
+        // Convert to sorted array and create buttons
+        const sortedSubcategories = Array.from(subcategories).sort();
+        const currentSubcategory = getQueryParam("category");
+        
+        const subcategoryHTML = sortedSubcategories.map(subcat => {
+          const isActive = currentSubcategory === subcat;
+          const displayName = formatSubcategoryName(subcat);
+          return `
+            <button class="subcategory-nav-btn${isActive ? ' active' : ''}" data-category="${subcat}">${displayName}</button>
+          `;
+        }).join('');
+
+        subcategoryContainer.innerHTML = subcategoryHTML;
+
+        // Add click event listeners to subcategory buttons
+        document.querySelectorAll('.subcategory-nav-btn').forEach(btn => {
+          btn.addEventListener('click', function() {
+            const subcategoryKeyword = this.getAttribute('data-category');
+            
+            // Update URL
+            const newUrl = `${window.location.pathname}?category=${encodeURIComponent(subcategoryKeyword)}`;
+            history.pushState({ category: subcategoryKeyword }, "", newUrl);
+            
+            // Update only the active states of subcategory buttons (don't recreate entire navigation)
+            updateSubcategoryActiveStates(subcategoryKeyword);
+            
+            // Update main category button to show the parent category as active
+            const parentCategory = subcategoryKeyword.split('-')[0];
+            updateMainCategoryActiveStates(parentCategory);
+            
+            // Update breadcrumb
+            if (typeof createBreadcrumb === 'function') {
+              createBreadcrumb(subcategoryKeyword);
+            }
+            
+            // Load products
+            loadProductsByCategory(subcategoryKeyword);
+          });
+        });
+
+      } catch (error) {
+        console.error("Error creating subcategory buttons:", error);
+      }
+    }
+
+    // Format subcategory names for display
+    function formatSubcategoryName(subcategory) {
+      const parts = subcategory.split('-');
+      if (parts.length <= 1) return subcategory;
+      
+      // Get the subcategory part (everything after the first dash)
+      const subParts = parts.slice(1);
+      
+      return subParts.map(word => {
+        // Handle special cases
+        if (word === 'cz') return 'Cubic Zirconia';
+        if (word === 'yowah' && subParts.includes('nuts')) return 'Yowah Nuts';
+        if (word === 'nuts' && subParts.includes('yowah')) return '';
+        if (word === 'thunder' && subParts.includes('eggs')) return 'Thunder Eggs';
+        if (word === 'eggs' && subParts.includes('thunder')) return '';
+        if (word === 'agate' && subParts.includes('slices')) return 'Agate Slices';
+        if (word === 'slices' && subParts.includes('agate')) return '';
+        if (word === 'wash' && subParts.includes('bags')) return 'Wash Bags';
+        if (word === 'bags' && subParts.includes('wash')) return '';
+        if (word === 'herkimer' && subParts.includes('diamonds')) return 'Herkimer Diamonds';
+        if (word === 'diamonds' && subParts.includes('herkimer')) return '';
+        if (word === 'smoky' && subParts.includes('quartz')) return 'Smoky Quartz';
+        if (word === 'quartz' && subParts.includes('smoky')) return '';
+        
+        return word.charAt(0).toUpperCase() + word.slice(1);
+      }).filter(word => word).join(' ');
+    }
+
+    // Update active states of subcategory buttons without recreating them
+    function updateSubcategoryActiveStates(activeSubcategory) {
+      document.querySelectorAll('.subcategory-nav-btn').forEach(btn => {
+        const isActive = btn.getAttribute('data-category') === activeSubcategory;
+        btn.classList.toggle('active', isActive);
+      });
+    }
+
+    // Update active states of main category buttons
+    function updateMainCategoryActiveStates(activeMainCategory) {
+      document.querySelectorAll('.category-nav-btn').forEach(btn => {
+        const btnCategory = btn.getAttribute('data-category');
+        const isActive = btnCategory === activeMainCategory || (!btnCategory && !activeMainCategory);
+        btn.classList.toggle('active', isActive);
+      });
+    }
+
+    // Initialize when DOM is loaded
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialize DOM elements
+      productContainer = document.getElementById("dynamic-product-container");
+      productHeader = document.querySelector(".dynamic-product-header-title");
+      
+      const categoryKeyword = getQueryParam("category");
+      
+      // Create and display page title at the top
+      // createPageTitle(categoryKeyword); // Temporarily hidden
+      
+      // Create modern navigation buttons
+      createNavigationButtons(categoryKeyword);
+      
+      // Initialize breadcrumb (will be positioned above products)
+      if (typeof createBreadcrumb === 'function') {
+        createBreadcrumb(categoryKeyword);
+      }
+      
+      setupCanonicalUrl();
+      updateCategoryMetaTags(categoryKeyword);
+
+      if (categoryKeyword) {
         loadProductsByCategory(categoryKeyword);
+      } else {
+        loadProductsByCategory(); // Load all products if no category is specified
+      }
+
+      // Add event listeners to side menu toggles (for in-page filtering)
+      const sideMenuToggles = document.querySelectorAll(".side-menu-toggle");
+      sideMenuToggles.forEach(toggle => {
+        toggle.addEventListener("click", function () {
+          const categoryKeyword = this.getAttribute("data-category");
+          // Update the URL dynamically without reloading the page
+          const newUrl = `${window.location.pathname}?category=${encodeURIComponent(categoryKeyword)}`;
+          history.pushState({ category: categoryKeyword }, "", newUrl);
+          
+          // Update page title
+          // createPageTitle(categoryKeyword); // Temporarily hidden
+          
+          // Update navigation buttons
+          createNavigationButtons(categoryKeyword);
+          
+          // Update breadcrumb
+          if (typeof createBreadcrumb === 'function') {
+            createBreadcrumb(categoryKeyword);
+          }
+          
+          setupCanonicalUrl(); // Update the canonical URL
+          loadProductsByCategory(categoryKeyword);
+        });
+      });
+      
+      // Handle browser back/forward buttons
+      window.addEventListener('popstate', function(event) {
+        const categoryKeyword = getQueryParam("category");
+        
+        // Update page title
+        // createPageTitle(categoryKeyword); // Temporarily hidden
+        
+        // Update navigation buttons
+        createNavigationButtons(categoryKeyword);
+        
+        // Update breadcrumb
+        if (typeof createBreadcrumb === 'function') {
+          createBreadcrumb(categoryKeyword);
+        }
+        
+        // Reload products for the new category
+        if (categoryKeyword) {
+          loadProductsByCategory(categoryKeyword);
+        } else {
+          loadProductsByCategory();
+        }
       });
     });
 
@@ -200,6 +510,11 @@ fetch("side-menu.html")
 
     // Function to load products by category keyword
     function loadProductsByCategory(keyword = null) {
+      if (!productContainer) {
+        console.error('Product container not found');
+        return;
+      }
+      
       productContainer.innerHTML = "<p>Loading products...</p>";
 
       getProductData()
@@ -239,7 +554,7 @@ fetch("side-menu.html")
         });
     }
 
-    const PRODUCTS_PER_PAGE = 6;
+    const PRODUCTS_PER_PAGE = 8; // Changed to 8 for better 4-card layout (2 rows of 4)
     let currentPage = 1;
     let currentProducts = [];
 
@@ -253,16 +568,7 @@ fetch("side-menu.html")
 
       productContainer.innerHTML = "";
 
-      const headerContainer = document.createElement("div");
-headerContainer.className = "dynamic-product-header-container";
-const headerTitleH1 = document.createElement("h1");
-headerTitleH1.className = "dynamic-product-header-title";
-headerTitleH1.textContent = headerTitle;
-headerContainer.appendChild(headerTitleH1);
-const divider = document.createElement("hr");
-divider.className = "product-header-divider";
-headerContainer.appendChild(divider);
-productContainer.appendChild(headerContainer);
+      // No longer adding header container here - it's at the top of the page
 
       if (productsToShow.length > 0) {
         productsToShow.forEach(product => {
@@ -280,10 +586,10 @@ productContainer.appendChild(headerContainer);
           const productName = document.createElement("h3");
           productName.textContent = product["product name"];
 
-          // Add size info for Yowah Nuts products
+          // Add size info for all products except Yowah Nuts (which are handled separately)
           let sizeElement = null;
           if (product["product id"] && product["product id"].startsWith('yn')) {
-            // Extract size info from product name for cleaner display
+            // Extract size info from product name for cleaner display (existing Yowah Nuts logic)
             let sizeInfo = '';
             const name = product["product name"];
             if (name.includes('Large')) {
@@ -307,15 +613,16 @@ productContainer.appendChild(headerContainer);
 
             if (sizeInfo) {
               sizeElement = document.createElement("div");
-              sizeElement.className = "product-size-info";
+              sizeElement.className = "product-range-info"; // Use same class as other products
               sizeElement.textContent = sizeInfo;
-              sizeElement.style.cssText = `
-                color: #ffb366;
-                font-size: 0.9rem;
-                font-weight: 600;
-                margin: 2px 0 4px 0;
-                text-align: center;
-              `;
+            }
+          } else {
+            // Generate size range for all other products based on available weights
+            const sizeRange = generateSizeRange(data, product["product id"]);
+            if (sizeRange) {
+              sizeElement = document.createElement("div");
+              sizeElement.className = "product-range-info";
+              sizeElement.textContent = sizeRange;
             }
           }
 
@@ -323,10 +630,6 @@ productContainer.appendChild(headerContainer);
           const productPrice = document.createElement("p");
           productPrice.className = "product-price";
           productPrice.textContent = calculatePriceDisplay(data, product["product id"]);
-
-          const productDescription = document.createElement("p");
-          productDescription.className = "card-description";
-          productDescription.textContent = product.description;
 
           const productButton = document.createElement("button");
           productButton.classList.add("dynamic-product-button");
@@ -344,28 +647,16 @@ productContainer.appendChild(headerContainer);
           }
           
           productCard.appendChild(productPrice);
-          productCard.appendChild(productDescription);
           productCard.appendChild(productButton);
 
           productContainer.appendChild(productCard);
-
-          // Handle description overflow after DOM is rendered
-          setTimeout(() => {
-            handleDescriptionOverflow(productDescription, product.description);
-          }, 10);
         });
 
-        // Add ghost cards to maintain grid layout
+        // Add ghost cards to maintain grid layout for 4-card rows
         const productsShown = productsToShow.length;
-        if (productsToShow.length < 4) {
-          const ghostCardsNeeded = 3 - productsToShow.length;
-          for (let i = 0; i < ghostCardsNeeded; i++) {
-            const ghostCard = document.createElement("div");
-            ghostCard.className = "dynamic-product-card ghost-card";
-            productContainer.appendChild(ghostCard);
-          }
-        } else {
-          const ghostCardsNeeded = 6 - productsShown;
+        const cardsInLastRow = productsShown % 4;
+        if (cardsInLastRow !== 0) {
+          const ghostCardsNeeded = 4 - cardsInLastRow;
           for (let i = 0; i < ghostCardsNeeded; i++) {
             const ghostCard = document.createElement("div");
             ghostCard.className = "dynamic-product-card ghost-card";
@@ -373,7 +664,7 @@ productContainer.appendChild(headerContainer);
           }
         }
 
-        if (products.length < 4) {
+        if (products.length < 8) { // Changed from 4 to 8 to account for new page size
           suggestAdditionalProducts(keyword, products, data);
         }
       } else {
@@ -470,7 +761,7 @@ productContainer.appendChild(headerContainer);
       const filteredSuggestions = data.filter(product =>
         product.category.includes(broaderCategory) && !displayedProductNames.has(product["product name"])
       );
-      const shuffledSuggestions = filteredSuggestions.sort(() => 0.5 - Math.random()).slice(0, 3);
+      const shuffledSuggestions = filteredSuggestions.sort(() => 0.5 - Math.random()).slice(0, 4); // Changed to 4 suggestions to fill a row
 
       const suggestionContainer = document.createElement("div");
       suggestionContainer.classList.add("suggestion-container");
@@ -504,10 +795,10 @@ productContainer.appendChild(headerContainer);
           const productName = document.createElement("h3");
           productName.textContent = product["product name"];
 
-          // Add size info for Yowah Nuts products in suggestions
+          // Add size info for all products except Yowah Nuts in suggestions too
           let sizeElement = null;
           if (product["product id"] && product["product id"].startsWith('yn')) {
-            // Extract size info from product name for cleaner display
+            // Extract size info from product name for cleaner display (existing Yowah Nuts logic)
             let sizeInfo = '';
             const name = product["product name"];
             if (name.includes('Large')) {
@@ -531,15 +822,16 @@ productContainer.appendChild(headerContainer);
 
             if (sizeInfo) {
               sizeElement = document.createElement("div");
-              sizeElement.className = "product-size-info";
+              sizeElement.className = "product-range-info"; // Use same class as other products
               sizeElement.textContent = sizeInfo;
-              sizeElement.style.cssText = `
-                color: #ffb366;
-                font-size: 0.9rem;
-                font-weight: 600;
-                margin: 2px 0 4px 0;
-                text-align: center;
-              `;
+            }
+          } else {
+            // Generate size range for all other products based on available weights
+            const sizeRange = generateSizeRange(data, product["product id"]);
+            if (sizeRange) {
+              sizeElement = document.createElement("div");
+              sizeElement.className = "product-range-info";
+              sizeElement.textContent = sizeRange;
             }
           }
 
@@ -547,10 +839,6 @@ productContainer.appendChild(headerContainer);
           const productPrice = document.createElement("p");
           productPrice.className = "product-price";
           productPrice.textContent = calculatePriceDisplay(data, product["product id"]);
-
-          const productDescription = document.createElement("p");
-          productDescription.className = "card-description";
-          productDescription.textContent = product.description;
 
           const productButton = document.createElement("button");
           productButton.classList.add("dynamic-product-button");
@@ -568,15 +856,9 @@ productContainer.appendChild(headerContainer);
           }
           
           productCard.appendChild(productPrice);
-          productCard.appendChild(productDescription);
           productCard.appendChild(productButton);
 
           suggestionContainer.appendChild(productCard);
-
-          // Handle description overflow after DOM is rendered
-          setTimeout(() => {
-            handleDescriptionOverflow(productDescription, product.description);
-          }, 10);
         });
       } else {
         const noSuggestionsMessage = document.createElement("p");
@@ -587,7 +869,59 @@ productContainer.appendChild(headerContainer);
       productContainer.appendChild(suggestionContainer);
     }
     // --- Product loading logic ENDS here ---
-  });
+
+    // Function to generate size range for products based on available weights
+    function generateSizeRange(data, productId) {
+      // Find all variants of this product ID
+      const productVariants = data.filter(item => item["product id"] === productId);
+      
+      if (productVariants.length <= 1) {
+        // Single variant - show exact weight with unit
+        const variant = productVariants[0];
+        if (variant && variant.weight && variant.unit) {
+          const formattedSize = formatSizeWithSpacing(variant.weight, variant.unit);
+          return formattedSize;
+        }
+        return null;
+      }
+      
+      // Multiple variants - show range
+      const weights = productVariants.map(variant => variant.weight).filter(weight => weight != null);
+      const unit = productVariants[0]?.unit || '';
+      
+      if (weights.length === 0) return null;
+      
+      const minWeight = Math.min(...weights);
+      const maxWeight = Math.max(...weights);
+      
+      // If all weights are the same, show single value
+      if (minWeight === maxWeight) {
+        const formattedSize = formatSizeWithSpacing(minWeight, unit);
+        return formattedSize;
+      }
+      
+      // Show range for different weights with proper spacing
+      const minFormatted = formatSizeWithSpacing(minWeight, unit);
+      const maxFormatted = formatSizeWithSpacing(maxWeight, unit);
+      
+      // For ranges, we can optimize by showing "50-100ct" instead of "50 ct-100 ct"
+      if (unit === 'ct' || unit === 'g') {
+        return `${minWeight}-${maxWeight}${unit}`;
+      } else {
+        // For other units like "slice", "bag", etc., show full format
+        return `${minFormatted}-${maxFormatted}`;
+      }
+    }
+
+    // Helper function to format size with proper spacing
+    function formatSizeWithSpacing(weight, unit) {
+      // Add space for word-based units like "slice", "bag", "piece", etc.
+      if (unit && /^[a-zA-Z]/.test(unit) && unit !== 'ct' && unit !== 'g' && unit !== 'kg') {
+        return `${weight} ${unit}`;
+      }
+      // Keep compact format for standard units like "ct", "g", "kg"
+      return `${weight}${unit}`;
+    }
 
 // Helper function for formatting category headers
 function formatCategoryHeader(keyword) {
