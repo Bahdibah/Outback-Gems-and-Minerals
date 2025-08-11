@@ -1,4 +1,4 @@
-// Side menu loading removed - product functionality remains intact
+// Product functionality for products page
 
     // Function to show description tooltip expansion
     function showDescriptionExpansion(fullText, productTitle, descriptionElement) {
@@ -212,168 +212,19 @@
       }
     }
 
-    // Create modern navigation buttons at the top
-    function createNavigationButtons(activeCategory) {
-      // Remove any existing navigation buttons
-      const existingNav = document.getElementById('category-navigation');
-      if (existingNav) {
-        existingNav.remove();
+    // Create modern navigation buttons at the top using shared module
+    async function createNavigationButtons(activeCategory) {
+      if (window.categoryNavigation) {
+        await window.categoryNavigation.createNavigationButtons(activeCategory);
       }
-
-      const categories = [
-        { key: 'synthetic', label: 'Synthetic Rough' },
-        { key: 'natural', label: 'Natural Rough' },
-        { key: 'other', label: 'Other Products' },
-        { key: 'carvings', label: 'Carvings' },
-        { key: 'rough-slabs', label: 'Rough & Slabs' }
-      ];
-
-      const navigationHTML = `
-        <div id="category-navigation" class="category-navigation">
-          <div id="main-categories" class="main-categories">
-            ${categories.map(category => `
-              <button class="category-nav-btn${(activeCategory === category.key || (activeCategory && activeCategory.startsWith(category.key + '-'))) ? ' active' : ''}" data-category="${category.key}">
-                ${category.label}
-              </button>
-            `).join('')}
-            <button class="category-nav-btn${!activeCategory ? ' active' : ''}" data-category="">
-              All Products
-            </button>
-          </div>
-          <div id="subcategory-navigation" class="subcategory-navigation">
-            <!-- Subcategories will be inserted here -->
-          </div>
-        </div>
-      `;
-
-      // Insert at the top of the page content
-      const body = document.body;
-      const navbar = document.getElementById('navbar-container');
-      if (navbar && navbar.nextSibling) {
-        navbar.insertAdjacentHTML('afterend', navigationHTML);
-      } else {
-        body.insertAdjacentHTML('afterbegin', navigationHTML);
-      }
-
-      // Add subcategories if a main category is selected
-      if (activeCategory) {
-        createSubcategoryButtons(activeCategory);
-      }
-
-      // Add click event listeners to navigation buttons
-      document.querySelectorAll('.category-nav-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-          const categoryKeyword = this.getAttribute('data-category');
-          
-          // Update URL
-          const newUrl = categoryKeyword ? 
-            `${window.location.pathname}?category=${encodeURIComponent(categoryKeyword)}` :
-            window.location.pathname;
-          history.pushState({ category: categoryKeyword }, "", newUrl);
-          
-          if (categoryKeyword) {
-            // Update main category active states
-            updateMainCategoryActiveStates(categoryKeyword);
-            
-            // Create/update subcategory buttons for the selected category
-            createSubcategoryButtons(categoryKeyword);
-            
-            // Clear any active subcategory states (show all subcategories as inactive)
-            setTimeout(() => {
-              document.querySelectorAll('.subcategory-nav-btn').forEach(subBtn => {
-                subBtn.style.background = 'linear-gradient(135deg, #f0f0f0, #e8e8e8)';
-                subBtn.style.color = '#555555';
-                subBtn.style.border = '2px solid #cccccc';
-              });
-            }, 50);
-          } else {
-            // "All Products" clicked - recreate full navigation
-            createNavigationButtons(null);
-          }
-          
-          // Update breadcrumb
-          if (typeof createBreadcrumb === 'function') {
-            createBreadcrumb(categoryKeyword);
-          }
-          
-          // Load products
-          loadProductsByCategory(categoryKeyword || null);
-        });
-      });
     }
 
-    // Create subcategory buttons based on available products
+    // Create subcategory buttons using shared module
     async function createSubcategoryButtons(mainCategory) {
-      try {
-        const products = await getProductData();
-        const subcategories = new Set();
-        
-        // Find all subcategories for this main category
-        products.forEach(product => {
-          if (product.category) {
-            const categories = product.category.split(',').map(cat => cat.trim().toLowerCase());
-            categories.forEach(category => {
-              if (category.startsWith(mainCategory) && category.includes('-')) {
-                subcategories.add(category);
-              }
-            });
-          }
-        });
-
-        const subcategoryContainer = document.getElementById('subcategory-navigation');
-        if (!subcategoryContainer) return;
-
-        // Clear container if no subcategories exist
-        if (subcategories.size === 0) {
-          subcategoryContainer.innerHTML = '';
-          return;
-        }
-
-        // Convert to sorted array and create buttons
-        const sortedSubcategories = Array.from(subcategories).sort();
-        const currentSubcategory = getQueryParam("category");
-        
-        const subcategoryHTML = sortedSubcategories.map(subcat => {
-          const isActive = currentSubcategory === subcat;
-          const displayName = formatSubcategoryName(subcat);
-          return `
-            <button class="subcategory-nav-btn${isActive ? ' active' : ''}" data-category="${subcat}">${displayName}</button>
-          `;
-        }).join('');
-
-        subcategoryContainer.innerHTML = subcategoryHTML;
-
-        // Add click event listeners to subcategory buttons
-        document.querySelectorAll('.subcategory-nav-btn').forEach(btn => {
-          btn.addEventListener('click', function() {
-            const subcategoryKeyword = this.getAttribute('data-category');
-            
-            // Update URL
-            const newUrl = `${window.location.pathname}?category=${encodeURIComponent(subcategoryKeyword)}`;
-            history.pushState({ category: subcategoryKeyword }, "", newUrl);
-            
-            // Update only the active states of subcategory buttons (don't recreate entire navigation)
-            updateSubcategoryActiveStates(subcategoryKeyword);
-            
-            // Update main category button to show the parent category as active
-            const parentCategory = subcategoryKeyword.split('-')[0];
-            updateMainCategoryActiveStates(parentCategory);
-            
-            // Update breadcrumb
-            if (typeof createBreadcrumb === 'function') {
-              createBreadcrumb(subcategoryKeyword);
-            }
-            
-            // Load products
-            loadProductsByCategory(subcategoryKeyword);
-          });
-        });
-
-      } catch (error) {
-        console.error("Error creating subcategory buttons:", error);
+      if (window.categoryNavigation) {
+        window.categoryNavigation.createSubcategoryButtons(mainCategory);
       }
     }
-
     // Format subcategory names for display
     function formatSubcategoryName(subcategory) {
       const parts = subcategory.split('-');
@@ -420,7 +271,7 @@
     }
 
     // Initialize when DOM is loaded
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', async function() {
       // Initialize DOM elements
       productContainer = document.getElementById("dynamic-product-container");
       productHeader = document.querySelector(".dynamic-product-header-title");
@@ -431,11 +282,8 @@
       // createPageTitle(categoryKeyword); // Temporarily hidden
       
       // Create modern navigation buttons
-      createNavigationButtons(categoryKeyword);
-      
-      // Initialize breadcrumb (will be positioned above products)
-      if (typeof createBreadcrumb === 'function') {
-        createBreadcrumb(categoryKeyword);
+      if (window.categoryNavigation) {
+        await window.categoryNavigation.createNavigationButtons(categoryKeyword);
       }
       
       setupCanonicalUrl();
@@ -446,45 +294,17 @@
       } else {
         loadProductsByCategory(); // Load all products if no category is specified
       }
-
-      // Add event listeners to side menu toggles (for in-page filtering)
-      const sideMenuToggles = document.querySelectorAll(".side-menu-toggle");
-      sideMenuToggles.forEach(toggle => {
-        toggle.addEventListener("click", function () {
-          const categoryKeyword = this.getAttribute("data-category");
-          // Update the URL dynamically without reloading the page
-          const newUrl = `${window.location.pathname}?category=${encodeURIComponent(categoryKeyword)}`;
-          history.pushState({ category: categoryKeyword }, "", newUrl);
-          
-          // Update page title
-          // createPageTitle(categoryKeyword); // Temporarily hidden
-          
-          // Update navigation buttons
-          createNavigationButtons(categoryKeyword);
-          
-          // Update breadcrumb
-          if (typeof createBreadcrumb === 'function') {
-            createBreadcrumb(categoryKeyword);
-          }
-          
-          setupCanonicalUrl(); // Update the canonical URL
-          loadProductsByCategory(categoryKeyword);
-        });
-      });
       
       // Handle browser back/forward buttons
-      window.addEventListener('popstate', function(event) {
+      window.addEventListener('popstate', async function(event) {
         const categoryKeyword = getQueryParam("category");
         
         // Update page title
         // createPageTitle(categoryKeyword); // Temporarily hidden
         
         // Update navigation buttons
-        createNavigationButtons(categoryKeyword);
-        
-        // Update breadcrumb
-        if (typeof createBreadcrumb === 'function') {
-          createBreadcrumb(categoryKeyword);
+        if (window.categoryNavigation) {
+          await window.categoryNavigation.createNavigationButtons(categoryKeyword);
         }
         
         // Reload products for the new category

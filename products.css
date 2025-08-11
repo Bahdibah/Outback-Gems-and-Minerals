@@ -1,149 +1,8 @@
-/* Ensure main categories are horizontal and subcategories are below */
-.category-navigation {
-  width: 100%;
-  max-width: 80%;
-  margin: calc(var(--navbar-height, 70px) + 10px) auto 35px auto;
-  padding: 0 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 25px;
-}
-
-.main-categories {
-  display: flex;
-/* Sleek, stylish navigation buttons with visual hierarchy */
-.category-nav-btn {
-  font-size: 1.18rem;
-  padding: 18px 30px;
-  font-weight: 800;
-  color: #cc5500;
-  background: linear-gradient(120deg, #fffbe6 0%, #ffe0b2 100%);
-  border: 2px solid #ff9800;
-  border-radius: 14px;
-  margin: 0 12px 0 0;
-  box-shadow: 0 3px 14px 0 rgba(204, 85, 0, 0.10), 0 1.5px 0 #fff inset;
-  cursor: pointer;
-  transition: all 0.22s cubic-bezier(.4,0,.2,1);
-  outline: none;
-  letter-spacing: 0.7px;
-  min-width: 160px;
-  position: relative;
-  z-index: 1;
-  text-shadow: 0 1px 0 #fff8e1;
-}
-.category-nav-btn.active {
-  background: linear-gradient(90deg, #ff9800 0%, #ffb74d 100%);
-  color: #fff;
-  border: 2px solid #ff9800;
-  box-shadow: 0 6px 24px rgba(204, 85, 0, 0.22), 0 1.5px 0 #fff8e1 inset;
-  text-shadow: 0 2px 8px #ffb74d99;
-}
-.category-nav-btn:hover:not(.active) {
-  background: linear-gradient(120deg, #fff3e0 0%, #ffe0b2 100%);
-  color: #cc5500;
-  border: 2px solid #ffb74d;
-  box-shadow: 0 4px 18px rgba(204, 85, 0, 0.16), 0 1.5px 0 #fff8e1 inset;
-  filter: brightness(1.04);
-}
-
-.subcategory-nav-btn {
-  font-size: 0.97rem;
-  padding: 9px 18px;
-  font-weight: 700;
-  color: #181818;
-  background: linear-gradient(120deg, #f7f7f7 0%, #f0f0f0 100%);
-  border: 2px solid #ff9800;
-  border-radius: 10px;
-  margin: 0 8px 0 0;
-  box-shadow: 0 1.5px 8px rgba(204, 85, 0, 0.08), 0 1px 0 #fff inset;
-  cursor: pointer;
-  transition: all 0.22s cubic-bezier(.4,0,.2,1);
-  outline: none;
-  letter-spacing: 0.2px;
-  min-width: 110px;
-  position: relative;
-  z-index: 1;
-  text-shadow: 0 1px 0 #fff;
-}
-.subcategory-nav-btn.active {
-  background: linear-gradient(90deg, #ff9800 0%, #ffb74d 100%);
-  color: #fff;
-  border: 2px solid #ff9800;
-  box-shadow: 0 4px 16px rgba(204, 85, 0, 0.18), 0 1.5px 0 #fff8e1 inset;
-  text-shadow: 0 2px 8px #ffb74d99;
-}
-.subcategory-nav-btn:hover:not(.active) {
-  background: linear-gradient(120deg, #fff3e0 0%, #ffe0b2 100%);
-  color: #cc5500;
-  border: 2px solid #ffb74d;
-  box-shadow: 0 2.5px 12px rgba(204, 85, 0, 0.13), 0 1px 0 #fff inset;
-  filter: brightness(1.04);
-}
-
-/* Layout for navigation containers */
-.category-navigation {
-  width: 100%;
-  max-width: 1400px;
-  margin: 0 auto 30px auto;
-  padding: 0 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.5rem;
-}
-.main-categories {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: center;
-  margin-bottom: 0.5rem;
-  gap: 0.5rem;
-}
-.subcategory-navigation {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.3rem;
-  margin-left: 2px;
-}
-  margin: 0 6px 8px 0;
-  position: relative;
-  backdrop-filter: blur(8px);
-  transform: translateZ(0);
-}
-
-.category-nav-btn.active,
-.subcategory-nav-btn.active {
-  background: linear-gradient(135deg, #cc5500 0%, #e66600 100%) !important;
-  color: #fff !important;
-  border: 2px solid #cc5500 !important;
-  box-shadow: 0 4px 16px rgba(204, 85, 0, 0.3), inset 0 1px 0 rgba(255,255,255,0.3);
-}
-
-.category-nav-btn:hover,
-.subcategory-nav-btn:hover {
-  transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 6px 20px rgba(204, 85, 0, 0.25), inset 0 1px 0 rgba(255,255,255,0.4);
-  border-color: #cc5500;
-  background: linear-gradient(135deg, #cc5500 0%, #e66600 100%);
-  color: #fff;
-}
-
-/* Active state for category and subcategory buttons */
-.category-nav-btn.active,
-.subcategory-nav-btn.active {
-  background: #cc5500 !important; /* Orange fill */
-  color: #fff !important; /* White text */
-  border-color: #cc5500 !important;
-  box-shadow: 0 4px 16px rgba(204,85,0,0.18), 0 1.5px 0 rgba(255,255,255,0.5) inset;
-}
 :root {
   --navbar-height: 70px;
 }
+
 body {
-  
     background-color: #2e2e2e;
     color: #cc5500;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; 
@@ -154,7 +13,7 @@ body {
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
 }
-git branch
+
 #page-wrapper {
   display: flex;
   flex-direction: column;
@@ -272,7 +131,7 @@ footer >div{
   display: flex;
   flex-wrap: wrap; /* Enables wrapping into new rows */
   gap: 30px; /* Increased gap from 20px to 30px for better spacing */
-  padding: 30px 40px;
+  padding: 8px 40px 30px 40px;
   width: 100% !important; /* Reverted back to 100% to maintain 4-card width */
   max-width: 1400px; /* Maximum container width for very large screens */
   margin: 0 auto !important; /* Center the container */

@@ -46,28 +46,8 @@ function updateQuantityButtons() {
   }
 }
 
-// Dynamically load the side menu HTML
-fetch("side-menu.html")
-  .then(response => response.text())
-  .then(html => {
-    document.getElementById("side-menu-container").innerHTML = html;
-    // Dynamically load side-menu.js AFTER the HTML is present
-    const script = document.createElement('script');
-    script.src = 'side-menu.js';
-    script.onload = () => {
-      // Now that side-menu.js is loaded, initialize the menu
-      if (typeof fetchAndLoadMenu === "function") {
-        fetchAndLoadMenu();
-      }
-      if (typeof setupSideMenuListeners === "function") {
-        setupSideMenuListeners();
-      }
-    };
-    document.body.appendChild(script);
-  });
-
-  // Function to show banner notifications
-  function showBannerNotification(message, type = 'success') {
+// Function to show banner notifications
+function showBannerNotification(message, type = 'success') {
     // Remove any existing banners first
     const existingBanners = document.querySelectorAll('.notification-banner');
     existingBanners.forEach(banner => banner.remove());
@@ -341,6 +321,7 @@ async function fetchProductDetails() {
       optimizeImageLoading(); // Add image optimization
       enhanceAccessibility(); // Improve accessibility
       setupRelatedYowahNuts(); // Setup related Yowah Nuts section
+      setupRelatedProducts(); // Setup generic related products section
     }, 100);
     
     
@@ -1309,7 +1290,7 @@ function updateMetaTags(product) {
 }
 
 // Modal image expand setup (add this after fetchProductDetails();)
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", async function() {
   const mainImage = document.getElementById("view-product-image");
   const modalOverlay = document.getElementById("image-modal-overlay");
   const modalImg = document.getElementById("image-modal-img");
@@ -1344,6 +1325,11 @@ document.addEventListener("DOMContentLoaded", function() {
       }
     });
   }
+  
+  // Initialize category navigation
+  if (window.categoryNavigation) {
+    await window.categoryNavigation.initializeFromURL();
+  }
 });
 
 function injectProductSchema(product) {
@@ -1375,6 +1361,284 @@ function injectProductSchema(product) {
   script.type = 'application/ld+json';
   script.textContent = JSON.stringify(schema);
   document.head.appendChild(script);
+}
+
+// Generic Related Products System
+async function setupRelatedProducts() {
+  const relatedSection = document.getElementById('related-products-section');
+  
+  // Skip if no product ID or if this is a Yowah Nut (handled separately)
+  if (!productId || productId.startsWith('yn')) {
+    if (relatedSection) {
+      relatedSection.classList.add('hidden');
+      relatedSection.style.display = 'none';
+    }
+    return;
+  }
+
+  try {
+    const products = await getProductData();
+    
+    // Determine the current product's subcategory
+    const currentProduct = products.find(item => item["product id"] === productId);
+    if (!currentProduct) {
+      if (relatedSection) {
+        relatedSection.classList.add('hidden');
+        relatedSection.style.display = 'none';
+      }
+      return;
+    }
+
+    // Get the subcategory from the current product
+    let currentSubcategory = null;
+    
+    // Map product categories to subcategories
+    const categoryMap = {
+      'synthetic-spinel': 'synthetic-spinel',
+      'synthetic-cubic-zirconia': 'synthetic-cz', 
+      'synthetic-sapphire': 'synthetic-sapphire',
+      'natural-sapphire': 'natural-sapphire',
+      'natural-zircon': 'natural-zircon',
+      'natural-spinel': 'natural-spinel',
+      'other-agate': 'other-agate',
+      'other-amethyst': 'other-amethyst', 
+      'other-herkimer': 'other-herkimer',
+      'other-olivine': 'other-olivine',
+      'other-quartz': 'other-quartz',
+      'other-thunder': 'other-thunder',
+      'other-tumbles': 'other-tumbles',
+      'other-washbag': 'other-washbag'
+    };
+
+    // Find the subcategory for the current product
+    for (const [category, subcategory] of Object.entries(categoryMap)) {
+      if (currentProduct.category === category) {
+        currentSubcategory = subcategory;
+        break;
+      }
+    }
+
+    if (!currentSubcategory) {
+      if (relatedSection) {
+        relatedSection.classList.add('hidden');
+        relatedSection.style.display = 'none';
+      }
+      return;
+    }
+
+    // Filter products in the same subcategory
+    const relatedProducts = products.filter(item => 
+      item.category === currentProduct.category &&
+      item["product id"] !== productId // Exclude current product
+    );
+
+    if (relatedProducts.length === 0) {
+      if (relatedSection) {
+        relatedSection.classList.add('hidden');
+        relatedSection.style.display = 'none';
+      }
+      return;
+    }
+
+    // Group by product ID to get unique products
+    const uniqueProducts = [];
+    const seenIds = new Set();
+    
+    relatedProducts.forEach(item => {
+      const id = item["product id"].trim();
+      if (!seenIds.has(id)) {
+        seenIds.add(id);
+        uniqueProducts.push(item);
+      }
+    });
+
+    // Sort by product ID and limit to first 4 products
+    uniqueProducts.sort((a, b) => a["product id"].localeCompare(b["product id"]));
+    const displayProducts = uniqueProducts.slice(0, 4);
+
+    if (displayProducts.length === 0) {
+      if (relatedSection) {
+        relatedSection.classList.add('hidden');
+        relatedSection.style.display = 'none';
+      }
+      return;
+    }
+
+    // Update the title based on subcategory
+    const titleElement = document.getElementById('related-products-title');
+    if (titleElement) {
+      const subcategoryNames = {
+        'synthetic-spinel': 'Synthetic Spinel',
+        'synthetic-cz': 'Synthetic Cubic Zirconia',
+        'synthetic-sapphire': 'Synthetic Sapphire',
+        'natural-sapphire': 'Natural Sapphire',
+        'natural-zircon': 'Natural Zircon', 
+        'natural-spinel': 'Natural Spinel',
+        'other-agate': 'Agate',
+        'other-amethyst': 'Amethyst',
+        'other-herkimer': 'Herkimer Diamonds',
+        'other-olivine': 'Olivine',
+        'other-quartz': 'Quartz',
+        'other-thunder': 'Thunder Eggs',
+        'other-tumbles': 'Tumbles',
+        'other-washbag': 'Washbag Mix'
+      };
+      
+      const subcategoryName = subcategoryNames[currentSubcategory] || 'Products';
+      titleElement.textContent = `Other ${subcategoryName} Available`;
+    }
+
+    // Show the related products section
+    if (relatedSection) {
+      relatedSection.classList.remove('hidden');
+      relatedSection.style.display = 'block';
+    }
+
+    // Generate the related products HTML
+    const gridWrapper = document.getElementById('related-products-wrapper');
+    const swiperWrapper = document.getElementById('related-products-swiper-wrapper');
+    
+    if (!gridWrapper || !swiperWrapper) return;
+
+    // Get cart data to calculate stock
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    // Clear existing content
+    gridWrapper.innerHTML = '';
+    swiperWrapper.innerHTML = '';
+
+    displayProducts.forEach(product => {
+      // Calculate available stock
+      const cartItem = cart.find(item => 
+        item.id === product["product id"] && 
+        item.weight === product.weight && 
+        item.unit === product.unit
+      );
+      const cartQuantity = cartItem ? cartItem.quantity : 0;
+      const availableStock = product.stock - cartQuantity;
+      
+      // Determine stock status
+      let stockClass = availableStock > 0 ? 'in-stock' : 'out-of-stock';
+      let stockText = availableStock > 0 ? `${availableStock} in stock` : 'Out of stock';
+
+      // Create card HTML content
+      const cardContent = `
+        <img src="${product["image url"] || 'images/placeholder.png'}" 
+             alt="${product["product name"]}" 
+             class="related-product-image"
+             loading="lazy">
+        <div class="related-product-name">${product["product name"]}</div>
+        <div class="related-product-price">$${product["total price"].toFixed(2)}</div>
+        <div class="related-product-stock ${stockClass}">${stockText}</div>
+      `;
+
+      // Create grid card
+      const gridCard = document.createElement('div');
+      gridCard.className = 'product-card';
+      gridCard.innerHTML = cardContent;
+      gridCard.style.cursor = 'pointer';
+      gridCard.addEventListener('click', () => {
+        window.location.href = `view-product.html?productid=${product["product id"]}`;
+      });
+      gridWrapper.appendChild(gridCard);
+
+      // Create swiper slide
+      const swiperSlide = document.createElement('div');
+      swiperSlide.className = 'swiper-slide';
+      const swiperCard = document.createElement('div');
+      swiperCard.className = 'product-card';
+      swiperCard.innerHTML = cardContent;
+      swiperCard.style.cursor = 'pointer';
+      swiperCard.addEventListener('click', () => {
+        window.location.href = `view-product.html?productid=${product["product id"]}`;
+      });
+      swiperSlide.appendChild(swiperCard);
+      swiperWrapper.appendChild(swiperSlide);
+    });
+
+    // Add centering class based on number of products
+    gridWrapper.className = 'related-products-grid';
+    if (displayProducts.length === 1) {
+      gridWrapper.classList.add('center-one');
+    } else if (displayProducts.length === 2) {
+      gridWrapper.classList.add('center-two');
+    } else if (displayProducts.length === 3) {
+      gridWrapper.classList.add('center-three');
+    }
+
+    // Initialize Swiper for mobile layout
+    initializeRelatedProductsSwiper();
+
+  } catch (error) {
+    console.error("Error setting up related products:", error);
+  }
+}
+
+// Function to initialize Swiper for generic related products
+function initializeRelatedProductsSwiper() {
+  // Destroy existing swiper if it exists
+  if (window.relatedProductsSwiper) {
+    window.relatedProductsSwiper.destroy(true, true);
+  }
+
+  // Initialize new swiper
+  window.relatedProductsSwiper = new Swiper('#related-products-swiper', {
+    // Basic configuration
+    loop: false,
+    autoplay: false,
+    
+    // Responsive breakpoints
+    breakpoints: {
+      // Mobile (up to 767px) - 1 slide
+      0: {
+        slidesPerView: 1,
+        spaceBetween: 10,
+        centeredSlides: true,
+      },
+      // Small tablet (768px and up) - 2 slides  
+      768: {
+        slidesPerView: 2,
+        spaceBetween: 15,
+        centeredSlides: false,
+      }
+    },
+    
+    // Navigation arrows
+    navigation: {
+      nextEl: '.related-products-swiper .swiper-button-next',
+      prevEl: '.related-products-swiper .swiper-button-prev',
+    },
+    
+    // Pagination dots
+    pagination: {
+      el: '.related-products-swiper .swiper-pagination',
+      clickable: true,
+      dynamicBullets: true,
+    },
+    
+    // Touch/swipe settings
+    touchEventsTarget: 'container',
+    simulateTouch: true,
+    allowTouchMove: true,
+    touchStartPreventDefault: false,
+    
+    // Additional options
+    grabCursor: true,
+    watchOverflow: true,
+    
+    // Keyboard navigation
+    keyboard: {
+      enabled: true,
+      onlyInViewport: true,
+    },
+    
+    // Accessibility
+    a11y: {
+      enabled: true,
+      prevSlideMessage: 'Previous product',
+      nextSlideMessage: 'Next product',
+    }
+  });
 }
 
 // Function to setup Related Yowah Nuts section (Dual Layout: Grid + Swiper)

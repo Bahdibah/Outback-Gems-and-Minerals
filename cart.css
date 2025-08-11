@@ -46,7 +46,7 @@ body {
 .pre-cart-trust-section {
   width: 85%;
   max-width: 1200px;
-  margin: 2% auto 1% auto;
+  margin: 0.5% auto 1% auto; /* Set to 0.5% as requested */
   padding: 0;
 }
 
@@ -59,21 +59,13 @@ body {
   padding: 0;
   background: linear-gradient(135deg, #2a4a3d 0%, #1a3d2e 100%);
   border-radius: 12px;
-  border: 2px solid #cc5500;
+  border: 3px solid #cc5500; /* Increased border to match the previous thick top border */
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
   position: relative;
   overflow: hidden;
 }
 
-.trust-badges::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, #cc5500, #ff7700, #cc5500);
-}
+/* Removed - using even border all around instead */
 
 .trust-badge {
   display: flex;

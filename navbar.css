@@ -1,6 +1,24 @@
-:root {
+  :root {
     --navbar-height: 70px;
   }
+
+/* Hide loading message and prevent flash during navbar injection */
+#loading-message {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+}
+
+/* Ensure smooth navbar injection without visible content shift */
+#navbar-container {
+  min-height: var(--navbar-height);
+  transition: opacity 0.2s ease-in-out;
+}
+
+/* Hide any content that might flash during navbar loading */
+body:not(.navbar-loaded) #navbar-container + * {
+  margin-top: var(--navbar-height);
+}
 
 nav {
     background: linear-gradient(to left, #2e2e2e 0%, #cc5500 10%, #1c1c1c 40%, #444444 100%);
@@ -43,6 +61,7 @@ nav {
   padding-left: 1%;
   align-items: end;
   width: 20%;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif !important;
 }
 
 .navbar-middle {
@@ -50,14 +69,63 @@ nav {
   justify-content: center;
   text-align: center;
   flex-direction: row;
+  display: flex;
+  align-items: flex-end;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif !important;
 }
 
 .navbar-right {
-  flex-direction: row;
-  justify-content: flex-end;
-  padding-right: 1%;
-  font-size: 1.5rem;  
-  width: 20%;
+  flex-direction: row !important;
+  justify-content: flex-end !important;
+  padding-right: 1% !important;
+  font-size: 1.8rem !important;  
+  width: 20% !important;
+  align-items: center !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif !important;
+}
+
+/* Ensure cart icon maintains consistent size */
+.navbar-right .fa-shopping-cart {
+  font-size: 1.8rem !important;
+  color: white !important;
+}
+
+/* Ensure search button maintains consistent size */
+.navbar-search-btn {
+  font-size: 1.1rem !important;
+  width: 32px !important;
+  height: 32px !important;
+}
+
+.navbar-search-btn i {
+  font-size: 1.1rem !important;
+  color: #fff !important;
+}
+
+/* Lock in search bar sizing */
+.navbar-search {
+  position: relative !important;
+  display: flex !important;
+  flex: 0 0 auto !important;
+  align-items: center !important;
+  background: #232323 !important;
+  border-radius: 999px !important;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.18) !important;
+  border: 2px solid #cc5500 !important;
+  padding: 4px 8px !important;
+  margin: 0 50px 0 0 !important;
+  gap: 0 !important;
+  width: auto !important;
+  min-width: 0 !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif !important;
+  max-width: 480px !important;
+  flex-wrap: nowrap !important;
+}
+
+/* Lock in cart dropdown positioning */
+.cart-dropdown {
+  margin: 0 !important;
+  position: relative !important;
 }
 
 nav ul.nav-links {
@@ -69,33 +137,41 @@ nav ul.nav-links {
   height: 100%;
   margin: 0;
   padding: 0;
+  justify-content: center;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif !important;
 }
 
 nav ul.nav-links li a {
-  color: #cc5500;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 1.3rem;
-  min-width: 120px;
-  max-width: 140px;
-  height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 16px;
-  border-radius: 5px 5px 0 0;
-  text-align: center;
-  line-height: 1.1;
-  transition: background 0.3s, color 0.3s;
-  white-space: normal;
-  word-break: break-word;
-  margin-bottom: 0;
+  color: #cc5500 !important;
+  text-decoration: none !important;
+  font-weight: bold !important;
+  font-size: 1.6rem !important;
+  min-width: 140px !important;
+  max-width: 160px !important;
+  height: auto !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 12px 20px !important;
+  border-radius: 8px 8px 0 0 !important;
+  text-align: center !important;
+  line-height: 1.1 !important;
+  transition: all 0.3s ease !important;
+  white-space: normal !important;
+  word-break: break-word !important;
+  margin-bottom: 0 !important;
+  border: 2px solid transparent !important;
+  border-bottom: none !important;
+  align-self: flex-end !important;
 }
 
 nav ul.nav-links li a:hover,
 nav ul.nav-links li a.active {
-  background-color: #cc5500;
-  color: #1e1e1e;
+  background-color: #cc5500 !important;
+  color: #ffffff !important;
+  border-color: #cc5500 !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 2px 8px rgba(204, 85, 0, 0.3) !important;
 }
 
 /* Shop dropdown styles */
@@ -111,16 +187,20 @@ nav ul.nav-links li a.active {
   display: none;
   position: absolute;
   top: 100%;
-  left: 0;
+  left: 50%;
+  transform: translateX(-50%);
   background: #2e2e2e;
   border: 2px solid #cc5500;
   border-radius: 8px;
-  min-width: 180px;
+  min-width: 250px;
   width: max-content;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
   z-index: 1000;
-  padding: 10px 0;
+  padding: 0;
   margin-top: 0;
+  opacity: 0;
+  transform: translateX(-50%) translateY(-10px);
+  transition: all 0.3s ease;
 }
 
 .shop-dropdown-menu li {
@@ -133,50 +213,65 @@ nav ul.nav-links li a.active {
   border-bottom: none;
 }
 
-.shop-dropdown-menu li a {
-  display: block;
-  padding: 14px 20px;
+/* More specific selector to override main nav styles */
+.shop-dropdown .shop-dropdown-menu li a {
+  display: block !important;
+  padding: 14px 20px !important;
   color: #ffffff !important;
-  text-decoration: none;
-  font-weight: 500;
-  font-size: 1.05rem;
-  transition: all 0.2s ease;
-  border-radius: 0;
-  min-width: auto;
-  max-width: none;
-  height: auto;
-  white-space: nowrap;
-  text-align: left;
-  line-height: 1.2;
-  border-left: 4px solid transparent;
+  text-decoration: none !important;
+  font-weight: 500 !important;
+  font-size: 1rem !important;
+  transition: all 0.2s ease !important;
+  border-radius: 0 !important;
+  min-width: auto !important;
+  max-width: none !important;
+  height: auto !important;
+  white-space: nowrap !important;
+  word-break: normal !important;
+  text-align: left !important;
+  line-height: 1.3 !important;
+  border: none !important;
+  position: relative !important;
+  overflow: hidden !important;
+  background: transparent !important;
+  margin-bottom: 0 !important;
+  justify-content: flex-start !important;
+  align-items: center !important;
+  box-shadow: none !important;
+  transform: none !important;
+  border-left: 4px solid transparent !important;
 }
 
-.shop-dropdown-menu li a:hover {
+.shop-dropdown .shop-dropdown-menu li a:hover {
   background-color: #cc5500 !important;
   color: #ffffff !important;
   border-left: 4px solid #ffffff !important;
+  transform: none !important;
+  box-shadow: none !important;
 }
 
 .shop-dropdown:hover .shop-dropdown-menu,
 .shop-dropdown-menu:hover {
   display: block;
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
 }
 
 nav li {
   list-style: none;
 }
 
-  nav ul li a {
-    color: #cc5500;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 1.1rem;
-    padding: 12px 20px;
-    display: block;
-    transition: background 0.3s ease, color 0.3s ease;
-    border-radius: 5px;
-    text-align: center;
-  }
+nav ul.nav-links li a {
+  color: #cc5500;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1.1rem;
+  padding: 12px 20px;
+  display: block;
+  transition: background 0.3s ease, color 0.3s ease;
+  border-radius: 5px;
+  text-align: center;
+}
 
 .navbar-right ul {
   display: flex;
@@ -299,11 +394,11 @@ input {
   box-shadow: 0 4px 16px rgba(0,0,0,0.18);
   border: 2px solid #cc5500;
   padding: 4px 8px;
-  margin: 0;
+  margin: 0 50px 0 0;
   gap: 0;
   width: auto;
   min-width: 0;
-  max-width: 320px; /* Add or adjust this line for a wider container */
+  max-width: 480px; /* Increased from 420px */
   flex-wrap: nowrap;
 }
 
@@ -314,9 +409,9 @@ input {
   color: #fff;
   font-size: 1.1rem;
   height: 32px;
-  width: 144px; 
+  width: 240px; 
   min-width: 0;
-  max-width: 216px; 
+  max-width: 320px; 
   box-sizing: border-box;
   display: block;
   outline: none;
@@ -537,6 +632,27 @@ input {
   position: relative;
 }
 
+/* Cart notification badge positioning */
+#cart-count {
+  background-color: red !important;
+  color: white !important;
+  border-radius: 50% !important;
+  padding: 0 !important;
+  font-size: 10px !important;
+  position: absolute !important;
+  top: -8px !important;
+  right: -12px !important;
+  width: 18px !important;
+  height: 18px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-weight: bold !important;
+  z-index: 10 !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3) !important;
+  line-height: 1 !important;
+}
+
 /* Message styling */
 #cart-message {
   color: #2e2e2e; /* Darker text */
@@ -718,18 +834,39 @@ nav ul.burger-nav-links.open {
     margin: 0 !important;
     min-width: auto !important;
     border-radius: 0 !important;
+    backdrop-filter: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .shop-dropdown-menu::before {
+    display: none !important;
+  }
+
+  .shop-dropdown-menu li {
+    margin: 2px 0 !important;
   }
 
   .shop-dropdown-menu li a {
-    padding: 16px 44px !important;
-    font-size: 1.1rem !important;
+    padding: 14px 40px !important;
+    font-size: 1rem !important;
     background: #1a1a1a !important;
-    border-left: 4px solid transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    transition: all 0.2s ease !important;
+    white-space: nowrap !important;
+    word-break: normal !important;
+  }
+
+  .shop-dropdown-menu li a::before {
+    display: none !important;
   }
 
   .shop-dropdown-menu li a:hover {
-    background: #cc5500 !important;
-    border-left: 4px solid #ffffff !important;
+    background: rgba(204, 85, 0, 0.15) !important;
+    color: #cc5500 !important;
+    transform: none !important;
+    padding-left: 44px !important;
   }
 
   .navbar-right {

@@ -32,7 +32,7 @@
   <title>View Product - Outback Gems</title>
   <link rel="stylesheet" href="view-products.css" />
   <link rel="stylesheet" href="navbar.css" />
-  <link rel="stylesheet" href="side-menu.css" />
+  <link rel="stylesheet" href="category-navigation.css" />
   <link href="https://fonts.googleapis.com/css2?family=Parisienne&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap" rel="stylesheet">
@@ -49,12 +49,9 @@
   <div id="page-wrapper">
     
     <header id="navbar-container"></header>
-  
-
-    <div class="view-product-page-layout">
-  <div id="side-menu-container"></div>
-  <div class="view-product-container">
-    <div class="view-product-detail" aria-label="Product details">
+    
+    <div class="view-product-container">
+      <div class="view-product-detail" aria-label="Product details">
       <div class="view-product-header-container">
         <h1 id="view-product-name" class="view-product-title" aria-live="polite">Loading...</h1>
       </div>
@@ -107,7 +104,33 @@
         </div>
       </div>
       
-      <!-- Related Yowah Nuts Section -->
+      <!-- Related Products Section (Generic) -->
+      <div id="related-products-section" class="related-products-section hidden">
+        <div class="divider"></div>
+        <div id="related-products-header">
+          <h2 class="related-products-title" id="related-products-title">Other Products Available</h2>
+        </div>
+
+        <div class="related-products-container">
+          <div class="related-products-grid" id="related-products-wrapper">
+            <!-- Related product cards will be inserted here for desktop -->
+          </div>
+
+          <!-- Swiper for mobile layout -->
+          <div class="related-products-swiper" id="related-products-swiper">
+            <div class="swiper-wrapper" id="related-products-swiper-wrapper">
+              <!-- Related product slides will be inserted here for mobile -->
+            </div>
+            <!-- Navigation arrows -->
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+            <!-- Pagination dots -->
+            <div class="swiper-pagination"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Related Yowah Nuts Section (Keep existing for Yowah Nuts) -->
       <div id="related-yowah-nuts-section" class="related-products-section hidden">
         <div class="divider"></div>
         <h2 class="related-products-title">Other Yowah Nuts Available</h2>
@@ -137,15 +160,15 @@
       <div id="view-product-technical-info"></div>
       <script src="productCache.js"></script>
       <script src="navbar.js"></script>
+      <script src="category-navigation.js"></script>
       <!-- Swiper JS -->
       <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
       <script src="view-product.js"></script>
 
-  </div> 
-  </div>
-  </div>
+    </div> <!-- End of view-product-container -->
   </div> <!-- End of page-wrapper -->
- <footer>
+  
+  <footer>
     <div class="footer-left">
       <p><a href="privacypolicy.html">Privacy Policy</a></p>
       <p><a href="termsofuse.html">Terms Of Use</a></p>
@@ -163,20 +186,11 @@
 
     <!-- Pop-out image overlay -->
     <div id="image-modal-overlay" aria-expanded>
-  <div class="image-modal-content">
-    <span class="image-modal-close"><i class="fa fa-times" aria-hidden="true"></i></span>
-    <img id="image-modal-img" src=" " alt="Enlarged product image" loading="lazy" />
-  </div>
-</div>
-
-<!-- New tab button -->
-<div class="side-menu-tab" id="side-menu-toggle-btn">
-  <span class="side-menu-tab-arrow">&#x25B6;</span>
-  <span class="side-menu-tab-label">Categories</span>
-</div>
-
-<!-- Overlay background -->
-<div class="side-menu-overlay" id="side-menu-overlay"></div>
+      <div class="image-modal-content">
+        <span class="image-modal-close"><i class="fa fa-times" aria-hidden="true"></i></span>
+        <img id="image-modal-img" src=" " alt="Enlarged product image" loading="lazy" />
+      </div>
+    </div>
 
 </body>
 </html>

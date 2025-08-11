@@ -2,25 +2,26 @@ let cachedProducts = [];
 let debounceTimeout;
 let loading = true; // Track whether data is still loading
 
-// Debugging: Ensure the script is loaded
-
-function fetchProductData() {
-  loading = true; // Set loading to true while fetching data
-  return fetch("https://script.googleusercontent.com/macros/echo?user_content_key=AehSKLjckrSmV4Q396r2J5437VHynXSLyUYow6iqkCoXEY7HrOg2cr_voo08MQL6qcMM04pBDpWPA1kgKDaTRUEOJBZ48B-SMN75SrRx86Pow9494AvOa4RBDe-WLCDnlG85PhU5LDk8GvqfMbrbDHzmS9kAs0tPivdOdAxqxdhgCnvUxPy8IKXdl6i92dL9O3GKWDjsSqKlqqa9bKbFxAnZn8oVEil2fg5qGD_Izy_rtBqgkVDTQpttRxrY86FnFn8373jngn3hJLR3QkHgvIWAzf2wa9cjBsGiOi70hv-IAu87d_WCywlb4vX0d2RHsA&lib=MreWV8qvFAXZ2-rISPaQS69qZewlWwj59")
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(`API request failed with status ${response.status}`);
-      }
-      return response.json();
-    })
-    .then(data => {
-      cachedProducts = data;
-      loading = false; // Set loading to false once data is loaded
-    })
-    .catch(error => {
-      loading = false; // Ensure loading is set to false even if there's an error
-      console.error("Error fetching product data:", error);
-    });
+// Use the same data source as category navigation
+async function loadProductData() {
+  try {
+    loading = true;
+    // Use getProductData from productCache.js (same as category navigation)
+    if (typeof getProductData === 'function') {
+      cachedProducts = await getProductData();
+    } else {
+      console.warn('getProductData function not available, falling back to fetch');
+      // Fallback to fetch if productCache.js is not loaded
+      const response = await fetch('./inventory.json');
+      if (!response.ok) throw new Error('Failed to load inventory.json');
+      cachedProducts = await response.json();
+    }
+    loading = false;
+  } catch (error) {
+    loading = false;
+    console.error("Error loading product data:", error);
+    cachedProducts = [];
+  }
 }
 
 function debounceSearch() {
@@ -28,6 +29,106 @@ function debounceSearch() {
   debounceTimeout = setTimeout(() => {
     search();
   }, 300);
+}
+
+// Dynamic Shop Dropdown Population
+async function populateShopDropdown() {
+  try {
+    // Load product data using the same source as category navigation
+    await loadProductData();
+
+    if (!cachedProducts || cachedProducts.length === 0) {
+      console.warn('No product data available for dropdown population');
+      return;
+    }
+
+    // Category labels mapping
+    const categoryLabels = {
+      'synthetic': 'Synthetic Rough',
+      'natural': 'Natural Rough', 
+      'other': 'Other Products',
+      'carvings': 'Carvings',
+      'rough-slabs': 'Rough & Slabs'
+    };
+
+    // Discover main categories from product data
+    const mainCategories = new Set();
+    
+    cachedProducts.forEach(product => {
+      if (product.category) {
+        const categories = product.category.split(',').map(cat => cat.trim().toLowerCase());
+        categories.forEach(category => {
+          // Extract main category (everything before the first dash)
+          const mainCategory = category.includes('-') ? category.split('-')[0] : category;
+          if (mainCategory) {
+            mainCategories.add(mainCategory);
+          }
+        });
+      }
+    });
+
+    // Convert to sorted array and create category objects
+    const discoveredCategories = Array.from(mainCategories).sort().map(key => ({
+      key: key,
+      label: categoryLabels[key] || key.split('-').map(word => 
+        word.charAt(0).toUpperCase() + word.slice(1)
+      ).join(' ')
+    }));
+
+    // Find dropdown menu elements
+    const dropdownMenu = document.querySelector('.shop-dropdown-menu');
+    const burgerNavLinks = document.querySelector('.burger-nav-links');
+
+    if (dropdownMenu) {
+      // Clear existing items except "All Products"
+      dropdownMenu.innerHTML = '<li><a href="products.html" style="font-weight:bold;">All Products</a></li>';
+      
+      // Add discovered categories
+      discoveredCategories.forEach(category => {
+        const listItem = document.createElement('li');
+        listItem.innerHTML = `<a href="products.html?category=${category.key}" style="font-weight:bold;">${category.label}</a>`;
+        dropdownMenu.appendChild(listItem);
+      });
+    }
+
+    if (burgerNavLinks) {
+      // Find and update burger menu - keep Home and Contact, update product categories
+      const homeLink = burgerNavLinks.querySelector('a[href="index.html"]');
+      const contactLink = burgerNavLinks.querySelector('a[href="contact.html"]');
+      
+      // Clear and rebuild burger menu
+      burgerNavLinks.innerHTML = '';
+      
+      // Add Home
+      if (homeLink) {
+        const homeItem = document.createElement('li');
+        homeItem.appendChild(homeLink.cloneNode(true));
+        burgerNavLinks.appendChild(homeItem);
+      }
+      
+      // Add All Products
+      const allProductsItem = document.createElement('li');
+      allProductsItem.innerHTML = '<a href="products.html" style="font-weight:bold;">All Products</a>';
+      burgerNavLinks.appendChild(allProductsItem);
+      
+      // Add discovered categories
+      discoveredCategories.forEach(category => {
+        const listItem = document.createElement('li');
+        listItem.innerHTML = `<a href="products.html?category=${category.key}" style="font-weight:bold;">${category.label}</a>`;
+        burgerNavLinks.appendChild(listItem);
+      });
+      
+      // Add Contact
+      if (contactLink) {
+        const contactItem = document.createElement('li');
+        contactItem.appendChild(contactLink.cloneNode(true));
+        burgerNavLinks.appendChild(contactItem);
+      }
+    }
+
+  } catch (error) {
+    console.error('Error populating shop dropdown:', error);
+  }
 }
 
 function search() {
@@ -47,7 +148,7 @@ function search() {
   }
 
   // Check if data is still loading
-  if (loading) {
+  if (loading || !cachedProducts || cachedProducts.length === 0) {
     resultContainer.innerHTML = "<p>Loading products...</p>"; // Show loading message
 
     // Wait and retry the search once loading is complete
@@ -183,8 +284,8 @@ document.addEventListener("cartUpdated", function() {
 
 document.addEventListener("DOMContentLoaded", () => {
 
-  // Fetch product data
-  fetchProductData();
+  // Load product data using same source as category navigation
+  loadProductData();
 
   // Wait for navbar.html to load
   fetch("navbar.html")
@@ -194,10 +295,13 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       return response.text();
     })
-    .then(html => {
+    .then(async html => {
       const navbarContainer = document.querySelector("header") || document.getElementById("navbar-container");
       if (navbarContainer) {
         navbarContainer.innerHTML = html;
+
+        // Populate shop dropdown dynamically
+        await populateShopDropdown();
 
             // --- Add burger menu toggle here ---
           const burger = document.getElementById("burger-menu");
@@ -294,6 +398,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
         updateCartCount();
         updateCartDropdown();
+
+        // Mark navbar as fully loaded
+        document.body.classList.add('navbar-loaded');
+        
+        // Hide loading message if it exists
+        const loadingMessage = document.getElementById('loading-message');
+        if (loadingMessage) {
+          loadingMessage.style.display = 'none';
+        }
 
         //Hightlght navlink for current page
         // Highlight navlink for current page/category

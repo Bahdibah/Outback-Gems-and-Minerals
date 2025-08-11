@@ -1,13 +1,17 @@
 const CACHE_KEY = 'productDataCache';
 const CACHE_TIME_KEY = 'productDataCacheTime';
 const CACHE_DURATION = 1000 * 60 * 30;
+const INVENTORY_VERSION = '2.1'; // Increment this when you update inventory
+const VERSION_KEY = 'inventoryVersion';
 
 async function getProductData() {
   const now = Date.now();
   const cached = localStorage.getItem(CACHE_KEY);
   const cachedTime = localStorage.getItem(CACHE_TIME_KEY);
+  const cachedVersion = localStorage.getItem(VERSION_KEY);
 
-  if (cached && cachedTime && (now - cachedTime < CACHE_DURATION)) {
+  // Check if cache is valid (not expired AND version matches)
+  if (cached && cachedTime && cachedVersion === INVENTORY_VERSION && (now - cachedTime < CACHE_DURATION)) {
     return JSON.parse(cached);
   }
 
@@ -18,6 +22,7 @@ async function getProductData() {
       const data = await localResponse.json();
       localStorage.setItem(CACHE_KEY, JSON.stringify(data));
       localStorage.setItem(CACHE_TIME_KEY, now);
+      localStorage.setItem(VERSION_KEY, INVENTORY_VERSION);
       return data;
     }
   } catch (error) {
@@ -29,8 +34,20 @@ async function getProductData() {
   const data = await response.json();
   localStorage.setItem(CACHE_KEY, JSON.stringify(data));
   localStorage.setItem(CACHE_TIME_KEY, now);
+  localStorage.setItem(VERSION_KEY, INVENTORY_VERSION);
   return data;
 }
+
+// Function to clear the cache (useful for testing)
+function clearProductCache() {
+  localStorage.removeItem(CACHE_KEY);
+  localStorage.removeItem(CACHE_TIME_KEY);
+  localStorage.removeItem(VERSION_KEY);
+  console.log('Product cache cleared');
+}
+
+// Make clearProductCache available globally for debugging
+window.clearProductCache = clearProductCache;
 
 // Utility function to calculate price display for product cards
 function calculatePriceDisplay(products, productId) {
