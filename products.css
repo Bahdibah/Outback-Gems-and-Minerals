@@ -341,41 +341,119 @@ button {
 
 
 
-/* Pagination controls styling */
+/* Modern Pagination Controls */
 .pagination-controls {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 16px;
-  margin: 40px 0 20px 0;
+  gap: 8px;
+  margin: 5px 0 20px 0;
   width: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
-.pagination-controls button {
-  background: #cc5500;
-  color: #fff;
-  border: none;
-  padding: 8px 18px;
-  border-radius: 5px;
-  font-size: 1rem;
+/* Top pagination - less bottom margin */
+.pagination-controls.top-pagination {
+  margin: 3px 0 15px 0;
+}
+
+/* Bottom pagination - more top margin */
+.pagination-controls.bottom-pagination {
+  margin: 15px 0 20px 0;
+}
+
+/* Pagination items */
+.pagination-item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  height: 40px;
+  padding: 0 12px;
+  margin: 0 2px;
+  border: 1px solid #444;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #3a3a3a 0%, #2e2e2e 100%);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
   cursor: pointer;
-  transition: background 0.2s;
-}
-.pagination-controls button:hover {
-  background: #ff7f33;
-}
-
-.pagination-controls span {
-  color: white;
-} 
-
-.pagination-controls a {
-  text-decoration: underline;
-  color: #cc5500;
+  transition: all 0.2s ease;
+  user-select: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.pagination-controls a:hover {
-  color: #ff7f33;
+/* Hover state */
+.pagination-item:hover:not(.active):not(.disabled) {
+  background: linear-gradient(135deg, #cc5500 0%, #b84700 100%);
+  border-color: #cc5500;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(204, 85, 0, 0.3);
+}
+
+/* Active (current page) state */
+.pagination-item.active {
+  background: linear-gradient(135deg, #cc5500 0%, #ff7f33 100%);
+  border-color: #ff7f33;
+  color: #ffffff;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(204, 85, 0, 0.4);
+}
+
+/* Disabled state */
+.pagination-item.disabled {
+  background: #1a1a1a;
+  border-color: #333;
+  color: #666;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Arrow buttons */
+.pagination-arrow {
+  min-width: 44px;
+  font-size: 16px;
+  font-weight: 600;
+  background: linear-gradient(135deg, #cc5500 0%, #b84700 100%) !important;
+  border-color: #cc5500 !important;
+  color: #ffffff !important;
+}
+
+.pagination-arrow:hover:not(.disabled) {
+  background: linear-gradient(135deg, #ff7f33 0%, #cc5500 100%) !important;
+  border-color: #ff7f33 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(204, 85, 0, 0.4);
+}
+
+.pagination-arrow.disabled {
+  background: linear-gradient(135deg, #8a3600 0%, #6b2a00 100%) !important;
+  border-color: #8a3600 !important;
+  color: #cccccc !important;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.pagination-arrow.disabled:hover {
+  transform: none !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Ellipsis */
+.pagination-ellipsis {
+  background: transparent;
+  border: none;
+  color: #888;
+  cursor: default;
+  box-shadow: none;
+  min-width: 20px;
+}
+
+.pagination-ellipsis:hover {
+  background: transparent;
+  transform: none;
+  box-shadow: none;
 }
 
 .ghost-card {

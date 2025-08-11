@@ -388,6 +388,11 @@
 
       productContainer.innerHTML = "";
 
+      // Add top pagination first
+      const topPagination = createPaginationControls(currentProducts, headerTitle, keyword, data, page, totalPages);
+      topPagination.classList.add('top-pagination');
+      productContainer.appendChild(topPagination);
+
       // No longer adding header container here - it's at the top of the page
 
       if (productsToShow.length > 0) {
@@ -492,86 +497,105 @@
         suggestAdditionalProducts(keyword, [], data);
       }
 
-      // Pagination controls
-      if (totalPages > 1) {
+      // Function to create modern pagination controls
+      function createPaginationControls(currentProducts, headerTitle, keyword, data, page, totalPages) {
         const pagination = document.createElement("div");
         pagination.className = "pagination-controls";
+        
+        if (totalPages <= 1) {
+          // Create invisible placeholder to maintain layout spacing
+          pagination.style.visibility = "hidden";
+          pagination.style.height = "40px"; // Same height as visible pagination
+          pagination.innerHTML = "&nbsp;"; // Add invisible content to maintain height
+          return pagination;
+        }
+
+        pagination.style.visibility = "visible";
+        pagination.style.height = "auto";
+
+        // Previous button
+        const prevItem = document.createElement("button");
+        prevItem.className = `pagination-item pagination-arrow ${page <= 1 ? 'disabled' : ''}`;
+        prevItem.innerHTML = '←';
+        prevItem.title = 'Previous page';
         if (page > 1) {
-          const prevBtn = document.createElement("button");
-          prevBtn.textContent = "Previous";
-          prevBtn.onclick = () => {
+          prevItem.onclick = () => {
             displayProducts(currentProducts, headerTitle, keyword, data, page - 1);
             document.getElementById('dynamic-product-container').scrollIntoView({ behavior: 'smooth' });
           };
-          pagination.appendChild(prevBtn);
+        }
+        pagination.appendChild(prevItem);
+
+        // Page numbers logic
+        function addPageItem(pageNum, isActive = false, isEllipsis = false) {
+          const item = document.createElement(isEllipsis ? "span" : "button");
+          item.className = `pagination-item ${isActive ? 'active' : ''} ${isEllipsis ? 'pagination-ellipsis' : ''}`;
+          item.textContent = isEllipsis ? '…' : pageNum;
+          
+          if (!isEllipsis && !isActive) {
+            item.onclick = () => {
+              displayProducts(currentProducts, headerTitle, keyword, data, pageNum);
+              document.getElementById('dynamic-product-container').scrollIntoView({ behavior: 'smooth' });
+            };
+          }
+          
+          pagination.appendChild(item);
         }
 
-         // Page number links
-  const pageNumbers = document.createElement("span");
-  function addPageLink(i) {
-    if (i === page) {
-      const currentPageSpan = document.createElement("span");
-      currentPageSpan.textContent = ` ${i} `;
-      pageNumbers.appendChild(currentPageSpan);
-    } else {
-      const pageLink = document.createElement("a");
-      pageLink.href = "#";
-      pageLink.textContent = ` ${i} `;
-      pageLink.onclick = (e) => {
-        e.preventDefault();
-        displayProducts(currentProducts, headerTitle, keyword, data, i);
-        document.getElementById('dynamic-product-container').scrollIntoView({ behavior: 'smooth' });
-      };
-      pageNumbers.appendChild(pageLink);
-    }
-  }
+        // Smart pagination logic
+        if (totalPages <= 7) {
+          // Show all pages if 7 or fewer
+          for (let i = 1; i <= totalPages; i++) {
+            addPageItem(i, i === page);
+          }
+        } else {
+          // Complex pagination for many pages
+          if (page <= 4) {
+            // Near the beginning
+            for (let i = 1; i <= 5; i++) {
+              addPageItem(i, i === page);
+            }
+            addPageItem(null, false, true); // ellipsis
+            addPageItem(totalPages);
+          } else if (page >= totalPages - 3) {
+            // Near the end
+            addPageItem(1);
+            addPageItem(null, false, true); // ellipsis
+            for (let i = totalPages - 4; i <= totalPages; i++) {
+              addPageItem(i, i === page);
+            }
+          } else {
+            // In the middle
+            addPageItem(1);
+            addPageItem(null, false, true); // ellipsis
+            for (let i = page - 1; i <= page + 1; i++) {
+              addPageItem(i, i === page);
+            }
+            addPageItem(null, false, true); // ellipsis
+            addPageItem(totalPages);
+          }
+        }
 
-  if (totalPages < 5) {
-    for (let i = 1; i <= totalPages; i++) {
-      addPageLink(i);
-    }
-  } else {
-    // Always show first page
-    addPageLink(1);
-
-    // Show ellipsis if needed
-    if (page > 3) {
-      const ellipsis = document.createElement("span");
-      ellipsis.textContent = " ... ";
-      pageNumbers.appendChild(ellipsis);
-    }
-
-    // Show current-1, current, current+1 (if in range)
-    for (let i = Math.max(2, page - 2); i <= Math.min(totalPages - 1, page + 2); i++) {
-      addPageLink(i);
-    }
-
-    // Show ellipsis if needed
-    if (page < totalPages - 2) {
-      const ellipsis = document.createElement("span");
-      ellipsis.textContent = " ... ";
-      pageNumbers.appendChild(ellipsis);
-    }
-
-    // Always show last page
-    addPageLink(totalPages);
-  }
-
-  pagination.appendChild(pageNumbers);
-
-        pagination.appendChild(document.createTextNode(` Page ${page} of ${totalPages} `));
+        // Next button
+        const nextItem = document.createElement("button");
+        nextItem.className = `pagination-item pagination-arrow ${page >= totalPages ? 'disabled' : ''}`;
+        nextItem.innerHTML = '→';
+        nextItem.title = 'Next page';
         if (page < totalPages) {
-          const nextBtn = document.createElement("button");
-          nextBtn.textContent = "Next";
-          nextBtn.onclick = () => {
+          nextItem.onclick = () => {
             displayProducts(currentProducts, headerTitle, keyword, data, page + 1);
             document.getElementById('dynamic-product-container').scrollIntoView({ behavior: 'smooth' });
           };
-          pagination.appendChild(nextBtn);
         }
+        pagination.appendChild(nextItem);
 
-        productContainer.appendChild(pagination);        
+        return pagination;
       }
+
+      // Add bottom pagination at the end
+      const bottomPagination = createPaginationControls(currentProducts, headerTitle, keyword, data, page, totalPages);
+      bottomPagination.classList.add('bottom-pagination');
+      productContainer.appendChild(bottomPagination);
     }
 
     function suggestAdditionalProducts(currentCategory, displayedProducts, data) {
