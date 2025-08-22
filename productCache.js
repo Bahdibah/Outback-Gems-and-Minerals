@@ -43,7 +43,6 @@ function clearProductCache() {
   localStorage.removeItem(CACHE_KEY);
   localStorage.removeItem(CACHE_TIME_KEY);
   localStorage.removeItem(VERSION_KEY);
-  console.log('Product cache cleared');
 }
 
 // Make clearProductCache available globally for debugging

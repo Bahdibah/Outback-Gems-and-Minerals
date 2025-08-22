@@ -327,6 +327,7 @@ class CategoryNavigation {
   updateMainCategoryActiveStates(activeCategory) {
     document.querySelectorAll('.category-nav-btn').forEach(btn => {
       const btnCategory = btn.getAttribute('data-category');
+      
       if (btnCategory === activeCategory || 
           (activeCategory && activeCategory.startsWith(btnCategory + '-') && btnCategory !== '')) {
         btn.classList.add('active');
@@ -351,8 +352,45 @@ class CategoryNavigation {
   // Initialize navigation based on current URL
   async initializeFromURL() {
     const urlParams = new URLSearchParams(window.location.search);
-    const category = urlParams.get('category') || '';
+    let category = urlParams.get('category') || '';
+    
+    // For view-product page, don't set active category initially - wait for product to load
+    if (window.location.pathname.includes('view-product.html')) {
+      category = ''; // Start with no active category on view-product page
+    }
+    
     await this.createNavigationButtons(category);
+    
+    // Add event listener for view-product page category updates
+    document.addEventListener('productCategoryLoaded', (event) => {
+      const productCategory = event.detail.category;
+      if (productCategory) {
+        // Extract main category from product category (e.g., "synthetic-spinel" -> "synthetic")
+        const mainCategory = productCategory.includes('-') ? productCategory.split('-')[0] : productCategory;
+        this.updateMainCategoryActiveStates(mainCategory);
+        this.updateSubcategoryActiveStates(productCategory);
+      }
+    });
+    
+    // For view-product pages, also check if there's already a product loaded
+    if (window.location.pathname.includes('view-product.html')) {
+      // Use a timeout to allow the view-product.js to finish loading
+      setTimeout(() => {
+        // Try to get the product category from any existing product data
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = urlParams.get('productid');
+        if (productId && typeof getProductData === 'function') {
+          getProductData().then(products => {
+            const product = products.find(p => p['product id'] === productId);
+            if (product && product.category) {
+              const mainCategory = product.category.includes('-') ? product.category.split('-')[0] : product.category;
+              this.updateMainCategoryActiveStates(mainCategory);
+              this.updateSubcategoryActiveStates(product.category);
+            }
+          });
+        }
+      }, 100);
+    }
   }
 }
 

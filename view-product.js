@@ -1390,35 +1390,10 @@ async function setupRelatedProducts() {
     }
 
     // Get the subcategory from the current product
-    let currentSubcategory = null;
+    const currentCategory = currentProduct.category;
     
-    // Map product categories to subcategories
-    const categoryMap = {
-      'synthetic-spinel': 'synthetic-spinel',
-      'synthetic-cubic-zirconia': 'synthetic-cz', 
-      'synthetic-sapphire': 'synthetic-sapphire',
-      'natural-sapphire': 'natural-sapphire',
-      'natural-zircon': 'natural-zircon',
-      'natural-spinel': 'natural-spinel',
-      'other-agate': 'other-agate',
-      'other-amethyst': 'other-amethyst', 
-      'other-herkimer': 'other-herkimer',
-      'other-olivine': 'other-olivine',
-      'other-quartz': 'other-quartz',
-      'other-thunder': 'other-thunder',
-      'other-tumbles': 'other-tumbles',
-      'other-washbag': 'other-washbag'
-    };
-
-    // Find the subcategory for the current product
-    for (const [category, subcategory] of Object.entries(categoryMap)) {
-      if (currentProduct.category === category) {
-        currentSubcategory = subcategory;
-        break;
-      }
-    }
-
-    if (!currentSubcategory) {
+    // Skip if this is a main category (no dash) - only show for subcategories
+    if (!currentCategory.includes('-')) {
       if (relatedSection) {
         relatedSection.classList.add('hidden');
         relatedSection.style.display = 'none';
@@ -1426,9 +1401,9 @@ async function setupRelatedProducts() {
       return;
     }
 
-    // Filter products in the same subcategory
+    // Filter products in the same subcategory (exact category match)
     const relatedProducts = products.filter(item => 
-      item.category === currentProduct.category &&
+      item.category === currentCategory &&
       item["product id"] !== productId // Exclude current product
     );
 
@@ -1452,9 +1427,20 @@ async function setupRelatedProducts() {
       }
     });
 
-    // Sort by product ID and limit to first 4 products
-    uniqueProducts.sort((a, b) => a["product id"].localeCompare(b["product id"]));
-    const displayProducts = uniqueProducts.slice(0, 4);
+    // Shuffle the products randomly
+    const shuffleArray = (array) => {
+      const shuffled = [...array];
+      for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+      }
+      return shuffled;
+    };
+
+    const shuffledProducts = shuffleArray(uniqueProducts);
+    
+    // Limit to first 4 products after shuffling
+    const displayProducts = shuffledProducts.slice(0, 4);
 
     if (displayProducts.length === 0) {
       if (relatedSection) {
@@ -1467,24 +1453,34 @@ async function setupRelatedProducts() {
     // Update the title based on subcategory
     const titleElement = document.getElementById('related-products-title');
     if (titleElement) {
-      const subcategoryNames = {
-        'synthetic-spinel': 'Synthetic Spinel',
-        'synthetic-cz': 'Synthetic Cubic Zirconia',
-        'synthetic-sapphire': 'Synthetic Sapphire',
-        'natural-sapphire': 'Natural Sapphire',
-        'natural-zircon': 'Natural Zircon', 
-        'natural-spinel': 'Natural Spinel',
-        'other-agate': 'Agate',
-        'other-amethyst': 'Amethyst',
-        'other-herkimer': 'Herkimer Diamonds',
-        'other-olivine': 'Olivine',
-        'other-quartz': 'Quartz',
-        'other-thunder': 'Thunder Eggs',
-        'other-tumbles': 'Tumbles',
-        'other-washbag': 'Washbag Mix'
+      // Generate a user-friendly name from just the subcategory part
+      const generateSubcategoryName = (category) => {
+        // Split by dash and get only the subcategory part (after the main category)
+        const parts = category.split('-');
+        
+        // Get everything after the first dash
+        const subcategoryParts = parts.slice(1);
+        
+        if (subcategoryParts.length === 0) {
+          return 'Items';
+        }
+        
+        const formattedParts = subcategoryParts.map(part => {
+          // Handle special cases
+          if (part === 'cz') return 'Cubic Zirconia';
+          if (part === 'herkimer') return 'Herkimer Diamonds';
+          if (part === 'thunder') return 'Thunder Eggs';
+          if (part === 'washbag') return 'Washbag Mix';
+          if (part === 'gem') return 'Gem';
+          if (part === 'tree') return 'Tree';
+          // Capitalize first letter
+          return part.charAt(0).toUpperCase() + part.slice(1);
+        });
+        
+        return formattedParts.join(' ');
       };
       
-      const subcategoryName = subcategoryNames[currentSubcategory] || 'Products';
+      const subcategoryName = generateSubcategoryName(currentCategory);
       titleElement.textContent = `Other ${subcategoryName} Available`;
     }
 

@@ -490,11 +490,17 @@
         }
 
         if (products.length < 8) { // Changed from 4 to 8 to account for new page size
-          suggestAdditionalProducts(keyword, products, data);
+          // Only show suggestions for subcategories (those with dashes), not main categories
+          if (keyword && keyword.includes('-')) {
+            suggestAdditionalProducts(keyword, products, data);
+          }
         }
       } else {
         productContainer.innerHTML += "<p>No products found in this category.</p>";
-        suggestAdditionalProducts(keyword, [], data);
+        // Only show suggestions for subcategories (those with dashes), not main categories
+        if (keyword && keyword.includes('-')) {
+          suggestAdditionalProducts(keyword, [], data);
+        }
       }
 
       // Function to create modern pagination controls
