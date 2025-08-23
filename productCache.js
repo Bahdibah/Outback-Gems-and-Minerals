@@ -57,11 +57,12 @@ function calculatePriceDisplay(products, productId) {
   
   if (variations.length === 1) {
     // Single variant: show exact price
-    return `$${variations[0]["total price"].toFixed(2)}`;
+    const price = parseFloat(variations[0]["total price"]);
+    return `$${price.toFixed(2)}`;
   }
   
   // Multiple variants: show price range
-  const prices = variations.map(v => v["total price"]).filter(p => p > 0);
+  const prices = variations.map(v => parseFloat(v["total price"])).filter(p => p > 0);
   if (prices.length === 0) return "Price unavailable";
   
   const minPrice = Math.min(...prices);

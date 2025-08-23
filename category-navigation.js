@@ -5,11 +5,11 @@ class CategoryNavigation {
   constructor() {
     this.categories = [];
     this.categoryLabels = {
-      'synthetic': 'Synthetic Rough',
-      'natural': 'Natural Rough',
-      'other': 'Other Products',
-      'carvings': 'Carvings',
-      'rough-slabs': 'Rough & Slabs'
+      'faceting rough': 'Faceting Rough',
+      'carvings & collectibles': 'Carvings & Collectibles',
+      'raw material & specimens': 'Raw Material & Specimens',
+      'tumbles': 'Tumbles',
+      'slabs': 'Slabs'
     };
   }
 
@@ -29,17 +29,14 @@ class CategoryNavigation {
 
       const mainCategories = new Set();
       
-      // Find all main categories
+      // Find all main categories using the new category field
       products.forEach(product => {
         if (product.category) {
-          const categories = product.category.split(',').map(cat => cat.trim().toLowerCase());
-          categories.forEach(category => {
-            // Extract main category (everything before the first dash)
-            const mainCategory = category.includes('-') ? category.split('-')[0] : category;
-            if (mainCategory) {
-              mainCategories.add(mainCategory);
-            }
-          });
+          // Use the main category directly (no more dash splitting)
+          const mainCategory = product.category.trim().toLowerCase();
+          if (mainCategory) {
+            mainCategories.add(mainCategory);
+          }
         }
       });
 
@@ -134,13 +131,20 @@ class CategoryNavigation {
       
       // Find all subcategories for this main category
       products.forEach(product => {
-        if (product.category) {
-          const categories = product.category.split(',').map(cat => cat.trim().toLowerCase());
-          categories.forEach(category => {
-            if (category.startsWith(categoryKey) && category.includes('-')) {
-              subcategories.add(category);
+        if (product.category && product["sub category"]) {
+          const mainCategory = product.category.trim().toLowerCase();
+          if (mainCategory === categoryKey.toLowerCase()) {
+            const subcategoryString = product["sub category"].trim();
+            if (subcategoryString) {
+              // Split by comma and add each subcategory individually
+              const subcategoryList = subcategoryString.split(',').map(sub => sub.trim());
+              subcategoryList.forEach(subcategory => {
+                if (subcategory) {
+                  subcategories.add(subcategory);
+                }
+              });
             }
-          });
+          }
         }
       });
 
@@ -178,38 +182,9 @@ class CategoryNavigation {
 
   // Format subcategory names for display
   formatSubcategoryName(subcategory) {
-    const parts = subcategory.split('-');
-    if (parts.length <= 1) return subcategory;
-    
-    // Get the subcategory part (everything after the first dash)
-    const subParts = parts.slice(1);
-    
-    return subParts.map(word => {
-      // Handle special cases
-      if (word === 'cz') return 'Cubic Zirconia';
-      if (word === 'yowah' && subParts.includes('nuts')) return 'Yowah Nuts';
-      if (word === 'nuts' && subParts.includes('yowah')) return '';
-      if (word === 'thunder' && subParts.includes('eggs')) return 'Thunder Eggs';
-      if (word === 'eggs' && subParts.includes('thunder')) return '';
-      if (word === 'agate' && subParts.includes('slices')) return 'Agate Slices';
-      if (word === 'slices' && subParts.includes('agate')) return '';
-      if (word === 'wash' && subParts.includes('bags')) return 'Wash Bags';
-      if (word === 'bags' && subParts.includes('wash')) return '';
-      if (word === 'herkimer' && subParts.includes('diamonds')) return 'Herkimer Diamonds';
-      if (word === 'diamonds' && subParts.includes('herkimer')) return '';
-      if (word === 'smoky' && subParts.includes('quartz')) return 'Smoky Quartz';
-      if (word === 'quartz' && subParts.includes('smoky')) return '';
-      if (word === 'gem' && subParts.includes('tree')) return 'Gem Tree';
-      if (word === 'tree' && subParts.includes('gem')) return '';
-      if (word === 'crystal' && subParts.includes('points')) return 'Crystal Points';
-      if (word === 'points' && subParts.includes('crystal')) return '';
-      if (word === 'tigers' && subParts.includes('eye')) return "Tiger's Eye";
-      if (word === 'eye' && subParts.includes('tigers')) return '';
-      if (word === 'petrified' && subParts.includes('wood')) return 'Petrified Wood';
-      if (word === 'wood' && subParts.includes('petrified')) return '';
-      
-      return word.charAt(0).toUpperCase() + word.slice(1);
-    }).filter(word => word).join(' ');
+    // Since we now use direct subcategory names, just return the name as-is
+    // The subcategory names in inventory.json are already properly formatted
+    return subcategory;
   }
 
   // Add event listeners to category buttons
@@ -364,11 +339,17 @@ class CategoryNavigation {
     // Add event listener for view-product page category updates
     document.addEventListener('productCategoryLoaded', (event) => {
       const productCategory = event.detail.category;
+      const productSubcategory = event.detail.subcategory;
+      
       if (productCategory) {
-        // Extract main category from product category (e.g., "synthetic-spinel" -> "synthetic")
-        const mainCategory = productCategory.includes('-') ? productCategory.split('-')[0] : productCategory;
+        // Use the main category directly (no more dash splitting)
+        const mainCategory = productCategory.trim().toLowerCase();
         this.updateMainCategoryActiveStates(mainCategory);
-        this.updateSubcategoryActiveStates(productCategory);
+        
+        // If we have subcategory info, update that too
+        if (productSubcategory) {
+          this.updateSubcategoryActiveStates(productSubcategory);
+        }
       }
     });
     
@@ -383,9 +364,13 @@ class CategoryNavigation {
           getProductData().then(products => {
             const product = products.find(p => p['product id'] === productId);
             if (product && product.category) {
-              const mainCategory = product.category.includes('-') ? product.category.split('-')[0] : product.category;
+              const mainCategory = product.category.trim().toLowerCase();
               this.updateMainCategoryActiveStates(mainCategory);
-              this.updateSubcategoryActiveStates(product.category);
+              
+              // Also update subcategory if available
+              if (product["sub category"]) {
+                this.updateSubcategoryActiveStates(product["sub category"]);
+              }
             }
           });
         }

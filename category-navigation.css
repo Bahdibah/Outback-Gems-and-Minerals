@@ -4,7 +4,7 @@
   width: 100%;
   max-width: 80%;
   margin: 20px auto 8px auto !important;
-  padding: 0 20px !important;
+  padding: 0 10px !important;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -19,11 +19,13 @@
 .main-categories {
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   align-items: center;
   justify-content: center;
   margin-bottom: 0.5rem;
-  gap: 0.5rem;
+  gap: 0.8rem;
+  width: 100%;
+  overflow-x: auto;
 }
 
 .subcategory-navigation {
@@ -45,16 +47,16 @@
   background: linear-gradient(120deg, #fffbe6 0%, #ffe0b2 100%);
   border: 2px solid #ff9800;
   border-radius: 14px;
-  margin: 0 12px 0 0;
+  margin: 0 6px 0 0;
   box-shadow: 0 3px 14px 0 rgba(204, 85, 0, 0.10), 0 1.5px 0 #fff inset;
   cursor: pointer;
   transition: all 0.22s cubic-bezier(.4,0,.2,1);
   outline: none;
   letter-spacing: 0.7px;
-  min-width: 160px;
   position: relative;
   z-index: 1;
   text-shadow: 0 1px 0 #fff8e1;
+  white-space: nowrap;
 }
 
 .category-nav-btn.active {
@@ -129,7 +131,7 @@
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .category-navigation {
-    max-width: 95%;
+    max-width: 98%;
     padding: 0 10px;
     gap: 20px;
   }

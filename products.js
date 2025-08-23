@@ -227,30 +227,9 @@
     }
     // Format subcategory names for display
     function formatSubcategoryName(subcategory) {
-      const parts = subcategory.split('-');
-      if (parts.length <= 1) return subcategory;
-      
-      // Get the subcategory part (everything after the first dash)
-      const subParts = parts.slice(1);
-      
-      return subParts.map(word => {
-        // Handle special cases
-        if (word === 'cz') return 'Cubic Zirconia';
-        if (word === 'yowah' && subParts.includes('nuts')) return 'Yowah Nuts';
-        if (word === 'nuts' && subParts.includes('yowah')) return '';
-        if (word === 'thunder' && subParts.includes('eggs')) return 'Thunder Eggs';
-        if (word === 'eggs' && subParts.includes('thunder')) return '';
-        if (word === 'agate' && subParts.includes('slices')) return 'Agate Slices';
-        if (word === 'slices' && subParts.includes('agate')) return '';
-        if (word === 'wash' && subParts.includes('bags')) return 'Wash Bags';
-        if (word === 'bags' && subParts.includes('wash')) return '';
-        if (word === 'herkimer' && subParts.includes('diamonds')) return 'Herkimer Diamonds';
-        if (word === 'diamonds' && subParts.includes('herkimer')) return '';
-        if (word === 'smoky' && subParts.includes('quartz')) return 'Smoky Quartz';
-        if (word === 'quartz' && subParts.includes('smoky')) return '';
-        
-        return word.charAt(0).toUpperCase() + word.slice(1);
-      }).filter(word => word).join(' ');
+      // Since we now use direct subcategory names, just return the name as-is
+      // The subcategory names in inventory.json are already properly formatted
+      return subcategory;
     }
 
     // Update active states of subcategory buttons without recreating them
@@ -342,9 +321,24 @@
           if (data && data.length > 0) {
             let filteredProducts;
             if (keyword) {
+              // Filter by main category or subcategory
               filteredProducts = data.filter(product => {
-                const categories = (product.category || "").split(",").map(c => c.trim());
-                return categories.some(cat => cat.includes(keyword));
+                const mainCategory = (product.category || "").trim().toLowerCase();
+                const subCategoryString = (product["sub category"] || "").trim().toLowerCase();
+                const searchKeyword = keyword.toLowerCase();
+                
+                // Check main category
+                if (mainCategory.includes(searchKeyword)) {
+                  return true;
+                }
+                
+                // Check subcategories (split by comma)
+                if (subCategoryString) {
+                  const subcategories = subCategoryString.split(',').map(sub => sub.trim());
+                  return subcategories.some(subCategory => subCategory.includes(searchKeyword));
+                }
+                
+                return false;
               });
             } else {
               filteredProducts = data;
@@ -399,9 +393,11 @@
         productsToShow.forEach(product => {
           const productCard = document.createElement("div");
           productCard.classList.add("dynamic-product-card");
+          productCard.style.position = "relative"; // Enable positioning for overlay
 
           const imageContainer = document.createElement("div");
           imageContainer.classList.add("image-container");
+          
           const img = document.createElement("img");
           img.src = product["image url"];
           img.alt = product["product name"] || "Product Image";
@@ -410,6 +406,31 @@
 
           const productName = document.createElement("h3");
           productName.textContent = product["product name"];
+          
+          // Add dimensions as overlay for slabs only
+          if (product.category === "Slabs" && product["Dimensions"]) {
+            const dimensionsOverlay = document.createElement("div");
+            dimensionsOverlay.className = "dimensions-overlay";
+            dimensionsOverlay.textContent = product["Dimensions"];
+            dimensionsOverlay.style.cssText = `
+              position: absolute;
+              top: 225px;
+              left: 50%;
+              transform: translateX(-50%);
+              background: rgba(0, 0, 0, 0.85);
+              color: #ffb366;
+              padding: 6px 12px;
+              border-radius: 6px;
+              font-size: 0.9em;
+              font-weight: 600;
+              z-index: 3;
+              pointer-events: none;
+              text-align: center;
+              white-space: nowrap;
+              box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            `;
+            productCard.appendChild(dimensionsOverlay);
+          }
 
           // Add size info for all products except Yowah Nuts (which are handled separately)
           let sizeElement = null;
@@ -607,11 +628,44 @@
     function suggestAdditionalProducts(currentCategory, displayedProducts, data) {
       displayedProducts = displayedProducts || [];
       const displayedProductNames = new Set(displayedProducts.map(product => product["product name"]));
-      const broaderCategory = currentCategory ? currentCategory.split("-")[0] : "";
-      const filteredSuggestions = data.filter(product =>
-        product.category.includes(broaderCategory) && !displayedProductNames.has(product["product name"])
-      );
-      const shuffledSuggestions = filteredSuggestions.sort(() => 0.5 - Math.random()).slice(0, 4); // Changed to 4 suggestions to fill a row
+      
+      // Only show suggestions for subcategory searches, not main category searches
+      // Check if currentCategory matches any main category exactly
+      const mainCategories = ['faceting rough', 'carvings & collectibles', 'raw material & specimens', 'tumbles', 'slabs'];
+      const isMainCategory = mainCategories.includes(currentCategory?.toLowerCase());
+      
+      // Don't show "You may also like" for main categories
+      if (isMainCategory) {
+        return;
+      }
+      
+      // For subcategory searches, show related products from the same main category
+      const filteredSuggestions = data.filter(product => {
+        const productMainCategory = (product.category || "").trim().toLowerCase();
+        const productSubCategory = (product["sub category"] || "").trim().toLowerCase();
+        
+        // Find which main category the current search belongs to
+        let searchMainCategory = '';
+        if (currentCategory) {
+          const matchingProduct = data.find(p => {
+            const subCatString = (p["sub category"] || "").trim().toLowerCase();
+            if (subCatString) {
+              const subcategories = subCatString.split(',').map(sub => sub.trim());
+              return subcategories.some(subCat => subCat.includes(currentCategory.toLowerCase()));
+            }
+            return false;
+          });
+          if (matchingProduct) {
+            searchMainCategory = (matchingProduct.category || "").trim().toLowerCase();
+          }
+        }
+        
+        // Show products from same main category, excluding already displayed products
+        return productMainCategory === searchMainCategory && 
+               !displayedProductNames.has(product["product name"]);
+      });
+      
+      const shuffledSuggestions = filteredSuggestions.sort(() => 0.5 - Math.random()).slice(0, 4);
 
       const suggestionContainer = document.createElement("div");
       suggestionContainer.classList.add("suggestion-container");
@@ -633,9 +687,11 @@
         shuffledSuggestions.forEach(product => {
           const productCard = document.createElement("div");
           productCard.classList.add("dynamic-product-card");
+          productCard.style.position = "relative"; // Enable positioning for overlay
 
           const imageContainer = document.createElement("div");
           imageContainer.classList.add("image-container");
+          
           const img = document.createElement("img");
           img.src = product["image url"];
           img.alt = product["product name"] || "Product Image";
@@ -644,6 +700,31 @@
 
           const productName = document.createElement("h3");
           productName.textContent = product["product name"];
+          
+          // Add dimensions as overlay for slabs only in suggestions
+          if (product.category === "Slabs" && product["Dimensions"]) {
+            const dimensionsOverlay = document.createElement("div");
+            dimensionsOverlay.className = "dimensions-overlay";
+            dimensionsOverlay.textContent = product["Dimensions"];
+            dimensionsOverlay.style.cssText = `
+              position: absolute;
+              top: 225px;
+              left: 50%;
+              transform: translateX(-50%);
+              background: rgba(0, 0, 0, 0.85);
+              color: #ffb366;
+              padding: 6px 12px;
+              border-radius: 6px;
+              font-size: 0.9em;
+              font-weight: 600;
+              z-index: 3;
+              pointer-events: none;
+              text-align: center;
+              white-space: nowrap;
+              box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            `;
+            productCard.appendChild(dimensionsOverlay);
+          }
 
           // Add size info for all products except Yowah Nuts in suggestions too
           let sizeElement = null;

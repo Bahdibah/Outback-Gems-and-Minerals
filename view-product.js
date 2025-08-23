@@ -113,7 +113,8 @@ function showBannerNotification(message, type = 'success') {
 function highlightNavigation(category) {
   if (!category) return;
   
-  const mainCategory = category.split(',')[0].split('-')[0].toLowerCase();
+  // Use the main category directly (no more splitting)
+  const mainCategory = category.toLowerCase();
   const categoryToPage = {
     synthetic: "synthetic.html",
     natural: "natural.html",
@@ -282,7 +283,7 @@ async function fetchProductDetails() {
     variations.forEach((variation, index) => {
       const option = document.createElement("option");
       option.value = index;
-      option.textContent = `${variation.weight} ${variation.unit} - $${variation["total price"].toFixed(2)}`;
+      option.textContent = `${variation.weight} ${variation.unit} - $${parseFloat(variation["total price"]).toFixed(2)}`;
       variationSelector.appendChild(option);
     });
 
@@ -432,7 +433,7 @@ async function fetchProductDetails() {
         updateProductDetails(selectedVariation);
 
         // Show success banner notification
-        const totalPrice = selectedVariation["total price"] * quantity;
+        const totalPrice = parseFloat(selectedVariation["total price"]) * quantity;
         showBannerNotification(`${quantity} × ${selectedVariation["product name"]} added to cart for $${totalPrice.toFixed(2)}`, 'success');
         
         // Reset button state
@@ -465,7 +466,7 @@ async function fetchProductDetails() {
         quantityInputElement.value = displayedStock; // Reset to max stock
       }
 
-      const totalPrice = currentVariation["total price"] * quantity;
+      const totalPrice = parseFloat(currentVariation["total price"]) * quantity;
       productPriceElement.textContent = `Subtotal: $${totalPrice.toFixed(2)}`;
     });
 
@@ -480,7 +481,7 @@ async function fetchProductDetails() {
         if (currentQty > 1) {
           currentQty--;
           quantityInputElement.value = currentQty;
-          const totalPrice = currentVariation["total price"] * currentQty;
+          const totalPrice = parseFloat(currentVariation["total price"]) * currentQty;
           productPriceElement.textContent = `Subtotal: $${totalPrice.toFixed(2)}`;
         }
         // Update button states
@@ -509,7 +510,7 @@ async function fetchProductDetails() {
         if (currentQty < displayedStock) {
           currentQty++;
           quantityInputElement.value = currentQty;
-          const totalPrice = currentVariation["total price"] * currentQty;
+          const totalPrice = parseFloat(currentVariation["total price"]) * currentQty;
           productPriceElement.textContent = `Subtotal: $${totalPrice.toFixed(2)}`;
         }
         // Update button states
@@ -519,31 +520,35 @@ async function fetchProductDetails() {
 
     // After you set variations and before using category:
     const category = variations[0]?.category;
+    const subcategory = variations[0]?.["sub category"];
 
     // Dispatch event for navbar highlighting
     if (category) {
-      document.dispatchEvent(new CustomEvent("productCategoryLoaded", { detail: { category } }));
+      document.dispatchEvent(new CustomEvent("productCategoryLoaded", { 
+        detail: { 
+          category: category,
+          subcategory: subcategory 
+        } 
+      }));
     }
 
     // Load technical information based on the product category
     if (category) {
-      const categories = category.split(",").map(c => c.trim());
+      // Use the main category directly for loading technical information
       fetch("products.json")
         .then(res => res.json())
         .then(products => {
-          const techInfos = categories.map(cat => {
-            // Find the first product with this category (single, not comma-separated)
-            const product = products.find(p => {
-              // Handle both single and multi-category products in products.json
-              const prodCats = (p.category || "").split(",").map(x => x.trim());
-              return prodCats.includes(cat);
-            });
-            const title = product?.["product name"]
-  ? `<h3 style="color:#cc5500; margin-top:1.5em;">${product["product name"]}</h3>`
-  : "";
-const info = product?.["product-description"] || "<p>No technical info available.</p>";
-return { title: title, info: info, fullText: title + info };
+          // Find the first product with this main category
+          const product = products.find(p => {
+            return (p.category || "").toLowerCase() === category.toLowerCase();
           });
+          
+          const title = product?.["product name"]
+            ? `<h3 style="color:#cc5500; margin-top:1.5em;">${product["product name"]}</h3>`
+            : "";
+          const info = product?.["product-description"] || "<p>No technical info available.</p>";
+          const techInfo = { title: title, info: info, fullText: title + info };
+          const techInfos = [techInfo]; // Keep as array for compatibility
           
           // Populate technical info section
           const techDiv = document.getElementById("view-product-technical-info");
@@ -638,7 +643,7 @@ function updateProductDetails(selectedVariation) {
           quantityInputElement.value = 0;
         }
     addToCartButton.disabled = false; // Always enabled
-    productPriceElement.textContent = `Subtotal: $${selectedVariation["total price"].toFixed(2)}`;
+    productPriceElement.textContent = `Subtotal: $${parseFloat(selectedVariation["total price"]).toFixed(2)}`;
 
     // Update unit information
     if (productUnitInfoElement) {
@@ -646,12 +651,19 @@ function updateProductDetails(selectedVariation) {
       const unitText = selectedVariation.unit.toLowerCase() === 'each' || selectedVariation.unit.toLowerCase() === 'bag' || selectedVariation.unit.toLowerCase() === 'piece' 
         ? `${selectedVariation.weight} ${selectedVariation.unit}`
         : `${selectedVariation.weight} ${selectedVariation.unit}`;
-      productUnitInfoElement.textContent = unitText;
+      
+      // Add dimensions for slabs if available
+      let displayText = unitText;
+      if (selectedVariation["Dimensions"] && selectedVariation.category === "Slabs") {
+        displayText += ` | Dimensions: ${selectedVariation["Dimensions"]}`;
+      }
+      
+      productUnitInfoElement.textContent = displayText;
       productUnitInfoElement.style.fontWeight = 'bold';
       productUnitInfoElement.style.color = '#ffb366';
     }
     if (productUnitPriceElement) {
-      productUnitPriceElement.textContent = `$${selectedVariation["total price"].toFixed(2)}`;
+      productUnitPriceElement.textContent = `$${parseFloat(selectedVariation["total price"]).toFixed(2)}`;
       productUnitPriceElement.style.fontWeight = 'bold';
       productUnitPriceElement.style.color = '#ffb366';
     }
@@ -706,6 +718,26 @@ function updateProductDetails(selectedVariation) {
           });
           thumbnailsContainer.appendChild(thumb);
         });
+      })
+      .catch(error => {
+        console.warn("Could not load productid.json, using fallback images:", error);
+        // Fallback: just show the main API image
+        if (mainImage) {
+          mainImage.src = apiImage;
+          mainImage.setAttribute("loading", "lazy");
+        }
+        // Create a single thumbnail for the main image
+        if (thumbnailsContainer) {
+          thumbnailsContainer.innerHTML = "";
+          const thumb = document.createElement("img");
+          thumb.src = apiImage;
+          thumb.alt = "Product image";
+          thumb.className = "view-product-image-placeholder";
+          thumb.style.cursor = "pointer";
+          thumb.style.border = "2px solid #cc5500";
+          thumb.loading = "lazy";
+          thumbnailsContainer.appendChild(thumb);
+        }
       });
 
     quantityInputElement.setAttribute("max", availableStock);
@@ -1159,22 +1191,22 @@ function updateMetaTags(product) {
       .replace('{weight}', product.weight)
       .replace('{unit}', product.unit)
       .replace('{color}', color)
-      .replace('${price}', product["total price"].toFixed(2));
+      .replace('${price}', parseFloat(product["total price"]).toFixed(2));
       
     description = productMeta.description
       .replace('{name}', product["product name"])
       .replace('{weight}', product.weight)
       .replace('{unit}', product.unit)
       .replace('{color}', color)
-      .replace('${price}', product["total price"].toFixed(2)) + stockText + " Shop online at Outback Gems & Minerals.";
+      .replace('${price}', parseFloat(product["total price"]).toFixed(2)) + stockText + " Shop online at Outback Gems & Minerals.";
     
     // Use product-specific image, fallback to API image, then category image
     ogImage = productMeta.image || product["image url"] || productMeta.categoryImage || 'https://outbackgems.com.au/images/general/Facebook%20Logo.jpg';
     altText = productMeta.altText || `${product["product name"]} ${product.weight}${product.unit} - Premium ${color || 'gemstone'} specimen at Outback Gems & Minerals`;
   } else {
     // Fallback for products not in mapping
-    title = `Buy ${product["product name"]} ${product.weight}${product.unit} - $${product["total price"].toFixed(2)} | Outback Gems & Minerals`;
-    description = `${product.description || 'Premium gemstone product'}${stockText} Available for $${product["total price"].toFixed(2)}. Shop online at Outback Gems & Minerals.`;
+    title = `Buy ${product["product name"]} ${product.weight}${product.unit} - $${parseFloat(product["total price"]).toFixed(2)} | Outback Gems & Minerals`;
+    description = `${product.description || 'Premium gemstone product'}${stockText} Available for $${parseFloat(product["total price"]).toFixed(2)}. Shop online at Outback Gems & Minerals.`;
     ogImage = product["image url"] || 'https://outbackgems.com.au/images/general/Facebook%20Logo.jpg';
     altText = `${product["product name"]} ${product.weight}${product.unit} - Premium ${color || 'gemstone'} specimen at Outback Gems & Minerals`;
   }
@@ -1391,9 +1423,10 @@ async function setupRelatedProducts() {
 
     // Get the subcategory from the current product
     const currentCategory = currentProduct.category;
+    const currentSubcategory = currentProduct["sub category"];
     
-    // Skip if this is a main category (no dash) - only show for subcategories
-    if (!currentCategory.includes('-')) {
+    // Skip if this is a main category only (no subcategory) - only show for subcategories
+    if (!currentSubcategory) {
       if (relatedSection) {
         relatedSection.classList.add('hidden');
         relatedSection.style.display = 'none';
@@ -1401,11 +1434,26 @@ async function setupRelatedProducts() {
       return;
     }
 
-    // Filter products in the same subcategory (exact category match)
-    const relatedProducts = products.filter(item => 
-      item.category === currentCategory &&
-      item["product id"] !== productId // Exclude current product
-    );
+    // Filter products in the same subcategory (handle comma-separated subcategories)
+    const relatedProducts = products.filter(item => {
+      if (item["product id"] === productId) return false; // Exclude current product
+      
+      const itemSubCategoryString = item["sub category"] || "";
+      const currentSubCategoryString = currentSubcategory || "";
+      
+      if (!itemSubCategoryString || !currentSubCategoryString) return false;
+      
+      // Split both subcategory strings by comma and check for overlap
+      const itemSubCategories = itemSubCategoryString.split(',').map(sub => sub.trim());
+      const currentSubCategories = currentSubCategoryString.split(',').map(sub => sub.trim());
+      
+      // Check if there's any overlap between the subcategories
+      return itemSubCategories.some(itemSub => 
+        currentSubCategories.some(currentSub => 
+          itemSub.toLowerCase() === currentSub.toLowerCase()
+        )
+      );
+    });
 
     if (relatedProducts.length === 0) {
       if (relatedSection) {
@@ -1453,34 +1501,8 @@ async function setupRelatedProducts() {
     // Update the title based on subcategory
     const titleElement = document.getElementById('related-products-title');
     if (titleElement) {
-      // Generate a user-friendly name from just the subcategory part
-      const generateSubcategoryName = (category) => {
-        // Split by dash and get only the subcategory part (after the main category)
-        const parts = category.split('-');
-        
-        // Get everything after the first dash
-        const subcategoryParts = parts.slice(1);
-        
-        if (subcategoryParts.length === 0) {
-          return 'Items';
-        }
-        
-        const formattedParts = subcategoryParts.map(part => {
-          // Handle special cases
-          if (part === 'cz') return 'Cubic Zirconia';
-          if (part === 'herkimer') return 'Herkimer Diamonds';
-          if (part === 'thunder') return 'Thunder Eggs';
-          if (part === 'washbag') return 'Washbag Mix';
-          if (part === 'gem') return 'Gem';
-          if (part === 'tree') return 'Tree';
-          // Capitalize first letter
-          return part.charAt(0).toUpperCase() + part.slice(1);
-        });
-        
-        return formattedParts.join(' ');
-      };
-      
-      const subcategoryName = generateSubcategoryName(currentCategory);
+      // Use the subcategory name directly for the title
+      const subcategoryName = currentSubcategory || 'Items';
       titleElement.textContent = `Other ${subcategoryName} Available`;
     }
 
@@ -1524,7 +1546,7 @@ async function setupRelatedProducts() {
              class="related-product-image"
              loading="lazy">
         <div class="related-product-name">${product["product name"]}</div>
-        <div class="related-product-price">$${product["total price"].toFixed(2)}</div>
+        <div class="related-product-price">$${parseFloat(product["total price"]).toFixed(2)}</div>
         <div class="related-product-stock ${stockClass}">${stockText}</div>
       `;
 
@@ -1749,7 +1771,7 @@ async function setupRelatedYowahNuts() {
              loading="lazy">
         <div class="related-product-name">${product["product name"]}</div>
         <div class="related-product-size">${sizeInfo}</div>
-        <div class="related-product-price">$${product["total price"].toFixed(2)}</div>
+        <div class="related-product-price">$${parseFloat(product["total price"]).toFixed(2)}</div>
         <div class="related-product-stock ${stockClass}">${stockText}</div>
       `;
 

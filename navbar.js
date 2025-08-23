@@ -44,11 +44,11 @@ async function populateShopDropdown() {
 
     // Category labels mapping
     const categoryLabels = {
-      'synthetic': 'Synthetic Rough',
-      'natural': 'Natural Rough', 
-      'other': 'Other Products',
-      'carvings': 'Carvings',
-      'rough-slabs': 'Rough & Slabs'
+      'faceting rough': 'Faceting Rough',
+      'carvings & collectibles': 'Carvings & Collectibles', 
+      'raw material & specimens': 'Raw Material & Specimens',
+      'tumbles': 'Tumbles',
+      'slabs': 'Slabs'
     };
 
     // Discover main categories from product data
@@ -56,14 +56,11 @@ async function populateShopDropdown() {
     
     cachedProducts.forEach(product => {
       if (product.category) {
-        const categories = product.category.split(',').map(cat => cat.trim().toLowerCase());
-        categories.forEach(category => {
-          // Extract main category (everything before the first dash)
-          const mainCategory = category.includes('-') ? category.split('-')[0] : category;
-          if (mainCategory) {
-            mainCategories.add(mainCategory);
-          }
-        });
+        // Use the main category directly (no more dash splitting)
+        const mainCategory = product.category.trim().toLowerCase();
+        if (mainCategory) {
+          mainCategories.add(mainCategory);
+        }
       }
     });
 

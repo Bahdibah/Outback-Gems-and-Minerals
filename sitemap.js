@@ -10,13 +10,15 @@ getProductData().then(products => {
   });
 
   uniqueProducts.forEach(product => {
-    const categories = (product.category || "").toLowerCase().split(",").map(c => c.trim());
+    // Use the main category directly
+    const mainCategory = (product.category || "").toLowerCase();
     let added = false;
-    if (categories.some(cat => cat.includes("natural"))) {
+    
+    if (mainCategory.includes("natural")) {
       addProductToList("sitemap-natural-list", product);
       added = true;
     }
-    if (categories.some(cat => cat.includes("synthetic"))) {
+    if (mainCategory.includes("synthetic")) {
       addProductToList("sitemap-synthetic-list", product);
       added = true;
     }
