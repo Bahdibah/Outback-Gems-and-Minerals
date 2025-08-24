@@ -83,7 +83,7 @@ async function populateShopDropdown() {
       // Add discovered categories
       discoveredCategories.forEach(category => {
         const listItem = document.createElement('li');
-        listItem.innerHTML = `<a href="products.html?category=${category.key}" style="font-weight:bold;">${category.label}</a>`;
+        listItem.innerHTML = `<a href="products.html?category=${encodeURIComponent(category.key)}" style="font-weight:bold;">${category.label}</a>`;
         dropdownMenu.appendChild(listItem);
       });
     }
@@ -111,7 +111,7 @@ async function populateShopDropdown() {
       // Add discovered categories
       discoveredCategories.forEach(category => {
         const listItem = document.createElement('li');
-        listItem.innerHTML = `<a href="products.html?category=${category.key}" style="font-weight:bold;">${category.label}</a>`;
+        listItem.innerHTML = `<a href="products.html?category=${encodeURIComponent(category.key)}" style="font-weight:bold;">${category.label}</a>`;
         burgerNavLinks.appendChild(listItem);
       });
       

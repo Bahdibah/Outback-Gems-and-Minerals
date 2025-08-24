@@ -307,6 +307,17 @@
     });
     }
 
+    // Function to map navbar category parameters to actual inventory categories
+    function mapCategoryKeyword(keyword) {
+      if (!keyword) return null;
+      
+      // Decode URL encoding to get the actual category name
+      const decodedKeyword = decodeURIComponent(keyword);
+      
+      // Return the decoded category name directly since we're now using actual category names in URLs
+      return decodedKeyword;
+    }
+
     // Function to load products by category keyword
     function loadProductsByCategory(keyword = null) {
       if (!productContainer) {
@@ -321,24 +332,40 @@
           if (data && data.length > 0) {
             let filteredProducts;
             if (keyword) {
+              // Map the navbar parameter to actual category/subcategory terms
+              const mappedKeywords = mapCategoryKeyword(keyword);
+              
               // Filter by main category or subcategory
               filteredProducts = data.filter(product => {
                 const mainCategory = (product.category || "").trim().toLowerCase();
                 const subCategoryString = (product["sub category"] || "").trim().toLowerCase();
-                const searchKeyword = keyword.toLowerCase();
                 
-                // Check main category
-                if (mainCategory.includes(searchKeyword)) {
-                  return true;
-                }
+                // Handle multiple mapped keywords (like 'other' mapping to multiple categories)
+                const keywordsToCheck = Array.isArray(mappedKeywords) ? mappedKeywords : [mappedKeywords];
                 
-                // Check subcategories (split by comma)
-                if (subCategoryString) {
-                  const subcategories = subCategoryString.split(',').map(sub => sub.trim());
-                  return subcategories.some(subCategory => subCategory.includes(searchKeyword));
-                }
-                
-                return false;
+                return keywordsToCheck.some(searchKeyword => {
+                  const keywordLower = searchKeyword.toLowerCase();
+                  
+                  // Check if this is a main-category-subcategory format (e.g., "tumbles|amethyst")
+                  if (keywordLower.includes('|')) {
+                    const [mainCat, subCat] = keywordLower.split('|');
+                    
+                    // Must match both main category AND subcategory
+                    const mainCategoryMatches = mainCategory === mainCat;
+                    const subcategories = subCategoryString.split(',').map(sub => sub.trim().toLowerCase());
+                    const subCategoryMatches = subcategories.some(subCategory => subCategory === subCat);
+                    
+                    return mainCategoryMatches && subCategoryMatches;
+                  }
+                  
+                  // For exact category matches (like "Carvings & Collectibles"), do exact comparison
+                  if (searchKeyword.includes('&') || searchKeyword.includes(' ')) {
+                    return mainCategory === keywordLower;
+                  } else {
+                    // For simple main category matches (like "tumbles"), just match main category
+                    return mainCategory === keywordLower;
+                  }
+                });
               });
             } else {
               filteredProducts = data;

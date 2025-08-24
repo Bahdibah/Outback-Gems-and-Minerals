@@ -155,14 +155,23 @@ async function loadDisclaimer(product) {
     // Find matching disclaimer based on category or subcategory
     let matchedDisclaimer = null;
     
-    for (const disclaimer of disclaimers) {
-      const appliesToArray = disclaimer['applies-to'];
-      
-      // Check if product category or subcategory matches
-      if (appliesToArray.includes(product.category) || 
-          appliesToArray.includes(product['sub category'])) {
-        matchedDisclaimer = disclaimer;
-        break;
+    // Special handling for single tumbles
+    if (product.category === 'Tumbles' && product['product name'] && 
+        product['product name'].toLowerCase().includes('single')) {
+      matchedDisclaimer = disclaimers.find(d => d['applies-to'].includes('Single Tumbles'));
+    }
+    
+    // If not a single tumble, use normal matching logic
+    if (!matchedDisclaimer) {
+      for (const disclaimer of disclaimers) {
+        const appliesToArray = disclaimer['applies-to'];
+        
+        // Check if product category or subcategory matches
+        if (appliesToArray.includes(product.category) || 
+            appliesToArray.includes(product['sub category'])) {
+          matchedDisclaimer = disclaimer;
+          break;
+        }
       }
     }
     
@@ -1440,7 +1449,7 @@ async function setupRelatedProducts() {
     }
 
     // Filter products in the same subcategory (handle comma-separated subcategories)
-    const relatedProducts = products.filter(item => {
+    let relatedProducts = products.filter(item => {
       if (item["product id"] === productId) return false; // Exclude current product
       
       const itemSubCategoryString = item["sub category"] || "";
@@ -1459,6 +1468,38 @@ async function setupRelatedProducts() {
         )
       );
     });
+
+    // Special handling for Tumbles category: if we have fewer than 4 products, 
+    // add more from the same main category
+    if (currentCategory === "Tumbles" && relatedProducts.length < 4) {
+      const additionalProducts = products.filter(item => {
+        if (item["product id"] === productId) return false; // Exclude current product
+        if (item.category !== "Tumbles") return false; // Only tumbles
+        
+        // Check if this product is already in our relatedProducts array
+        const alreadyIncluded = relatedProducts.some(existing => 
+          existing["product id"] === item["product id"]
+        );
+        
+        return !alreadyIncluded;
+      });
+      
+      // Shuffle the additional products randomly
+      const shuffleArray = (array) => {
+        const shuffled = [...array];
+        for (let i = shuffled.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        }
+        return shuffled;
+      };
+      
+      const shuffledAdditional = shuffleArray(additionalProducts);
+      
+      // Add additional products to reach 4 total (or until we run out)
+      const needed = 4 - relatedProducts.length;
+      relatedProducts = relatedProducts.concat(shuffledAdditional.slice(0, needed));
+    }
 
     if (relatedProducts.length === 0) {
       if (relatedSection) {
@@ -1480,20 +1521,26 @@ async function setupRelatedProducts() {
       }
     });
 
-    // Shuffle the products randomly
-    const shuffleArray = (array) => {
-      const shuffled = [...array];
-      for (let i = shuffled.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-      }
-      return shuffled;
-    };
+    // Handle product ordering - special case for Tumbles to maintain subcategory priority
+    let displayProducts;
+    if (currentCategory === "Tumbles") {
+      // For Tumbles, keep the order: same subcategory first, then additional random products
+      // The products are already in the correct order from our filtering logic above
+      displayProducts = uniqueProducts.slice(0, 4);
+    } else {
+      // For other categories, shuffle randomly as before
+      const shuffleArray = (array) => {
+        const shuffled = [...array];
+        for (let i = shuffled.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        }
+        return shuffled;
+      };
 
-    const shuffledProducts = shuffleArray(uniqueProducts);
-    
-    // Limit to first 4 products after shuffling
-    const displayProducts = shuffledProducts.slice(0, 4);
+      const shuffledProducts = shuffleArray(uniqueProducts);
+      displayProducts = shuffledProducts.slice(0, 4);
+    }
 
     if (displayProducts.length === 0) {
       if (relatedSection) {
@@ -1503,12 +1550,36 @@ async function setupRelatedProducts() {
       return;
     }
 
-    // Update the title based on subcategory
+    // Update the title based on subcategory and whether we're showing broader category
     const titleElement = document.getElementById('related-products-title');
     if (titleElement) {
       // Use the subcategory name directly for the title
       const subcategoryName = currentSubcategory || 'Items';
-      titleElement.textContent = `Other ${subcategoryName} Available`;
+      
+      // For Tumbles category, adjust title if we're showing products from broader category
+      if (currentCategory === "Tumbles") {
+        const subcategoryProductCount = products.filter(item => {
+          if (item["product id"] === productId) return false;
+          const itemSubCategoryString = item["sub category"] || "";
+          const currentSubCategoryString = currentSubcategory || "";
+          if (!itemSubCategoryString || !currentSubCategoryString) return false;
+          const itemSubCategories = itemSubCategoryString.split(',').map(sub => sub.trim());
+          const currentSubCategories = currentSubCategoryString.split(',').map(sub => sub.trim());
+          return itemSubCategories.some(itemSub => 
+            currentSubCategories.some(currentSub => 
+              itemSub.toLowerCase() === currentSub.toLowerCase()
+            )
+          );
+        }).length;
+        
+        if (subcategoryProductCount < 4) {
+          titleElement.textContent = `Other Tumbles Available`;
+        } else {
+          titleElement.textContent = `Other ${subcategoryName} Available`;
+        }
+      } else {
+        titleElement.textContent = `Other ${subcategoryName} Available`;
+      }
     }
 
     // Show the related products section

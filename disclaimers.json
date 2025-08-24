@@ -30,6 +30,12 @@
     "disclaimer-text": "Each pack contains a random assortment of tumbled stones of your chosen variety. Colours, types, and sizes will vary. Images are representative only— your selection may differ from those shown. All stones are natural, unless otherwise stated, and may include minor imperfections or variations in shape and polish."
   },
   {
+    "category": "single tumbled stones",
+    "applies-to": ["Single Tumbles"],
+    "disclaimer-title": "Single Tumbled Stone Disclaimer",
+    "disclaimer-text": "Each single tumbled stone is individually selected from our collection. Stones may include minor imperfections or variations in shape, size, colour, and polish. Photos are representative only— your stone may differ from those shown in terms of exact colour, patterns, and inclusions. Each piece is unique with its own natural character."
+  },
+  {
     "category": "slabs",
     "applies-to": ["Slabs"],
     "disclaimer-title": "Slabs Disclaimer",

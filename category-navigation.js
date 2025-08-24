@@ -193,8 +193,9 @@ class CategoryNavigation {
         
         subcategoryContainer.innerHTML = sortedSubcategories.map(subcat => {
           const displayName = this.formatSubcategoryName(subcat);
-          const isActive = currentCategory === subcat;
-          return `<button class="subcategory-nav-btn${isActive ? ' active' : ''}" data-category="${subcat}">${displayName}</button>`;
+          const subcategoryKey = `${categoryKey}|${subcat.toLowerCase()}`;
+          const isActive = currentCategory === subcategoryKey;
+          return `<button class="subcategory-nav-btn${isActive ? ' active' : ''}" data-category="${subcategoryKey}">${displayName}</button>`;
         }).join('');
 
         // Add event listeners to subcategory buttons
