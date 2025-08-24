@@ -407,31 +407,6 @@
           const productName = document.createElement("h3");
           productName.textContent = product["product name"];
           
-          // Add dimensions as overlay for slabs only
-          if (product.category === "Slabs" && product["Dimensions"]) {
-            const dimensionsOverlay = document.createElement("div");
-            dimensionsOverlay.className = "dimensions-overlay";
-            dimensionsOverlay.textContent = product["Dimensions"];
-            dimensionsOverlay.style.cssText = `
-              position: absolute;
-              top: 225px;
-              left: 50%;
-              transform: translateX(-50%);
-              background: rgba(0, 0, 0, 0.85);
-              color: #ffb366;
-              padding: 6px 12px;
-              border-radius: 6px;
-              font-size: 0.9em;
-              font-weight: 600;
-              z-index: 3;
-              pointer-events: none;
-              text-align: center;
-              white-space: nowrap;
-              box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-            `;
-            productCard.appendChild(dimensionsOverlay);
-          }
-
           // Add size info for all products except Yowah Nuts (which are handled separately)
           let sizeElement = null;
           if (product["product id"] && product["product id"].startsWith('yn')) {
@@ -701,31 +676,6 @@
           const productName = document.createElement("h3");
           productName.textContent = product["product name"];
           
-          // Add dimensions as overlay for slabs only in suggestions
-          if (product.category === "Slabs" && product["Dimensions"]) {
-            const dimensionsOverlay = document.createElement("div");
-            dimensionsOverlay.className = "dimensions-overlay";
-            dimensionsOverlay.textContent = product["Dimensions"];
-            dimensionsOverlay.style.cssText = `
-              position: absolute;
-              top: 225px;
-              left: 50%;
-              transform: translateX(-50%);
-              background: rgba(0, 0, 0, 0.85);
-              color: #ffb366;
-              padding: 6px 12px;
-              border-radius: 6px;
-              font-size: 0.9em;
-              font-weight: 600;
-              z-index: 3;
-              pointer-events: none;
-              text-align: center;
-              white-space: nowrap;
-              box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-            `;
-            productCard.appendChild(dimensionsOverlay);
-          }
-
           // Add size info for all products except Yowah Nuts in suggestions too
           let sizeElement = null;
           if (product["product id"] && product["product id"].startsWith('yn')) {
