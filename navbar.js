@@ -323,6 +323,19 @@ document.addEventListener("DOMContentLoaded", () => {
         });
           }
         // --- End burger menu toggle ---
+
+        // --- Mobile shop dropdown toggle ---
+        const mobileShopToggle = document.querySelector(".mobile-shop-toggle");
+        const mobileShopDropdown = document.querySelector(".burger-nav-links .shop-dropdown");
+        
+        if (mobileShopToggle && mobileShopDropdown) {
+          mobileShopToggle.addEventListener("click", function(e) {
+            e.preventDefault();
+            mobileShopDropdown.classList.toggle("open");
+          });
+        }
+        // --- End mobile shop dropdown toggle ---
+
         // Add event listener for checkout button
         const checkoutBtn = document.getElementById("checkout-button");
         if (checkoutBtn) {
@@ -337,7 +350,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const searchContainer = searchInput?.closest('.navbar-search');
         if (searchButton && searchInput && searchContainer) {
           searchButton.addEventListener('click', (e) => {
-            if (window.innerWidth <= 900) {
+            if (window.innerWidth <= 1024) {
               e.preventDefault();
               searchContainer.classList.add('mobile-search-active');
               searchInput.focus();
@@ -346,7 +359,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
           });
           
-          searchInput.addEventListener("focus", search);
           searchInput.addEventListener("input", debounceSearch);
           searchInput.addEventListener("keydown", (event) => {
             if (event.key === "Enter") {
@@ -357,7 +369,7 @@ document.addEventListener("DOMContentLoaded", () => {
   
           // Optionally, hide input when it loses focus
           searchInput.addEventListener('blur', () => {
-            if (window.innerWidth <= 900) {
+            if (window.innerWidth <= 1024) {
               //Set delay for the searchbar to disappear to allow results to disappear first
               setTimeout(() => {
               searchContainer.classList.remove('mobile-search-active');

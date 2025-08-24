@@ -73,6 +73,20 @@ class CategoryNavigation {
 
     const navigationHTML = `
       <div id="category-navigation" class="category-navigation">
+        <!-- Mobile dropdown selectors -->
+        <select class="mobile-category-dropdown" id="mobile-category-select">
+          <option value="">All Products</option>
+          ${this.categories.map(category => `
+            <option value="${category.key}"${(activeCategory === category.key || (activeCategory && activeCategory.startsWith(category.key + '-'))) ? ' selected' : ''}>
+              ${category.label}
+            </option>
+          `).join('')}
+        </select>
+        <select class="mobile-subcategory-dropdown" id="mobile-subcategory-select" style="display: none;">
+          <option value="">All Subcategories</option>
+        </select>
+        
+        <!-- Desktop/tablet button navigation -->
         <div id="main-categories" class="main-categories">
           ${this.categories.map(category => `
             <button class="category-nav-btn${(activeCategory === category.key || (activeCategory && activeCategory.startsWith(category.key + '-'))) ? ' active' : ''}" data-category="${category.key}">
@@ -107,6 +121,21 @@ class CategoryNavigation {
     // Add subcategories if a main category is selected
     if (activeCategory) {
       this.createSubcategoryButtons(activeCategory);
+      // Also update mobile subcategory dropdown only if it's a main category (not a subcategory)
+      const mainCategory = activeCategory.split('-')[0];
+      if (this.categories.some(cat => cat.key === mainCategory)) {
+        this.updateMobileSubcategoryDropdown(mainCategory);
+        const mobileSubcategorySelect = document.getElementById('mobile-subcategory-select');
+        if (mobileSubcategorySelect) {
+          mobileSubcategorySelect.style.display = 'block';
+        }
+      }
+    } else {
+      // Hide subcategory dropdown when no category is selected
+      const mobileSubcategorySelect = document.getElementById('mobile-subcategory-select');
+      if (mobileSubcategorySelect) {
+        mobileSubcategorySelect.style.display = 'none';
+      }
     }
 
     // Add click event listeners to navigation buttons
@@ -139,7 +168,7 @@ class CategoryNavigation {
               // Split by comma and add each subcategory individually
               const subcategoryList = subcategoryString.split(',').map(sub => sub.trim());
               subcategoryList.forEach(subcategory => {
-                if (subcategory) {
+                if (subcategory && subcategory !== '') {
                   subcategories.add(subcategory);
                 }
               });
@@ -187,14 +216,100 @@ class CategoryNavigation {
     return subcategory;
   }
 
+  // Update mobile subcategory dropdown options
+  async updateMobileSubcategoryDropdown(categoryKey) {
+    try {
+      const mobileSubcategorySelect = document.getElementById('mobile-subcategory-select');
+      if (!mobileSubcategorySelect) return;
+
+      // Get product data
+      let products = [];
+      if (typeof getProductData === 'function') {
+        products = await getProductData();
+      } else if (window.productData) {
+        products = window.productData;
+      } else {
+        console.warn('Product data not available for subcategory dropdown');
+        return;
+      }
+
+      // Find subcategories for the selected main category
+      const subcategories = new Set();
+      products.forEach(product => {
+        if (product.category && product.category.toLowerCase() === categoryKey.toLowerCase() && product['sub category']) {
+          const subcategoryString = product['sub category'].trim();
+          if (subcategoryString) {
+            // Split by comma and add each subcategory individually
+            const subcategoryList = subcategoryString.split(',').map(sub => sub.trim());
+            subcategoryList.forEach(subcategory => {
+              if (subcategory && subcategory !== '') {
+                subcategories.add(subcategory);
+              }
+            });
+          }
+        }
+      });
+
+      if (subcategories.size > 0) {
+        const categoryLabel = this.categoryLabels[categoryKey] || this.formatCategoryName(categoryKey);
+        const sortedSubcategories = Array.from(subcategories).sort();
+        
+        // Get current active subcategory from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const currentCategory = urlParams.get('category') || '';
+        
+        mobileSubcategorySelect.innerHTML = `
+          <option value="${categoryKey}">All ${categoryLabel}</option>
+          ${sortedSubcategories.map(subcat => `
+            <option value="${subcat}"${currentCategory === subcat ? ' selected' : ''}>
+              ${this.formatSubcategoryName(subcat)}
+            </option>
+          `).join('')}
+        `;
+      } else {
+        mobileSubcategorySelect.style.display = 'none';
+      }
+
+    } catch (error) {
+      console.error("Error updating mobile subcategory dropdown:", error);
+    }
+  }
+
   // Add event listeners to category buttons
   addCategoryEventListeners() {
+    // Desktop/tablet button event listeners
     document.querySelectorAll('.category-nav-btn').forEach(btn => {
       btn.addEventListener('click', (e) => {
         const categoryKeyword = e.target.getAttribute('data-category');
         this.handleCategoryClick(categoryKeyword);
       });
     });
+
+    // Mobile dropdown event listeners
+    const mobileCategorySelect = document.getElementById('mobile-category-select');
+    const mobileSubcategorySelect = document.getElementById('mobile-subcategory-select');
+    
+    if (mobileCategorySelect) {
+      mobileCategorySelect.addEventListener('change', (e) => {
+        const selectedCategory = e.target.value;
+        this.handleCategoryClick(selectedCategory);
+        
+        // Update subcategory dropdown
+        if (selectedCategory) {
+          this.updateMobileSubcategoryDropdown(selectedCategory);
+          mobileSubcategorySelect.style.display = 'block';
+        } else {
+          mobileSubcategorySelect.style.display = 'none';
+        }
+      });
+    }
+    
+    if (mobileSubcategorySelect) {
+      mobileSubcategorySelect.addEventListener('change', (e) => {
+        const selectedSubcategory = e.target.value;
+        this.handleCategoryClick(selectedSubcategory);
+      });
+    }
   }
 
   // Add event listeners to subcategory buttons

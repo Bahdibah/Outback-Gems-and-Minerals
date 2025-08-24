@@ -532,45 +532,88 @@ async function fetchProductDetails() {
       }));
     }
 
-    // Load technical information based on the product category
-    if (category) {
-      // Use the main category directly for loading technical information
-      fetch("products.json")
-        .then(res => res.json())
-        .then(products => {
-          // Find the first product with this main category
-          const product = products.find(p => {
-            return (p.category || "").toLowerCase() === category.toLowerCase();
+    // Load technical information based on category hierarchy
+    if (category || subcategory) {
+      // Create hierarchical mapping: check main category first, then subcategory
+      const categoryToProductMapping = {
+        // Main category mappings (these apply to all items in the category)
+        "Tumbles": "tumbles",
+        "Slabs": "slabs", 
+        "Carvings & Collectibles": "carvings-collectibles",
+        "Raw Material & Specimens": "raw-specimens",
+        
+        // Subcategory mappings (for specific gemstone types - exact match to inventory)
+        "Synthetic Spinel": "synthetic spinel",
+        "Synthetic CZ": "synthetic-cz", 
+        "Synthetic Sapphire": "synthetic sapphire",
+        "Zircon": "zircon",
+        "Natural Sapphire": "natural sapphire",
+        "Natural Garnet": "natural garnet",
+        "Apatite": "natural-apatite",
+        "Amethyst": "natural-amethyst",
+        "Smoky Quartz": "smoky-quartz",
+        "Natural Peridot": "olivine",
+        "Olivine": "olivine",
+        "Sapphire Wash Bags": "sapphire-wash-bags",
+        "Mystery Boxes": "mystery-boxes",
+        "Thunder Eggs": "thunder-eggs",
+        "Agate Slices": "agate-slices",
+        "Yowah Nuts": "yowah-nuts",
+        "Herkimer Diamonds": "herkimer-diamonds"
+      };
+      
+      // Try main category first, then subcategory
+      let productCategory = categoryToProductMapping[category] || categoryToProductMapping[subcategory];
+      
+      if (productCategory) {
+        // Use the mapped category for loading technical information
+        fetch("products.json")
+          .then(res => res.json())
+          .then(products => {
+            // Find the product with this mapped category
+            const product = products.find(p => {
+              return (p.category || "").toLowerCase() === productCategory.toLowerCase();
+            });
+            
+            if (product) {
+              const title = product?.["product name"]
+                ? `<h3 style="color:#cc5500; margin-top:1.5em;">${product["product name"]}</h3>`
+                : "";
+              const info = product?.["product-description"] || "<p>No technical info available.</p>";
+              const techInfo = { title: title, info: info, fullText: title + info };
+              const techInfos = [techInfo]; // Keep as array for compatibility
+              
+              // Populate technical info section
+              const techDiv = document.getElementById("view-product-technical-info");
+              if (techDiv) techDiv.innerHTML = techInfos.map(item => item.fullText).join("<hr>");
+              
+              // Extract and populate disclaimer for desktop section
+              const disclaimerText = extractDisclaimerText(techInfos);
+              const desktopDisclaimerDiv = document.getElementById("disclaimer-text");
+              if (desktopDisclaimerDiv && disclaimerText) {
+                desktopDisclaimerDiv.innerHTML = disclaimerText;
+              }
+              
+              // Recalculate disclaimer height after content loads
+              setTimeout(() => {
+                matchDisclaimerHeight();
+              }, 100);
+            } else {
+              // No matching product found
+              const techDiv = document.getElementById("view-product-technical-info");
+              if (techDiv) techDiv.innerHTML = `<p>Technical information not available for ${productCategory}.</p>`;
+            }
+          })
+          .catch(err => {
+            const techDiv = document.getElementById("view-product-technical-info");
+            if (techDiv) techDiv.innerHTML = "<p>Error loading technical info.</p>";
+            console.error("Error loading technical info:", err);
           });
-          
-          const title = product?.["product name"]
-            ? `<h3 style="color:#cc5500; margin-top:1.5em;">${product["product name"]}</h3>`
-            : "";
-          const info = product?.["product-description"] || "<p>No technical info available.</p>";
-          const techInfo = { title: title, info: info, fullText: title + info };
-          const techInfos = [techInfo]; // Keep as array for compatibility
-          
-          // Populate technical info section
-          const techDiv = document.getElementById("view-product-technical-info");
-          if (techDiv) techDiv.innerHTML = techInfos.map(item => item.fullText).join("<hr>");
-          
-          // Extract and populate disclaimer for desktop section
-          const disclaimerText = extractDisclaimerText(techInfos);
-          const desktopDisclaimerDiv = document.getElementById("disclaimer-text");
-          if (desktopDisclaimerDiv && disclaimerText) {
-            desktopDisclaimerDiv.innerHTML = disclaimerText;
-          }
-          
-          // Recalculate disclaimer height after content loads
-          setTimeout(() => {
-            matchDisclaimerHeight();
-          }, 100);
-        })
-        .catch(err => {
-          const techDiv = document.getElementById("view-product-technical-info");
-          if (techDiv) techDiv.innerHTML = "<p>Error loading technical info.</p>";
-          console.error("Error loading technical info:", err);
-        });
+      } else {
+        // Fallback for unmapped categories
+        const techDiv = document.getElementById("view-product-technical-info");
+        if (techDiv) techDiv.innerHTML = `<p>Technical information not available for category: ${category}, subcategory: ${subcategory}.</p>`;
+      }
     }
 
     //Continue shopping button to escape to category level//
@@ -683,41 +726,56 @@ function updateProductDetails(selectedVariation) {
       .then(productImagesList => {
         // Find the entry for this product id
         const productImages = productImagesList.find(p => p.productid === productId);
-        // Use the 3 images from JSON, or fallback to placeholders
-        const extraImages = productImages?.images || [
-          `images/products/${productId}/image1.jpg`,
-          `images/products/${productId}/image2.jpg`,
-          `images/products/${productId}/image3.jpg`
-        ];
+        
+        if (productImages && productImages.images) {
+          // Product has entry in productid.json - use those images
+          const extraImages = productImages.images;
+          const allThumbs = [apiImage, ...extraImages];
 
-        // Build the thumbnails: API image first, then the 3 from JSON
-        const allThumbs = [apiImage, ...extraImages];
+          // Set the main image to the API image by default
+          if (mainImage) {
+            mainImage.src = apiImage;
+            mainImage.setAttribute("loading", "lazy");
+          }
 
-        // Set the main image to the API image by default
-        if (mainImage) {
-          mainImage.src = apiImage;
-          mainImage.setAttribute("loading", "lazy"); // Add this line
-        }
-
-        // Render thumbnails
-        thumbnailsContainer.innerHTML = "";
-        allThumbs.forEach((imgUrl, idx) => {
-          const thumb = document.createElement("img");
-          thumb.src = imgUrl;
-          thumb.alt = `Thumbnail ${idx + 1}`;
-          thumb.className = "view-product-image-placeholder";
-          thumb.style.cursor = "pointer";
-          thumb.loading = "lazy"; // Add this line
-          // Highlight the selected thumbnail
-          if (idx === 0) thumb.style.border = "2px solid #cc5500";
-          thumb.addEventListener("click", function() {
-            if (mainImage) mainImage.src = imgUrl;
-            // Optional: highlight the selected thumbnail
-            thumbnailsContainer.querySelectorAll("img").forEach(img => img.style.border = "1px solid #444");
-            this.style.border = "2px solid #cc5500";
+          // Render thumbnails
+          thumbnailsContainer.innerHTML = "";
+          allThumbs.forEach((imgUrl, idx) => {
+            const thumb = document.createElement("img");
+            thumb.src = imgUrl;
+            thumb.alt = `Thumbnail ${idx + 1}`;
+            thumb.className = "view-product-image-placeholder";
+            thumb.style.cursor = "pointer";
+            thumb.loading = "lazy";
+            // Highlight the selected thumbnail
+            if (idx === 0) thumb.style.border = "2px solid #cc5500";
+            thumb.addEventListener("click", function() {
+              if (mainImage) mainImage.src = imgUrl;
+              // Optional: highlight the selected thumbnail
+              thumbnailsContainer.querySelectorAll("img").forEach(img => img.style.border = "1px solid #444");
+              this.style.border = "2px solid #cc5500";
+            });
+            thumbnailsContainer.appendChild(thumb);
           });
-          thumbnailsContainer.appendChild(thumb);
-        });
+        } else {
+          // No entry in productid.json - show only the main image
+          if (mainImage) {
+            mainImage.src = apiImage;
+            mainImage.setAttribute("loading", "lazy");
+          }
+          // Create a single thumbnail for the main image only
+          if (thumbnailsContainer) {
+            thumbnailsContainer.innerHTML = "";
+            const thumb = document.createElement("img");
+            thumb.src = apiImage;
+            thumb.alt = "Product image";
+            thumb.className = "view-product-image-placeholder";
+            thumb.style.cursor = "pointer";
+            thumb.style.border = "2px solid #cc5500";
+            thumb.loading = "lazy";
+            thumbnailsContainer.appendChild(thumb);
+          }
+        }
       })
       .catch(error => {
         console.warn("Could not load productid.json, using fallback images:", error);

@@ -15,7 +15,7 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  margin-top: 1%; /* Reduced from 2% to 1% */
+  margin-top: 0; /* Removed extra margin - padding-top handles navbar spacing */
   padding-top: var(--navbar-height); /* This adds space at the top for the fixed navbar */
 }
 

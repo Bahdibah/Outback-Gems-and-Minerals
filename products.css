@@ -282,18 +282,28 @@ footer >div{
 .dynamic-product-card .image-container {
   width: 100%;
   height: 240px; /* Reduced to make more room for other elements */
-  overflow: hidden;
+  overflow: visible; /* Changed from hidden to visible */
   border-radius: 8px;
   margin-bottom: 12px; /* Consistent margin */
   flex-shrink: 0;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.03);
+  position: relative;
 }
 
 .dynamic-product-card img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  object-position: center;
   transition: transform 0.3s ease;
+  border-radius: 6px;
+  display: block;
 }
 
 .dynamic-product-card:hover img {
@@ -474,9 +484,27 @@ button {
     max-width: 300px;
     height: 400px; /* Reduced height */
   }
+  .dynamic-product-card .image-container {
+    height: 200px;
+  }
   #dynamic-product-container {
     padding: 25px 30px;
     gap: 18px;
+  }
+  
+  /* Pagination adjustments for 1280px */
+  .pagination-controls {
+    gap: 6px;
+    margin: 10px 0 18px 0;
+  }
+  .pagination-item {
+    min-width: 38px;
+    height: 38px;
+    padding: 0 10px;
+    font-size: 13px;
+  }
+  .pagination-arrow {
+    min-width: 42px;
   }
 }
 
@@ -485,8 +513,22 @@ button {
     flex: 1 1 calc(33.333% - 16px); /* 3 cards per row on smaller screens */
     min-width: 250px;
     max-width: 320px;
-    height: 380px; /* Reduced height */
+    height: auto; /* Changed from fixed 380px to auto */
+    min-height: 420px; /* Increased from 380px to ensure button visibility */
+    padding-bottom: 18px; /* Extra bottom padding for button space */
   }
+  .dynamic-product-card .image-container {
+    height: 190px;
+  }
+  
+  /* Ensure button is visible on 1024px screens */
+  .dynamic-product-button {
+    margin-top: auto;
+    margin-bottom: 6px;
+    font-size: 1rem;
+    padding: 12px 24px;
+  }
+  
   .dynamic-product-header-title {
     font-size: 2rem;
     padding: 20px 0;
@@ -495,6 +537,21 @@ button {
     padding: 20px 25px;
     gap: 16px;
   }
+  
+  /* Pagination adjustments for 1024px */
+  .pagination-controls {
+    gap: 6px;
+    margin: 10px 0 16px 0;
+  }
+  .pagination-item {
+    min-width: 36px;
+    height: 36px;
+    padding: 0 9px;
+    font-size: 13px;
+  }
+  .pagination-arrow {
+    min-width: 40px;
+  }
 }
 
 /* Tablet view - 2 cards per row */
@@ -502,9 +559,23 @@ button {
   .dynamic-product-card {
     flex: 1 1 calc(50% - 16px); /* 2 cards per row on tablets */
     min-width: 240px;
+    max-width: 300px; /* Added max-width to prevent cards from being too wide */
     height: auto;
-    min-height: 360px; /* Reduced min-height */
+    min-height: 400px; /* Increased from 360px to ensure button visibility */
+    padding-bottom: 18px; /* Extra bottom padding for button space */
   }
+  .dynamic-product-card .image-container {
+    height: 180px;
+  }
+  
+  /* Ensure button is visible on 900px screens */
+  .dynamic-product-button {
+    margin-top: auto;
+    margin-bottom: 6px;
+    font-size: 1rem;
+    padding: 12px 24px;
+  }
+  
   .dynamic-product-header-title {
     font-size: 1.8rem;
     padding: 18px 0;
@@ -513,6 +584,24 @@ button {
     padding: 15px 20px;
     gap: 16px;
   }
+  
+  /* Pagination adjustments for 900px */
+  .pagination-controls {
+    gap: 5px;
+    margin: 8px 0 14px 0;
+    flex-wrap: wrap;
+  }
+  .pagination-item {
+    min-width: 34px;
+    height: 34px;
+    padding: 0 8px;
+    font-size: 12px;
+    margin: 0 1px;
+  }
+  .pagination-arrow {
+    min-width: 38px;
+    font-size: 14px;
+  }
 }
 
 /* Small tablets and large phones (max-width: 768px) */
@@ -520,12 +609,13 @@ button {
   .dynamic-product-card {
     flex: 1 1 calc(100% - 16px);
     min-width: 250px;
-    max-width: 500px;
+    max-width: 400px; /* Prevent cards from being too wide on small tablets */
     height: auto;
-    min-height: 320px; /* Reduced min-height */
+    min-height: 420px; /* Increased from 320px to ensure button visibility */
+    padding-bottom: 20px; /* Extra bottom padding to ensure button space */
   }
   .dynamic-product-card .image-container {
-    height: 200px;
+    height: 200px; /* Slightly larger for better image display */
   }
   #dynamic-product-container {
     padding: 15px;
@@ -534,9 +624,30 @@ button {
   .dynamic-product-header-title {
     font-size: 1.6rem;
   }
+  
+  /* Ensure button is visible and properly positioned */
+  .dynamic-product-button {
+    margin-top: auto;
+    margin-bottom: 8px; /* Small margin from bottom edge */
+    font-size: 1rem; /* Slightly smaller on tablets */
+    padding: 12px 24px; /* Slightly smaller padding */
+  }
+  
   .pagination-controls {
-    gap: 8px;
-    margin: 12px 0;
+    gap: 4px;
+    margin: 8px 0 12px 0;
+    flex-wrap: wrap;
+  }
+  .pagination-item {
+    min-width: 32px;
+    height: 32px;
+    padding: 0 6px;
+    font-size: 12px;
+    margin: 0 1px 2px 1px;
+  }
+  .pagination-arrow {
+    min-width: 36px;
+    font-size: 13px;
   }
   .breadcrumb-container {
     padding: 8px 15px !important;
@@ -570,7 +681,63 @@ button {
     font-size: 1.4rem;
     padding: 15px 0;
   }
+  
+  /* Mobile pagination - more compact */
+  .pagination-controls {
+    gap: 3px;
+    margin: 6px 0 10px 0;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .pagination-item {
+    min-width: 28px;
+    height: 28px;
+    padding: 0 4px;
+    font-size: 11px;
+    margin: 0 1px 2px 1px;
+    border-radius: 6px;
+  }
+  .pagination-arrow {
+    min-width: 32px;
+    font-size: 12px;
+    padding: 0 6px;
+  }
+  .pagination-ellipsis {
+    min-width: 16px;
+    padding: 0 2px;
+  }
+  
   .breadcrumb-container {
     padding: 6px 12px !important;
+  }
+}
+
+/* Small phones (max-width: 425px) - Make cards thinner */
+@media (max-width: 425px) {
+  .dynamic-product-card {
+    max-width: 280px; /* Reduced from default */
+    min-width: 180px; /* Reduced from 200px */
+    padding: 12px; /* Reduced padding */
+  }
+  
+  #dynamic-product-container {
+    padding: 8px 16px; /* More side padding, less top/bottom */
+  }
+}
+
+/* Extra small phones (max-width: 375px) - Even thinner cards */
+@media (max-width: 375px) {
+  .dynamic-product-card {
+    max-width: 260px; /* Even more reduced */
+    min-width: 160px; /* Further reduced */
+    padding: 10px; /* More reduced padding */
+  }
+  
+  #dynamic-product-container {
+    padding: 6px 20px; /* Even more side padding for better margins */
+  }
+  
+  .dynamic-product-header-title {
+    font-size: 1.3rem;
   }
 }

@@ -11,7 +11,6 @@
 
 /* Ensure smooth navbar injection without visible content shift */
 #navbar-container {
-  min-height: var(--navbar-height);
   transition: opacity 0.2s ease-in-out;
 }
 
@@ -22,7 +21,6 @@ body:not(.navbar-loaded) #navbar-container + * {
 
 nav {
     background: linear-gradient(to left, #2e2e2e 0%, #cc5500 10%, #1c1c1c 40%, #444444 100%);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
     border-top: 2px solid #cc5500;
     justify-content: space-between;
     color: #888;
@@ -40,10 +38,10 @@ nav {
   align-items: center;
   justify-content: space-between;
   padding: 0 32px;
-  background: #181818;
-  min-height: 72px;
+  min-height: var(--navbar-height);
   z-index: 100;
-  position: relative;
+  width: 100%;
+  height: 100%;
 }
 
 .navbar >div{
@@ -58,7 +56,7 @@ nav {
 
 .navbar-left {
   flex: 1 1 0;
-  padding-left: 1%;
+  padding-left: 1.5%;
   align-items: end;
   width: 20%;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif !important;
@@ -77,7 +75,7 @@ nav {
 .navbar-right {
   flex-direction: row !important;
   justify-content: flex-end !important;
-  padding-right: 1% !important;
+  padding-right: 1.5% !important;
   font-size: 1.8rem !important;  
   width: 20% !important;
   align-items: center !important;
@@ -673,37 +671,53 @@ input {
   margin: 14px 0;
 }
 
-/* Desktop styles */
+/* Desktop styles - burger menu hidden by default */
 nav ul.burger-nav-links {
   position: fixed;
-  top: var(--navbar-height);
-  left:0;
-  background: #444;
+  top: 56px;
+  left: 0;
+  background: #232323;
   height: fit-content;
   display: none; /* Hide by default */
-  flex-direction: row;
-  align-items: center;
+  flex-direction: column;
+  align-items: stretch;
   margin: 0;
   padding: 0;
   width: 100vw;
   z-index: 99999;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+nav ul.burger-nav-links li {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border-bottom: 1px solid #444;
+}
+
+nav ul.burger-nav-links li:last-child {
+  border-bottom: none;
 }
 
 nav ul.burger-nav-links li a {
-  color: #cc5500;
-  background: #444;
-  border: 1px solid #cc5500;
+  color: #fff;
+  background: #232323;
   text-decoration: none;
   font-weight: bold;
-  font-size: 1.25rem;
-  padding: 8px;
+  font-size: 1.1rem;
+  padding: 16px 20px;
   text-align: center;
-  line-height: 1.1;
+  line-height: 1.2;
   transition: background 0.3s, color 0.3s;
   border-radius: 0px;
-  height: 20px;  
-  position: relative;
-  z-index: 99999;
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+nav ul.burger-nav-links li a:hover {
+  background: #cc5500;
+  color: #fff;
 }
 
 nav ul.burger-nav-links.open {
@@ -726,8 +740,71 @@ nav ul.burger-nav-links.open {
     }
    }
 
+/* Intermediate breakpoint to collapse search to icon only */
+@media (max-width: 1100px) {
+  .navbar-search {
+    display: flex;
+    align-items: center;
+    border-radius: 6px;
+    padding: 4px 8px;
+    margin: 0;
+    gap: 0;
+    width: auto;
+    min-width: 0;
+    max-width: 50px;
+    flex-wrap: nowrap;
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+  }
+  
+  .navbar-search-input,
+  .navbar-search #search-input {
+    display: none !important;
+  }
+  
+  .navbar-search-btn {
+    background: #cc5500 !important;
+    border: none !important;
+    border-radius: 50% !important;
+    width: 40px !important;
+    height: 40px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+  }
+  
+  .navbar-search-btn:hover {
+    background: #ff6600 !important;
+    transform: scale(1.1) !important;
+  }
+  
+  .navbar-search-btn i {
+    color: #fff !important;
+    font-size: 16px !important;
+  }
+
+  /* Fix cart dropdown positioning on smaller screens */
+  .cart-dropdown-panel {
+    right: -20px;
+    width: 280px;
+  }
+
+  /* Adjust cart icon positioning on tablets/laptops */
+  .cart-dropdown {
+    margin-right: 8px !important;
+  }
+}
+
 /* Mobile styles */
 @media (max-width: 900px) {
+  :root {
+    --navbar-height: 56px;
+  }
+  
   .navbar {
     flex-direction: row;
     align-items: center;
@@ -736,14 +813,13 @@ nav ul.burger-nav-links.open {
     min-height: 56px;
   }
   .navbar-left {
-    flex: 0 0 auto;
+    flex: 1 1 30%;
     flex-direction: row;
     align-items: center;
     gap: 6px;
     width: auto;
     padding: 0;
     min-width: 0;
-    width: 40%;
   }
   .main-logo {
     flex-direction: row;
@@ -763,15 +839,18 @@ nav ul.burger-nav-links.open {
     text-align: left;
   }
   .navbar-middle {
-    flex: 1 1 auto;
+    flex: 0 0 auto;
     justify-content: center;
     align-items: center;
     position: relative;
+    display: flex;
   }
   .burger {
     display: flex;
-    margin: 0 auto;
+    margin: 0;
   }
+  
+  /* Hide desktop navigation and show mobile navigation */
   .navbar-middle ul.nav-links {
     display: none;
     flex-direction: column !important;
@@ -790,10 +869,13 @@ nav ul.burger-nav-links.open {
     border: none;
     align-items: stretch !important;
   }
+  
   .navbar-middle ul.nav-links.open {
     display: flex !important;
   }
-  .navbar-middle ul.nav-links li {
+  
+  /* Style main navigation items */
+  .navbar-middle ul.nav-links > li {
     display: block !important;
     width: 100%;
     margin: 0 !important;
@@ -801,7 +883,8 @@ nav ul.burger-nav-links.open {
     text-align: left !important;
     align-items: stretch !important;
   }
-  .navbar-middle ul.nav-links li a {
+  
+  .navbar-middle ul.nav-links > li > a {
     display: block !important;
     width: 100% !important;
     background: transparent !important;
@@ -817,14 +900,41 @@ nav ul.burger-nav-links.open {
     line-height: 1.3 !important;
     white-space: normal !important;
   }
-  .navbar-middle ul.nav-links li a:hover,
-  .navbar-middle ul.nav-links li a.active {
+  
+  .navbar-middle ul.nav-links > li > a:hover,
+  .navbar-middle ul.nav-links > li > a.active {
     background: #cc5500 !important;
     color: #fff !important;
   }
 
-  /* Mobile shop dropdown styles */
-  .shop-dropdown-menu {
+  /* Mobile shop dropdown styles - make it expand inline */
+  .shop-dropdown {
+    position: relative !important;
+  }
+  
+  /* Mobile shop toggle with arrow indicator */
+  .burger-nav-links .mobile-shop-toggle {
+    position: relative;
+    padding-right: 40px !important;
+  }
+  
+  .burger-nav-links .mobile-shop-toggle::after {
+    content: "▼";
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.9rem;
+    transition: transform 0.3s ease;
+    color: #ccc;
+  }
+  
+  .burger-nav-links .shop-dropdown.open .mobile-shop-toggle::after {
+    transform: translateY(-50%) rotate(180deg);
+  }
+  
+  /* Burger menu shop dropdown styling */
+  .burger-nav-links .shop-dropdown-menu {
     position: static !important;
     display: block !important;
     background: #1a1a1a !important;
@@ -837,17 +947,26 @@ nav ul.burger-nav-links.open {
     backdrop-filter: none !important;
     opacity: 1 !important;
     transform: none !important;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+  
+  .burger-nav-links .shop-dropdown.open .shop-dropdown-menu {
+    max-height: 500px;
   }
 
-  .shop-dropdown-menu::before {
-    display: none !important;
+  .burger-nav-links .shop-dropdown-menu li {
+    margin: 0 !important;
+    padding: 0 !important;
+    border-bottom: 1px solid #333;
   }
 
-  .shop-dropdown-menu li {
-    margin: 2px 0 !important;
+  .burger-nav-links .shop-dropdown-menu li:last-child {
+    border-bottom: none;
   }
 
-  .shop-dropdown-menu li a {
+  .burger-nav-links .shop-dropdown-menu li a {
     padding: 14px 40px !important;
     font-size: 1rem !important;
     background: #1a1a1a !important;
@@ -856,13 +975,13 @@ nav ul.burger-nav-links.open {
     transition: all 0.2s ease !important;
     white-space: nowrap !important;
     word-break: normal !important;
+    display: block !important;
+    width: 100% !important;
+    color: #ccc !important;
+    text-align: center !important;
   }
 
-  .shop-dropdown-menu li a::before {
-    display: none !important;
-  }
-
-  .shop-dropdown-menu li a:hover {
+  .burger-nav-links .shop-dropdown-menu li a:hover {
     background: rgba(204, 85, 0, 0.15) !important;
     color: #cc5500 !important;
     transform: none !important;
@@ -870,19 +989,10 @@ nav ul.burger-nav-links.open {
   }
 
   .navbar-right {
-    width: auto;
-    padding: 0;
+    flex: 1 1 30%;
+    justify-content: flex-end;
+    padding: 0 8px 0 0;
     min-width: 0;
-    width: 40%;
-  }
-   .navbar-search.mobile-search-active .navbar-search-input,
-  .navbar-search.mobile-search-active #search-input {
-    display: inline-block !important;
-    background: #232323;
-    border: 2px solid #cc5500;
-    color: #fff;
-    margin-left: 8px;
-    z-index: 5000;
   }
   .navbar-search {
     display: flex;
@@ -909,4 +1019,112 @@ nav ul.burger-nav-links.open {
       font-size: 1.7rem;
       line-height: 1;
     }
+
+  /* Mobile search active state - MUST come after general navbar-search rules */
+  .navbar-search.mobile-search-active .navbar-search-input,
+  .navbar-search.mobile-search-active #search-input {
+    display: inline-block !important;
+    position: fixed !important;
+    top: 56px !important;
+    left: 8px !important;
+    right: 8px !important;
+    width: calc(100vw - 16px) !important;
+    background: #232323 !important;
+    border: 2px solid #cc5500 !important;
+    color: #fff !important;
+    margin: 0 !important;
+    padding: 12px 16px !important;
+    border-radius: 8px !important;
+    font-size: 16px !important;
+    z-index: 10000 !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3) !important;
   }
+
+  /* Fix cart dropdown positioning on mobile */
+  .cart-dropdown-panel {
+    right: -10px;
+    width: 260px;
+  }
+
+  /* Adjust cart icon positioning on mobile */
+  .cart-dropdown {
+    margin-right: 12px !important;
+  }
+
+  /* Mobile search results positioning - below navbar */
+  .search-results-container {
+    position: fixed !important;
+    top: 120px !important; /* Below navbar + mobile search input */
+    left: 8px !important;
+    right: 8px !important;
+    width: calc(100vw - 16px) !important;
+    z-index: 9999 !important;
+  }
+
+  .search-results {
+    width: 100% !important;
+    max-height: 300px !important;
+    overflow-y: auto !important;
+    border-radius: 8px !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3) !important;
+  }
+
+  .search-results li {
+    width: 100% !important;
+    max-width: none !important;
+  }
+  }
+
+/* Small mobile devices - prevent navbar from getting too thin */
+@media (max-width: 425px) {
+  .navbar {
+    padding: 0 12px !important;
+    min-height: 56px !important;
+  }
+  
+  .navbar-left {
+    flex: 1 1 35% !important;
+    padding-left: 4px !important;
+  }
+  
+  .navbar-right {
+    flex: 1 1 35% !important;
+    padding-right: 4px !important;
+  }
+  
+  .welcome-message {
+    font-size: 1rem !important;
+    max-width: 80px !important;
+  }
+  
+  .logo {
+    max-height: 24px !important;
+    max-width: 28px !important;
+  }
+}
+
+/* CRITICAL: Mobile search override - must be at end of file for proper cascade */
+@media (max-width: 1024px) {
+  .navbar-right .navbar-search.mobile-search-active input#search-input,
+  .navbar-right .navbar-search.mobile-search-active .navbar-search-input {
+    display: block !important;
+    position: fixed !important;
+    top: 80px !important;
+    left: 8px !important;
+    right: 8px !important;
+    width: calc(100vw - 16px) !important;
+    max-width: calc(100vw - 16px) !important;
+    min-width: calc(100vw - 16px) !important;
+    height: auto !important;
+    background: #232323 !important;
+    border: 2px solid #cc5500 !important;
+    color: #fff !important;
+    margin: 0 !important;
+    padding: 12px 16px !important;
+    border-radius: 8px !important;
+    font-size: 16px !important;
+    z-index: 10000 !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3) !important;
+    box-sizing: border-box !important;
+  }
+}
