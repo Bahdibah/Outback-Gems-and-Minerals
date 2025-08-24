@@ -810,7 +810,7 @@
         // Single variant - show exact weight with unit
         const variant = productVariants[0];
         if (variant && variant.weight && variant.unit) {
-          const formattedSize = formatSizeWithSpacing(variant.weight, variant.unit);
+          const formattedSize = formatSizeWithSpacing(variant.weight, variant.unit, variant);
           return formattedSize;
         }
         return null;
@@ -827,7 +827,8 @@
       
       // If all weights are the same, show single value
       if (minWeight === maxWeight) {
-        const formattedSize = formatSizeWithSpacing(minWeight, unit);
+        const variant = productVariants[0]; // Use first variant for dimensions
+        const formattedSize = formatSizeWithSpacing(minWeight, unit, variant);
         return formattedSize;
       }
       
@@ -845,13 +846,23 @@
     }
 
     // Helper function to format size with proper spacing
-    function formatSizeWithSpacing(weight, unit) {
+    function formatSizeWithSpacing(weight, unit, variant = null) {
+      let sizeText = '';
+      
       // Add space for word-based units like "slice", "bag", "piece", etc.
       if (unit && /^[a-zA-Z]/.test(unit) && unit !== 'ct' && unit !== 'g' && unit !== 'kg') {
-        return `${weight} ${unit}`;
+        sizeText = `${weight} ${unit}`;
+      } else {
+        // Keep compact format for standard units like "ct", "g", "kg"
+        sizeText = `${weight}${unit}`;
       }
-      // Keep compact format for standard units like "ct", "g", "kg"
-      return `${weight}${unit}`;
+      
+      // Add dimensions for slabs
+      if (variant && variant["Dimensions"] && variant.category === "Slabs") {
+        sizeText += ` - ${variant["Dimensions"]}`;
+      }
+      
+      return sizeText;
     }
 
 // Helper function for formatting category headers

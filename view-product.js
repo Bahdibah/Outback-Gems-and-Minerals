@@ -636,17 +636,16 @@ function updateProductDetails(selectedVariation) {
     // Update unit information
     if (productUnitInfoElement) {
       // Format the unit info more clearly
-      const unitText = selectedVariation.unit.toLowerCase() === 'each' || selectedVariation.unit.toLowerCase() === 'bag' || selectedVariation.unit.toLowerCase() === 'piece' 
+      let unitText = selectedVariation.unit.toLowerCase() === 'each' || selectedVariation.unit.toLowerCase() === 'bag' || selectedVariation.unit.toLowerCase() === 'piece' 
         ? `${selectedVariation.weight} ${selectedVariation.unit}`
         : `${selectedVariation.weight} ${selectedVariation.unit}`;
       
-      // Add dimensions for slabs if available
-      let displayText = unitText;
+      // Add dimensions for slabs directly in the unit text
       if (selectedVariation["Dimensions"] && selectedVariation.category === "Slabs") {
-        displayText += ` | Dimensions: ${selectedVariation["Dimensions"]}`;
+        unitText += ` - ${selectedVariation["Dimensions"]}`;
       }
       
-      productUnitInfoElement.textContent = displayText;
+      productUnitInfoElement.textContent = unitText;
       productUnitInfoElement.style.fontWeight = 'bold';
       productUnitInfoElement.style.color = '#ffb366';
     }
