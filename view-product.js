@@ -143,27 +143,53 @@ function highlightNavigation(category) {
   }, 100); // Check every 100ms
 }
 
-// Function to extract disclaimer text from technical information
-function extractDisclaimerText(techInfos) {
-  let disclaimerText = '';
-  
-  for (const techInfo of techInfos) {
-    const fullText = techInfo.fullText;
-    // Look for disclaimer section in the HTML content - multiple patterns
-    let disclaimerMatch = fullText.match(/<p><strong>Disclaimer:<\/strong><\/p><p>(.*?)<\/p>/s);
+// Function to load and display disclaimer based on product category/subcategory
+async function loadDisclaimer(product) {
+  try {
+    const response = await fetch('disclaimers.json');
+    const disclaimers = await response.json();
     
-    // Also check for "Important Notice" pattern and convert to "Disclaimer"
-    if (!disclaimerMatch) {
-      disclaimerMatch = fullText.match(/<p><strong>Important Notice:<\/strong><\/p><p>(.*?)<\/p>/s);
+    const disclaimerContainer = document.getElementById('disclaimer-text');
+    if (!disclaimerContainer) return;
+    
+    // Find matching disclaimer based on category or subcategory
+    let matchedDisclaimer = null;
+    
+    for (const disclaimer of disclaimers) {
+      const appliesToArray = disclaimer['applies-to'];
+      
+      // Check if product category or subcategory matches
+      if (appliesToArray.includes(product.category) || 
+          appliesToArray.includes(product['sub category'])) {
+        matchedDisclaimer = disclaimer;
+        break;
+      }
     }
     
-    if (disclaimerMatch) {
-      disclaimerText = `<p><strong>Disclaimer:</strong></p><p>${disclaimerMatch[1]}</p>`;
-      break; // Use the first disclaimer found
+    // If no specific match found, use general disclaimer
+    if (!matchedDisclaimer) {
+      matchedDisclaimer = disclaimers.find(d => d.category === 'general products');
+    }
+    
+    // Display the disclaimer
+    if (matchedDisclaimer) {
+      disclaimerContainer.innerHTML = `
+        <h3>${matchedDisclaimer['disclaimer-title']}</h3>
+        <p>${matchedDisclaimer['disclaimer-text']}</p>
+      `;
+    }
+    
+  } catch (error) {
+    console.error('Error loading disclaimer:', error);
+    // Fallback disclaimer
+    const disclaimerContainer = document.getElementById('disclaimer-text');
+    if (disclaimerContainer) {
+      disclaimerContainer.innerHTML = `
+        <h3>General Product Disclaimer</h3>
+        <p>Due to the natural origin and handcrafted nature of our products, expect some variations in colour, shape, size, and characteristics. Photos are taken under optimal lighting conditions to showcase features. Actual colours may vary depending on lighting and screen settings.</p>
+      `;
     }
   }
-  
-  return disclaimerText;
 }
 
 // Function to match disclaimer height with right column content
@@ -309,6 +335,9 @@ async function fetchProductDetails() {
     updateProductDetails(currentVariation);
     updateMetaTags(currentVariation); // Add this line
     injectProductSchema(currentVariation);
+    
+    // Load disclaimer based on product category/subcategory
+    await loadDisclaimer(currentVariation);
 
     // Add this line to highlight navigation based on the category
     if (variations[0] && variations[0].category) {
@@ -532,90 +561,6 @@ async function fetchProductDetails() {
       }));
     }
 
-    // Load technical information based on category hierarchy
-    if (category || subcategory) {
-      // Create hierarchical mapping: check main category first, then subcategory
-      const categoryToProductMapping = {
-        // Main category mappings (these apply to all items in the category)
-        "Tumbles": "tumbles",
-        "Slabs": "slabs", 
-        "Carvings & Collectibles": "carvings-collectibles",
-        "Raw Material & Specimens": "raw-specimens",
-        
-        // Subcategory mappings (for specific gemstone types - exact match to inventory)
-        "Synthetic Spinel": "synthetic spinel",
-        "Synthetic CZ": "synthetic-cz", 
-        "Synthetic Sapphire": "synthetic sapphire",
-        "Zircon": "zircon",
-        "Natural Sapphire": "natural sapphire",
-        "Natural Garnet": "natural garnet",
-        "Apatite": "natural-apatite",
-        "Amethyst": "natural-amethyst",
-        "Smoky Quartz": "smoky-quartz",
-        "Natural Peridot": "olivine",
-        "Olivine": "olivine",
-        "Sapphire Wash Bags": "sapphire-wash-bags",
-        "Mystery Boxes": "mystery-boxes",
-        "Thunder Eggs": "thunder-eggs",
-        "Agate Slices": "agate-slices",
-        "Yowah Nuts": "yowah-nuts",
-        "Herkimer Diamonds": "herkimer-diamonds"
-      };
-      
-      // Try main category first, then subcategory
-      let productCategory = categoryToProductMapping[category] || categoryToProductMapping[subcategory];
-      
-      if (productCategory) {
-        // Use the mapped category for loading technical information
-        fetch("products.json")
-          .then(res => res.json())
-          .then(products => {
-            // Find the product with this mapped category
-            const product = products.find(p => {
-              return (p.category || "").toLowerCase() === productCategory.toLowerCase();
-            });
-            
-            if (product) {
-              const title = product?.["product name"]
-                ? `<h3 style="color:#cc5500; margin-top:1.5em;">${product["product name"]}</h3>`
-                : "";
-              const info = product?.["product-description"] || "<p>No technical info available.</p>";
-              const techInfo = { title: title, info: info, fullText: title + info };
-              const techInfos = [techInfo]; // Keep as array for compatibility
-              
-              // Populate technical info section
-              const techDiv = document.getElementById("view-product-technical-info");
-              if (techDiv) techDiv.innerHTML = techInfos.map(item => item.fullText).join("<hr>");
-              
-              // Extract and populate disclaimer for desktop section
-              const disclaimerText = extractDisclaimerText(techInfos);
-              const desktopDisclaimerDiv = document.getElementById("disclaimer-text");
-              if (desktopDisclaimerDiv && disclaimerText) {
-                desktopDisclaimerDiv.innerHTML = disclaimerText;
-              }
-              
-              // Recalculate disclaimer height after content loads
-              setTimeout(() => {
-                matchDisclaimerHeight();
-              }, 100);
-            } else {
-              // No matching product found
-              const techDiv = document.getElementById("view-product-technical-info");
-              if (techDiv) techDiv.innerHTML = `<p>Technical information not available for ${productCategory}.</p>`;
-            }
-          })
-          .catch(err => {
-            const techDiv = document.getElementById("view-product-technical-info");
-            if (techDiv) techDiv.innerHTML = "<p>Error loading technical info.</p>";
-            console.error("Error loading technical info:", err);
-          });
-      } else {
-        // Fallback for unmapped categories
-        const techDiv = document.getElementById("view-product-technical-info");
-        if (techDiv) techDiv.innerHTML = `<p>Technical information not available for category: ${category}, subcategory: ${subcategory}.</p>`;
-      }
-    }
-
     //Continue shopping button to escape to category level//
     const continueLink = document.getElementById("view-product-continue-shopping-link");
     const continueBtn = document.getElementById("view-product-continue-shopping-button");
@@ -803,6 +748,9 @@ function updateProductDetails(selectedVariation) {
     
     // Update quantity button states after setting values
     setTimeout(updateQuantityButtons, 100);
+    
+    // Load disclaimer for the selected variation
+    loadDisclaimer(selectedVariation);
 }
 
 fetchProductDetails();

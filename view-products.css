@@ -668,7 +668,7 @@ h1 {
   height: 1px;
   background-color: #cc5500;
   width: 100%;
-  margin: 40px 0% 60px 0%;
+  margin: 40px 0% 30px 0%;
 }
 
 #image-modal-overlay {
@@ -1280,7 +1280,7 @@ h1 {
   color: #cc5500;
   font-size: 1.5rem;
   font-weight: bold;
-  margin: 15px 0;
+  margin: 5px 0 15px 0;
   text-align: center;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -1296,7 +1296,7 @@ h1 {
   color: #cc5500;
   font-size: 1.5rem;
   font-weight: bold;
-  margin: 15px 0;
+  margin: 5px 0 15px 0;
   text-align: center;
   text-transform: uppercase;
   letter-spacing: 1px;
