@@ -684,10 +684,18 @@ function updateProductDetails(selectedVariation) {
 
     // Main image from API
     const apiImage = selectedVariation["image url"] || "images/placeholder.png";
+    const apiImage2 = selectedVariation["image 2 url"] || "";
     const mainImage = document.getElementById("view-product-image");
     const thumbnailsContainer = document.getElementById("view-product-thumbnails");
     const modalOverlay = document.getElementById("image-modal-overlay");
     const modalImg = document.getElementById("image-modal-img");
+    
+    // Start building the image array with API images
+    let allImages = [apiImage];
+    if (apiImage2 && apiImage2.trim() !== "") {
+      allImages.push(apiImage2);
+    }
+    
     // Fetch extra images from productid.json
     fetch("productid.json")
       .then(res => res.json())
@@ -696,73 +704,64 @@ function updateProductDetails(selectedVariation) {
         const productImages = productImagesList.find(p => p.productid === productId);
         
         if (productImages && productImages.images) {
-          // Product has entry in productid.json - use those images
+          // Add images from productid.json, but limit total to 4
           const extraImages = productImages.images;
-          const allThumbs = [apiImage, ...extraImages];
+          const remainingSlots = 4 - allImages.length;
+          const imagesToAdd = extraImages.slice(0, remainingSlots);
+          allImages = [...allImages, ...imagesToAdd];
+        }
+        
+        // Set the main image to the first image
+        if (mainImage) {
+          mainImage.src = allImages[0];
+          mainImage.setAttribute("loading", "lazy");
+        }
 
-          // Set the main image to the API image by default
-          if (mainImage) {
-            mainImage.src = apiImage;
-            mainImage.setAttribute("loading", "lazy");
-          }
-
-          // Render thumbnails
+        // Render thumbnails for all images
+        thumbnailsContainer.innerHTML = "";
+        allImages.forEach((imgUrl, idx) => {
+          const thumb = document.createElement("img");
+          thumb.src = imgUrl;
+          thumb.alt = `Thumbnail ${idx + 1}`;
+          thumb.className = "view-product-image-placeholder";
+          thumb.style.cursor = "pointer";
+          thumb.loading = "lazy";
+          // Highlight the selected thumbnail
+          if (idx === 0) thumb.style.border = "2px solid #cc5500";
+          thumb.addEventListener("click", function() {
+            if (mainImage) mainImage.src = imgUrl;
+            // Optional: highlight the selected thumbnail
+            thumbnailsContainer.querySelectorAll("img").forEach(img => img.style.border = "1px solid #444");
+            this.style.border = "2px solid #cc5500";
+          });
+          thumbnailsContainer.appendChild(thumb);
+        });
+      })
+      .catch(error => {
+        console.warn("Could not load productid.json, using fallback images:", error);
+        // Fallback: use only the API images (main + second if available)
+        if (mainImage) {
+          mainImage.src = allImages[0];
+          mainImage.setAttribute("loading", "lazy");
+        }
+        // Create thumbnails for available API images
+        if (thumbnailsContainer) {
           thumbnailsContainer.innerHTML = "";
-          allThumbs.forEach((imgUrl, idx) => {
+          allImages.forEach((imgUrl, idx) => {
             const thumb = document.createElement("img");
             thumb.src = imgUrl;
             thumb.alt = `Thumbnail ${idx + 1}`;
             thumb.className = "view-product-image-placeholder";
             thumb.style.cursor = "pointer";
             thumb.loading = "lazy";
-            // Highlight the selected thumbnail
             if (idx === 0) thumb.style.border = "2px solid #cc5500";
             thumb.addEventListener("click", function() {
               if (mainImage) mainImage.src = imgUrl;
-              // Optional: highlight the selected thumbnail
               thumbnailsContainer.querySelectorAll("img").forEach(img => img.style.border = "1px solid #444");
               this.style.border = "2px solid #cc5500";
             });
             thumbnailsContainer.appendChild(thumb);
           });
-        } else {
-          // No entry in productid.json - show only the main image
-          if (mainImage) {
-            mainImage.src = apiImage;
-            mainImage.setAttribute("loading", "lazy");
-          }
-          // Create a single thumbnail for the main image only
-          if (thumbnailsContainer) {
-            thumbnailsContainer.innerHTML = "";
-            const thumb = document.createElement("img");
-            thumb.src = apiImage;
-            thumb.alt = "Product image";
-            thumb.className = "view-product-image-placeholder";
-            thumb.style.cursor = "pointer";
-            thumb.style.border = "2px solid #cc5500";
-            thumb.loading = "lazy";
-            thumbnailsContainer.appendChild(thumb);
-          }
-        }
-      })
-      .catch(error => {
-        console.warn("Could not load productid.json, using fallback images:", error);
-        // Fallback: just show the main API image
-        if (mainImage) {
-          mainImage.src = apiImage;
-          mainImage.setAttribute("loading", "lazy");
-        }
-        // Create a single thumbnail for the main image
-        if (thumbnailsContainer) {
-          thumbnailsContainer.innerHTML = "";
-          const thumb = document.createElement("img");
-          thumb.src = apiImage;
-          thumb.alt = "Product image";
-          thumb.className = "view-product-image-placeholder";
-          thumb.style.cursor = "pointer";
-          thumb.style.border = "2px solid #cc5500";
-          thumb.loading = "lazy";
-          thumbnailsContainer.appendChild(thumb);
         }
       });
 
@@ -1977,7 +1976,7 @@ function openEmailNotificationModal() {
     form.reset();
   }
   if (successMessage) {
-    successMessage.style.display = 'none';
+    successMessage.classList.add('hidden-element');
   }
   
   // Populate hidden fields with current product details
@@ -2053,6 +2052,19 @@ function setupEmailNotificationModal() {
     form.addEventListener('submit', async function(e) {
       e.preventDefault();
       
+      // Honeypot spam protection
+      const honeypot = document.getElementById('notification-website');
+      if (honeypot && honeypot.value.trim() !== '') {
+        console.log('Spam submission blocked by honeypot');
+        // Show fake success message to confuse bots
+        form.style.display = 'none';
+        successMessage.classList.remove('hidden-element');
+        setTimeout(() => {
+          closeEmailNotificationModal();
+        }, 2000);
+        return;
+      }
+      
       const submitBtn = form.querySelector('.email-submit-btn');
       const originalText = submitBtn.textContent;
       
@@ -2090,7 +2102,7 @@ Please notify this customer when the above item is back in stock.`;
         if (response.ok) {
           // Show success message
           form.style.display = 'none';
-          successMessage.style.display = 'block';
+          successMessage.classList.remove('hidden-element');
           
           // Auto-close modal after 3 seconds
           setTimeout(() => {

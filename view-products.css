@@ -2011,3 +2011,16 @@ h1 {
     font-size: 1.3rem;
   }
 }
+
+/* Honeypot field styling */
+.honeypot-field {
+  position: absolute !important;
+  left: -9999px !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* Hidden element utility class */
+.hidden-element {
+  display: none !important;
+}
