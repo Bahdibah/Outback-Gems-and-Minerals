@@ -4,7 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <!-- Basic SEO Meta Tags -->
-  <meta name="description" content="View detailed product information, variations, and pricing for our premium gemstones and minerals at Outback Gems.">
+  <meta name="d        <h2>Get Notified When Available</h2>
+        <p>Enter your details below and we'll notify you when this item is back in stock.</p>
+        <p class="mandatory-note">mandatory field</p>ription" content="View detailed product information, variations, and pricing for our premium gemstones and minerals at Outback Gems.">
   <meta name="keywords" content="gemstones, minerals, crystals, specimen details, gem pricing, faceting rough">
   <meta name="author" content="Outback Gems & Minerals">
   <meta http-equiv="content-language" content="en-au">
@@ -186,6 +188,37 @@
       <div class="image-modal-content">
         <span class="image-modal-close"><i class="fa fa-times" aria-hidden="true"></i></span>
         <img id="image-modal-img" src=" " alt="Enlarged product image" loading="lazy" />
+      </div>
+    </div>
+
+    <!-- Email notification modal -->
+    <div id="email-notification-modal" class="email-modal-overlay">
+      <div class="email-modal-content">
+        <span class="email-modal-close">&times;</span>
+        <h2>Get Notified When Available</h2>
+        <p>Enter your email below and we'll notify you when this item is back in stock.</p>
+        <p class="mandatory-note">* Mandatory Field</p>
+        <form id="email-notification-form" action="form-to-email.php" method="post">
+          <div class="email-form-group">
+            <label for="notification-name">Your Name</label>
+            <input type="text" id="notification-name" name="name" placeholder="e.g. John Smith" required>
+          </div>
+          <div class="email-form-group">
+            <label for="notification-email">Your Email</label>
+            <input type="email" id="notification-email" name="email" placeholder="you@example.com" required>
+          </div>
+          <!-- Hidden fields for product details -->
+          <input type="hidden" id="notification-product-id" name="product_id" value="">
+          <input type="hidden" id="notification-product-name" name="product_name" value="">
+          <input type="hidden" id="notification-product-size" name="product_size" value="">
+          <input type="hidden" id="notification-product-price" name="product_price" value="">
+          <input type="hidden" name="message_type" value="stock_notification">
+          <button type="submit" class="email-submit-btn">Notify Me</button>
+        </form>
+        <div id="email-success-message" class="email-success-message" style="display: none;">
+          <h3>Thank you!</h3>
+          <p>We've received your request and will contact you as soon as this item is back in stock.</p>
+        </div>
       </div>
     </div>
 

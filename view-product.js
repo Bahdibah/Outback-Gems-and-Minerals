@@ -380,6 +380,13 @@ async function fetchProductDetails() {
 
     // Add to cart functionality (only once)
     addToCartButton.addEventListener("click", () => {
+      // Check if this is an out-of-stock item based on button text
+      if (addToCartButton.textContent === "Email Me When Available") {
+        // Open email notification modal
+        openEmailNotificationModal();
+        return;
+      }
+      
       // Prevent multiple clicks during processing
       if (addToCartButton.disabled) return;
       
@@ -630,6 +637,10 @@ function updateProductDetails(selectedVariation) {
           `;
           quantityInputElement.disabled = false;
           quantityInputElement.value = 1;
+          
+          // Update button for in-stock items
+          addToCartButton.textContent = "Add to Cart";
+          addToCartButton.style.backgroundColor = "#cc5500";
         } else {
           productStockElement.innerHTML = `
             <div style="text-align: center; line-height: 1.2;">
@@ -638,6 +649,10 @@ function updateProductDetails(selectedVariation) {
           `;
           quantityInputElement.disabled = true;
           quantityInputElement.value = 0;
+          
+          // Update button for out-of-stock items
+          addToCartButton.textContent = "Email Me When Available";
+          addToCartButton.style.backgroundColor = "#666666";
         }
     addToCartButton.disabled = false; // Always enabled
     productPriceElement.textContent = `Subtotal: $${parseFloat(selectedVariation["total price"]).toFixed(2)}`;
@@ -1949,3 +1964,155 @@ function initializeRelatedYowahNutsSwiper() {
     }
   });
 }
+
+// Email Notification Modal Functions
+function openEmailNotificationModal() {
+  const modal = document.getElementById('email-notification-modal');
+  const form = document.getElementById('email-notification-form');
+  const successMessage = document.getElementById('email-success-message');
+  
+  // Reset form and show form, hide success message
+  if (form) {
+    form.style.display = 'block';
+    form.reset();
+  }
+  if (successMessage) {
+    successMessage.style.display = 'none';
+  }
+  
+  // Populate hidden fields with current product details
+  populateEmailFormFields();
+  
+  // Show modal
+  if (modal) {
+    modal.style.display = 'block';
+    // Focus on name input field
+    setTimeout(() => {
+      const nameInput = document.getElementById('notification-name');
+      if (nameInput) {
+        nameInput.focus();
+      }
+    }, 100);
+  }
+}
+
+function closeEmailNotificationModal() {
+  const modal = document.getElementById('email-notification-modal');
+  if (modal) {
+    modal.style.display = 'none';
+  }
+}
+
+function populateEmailFormFields() {
+  const selectedIndex = parseInt(variationSelector.value, 10);
+  const selectedVariation = variations[selectedIndex];
+  
+  if (selectedVariation) {
+    // Populate hidden fields
+    const productIdField = document.getElementById('notification-product-id');
+    const productNameField = document.getElementById('notification-product-name');
+    const productSizeField = document.getElementById('notification-product-size');
+    const productPriceField = document.getElementById('notification-product-price');
+    
+    if (productIdField) productIdField.value = productId;
+    if (productNameField) productNameField.value = selectedVariation["product name"];
+    if (productSizeField) productSizeField.value = `${selectedVariation.weight} ${selectedVariation.unit}`;
+    if (productPriceField) productPriceField.value = selectedVariation["total price"];
+  }
+}
+
+function setupEmailNotificationModal() {
+  const modal = document.getElementById('email-notification-modal');
+  const closeBtn = document.querySelector('.email-modal-close');
+  const form = document.getElementById('email-notification-form');
+  const successMessage = document.getElementById('email-success-message');
+  
+  // Close modal when clicking X
+  if (closeBtn) {
+    closeBtn.addEventListener('click', closeEmailNotificationModal);
+  }
+  
+  // Close modal when clicking outside
+  if (modal) {
+    modal.addEventListener('click', function(e) {
+      if (e.target === modal) {
+        closeEmailNotificationModal();
+      }
+    });
+  }
+  
+  // Close modal on Escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && modal && modal.style.display === 'block') {
+      closeEmailNotificationModal();
+    }
+  });
+  
+  // Handle form submission
+  if (form) {
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const submitBtn = form.querySelector('.email-submit-btn');
+      const originalText = submitBtn.textContent;
+      
+      // Show loading state
+      submitBtn.textContent = 'Sending...';
+      submitBtn.disabled = true;
+      
+      try {
+        // Create FormData object
+        const formData = new FormData(form);
+        
+        // Add custom message
+        const productName = formData.get('product_name');
+        const productSize = formData.get('product_size');
+        const customerEmail = formData.get('email');
+        const customerName = formData.get('name');
+        
+        const customMessage = `Stock Notification Request:
+        
+Customer: ${customerName}
+Email: ${customerEmail}
+Product: ${productName}
+Size: ${productSize}
+
+Please notify this customer when the above item is back in stock.`;
+        
+        formData.set('message', customMessage);
+        
+        // Submit to form handler
+        const response = await fetch('form-to-email.php', {
+          method: 'POST',
+          body: formData
+        });
+        
+        if (response.ok) {
+          // Show success message
+          form.style.display = 'none';
+          successMessage.style.display = 'block';
+          
+          // Auto-close modal after 3 seconds
+          setTimeout(() => {
+            closeEmailNotificationModal();
+          }, 3000);
+        } else {
+          throw new Error('Network response was not ok');
+        }
+        
+      } catch (error) {
+        console.error('Error submitting form:', error);
+        alert('There was an error submitting your request. Please try again or contact us directly.');
+        
+        // Reset button
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+      }
+    });
+  }
+}
+
+// Initialize email notification modal when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+  setupEmailNotificationModal();
+});

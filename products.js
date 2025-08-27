@@ -422,6 +422,12 @@
           productCard.classList.add("dynamic-product-card");
           productCard.style.position = "relative"; // Enable positioning for overlay
 
+          // Check if product is out of stock
+          const isOutOfStock = product.stock === 0 || product.stock === "" || product.stock === null || product.stock === undefined || parseInt(product.stock) === 0;
+          if (isOutOfStock) {
+            productCard.classList.add("out-of-stock");
+          }
+
           const imageContainer = document.createElement("div");
           imageContainer.classList.add("image-container");
           

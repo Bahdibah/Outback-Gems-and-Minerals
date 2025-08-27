@@ -1672,3 +1672,342 @@ h1 {
     right: 5px;
   }
 }
+
+/* Email Notification Modal Styles */
+.email-modal-overlay {
+  display: none;
+  position: fixed;
+  z-index: 10000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(3px);
+}
+
+.email-modal-content {
+  background-color: #2e2e2e;
+  margin: 5% auto;
+  padding: 30px;
+  border: 2px solid #cc5500;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  color: #ffffff;
+  position: relative;
+  animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.email-modal-close {
+  color: #cccccc;
+  float: right;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  transition: color 0.3s ease;
+}
+
+.email-modal-close:hover,
+.email-modal-close:focus {
+  color: #cc5500;
+}
+
+.email-modal-content h2 {
+  color: #cc5500;
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 1.5rem;
+}
+
+.email-modal-content p {
+  color: #cccccc;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.email-form-group {
+  margin-bottom: 20px;
+}
+
+.email-form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: #ffffff;
+  font-weight: 500;
+}
+
+.email-form-group label::after {
+  content: " *";
+  color: #ff0000 !important;
+  font-weight: bold;
+}
+
+.email-form-group input {
+  width: 100% !important;
+  padding: 12px !important;
+  border: 2px solid #cccccc !important;
+  border-radius: 6px !important;
+  background-color: #ffffff !important;
+  color: #333333 !important;
+  font-size: 14px !important;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease !important;
+  box-sizing: border-box !important;
+}
+
+.email-form-group input:focus {
+  outline: none !important;
+  border-color: #cc5500 !important;
+  box-shadow: 0 0 8px rgba(204, 85, 0, 0.2) !important;
+  background-color: #ffffff !important;
+  color: #333333 !important;
+}
+
+.email-form-group input::placeholder {
+  color: #999999 !important;
+}
+
+/* Extra specific selector to ensure white background */
+#email-notification-modal .email-form-group input[type="email"] {
+  background-color: #ffffff !important;
+  color: #333333 !important;
+}
+
+#email-notification-modal .email-form-group input[type="email"]:focus {
+  background-color: #ffffff !important;
+  color: #333333 !important;
+}
+
+.email-submit-btn {
+  background-color: #cc5500;
+  color: white;
+  padding: 12px 30px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  width: 100%;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+
+.email-submit-btn:hover {
+  background-color: #ff7f33;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(204, 85, 0, 0.4);
+}
+
+.email-submit-btn:active {
+  transform: translateY(0);
+}
+
+.email-submit-btn:disabled {
+  background-color: #666666;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.email-success-message {
+  text-align: center;
+  padding: 20px;
+}
+
+.email-success-message h3 {
+  color: #4CAF50;
+  margin-bottom: 15px;
+  font-size: 1.3rem;
+}
+
+.email-success-message p {
+  color: #cccccc;
+  line-height: 1.6;
+}
+
+.mandatory-note {
+  color: #cc5500 !important;
+  font-size: 1.1rem !important;
+  margin-bottom: 20px !important;
+  font-style: italic !important;
+}
+
+/* Mobile responsiveness for email modal */
+@media (max-width: 768px) {
+  .email-modal-content {
+    margin: 10% auto;
+    padding: 20px;
+    width: 95%;
+  }
+  
+  .email-modal-content h2 {
+    font-size: 1.3rem;
+  }
+  
+  .email-form-group input {
+    padding: 10px;
+  }
+  
+  .email-submit-btn {
+    padding: 10px 20px;
+    font-size: 15px;
+  }
+}
+
+/* Email Notification Modal Styles */
+.email-modal-overlay {
+  display: none;
+  position: fixed;
+  z-index: 10000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(3px);
+}
+
+.email-modal-content {
+  position: relative;
+  background-color: #3a3a3a;
+  margin: 5% auto;
+  padding: 30px;
+  border: 2px solid #cc5500;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  color: #ffffff;
+  animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+  from { 
+    opacity: 0; 
+    transform: scale(0.8) translateY(-50px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: scale(1) translateY(0); 
+  }
+}
+
+.email-modal-close {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  color: #cc5500;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.email-modal-close:hover {
+  color: #ff7f33;
+}
+
+.email-modal-content h2 {
+  color: #ffb366;
+  margin-bottom: 10px;
+  font-size: 1.5rem;
+}
+
+.email-modal-content p {
+  color: #cccccc;
+  margin-bottom: 20px;
+}
+
+.email-form-group {
+  margin-bottom: 20px;
+}
+
+.email-form-group label {
+  display: block;
+  color: #ffb366;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.email-form-group input {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #555;
+  border-radius: 6px;
+  background-color: #2e2e2e;
+  color: #ffffff;
+  font-size: 1rem;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+.email-form-group input:focus {
+  outline: none;
+  border-color: #cc5500;
+  box-shadow: 0 0 8px rgba(204, 85, 0, 0.3);
+}
+
+.email-submit-btn {
+  width: 100%;
+  background-color: #cc5500;
+  color: white;
+  padding: 15px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.email-submit-btn:hover {
+  background-color: #ff7f33;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(204, 85, 0, 0.4);
+}
+
+.email-submit-btn:active {
+  transform: translateY(0);
+}
+
+.email-success-message {
+  text-align: center;
+  color: #4CAF50;
+}
+
+.email-success-message h3 {
+  color: #4CAF50;
+  margin-bottom: 10px;
+}
+
+.email-success-message p {
+  color: #cccccc;
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+  .email-modal-content {
+    margin: 10% auto;
+    padding: 20px;
+    width: 95%;
+  }
+  
+  .email-modal-content h2 {
+    font-size: 1.3rem;
+  }
+}
