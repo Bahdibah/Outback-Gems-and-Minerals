@@ -594,7 +594,13 @@ async function fetchProductDetails() {
         continueLink.href = `products.html?category=synthetic`;
       }
       else {
-      continueLink.href = `products.html?category=${encodeURIComponent(category)}`;}
+        // If there's a subcategory, include it in the URL using the format: mainCategory|subcategory
+        if (subcategory) {
+          continueLink.href = `products.html?category=${encodeURIComponent(category)}|${encodeURIComponent(subcategory.toLowerCase())}`;
+        } else {
+          continueLink.href = `products.html?category=${encodeURIComponent(category)}`;
+        }
+      }
       continueBtn.textContent = `Continue Shopping`;
     }
 

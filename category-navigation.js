@@ -119,7 +119,7 @@ class CategoryNavigation {
     }
 
     // Add subcategories if a main category is selected
-    if (activeCategory) {
+    if (activeCategory && !window.location.pathname.includes('view-product.html')) {
       this.createSubcategoryButtons(activeCategory);
       // Also update mobile subcategory dropdown only if it's a main category (not a subcategory)
       const mainCategory = activeCategory.split('-')[0];
@@ -131,7 +131,7 @@ class CategoryNavigation {
         }
       }
     } else {
-      // Hide subcategory dropdown when no category is selected
+      // Hide subcategory dropdown when no category is selected OR on view-product pages
       const mobileSubcategorySelect = document.getElementById('mobile-subcategory-select');
       if (mobileSubcategorySelect) {
         mobileSubcategorySelect.style.display = 'none';
@@ -462,10 +462,8 @@ class CategoryNavigation {
         const mainCategory = productCategory.trim().toLowerCase();
         this.updateMainCategoryActiveStates(mainCategory);
         
-        // If we have subcategory info, update that too
-        if (productSubcategory) {
-          this.updateSubcategoryActiveStates(productSubcategory);
-        }
+        // Don't show subcategory navigation on view-product pages
+        // Only update main category dropdown selection
       }
     });
     

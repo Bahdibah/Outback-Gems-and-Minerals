@@ -186,7 +186,7 @@ footer >div{
 
 /* Dynamic Product Card Styling */
 .dynamic-product-card {
-  flex: 1 1 calc(25% - 22.5px); /* Adjusted for 30px gap - each card gets 3/4 of gap space (22.5px) */
+  flex: 1 1 calc(25% - 22.5px); /* 4 cards per row above 1280px */
   min-width: 280px; /* Minimum width for proper display */
   max-width: 340px; /* Increased max width to better utilize available space */
   background-color: #3a3a3a;
@@ -198,6 +198,7 @@ footer >div{
   box-sizing: border-box;
   margin-bottom: 0;     
   height: 520px; /* Increased from 490px for even more space */
+  position: relative; /* Ensures proper positioning for absolute elements */
   display: flex;
   flex-direction: column;
   gap: 0; /* Remove gap, use margins instead for precise control */
@@ -479,17 +480,17 @@ button {
 
 @media (max-width: 1280px) {
   .dynamic-product-card {
-    flex: 1 1 calc(25% - 18px); /* Still 4 cards per row */
+    flex: 1 1 calc(33.333% - 16px); /* Change to 3 cards per row at 1280px */
     min-width: 260px;
-    max-width: 300px;
-    height: 400px; /* Reduced height */
+    max-width: 320px;
+    height: 420px; /* Adjusted height */
   }
   .dynamic-product-card .image-container {
-    height: 200px;
+    height: 160px; /* Reduced from 180px to give more room for button */
   }
   #dynamic-product-container {
     padding: 25px 30px;
-    gap: 18px;
+    gap: 16px;
   }
   
   /* Pagination adjustments for 1280px */
@@ -510,15 +511,15 @@ button {
 
 @media (max-width: 1024px) {
   .dynamic-product-card {
-    flex: 1 1 calc(33.333% - 16px); /* 3 cards per row on smaller screens */
+    flex: 1 1 calc(33.333% - 16px); /* Back to 3 cards per row with dropdown navigation */
     min-width: 250px;
     max-width: 320px;
-    height: auto; /* Changed from fixed 380px to auto */
-    min-height: 420px; /* Increased from 380px to ensure button visibility */
+    height: auto; /* Changed from fixed height to auto */
+    min-height: 420px; /* Ensure button visibility */
     padding-bottom: 18px; /* Extra bottom padding for button space */
   }
   .dynamic-product-card .image-container {
-    height: 190px;
+    height: 150px; /* Further reduced for 1024px range to ensure button visibility */
   }
   
   /* Ensure button is visible on 1024px screens */
