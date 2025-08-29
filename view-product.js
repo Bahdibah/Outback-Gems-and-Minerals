@@ -1,5 +1,5 @@
 const urlParams = new URLSearchParams(window.location.search);
-const productId = urlParams.get("productid") || urlParams.get("id");
+const productId = urlParams.get("productid");
 
 // DOM Elements
 const productNameElement = document.getElementById("view-product-name");

@@ -636,9 +636,6 @@
       productContainer.appendChild(bottomPagination);
     }
 
-    // Make loadProductsByCategory globally accessible for category navigation
-    window.loadProductsByCategory = loadProductsByCategory;
-
     function suggestAdditionalProducts(currentCategory, displayedProducts, data) {
       displayedProducts = displayedProducts || [];
       const displayedProductNames = new Set(displayedProducts.map(product => product["product name"]));
