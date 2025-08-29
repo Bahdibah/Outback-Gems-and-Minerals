@@ -764,7 +764,7 @@ function updateProductDetails(selectedVariation) {
         // Set the main image to the first image
         if (mainImage) {
           mainImage.src = allImages[0];
-          mainImage.alt = generateDynamicAltTag(product, true);
+          mainImage.alt = generateDynamicAltTag(selectedVariation, true);
           mainImage.setAttribute("loading", "lazy");
         }
 
@@ -773,7 +773,7 @@ function updateProductDetails(selectedVariation) {
         allImages.forEach((imgUrl, idx) => {
           const thumb = document.createElement("img");
           thumb.src = imgUrl;
-          thumb.alt = generateDynamicAltTag(product, false);
+          thumb.alt = generateDynamicAltTag(selectedVariation, false);
           thumb.className = "view-product-image-placeholder";
           thumb.style.cursor = "pointer";
           thumb.loading = "lazy";
@@ -782,7 +782,7 @@ function updateProductDetails(selectedVariation) {
           thumb.addEventListener("click", function() {
             if (mainImage) {
               mainImage.src = imgUrl;
-              mainImage.alt = generateDynamicAltTag(product, true);
+              mainImage.alt = generateDynamicAltTag(selectedVariation, true);
             }
             // Optional: highlight the selected thumbnail
             thumbnailsContainer.querySelectorAll("img").forEach(img => img.style.border = "1px solid #444");
@@ -796,7 +796,7 @@ function updateProductDetails(selectedVariation) {
         // Fallback: use only the API images (main + second if available)
         if (mainImage) {
           mainImage.src = allImages[0];
-          mainImage.alt = generateDynamicAltTag(product, true);
+          mainImage.alt = generateDynamicAltTag(selectedVariation, true);
           mainImage.setAttribute("loading", "lazy");
         }
         // Create thumbnails for available API images
@@ -805,7 +805,7 @@ function updateProductDetails(selectedVariation) {
           allImages.forEach((imgUrl, idx) => {
             const thumb = document.createElement("img");
             thumb.src = imgUrl;
-            thumb.alt = generateDynamicAltTag(product, false);
+            thumb.alt = generateDynamicAltTag(selectedVariation, false);
             thumb.className = "view-product-image-placeholder";
             thumb.style.cursor = "pointer";
             thumb.loading = "lazy";
@@ -813,7 +813,7 @@ function updateProductDetails(selectedVariation) {
             thumb.addEventListener("click", function() {
               if (mainImage) {
                 mainImage.src = imgUrl;
-                mainImage.alt = generateDynamicAltTag(product, true);
+                mainImage.alt = generateDynamicAltTag(selectedVariation, true);
               }
               thumbnailsContainer.querySelectorAll("img").forEach(img => img.style.border = "1px solid #444");
               this.style.border = "2px solid #cc5500";
@@ -1714,7 +1714,7 @@ async function setupRelatedProducts() {
       // Create card HTML content
       const cardContent = `
         <img src="${product["image url"] || 'images/placeholder.png'}" 
-             alt="${generateDynamicAltTag(product, true)}" 
+             alt="${product["product name"]}" 
              class="related-product-image"
              loading="lazy">
         <div class="related-product-name">${product["product name"]}</div>
@@ -1938,7 +1938,7 @@ async function setupRelatedYowahNuts() {
       // Create card HTML content
       const cardContent = `
         <img src="${product["image url"] || 'images/placeholder.png'}" 
-             alt="${generateDynamicAltTag(product, true)}" 
+             alt="${product["product name"]}" 
              class="related-product-image"
              loading="lazy">
         <div class="related-product-name">${product["product name"]}</div>
