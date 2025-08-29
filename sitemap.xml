@@ -457,7 +457,7 @@
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
-</urlset>  <!-- Product Pages -->
+  <!-- Product Pages -->
   <url>
     <loc>https://outbackgems.com.au/view-product.html?productid=bbj002</loc>
     <changefreq>monthly</changefreq>
