@@ -3,46 +3,141 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <!-- Basic SEO Meta Tags -->
+  
+  <!-- DNS Prefetch and Preconnect for Performance -->
+  <link rel="dns-prefetch" href="//fonts.googleapis.com">
+  <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  
+  <!-- Basic SEO Meta Tags -->
   <meta name="description" content="Browse our complete collection of natural and synthetic gemstones, crystals, minerals and fossicking supplies. Find high-quality specimens at Outback Gems & Minerals.">
-  <meta name="keywords" content="gemstones, minerals, crystals, sapphire, spinel, zircon, fossicking supplies, Australian gems">
+  <meta name="keywords" content="gemstones, minerals, crystals, sapphire, spinel, zircon, fossicking supplies, Australian gems, natural gemstones, synthetic gemstones, lapidary supplies">
   <meta name="author" content="Outback Gems & Minerals">
   <meta http-equiv="content-language" content="en-au">
+  <meta name="format-detection" content="telephone=no">
 
   <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="website">
+  <meta property="og:type" content="product">
   <meta property="og:url" content="https://outbackgems.com.au/products.html">
-  <meta property="og:title" content="Premium Gemstones & Minerals | Outback Gems">
-  <meta property="og:description" content="Browse our collection of natural and synthetic gemstones, minerals and crystals. Quality products for collectors and lapidary enthusiasts.">
-  <meta property="og:image" content="https://outbackgems.com.au/images/general/Facebook%20Logo.jpg">
+  <meta property="og:title" content="Premium Gemstones & Minerals Collection | Outback Gems & Minerals">
+  <meta property="og:description" content="Discover Australia's finest collection of natural and synthetic gemstones, minerals, crystals and fossicking supplies. Quality specimens for collectors and lapidary enthusiasts.">
+  <meta property="og:image" content="https://outbackgems.com.au/images/main/bbj005.jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Premium gemstone collection at Outback Gems & Minerals">
   <meta property="og:site_name" content="Outback Gems & Minerals">
   <meta property="og:locale" content="en_AU">
+  <meta property="fb:app_id" content="your-facebook-app-id">
   <meta property="article:publisher" content="https://www.facebook.com/profile.php?id=61576738875731">
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@outbackgems">
+  <meta name="twitter:creator" content="@outbackgems">
   <meta name="twitter:url" content="https://outbackgems.com.au/products.html">
-  <meta name="twitter:title" content="Premium Gemstones & Minerals | Outback Gems">
-  <meta name="twitter:description" content="Browse our collection of natural and synthetic gemstones, minerals and crystals. Quality products for collectors and lapidary enthusiasts.">
-  <meta name="twitter:image" content="https://outbackgems.com.au/images/general/Twitter%20Logo.jpg">
+  <meta name="twitter:title" content="Premium Gemstones & Minerals Collection | Outback Gems & Minerals">
+  <meta name="twitter:description" content="Discover Australia's finest collection of natural and synthetic gemstones, minerals, crystals and fossicking supplies. Quality specimens for collectors and lapidary enthusiasts.">
+  <meta name="twitter:image" content="https://outbackgems.com.au/images/main/bbj005.jpeg">
+  <meta name="twitter:image:alt" content="Premium gemstone collection at Outback Gems & Minerals">
 
   <!-- Additional SEO Tags -->
-  <meta name="robots" content="index, follow">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <meta name="geo.region" content="AU">
-  <title>Products - Outback Gems</title>
+  <meta name="geo.placename" content="Australia">
+  <meta name="theme-color" content="#1a472a">
+  <title>Premium Gemstones & Minerals Collection | Outback Gems & Minerals</title>
+  
+  <!-- Preload critical resources -->
+  <link rel="preload" href="products.css" as="style">
+  <link rel="preload" href="navbar.css" as="style">
+  <link rel="preload" href="category-navigation.css" as="style">
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" as="style">
+  
   <link rel="stylesheet" href="products.css" />
   <link rel="stylesheet" href="navbar.css" />
   <link rel="stylesheet" href="category-navigation.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Parisienne&display=swap" rel="stylesheet" />
+  <!-- Keep only Dancing Script for business name -->
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Allura&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Satisfy&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="canonical" href="https://outbackgems.com.au/products.html" />
-  <link rel="icon" type="image/png" href="images/favicon.png">  
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+  <link rel="apple-touch-icon" href="/images/favicon.png">  
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta name="referrer" content="strict-origin-when-cross-origin">
+  
+  <!-- Schema.org Structured Data for Product Catalog -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Store",
+    "name": "Outback Gems & Minerals",
+    "description": "Australia's premier destination for natural and synthetic gemstones, minerals, crystals and fossicking supplies. Quality specimens for collectors and lapidary enthusiasts.",
+    "url": "https://outbackgems.com.au",
+    "logo": "https://outbackgems.com.au/images/logo.png",
+    "image": "https://outbackgems.com.au/images/main/bbj005.jpeg",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "AU",
+      "addressRegion": "Australia"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "addressCountry": "AU"
+    },
+    "sameAs": [
+      "https://www.facebook.com/profile.php?id=61576738875731"
+    ],
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Gemstone and Mineral Collection",
+      "itemListElement": [
+        {
+          "@type": "OfferCatalog",
+          "name": "Natural Gemstones",
+          "description": "Authentic natural gemstones including sapphires, garnets, amethyst, and more"
+        },
+        {
+          "@type": "OfferCatalog", 
+          "name": "Synthetic Gemstones",
+          "description": "High-quality synthetic gemstones including spinel and cubic zirconia"
+        },
+        {
+          "@type": "OfferCatalog",
+          "name": "Minerals & Crystals", 
+          "description": "Natural minerals, crystals, and specimens for collectors"
+        },
+        {
+          "@type": "OfferCatalog",
+          "name": "Fossicking Supplies",
+          "description": "Equipment and supplies for gem hunting and mineral collecting"
+        }
+      ]
+    }
+  }
+  </script>
+  
+  <!-- Breadcrumb Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://outbackgems.com.au/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Products",
+        "item": "https://outbackgems.com.au/products.html"
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
   <div id="page-wrapper">
@@ -58,7 +153,7 @@
     <div class="page-layout">
       <div id="dynamic-product-container" class="product-container">
         <div class="dynamic-product-header-container">
-          <div class="dynamic-product-header-title">Product Header</div>
+          <h1 class="dynamic-product-header-title">Product Header</h1>
           <hr class="product-header-divider" />
         </div>
         <!-- Product cards will be dynamically inserted here -->

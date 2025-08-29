@@ -253,7 +253,7 @@
     document.addEventListener('DOMContentLoaded', async function() {
       // Initialize DOM elements
       productContainer = document.getElementById("dynamic-product-container");
-      productHeader = document.querySelector(".dynamic-product-header-title");
+      productHeader = document.querySelector("h1.dynamic-product-header-title");
       
       const categoryKeyword = getQueryParam("category");
       
@@ -385,6 +385,9 @@
 
             const headerTitle = keyword ? formatCategoryHeader(keyword) : "All Products";
             displayProducts(filteredProducts, headerTitle, keyword, data);
+            
+            // Create product catalog schema for SEO
+            createProductCatalogSchema(keyword, filteredProducts);
           } else {
             productContainer.innerHTML = "<p>No products found.</p>";
           }
@@ -433,7 +436,7 @@
           
           const img = document.createElement("img");
           img.src = product["image url"];
-          img.alt = product["product name"] || "Product Image";
+          img.alt = `${product["product name"]} - ${product.category || 'Premium gemstone'} for sale at Outback Gems & Minerals` || "Premium gemstone for sale";
           img.loading = "lazy"; // <-- Add this line
           imageContainer.appendChild(img);
 
@@ -684,7 +687,7 @@
       suggestionDivider.className = "product-header-divider";
       suggestionHeaderContainer.appendChild(suggestionDivider);
 
-      const suggestionHeader = document.createElement("div");
+      const suggestionHeader = document.createElement("h1");
       suggestionHeader.className = "dynamic-product-header-title";
       suggestionHeader.textContent = "You May Also Like";
       suggestionHeaderContainer.appendChild(suggestionHeader);
@@ -702,7 +705,7 @@
           
           const img = document.createElement("img");
           img.src = product["image url"];
-          img.alt = product["product name"] || "Product Image";
+          img.alt = `${product["product name"]} - Related ${product.category || 'gemstone'} from Outback Gems & Minerals` || "Related gemstone from Outback Gems";
           img.loading = "lazy";
           imageContainer.appendChild(img);
 
@@ -859,107 +862,296 @@ function formatCategoryHeader(keyword) {
 
 // Mapping for custom SEO meta tags per category
 const categoryMeta = {
-  "synthetic-spinel": {
-    title: "Buy Synthetic Spinel from Our Range of Premium Faceting Material – Outback Gems & Minerals",
-    description: "Shop our range of vivid synthetic spinel gemstones. Perfect for collectors and cutters. High-quality, affordable, and available in a variety of colours at Outback Gems & Minerals.",
-    image: "https://www.outbackgems.com.au/images/category-cards/synthetic-spinel.jpeg",
-    altText: "Synthetic spinel rough material specimens - Premium faceting gemstones at Outback Gems & Minerals"
+  // Main categories
+  "faceting rough": {
+    title: "Premium Faceting Rough | Synthetic Gemstone Cutting Material | Outback Gems & Minerals",
+    description: "Shop our extensive collection of premium faceting rough including synthetic materials in various colors. High-quality rough perfect for lapidary and gemstone cutting projects.",
+    image: ["https://www.outbackgems.com.au/images/main/s104.jpeg", "https://www.outbackgems.com.au/images/main/CZ-Champagne.jpeg", "https://www.outbackgems.com.au/images/main/s105.jpeg", "https://www.outbackgems.com.au/images/main/CZ-Golden.jpeg"],
+    altText: "Premium synthetic faceting rough collection including spinel and cubic zirconia at Outback Gems & Minerals",
+    category: "Faceting Rough",
+    keywords: "faceting rough, synthetic gemstones, gemstone cutting, lapidary material, rough material, faceting material, cutting stones"
   },
-  "synthetic-sapphire": {
-    title: "Buy Synthetic Sapphire from Our Range of Premium Faceting Material – Outback Gems & Minerals",
-    description: "Discover durable, brilliantly coloured synthetic sapphires for faceting and jewellery. Shop now at Outback Gems & Minerals.",
-    image: "https://www.outbackgems.com.au/images/category-cards/synthetic-sapphire.jpeg",
-    altText: "Synthetic sapphire rough material specimens - Premium faceting gemstones at Outback Gems & Minerals"
+  "carvings & collectibles": {
+    title: "Crystal Carvings & Collectibles | Handcrafted Gemstone Art | Outback Gems & Minerals",
+    description: "Discover our unique collection of handcrafted crystal carvings and collectible gemstone art. Beautiful pieces perfect for display, gifts and crystal enthusiasts.",
+    image: ["https://www.outbackgems.com.au/images/main/btf001.jpeg", "https://www.outbackgems.com.au/images/main/hrt001.jpeg", "https://www.outbackgems.com.au/images/main/mtr001.jpeg", "https://www.outbackgems.com.au/images/main/ccb001.jpeg"],
+    altText: "Handcrafted crystal carvings including butterflies, hearts, towers and collectibles at Outback Gems & Minerals",
+    category: "Carvings & Collectibles",
+    keywords: "crystal carvings, gemstone collectibles, crystal art, handcrafted crystals, mineral art, decorative crystals, crystal gifts"
   },
-  "synthetic-cubic-zirconia": {
-    title: "Buy Synthetic Cubic Zirconia from Our Range of Premium Faceting Material – Outback Gems & Minerals",
-    description: "Browse our selection of high-brilliance synthetic cubic zirconia. Perfect for faceting projects and jewellery. Outback Gems & Minerals.",
-    image: "https://www.outbackgems.com.au/images/category-cards/synthetic-cubic-zirconia.jpeg",
-    altText: "Synthetic cubic zirconia rough material specimens - Premium faceting gemstones at Outback Gems & Minerals"
+  "raw material & specimens": {
+    title: "Raw Gemstone Material & Natural Specimens | Collector Quality Minerals | Outback Gems & Minerals",
+    description: "Browse our collection of raw gemstone material and natural mineral specimens. Premium quality pieces perfect for collectors, fossickers and educational purposes.",
+    image: ["https://www.outbackgems.com.au/images/main/other-herkimer-diamonds.jpeg", "https://www.outbackgems.com.au/images/main/yn001.jpeg", "https://www.outbackgems.com.au/images/main/sw001.jpeg", "https://www.outbackgems.com.au/images/main/hap001.jpeg"],
+    altText: "Raw gemstone material including Herkimer diamonds, Yowah nuts and natural specimens at Outback Gems & Minerals",
+    category: "Raw Material & Specimens", 
+    keywords: "raw gemstones, mineral specimens, natural crystals, collector specimens, fossicking material, raw minerals, educational specimens"
   },
-  "natural-zircon": {
-    title: "Buy Natural Zircon from Our Range of Premium Natural Rough and Faceting Material – Outback Gems & Minerals",
-    description: "Shop natural zircon gemstones with rich tones and ancient origins. Brilliant, fiery, and unique. Outback Gems & Minerals.",
-    image: "https://www.outbackgems.com.au/images/category-cards/natural-zircon.jpeg",
-    altText: "Natural zircon rough specimens - Premium gemstones at Outback Gems & Minerals"
+  "slabs": {
+    title: "Natural Rough Slabs | Premium Lapidary & Cabochon Material | Outback Gems & Minerals",
+    description: "Premium natural rough slabs perfect for lapidary work, cabochon cutting and decorative displays. Quality mineral slabs for all your creative projects.",
+    image: ["https://www.outbackgems.com.au/images/main/cla001.jpeg", "https://www.outbackgems.com.au/images/main/msa001.jpeg", "https://www.outbackgems.com.au/images/main/rfj001.jpeg", "https://www.outbackgems.com.au/images/main/mag001.jpeg"],
+    altText: "Natural rough slabs including crazy lace agate, moss agate and rainforest jasper for lapidary work at Outback Gems & Minerals",
+    category: "Slabs",
+    keywords: "natural rough slabs, lapidary slabs, mineral slabs, cabochon material, rough slabs, decorative stone slabs"
   },
-  "natural-sapphire": {
-    title: "Buy Natural Sapphire from Our Range of Premium Natural Rough and Faceting Material – Outback Gems & Minerals",
-    description: "Explore the timeless beauty of natural sapphires. Vivid colours, exceptional durability. Outback Gems & Minerals.",
-    image: "https://www.outbackgems.com.au/images/category-cards/natural-sapphire.jpeg",
-    altText: "Natural sapphire rough specimens - Premium gemstones at Outback Gems & Minerals"
+  "tumbles": {
+    title: "Premium Tumbled Gemstones | Polished Crystal Collection | Outback Gems & Minerals",
+    description: "Beautiful collection of premium tumbled gemstones and polished crystals in various colors and materials. Perfect for collecting, jewelry making and crystal enthusiasts.",
+    image: ["https://www.outbackgems.com.au/images/main/other-amethyst-tumbles.jpeg", "https://www.outbackgems.com.au/images/main/other-quartz-tumbles.jpeg", "https://www.outbackgems.com.au/images/main/other-agate-tumbles.jpeg", "https://www.outbackgems.com.au/images/main/tmb004.jpeg"],
+    altText: "Premium tumbled gemstone collection including amethyst, quartz, agate and various crystal tumbles at Outback Gems & Minerals",
+    category: "Tumbles",
+    keywords: "tumbled gemstones, polished crystals, crystal tumbles, smooth stones, pocket stones, healing crystals, crystal collection"
   },
-  "natural-garnet": {
-    title: "Buy Natural Garnet from Our Range of Premium Natural Rough and Faceting Material – Outback Gems & Minerals",
-    description: "Shop natural garnet gemstones known for their brilliance and fire. Rich tones and ancient origins. Outback Gems & Minerals.",
-    image: "https://www.outbackgems.com.au/images/category-cards/natural-garnet.jpeg",
-    altText: "Natural garnet rough specimens - Premium gemstones at Outback Gems & Minerals"
+  
+  // Subcategory combinations (category|subcategory format)
+  "faceting rough|synthetic spinel": {
+    title: "Premium Synthetic Spinel Faceting Rough | Gemstone Cutting Material | Outback Gems & Minerals",
+    description: "Shop our range of vivid synthetic spinel faceting rough. Perfect for collectors and cutters. High-quality, affordable, and available in a variety of colours.",
+    image: ["https://www.outbackgems.com.au/images/main/s104.jpeg", "https://www.outbackgems.com.au/images/main/s105.jpeg"],
+    altText: "Synthetic spinel faceting rough - Premium cutting material at Outback Gems & Minerals",
+    category: "Faceting Rough",
+    keywords: "synthetic spinel, spinel faceting rough, faceting material, synthetic gems, spinel cutting material"
   },
-  "natural-apatite": {
-    title: "Buy Natural Apatite from Our Range of Premium Natural Rough and Faceting Material – Outback Gems & Minerals",
-    description: "Apatite in vibrant blue and green hues. Unique phosphate mineral specimens. Outback Gems & Minerals.",
-    image: "https://www.outbackgems.com.au/images/category-cards/natural-apatite.jpeg",
-    altText: "Natural apatite rough specimens - Premium gemstones at Outback Gems & Minerals"
+  "faceting rough|synthetic cz": {
+    title: "Premium Synthetic Cubic Zirconia Faceting Rough | CZ Cutting Material | Outback Gems & Minerals", 
+    description: "Browse our selection of high-brilliance synthetic cubic zirconia faceting rough. Perfect for faceting projects and jewellery making.",
+    image: ["https://www.outbackgems.com.au/images/main/CZ-Champagne.jpeg", "https://www.outbackgems.com.au/images/main/CZ-Golden.jpeg"],
+    altText: "Synthetic cubic zirconia faceting rough - Premium CZ cutting material at Outback Gems & Minerals",
+    category: "Faceting Rough",
+    keywords: "cubic zirconia, CZ faceting rough, synthetic gems, faceting material, jewelry stones, CZ cutting"
   },
-  "natural-amethyst": {
-    title: "Buy Natural Amethyst Specimens from Our Range of Gems and Minerals – Outback Gems & Minerals",
-    description: "Amethyst: the purple variety of quartz. Rich colour, perfect for collections and creative projects. Outback Gems & Minerals.",
-    image: "https://www.outbackgems.com.au/images/category-cards/natural-amethyst.jpeg",
-    altText: "Natural amethyst rough specimens - Premium gemstones at Outback Gems & Minerals"
+  "faceting rough|synthetic cz,synthetic spinel": {
+    title: "Mixed Synthetic Faceting Rough | CZ & Spinel Cutting Material | Outback Gems & Minerals",
+    description: "Premium mixed synthetic faceting rough including both cubic zirconia and synthetic spinel. Variety pack perfect for faceting enthusiasts.",
+    image: "https://www.outbackgems.com.au/images/category-cards/Synthetic-Spinel.jpeg",
+    altText: "Mixed synthetic CZ and spinel faceting rough at Outback Gems & Minerals",
+    category: "Faceting Rough", 
+    keywords: "mixed synthetic rough, CZ and spinel, variety faceting pack, synthetic gemstones, cutting material"
   },
-  "natural-smoky-quartz": {
-    title: "Buy Natural Smoky Quartz - Outback Gems & Minerals",
-    description: "Smoky Quartz: brown to grey quartz, valued for grounding tones and natural crystal formations. Outback Gems & Minerals.",
-    image: "https://www.outbackgems.com.au/images/category-cards/natural-smoky-quartz.jpeg",
-    altText: "Natural smoky quartz rough specimens - Premium gemstones at Outback Gems & Minerals"
+  "carvings & collectibles|crystal butterflies": {
+    title: "Amethyst & Rose Quartz Crystal Butterflies | Gemstone Butterfly Carvings | Outback Gems & Minerals",
+    description: "Beautiful crystal butterfly carvings crafted from premium amethyst, rose quartz and other gemstones. Perfect collectibles and decorative pieces for crystal enthusiasts.",
+    image: ["https://www.outbackgems.com.au/images/main/btf001.jpeg", "https://www.outbackgems.com.au/images/main/bbj002.jpeg"],
+    altText: "Amethyst and rose quartz crystal butterfly carvings at Outback Gems & Minerals",
+    category: "Carvings & Collectibles",
+    keywords: "crystal butterflies, amethyst butterflies, rose quartz butterflies, gemstone butterflies, crystal carvings, butterfly collectibles"
   },
-  "natural-peridot": {
-    title: "Buy Natural Peridot Specimens from Our Range of Gems and Minerals – Outback Gems & Minerals",
-    description: "Peridot (olivine): vibrant green gemstone formed deep within the Earth. Distinctive lime-green hue. Outback Gems & Minerals.",
-    image: "https://www.outbackgems.com.au/images/category-cards/natural-peridot.jpeg",
-    altText: "Natural peridot rough specimens - Premium gemstones at Outback Gems & Minerals"
+  "carvings & collectibles|crystal hearts": {
+    title: "Amethyst & Rose Quartz Crystal Hearts | Gemstone Heart Carvings | Outback Gems & Minerals",
+    description: "Premium crystal heart carvings made from beautiful amethyst, rose quartz and other gemstones. Perfect for gifts, collecting and crystal healing practices.",
+    image: ["https://www.outbackgems.com.au/images/main/hrt001.jpeg", "https://www.outbackgems.com.au/images/main/hrt002.jpeg"],
+    altText: "Amethyst and rose quartz crystal heart carvings at Outback Gems & Minerals",
+    category: "Carvings & Collectibles",
+    keywords: "crystal hearts, amethyst hearts, rose quartz hearts, gemstone hearts, crystal carvings, heart collectibles, healing crystals"
   },
-  "other-olivine": {
-    title: "Buy Olivine (Peridot) Specimens from Our Range of Gems and Minerals – Outback Gems & Minerals",
-    description: "Olivine, also known as peridot, is a vibrant green gemstone from deep within the Earth. Shop at Outback Gems & Minerals.",
-    image: "https://www.outbackgems.com.au/images/category-cards/other-olivine.jpeg",
-    altText: "Olivine peridot specimens - Premium gemstone collection at Outback Gems & Minerals"
+  "carvings & collectibles|crystal towers (mini)": {
+    title: "Mini Amethyst & Quartz Crystal Towers | Small Gemstone Towers | Outback Gems & Minerals",
+    description: "Mini crystal towers and small gemstone towers in amethyst, clear quartz and other materials. Perfect for crystal grids, decoration and collecting.",
+    image: ["https://www.outbackgems.com.au/images/main/mtr001.jpeg", "https://www.outbackgems.com.au/images/main/mtr002.jpeg"],
+    altText: "Mini amethyst and quartz crystal towers at Outback Gems & Minerals",
+    category: "Carvings & Collectibles",
+    keywords: "crystal towers, mini towers, amethyst towers, quartz towers, crystal points, gemstone towers, crystal grids"
   },
-  "other-sapphire-wash-bags": {
-    title: "Buy Sapphire Washbags for Gem Fossicking – Direct from Queensland Gemfields | Outback Gems & Minerals",
-    description: "Experience fossicking at home with our Sapphire Washbags from the Queensland Gemfields. Outback Gems & Minerals.",
-    image: "https://www.outbackgems.com.au/images/category-cards/other-sapphire-wash-bags.jpeg",
-    altText: "Sapphire washbags for fossicking - Queensland gemfield dirt bags at Outback Gems & Minerals"
+  "carvings & collectibles|crystal chip bottles": {
+    title: "Crystal Chip Bottles | Gemstone Chip Collections | Outback Gems & Minerals",
+    description: "Beautiful crystal chip bottles filled with premium gemstone chips. Perfect for crafts, decoration and collecting various crystal energies.",
+    image: ["https://www.outbackgems.com.au/images/main/ccb001.jpeg", "https://www.outbackgems.com.au/images/main/ccb002.jpeg"],
+    altText: "Crystal chip bottles with gemstone chips at Outback Gems & Minerals",
+    category: "Carvings & Collectibles",
+    keywords: "crystal chip bottles, gemstone chips, crystal crafts, decorative bottles, mixed crystals"
   },
-  "other-thunder-eggs": {
-    title: "Buy Thunder Eggs - Outback Gems & Minerals",
-    description: "Thunder eggs: crack them open to reveal vibrant patterns and hidden crystals. Outback Gems & Minerals.",
-    image: "https://www.outbackgems.com.au/images/category-cards/other-thunder-eggs.jpeg",
-    altText: "Thunder egg specimens - Natural geodes available at Outback Gems & Minerals"
+  "carvings & collectibles|gem tree (5-7cm)": {
+    title: "Gem Trees | Small Crystal Trees 5-7cm | Outback Gems & Minerals",
+    description: "Beautiful small gem trees featuring wire-wrapped crystal chips. Decorative crystal trees perfect for feng shui, decoration and gifts.",
+    image: ["https://www.outbackgems.com.au/images/main/mtr001.jpeg", "https://www.outbackgems.com.au/images/main/ccb001.jpeg"],
+    altText: "Small gem trees with crystal chips 5-7cm at Outback Gems & Minerals",
+    category: "Carvings & Collectibles",
+    keywords: "gem trees, crystal trees, wire wrapped crystals, feng shui trees, decorative crystals, small trees"
   },
-  "other-agate-slices": {
-    title: "Buy Agate Slices - Outback Gems & Minerals",
-    description: "Agate slices: natural banding and vibrant colours for display, decoration, or creative use. Outback Gems & Minerals.",
-    image: "https://www.outbackgems.com.au/images/category-cards/other-agate-slices.jpeg",
-    altText: "Agate slice specimens with natural banding - Premium stones at Outback Gems & Minerals"
+  "raw material & specimens|herkimer diamonds": {
+    title: "Herkimer Diamond Crystals | Natural Quartz Specimens | Outback Gems & Minerals",
+    description: "Herkimer diamonds: naturally double-terminated quartz crystals prized for their distinctive formation and sparkle. Premium natural specimens.",
+    image: ["https://www.outbackgems.com.au/images/main/other-herkimer-diamonds.jpeg", "https://www.outbackgems.com.au/images/main/hap001.jpeg"],
+    altText: "Herkimer diamond specimens - Natural double-terminated quartz crystals at Outback Gems & Minerals",
+    category: "Raw Material & Specimens",
+    keywords: "herkimer diamonds, natural quartz, double terminated crystals, quartz specimens, crystal collecting"
   },
-  "other-yowah-nuts": {
-    title: "Buy Unopened Yowah Nuts – Single, Small, Medium, Large & 3-Packs | Direct from the Queensland Opal Fields | Outback Gems & Minerals",
-    description: "Shop genuine unopened Yowah nuts in single, small, medium, large, and 3-pack options. Direct from Queensland Opal fields. Each unopened nut is a natural surprise which may reveal beautiful banded ironstone or hidden opal. Outback Gems & Minerals.",
-    image: "https://www.outbackgems.com.au/images/category-cards/other-yowah-nuts.jpeg",
-    altText: "Unopened Yowah nuts specimens - Queensland opal bearing ironstone at Outback Gems & Minerals"
+  "raw material & specimens|sapphire wash bag": {
+    title: "Sapphire Wash Bags | Queensland Gemfield Dirt | Fossicking Experience | Outback Gems & Minerals",
+    description: "Experience fossicking at home with our Sapphire Wash Bags from the Queensland Gemfields. Real dirt bags for gem hunting adventures.",
+    image: ["https://www.outbackgems.com.au/images/main/sw001.jpeg", "https://www.outbackgems.com.au/images/main/sw002.jpeg"],
+    altText: "Sapphire wash bags for fossicking - Queensland gemfield dirt bags at Outback Gems & Minerals",
+    category: "Raw Material & Specimens",
+    keywords: "sapphire wash bags, fossicking, Queensland gemfields, gem hunting, sapphire dirt, fossicking bags"
   },
-  "other-tumbles": {
-    title: "Buy Tumbled Stones – Mixed Gemstone & Mineral Tumbles for Collectors, Gifts & Display | Outback Gems & Minerals",
-    description: "Discover the beauty of nature in miniature with our range of tumbled stones. Outback Gems & Minerals.",
+  "raw material & specimens|yowah nuts": {
+    title: "Buy Unopened Yowah Nuts | Small, Medium, Large & 3-Packs | Direct from QLD Opal Fields | Outback Gems & Minerals",
+    description: "Shop genuine unopened Yowah Nuts from Queensland Opal Fields in various sizes - single, small, medium, large and 3-pack options. Each unopened nut may contain beautiful banded ironstone or hidden opal. Buy direct from Australia's premier opal region.",
+    image: ["https://www.outbackgems.com.au/images/main/yn001.jpeg", "https://www.outbackgems.com.au/images/main/yn002.jpeg"],
+    altText: "Unopened Yowah nuts in various sizes from Queensland Opal Fields at Outback Gems & Minerals",
+    category: "Raw Material & Specimens",
+    keywords: "buy yowah nuts, unopened yowah nuts, Queensland opal fields, yowah nuts small medium large, 3-pack yowah nuts, opal nuts Australia, buy opal nuts, shop yowah nuts"
+  },
+  "tumbles|amethyst": {
+    title: "Amethyst Tumbled Stones | Purple Quartz Tumbles | Outback Gems & Minerals",
+    description: "Beautiful amethyst tumbled stones - premium purple quartz perfect for collecting, jewelry making and crystal healing practices.",
+    image: ["https://www.outbackgems.com.au/images/main/other-amethyst-tumbles.jpeg", "https://www.outbackgems.com.au/images/main/tmb004.jpeg"],
+    altText: "Amethyst tumbled stones - Purple quartz tumbles at Outback Gems & Minerals",
+    category: "Tumbles",
+    keywords: "amethyst tumbles, purple quartz, tumbled amethyst, healing crystals, polished amethyst"
+  },
+  "tumbles|rose quartz": {
+    title: "Rose Quartz Tumbled Stones | Pink Crystal Tumbles | Outback Gems & Minerals",
+    description: "Premium rose quartz tumbled stones in beautiful pink hues. Perfect for crystal healing, jewelry making and mineral collecting.",
+    image: ["https://www.outbackgems.com.au/images/main/other-quartz-tumbles.jpeg", "https://www.outbackgems.com.au/images/main/tmb005.jpeg"],
+    altText: "Rose quartz tumbled stones - Pink crystal tumbles at Outback Gems & Minerals",
+    category: "Tumbles",
+    keywords: "rose quartz tumbles, pink quartz, tumbled rose quartz, healing crystals, love stones"
+  },
+  "tumbles|smoky quartz": {
+    title: "Smoky Quartz Tumbled Stones | Grey Crystal Tumbles | Outback Gems & Minerals",
+    description: "Smoky quartz tumbled stones in rich brown to grey tones. Grounding crystals perfect for collecting and healing practices.",
+    image: ["https://www.outbackgems.com.au/images/main/other-quartz-tumbles.jpeg", "https://www.outbackgems.com.au/images/main/tmb006.jpeg"],
+    altText: "Smoky quartz tumbled stones - Grey crystal tumbles at Outback Gems & Minerals",
+    category: "Tumbles",
+    keywords: "smoky quartz tumbles, grey quartz, brown quartz, grounding crystals, tumbled smoky quartz"
+  },
+  "tumbles|agate": {
+    title: "Agate Tumbled Stones | Banded Crystal Tumbles | Outback Gems & Minerals",
+    description: "Beautiful agate tumbled stones featuring natural banding patterns. Premium polished stones perfect for collecting and decorative displays.",
+    image: ["https://www.outbackgems.com.au/images/main/other-agate-tumbles.jpeg", "https://www.outbackgems.com.au/images/main/tmb007.jpeg"],
+    altText: "Agate tumbled stones with natural banding at Outback Gems & Minerals",
+    category: "Tumbles",
+    keywords: "agate tumbles, banded agate, tumbled agate, polished agate, decorative stones"
+  },
+  "tumbles|amazonite": {
+    title: "Amazonite Tumbled Stones | Blue-Green Crystal Tumbles | Outback Gems & Minerals",
+    description: "Stunning amazonite tumbled stones in beautiful blue-green hues. Premium feldspar crystals perfect for collecting and crystal healing.",
     image: "https://www.outbackgems.com.au/images/category-cards/other-tumbles.jpeg",
-    altText: "Tumbled stone specimens - Mixed gemstone and mineral collection at Outback Gems & Minerals"
+    altText: "Amazonite tumbled stones - Blue-green crystal tumbles at Outback Gems & Minerals",
+    category: "Tumbles",
+    keywords: "amazonite tumbles, blue green crystals, feldspar tumbles, healing crystals, amazonite stones"
   },
-  "natural-herkimer-diamonds": {
-    title: "Buy Herkimer Diamonds – Facetable and Specimen Quartz Crystals | Outback Gems & Minerals",
-    description: "Herkimer diamonds: naturally double-terminated quartz crystals prized for their distinctive formation and sparkle. Outback Gems & Minerals.",
-    image: "https://www.outbackgems.com.au/images/category-cards/natural-herkimer-diamonds.jpeg",
-    altText: "Natural herkimer diamond specimens - Herkimer Diamond quartz crystals at Outback Gems & Minerals"
+  "tumbles|aventurine": {
+    title: "Aventurine Tumbled Stones | Green Crystal Tumbles | Outback Gems & Minerals",
+    description: "Premium aventurine tumbled stones with beautiful sparkly inclusions. Green quartz crystals perfect for luck, prosperity and crystal healing.",
+    image: "https://www.outbackgems.com.au/images/category-cards/other-tumbles.jpeg",
+    altText: "Green aventurine tumbled stones with sparkly inclusions at Outback Gems & Minerals",
+    category: "Tumbles",
+    keywords: "aventurine tumbles, green aventurine, sparkly crystals, luck stones, prosperity crystals"
+  },
+  "tumbles|bumblebee jasper": {
+    title: "Bumblebee Jasper Tumbled Stones | Yellow & Black Crystal Tumbles | Outback Gems & Minerals",
+    description: "Vibrant bumblebee jasper tumbled stones with striking yellow and black patterns. Unique volcanic stones perfect for collectors.",
+    image: "https://www.outbackgems.com.au/images/category-cards/other-tumbles.jpeg",
+    altText: "Bumblebee jasper tumbled stones with yellow and black patterns at Outback Gems & Minerals",
+    category: "Tumbles",
+    keywords: "bumblebee jasper tumbles, yellow jasper, black jasper, volcanic stones, patterned stones"
+  },
+  "tumbles|citrine": {
+    title: "Citrine Tumbled Stones | Golden Yellow Crystal Tumbles | Outback Gems & Minerals",
+    description: "Beautiful citrine tumbled stones in warm golden yellow tones. Abundance and prosperity crystals perfect for collecting and healing practices.",
+    image: "https://www.outbackgems.com.au/images/category-cards/other-tumbles.jpeg",
+    altText: "Golden citrine tumbled stones - Yellow crystal tumbles at Outback Gems & Minerals",
+    category: "Tumbles",
+    keywords: "citrine tumbles, yellow crystals, golden citrine, abundance stones, prosperity crystals"
+  },
+  "tumbles|clear quartz": {
+    title: "Clear Quartz Tumbled Stones | Crystal Clear Tumbles | Outback Gems & Minerals",
+    description: "Pure clear quartz tumbled stones with excellent clarity. Master healer crystals perfect for amplifying energy and crystal collections.",
+    image: "https://www.outbackgems.com.au/images/category-cards/other-tumbles.jpeg",
+    altText: "Clear quartz tumbled stones - Crystal clear tumbles at Outback Gems & Minerals",
+    category: "Tumbles",
+    keywords: "clear quartz tumbles, crystal clear stones, master healer, amplifying crystals, pure quartz"
+  },
+  "tumbles|crazy lace agate": {
+    title: "Crazy Lace Agate Tumbled Stones | Patterned Crystal Tumbles | Outback Gems & Minerals",
+    description: "Stunning crazy lace agate tumbled stones with intricate patterns and bands. Unique Mexican agate perfect for collectors and display.",
+    image: "https://www.outbackgems.com.au/images/category-cards/other-tumbles.jpeg",
+    altText: "Crazy lace agate tumbled stones with intricate patterns at Outback Gems & Minerals",
+    category: "Tumbles",
+    keywords: "crazy lace agate tumbles, patterned agate, Mexican agate, banded stones, lace patterns"
+  },
+  "tumbles|fire quartz": {
+    title: "Fire Quartz Tumbled Stones | Hematite Included Crystal Tumbles | Outback Gems & Minerals",
+    description: "Beautiful fire quartz tumbled stones with hematite inclusions creating fiery patterns. Unique grounding crystals perfect for collectors.",
+    image: "https://www.outbackgems.com.au/images/category-cards/other-tumbles.jpeg",
+    altText: "Fire quartz tumbled stones with hematite inclusions at Outback Gems & Minerals",
+    category: "Tumbles",
+    keywords: "fire quartz tumbles, hematite inclusions, included quartz, grounding crystals, fiery patterns"
+  },
+  "tumbles|jasper": {
+    title: "Jasper Tumbled Stones | Earth Tone Crystal Tumbles | Outback Gems & Minerals",
+    description: "Premium jasper tumbled stones in beautiful earth tones and patterns. Nurturing and protective stones perfect for collecting and grounding.",
+    image: "https://www.outbackgems.com.au/images/category-cards/other-tumbles.jpeg",
+    altText: "Jasper tumbled stones in earth tones at Outback Gems & Minerals",
+    category: "Tumbles",
+    keywords: "jasper tumbles, earth tone stones, nurturing crystals, protective stones, patterned jasper"
+  },
+  "tumbles|malachite": {
+    title: "Malachite Tumbled Stones | Green Copper Crystal Tumbles | Outback Gems & Minerals",
+    description: "Stunning malachite tumbled stones with vibrant green bands and swirls. Copper mineral crystals perfect for transformation and healing.",
+    image: "https://www.outbackgems.com.au/images/category-cards/other-tumbles.jpeg",
+    altText: "Malachite tumbled stones with green bands and swirls at Outback Gems & Minerals",
+    category: "Tumbles",
+    keywords: "malachite tumbles, green copper stones, banded malachite, transformation crystals, swirled patterns"
+  },
+  "tumbles|mookite": {
+    title: "Mookite Tumbled Stones | Australian Jasper Crystal Tumbles | Outback Gems & Minerals",
+    description: "Beautiful mookite tumbled stones in warm earth tones. Australian jasper with grounding energy perfect for collecting and healing practices.",
+    image: "https://www.outbackgems.com.au/images/category-cards/other-tumbles.jpeg",
+    altText: "Mookite tumbled stones - Australian jasper in earth tones at Outback Gems & Minerals",
+    category: "Tumbles",
+    keywords: "mookite tumbles, Australian jasper, earth tone crystals, grounding stones, warm colors"
+  },
+  "tumbles|moroccan agate": {
+    title: "Moroccan Agate Tumbled Stones | Desert Crystal Tumbles | Outback Gems & Minerals",
+    description: "Exotic Moroccan agate tumbled stones with unique desert patterns and colors. Premium stones perfect for collectors and decorative displays.",
+    image: "https://www.outbackgems.com.au/images/category-cards/other-tumbles.jpeg",
+    altText: "Moroccan agate tumbled stones with desert patterns at Outback Gems & Minerals",
+    category: "Tumbles",
+    keywords: "Moroccan agate tumbles, desert agate, exotic patterns, collector stones, unique colors"
+  },
+  "tumbles|moss agate": {
+    title: "Moss Agate Tumbled Stones | Nature Pattern Crystal Tumbles | Outback Gems & Minerals",
+    description: "Beautiful moss agate tumbled stones with natural moss-like inclusions. Nature's art in stone perfect for gardeners and nature lovers.",
+    image: "https://www.outbackgems.com.au/images/category-cards/other-tumbles.jpeg",
+    altText: "Moss agate tumbled stones with natural moss patterns at Outback Gems & Minerals",
+    category: "Tumbles",
+    keywords: "moss agate tumbles, moss patterns, nature stones, garden crystals, included agate"
+  },
+  "tumbles|obsidian": {
+    title: "Obsidian Tumbled Stones | Volcanic Glass Crystal Tumbles | Outback Gems & Minerals",
+    description: "Sleek obsidian tumbled stones formed from volcanic glass. Powerful protection and grounding stones perfect for spiritual practices.",
+    image: "https://www.outbackgems.com.au/images/category-cards/other-tumbles.jpeg",
+    altText: "Black obsidian tumbled stones - Volcanic glass crystals at Outback Gems & Minerals",
+    category: "Tumbles",
+    keywords: "obsidian tumbles, volcanic glass, protection stones, grounding crystals, black stones"
+  },
+  "tumbles|prehnite": {
+    title: "Prehnite Tumbled Stones | Soft Green Crystal Tumbles | Outback Gems & Minerals",
+    description: "Gentle prehnite tumbled stones in soft green hues. Peaceful healing crystals perfect for meditation and emotional balance.",
+    image: "https://www.outbackgems.com.au/images/category-cards/other-tumbles.jpeg",
+    altText: "Soft green prehnite tumbled stones at Outback Gems & Minerals",
+    category: "Tumbles",
+    keywords: "prehnite tumbles, soft green crystals, peaceful stones, meditation crystals, emotional healing"
+  },
+  "tumbles|rainforest jasper": {
+    title: "Rainforest Jasper Tumbled Stones | Green Forest Crystal Tumbles | Outback Gems & Minerals",
+    description: "Beautiful rainforest jasper tumbled stones with green forest-like patterns. Nature-inspired stones perfect for earth connection and healing.",
+    image: "https://www.outbackgems.com.au/images/category-cards/other-tumbles.jpeg",
+    altText: "Rainforest jasper tumbled stones with green forest patterns at Outback Gems & Minerals",
+    category: "Tumbles",
+    keywords: "rainforest jasper tumbles, forest patterns, green jasper, nature connection, earth stones"
+  },
+  "tumbles|tiger eye": {
+    title: "Tiger Eye Tumbled Stones | Golden Brown Crystal Tumbles | Outback Gems & Minerals",
+    description: "Stunning tiger eye tumbled stones with golden brown chatoyancy. Courage and confidence stones perfect for protection and grounding.",
+    image: "https://www.outbackgems.com.au/images/category-cards/other-tumbles.jpeg",
+    altText: "Golden brown tiger eye tumbled stones with chatoyancy at Outback Gems & Minerals",
+    category: "Tumbles",
+    keywords: "tiger eye tumbles, golden brown stones, chatoyant crystals, courage stones, confidence crystals"
   }
 };
 
@@ -968,12 +1160,30 @@ function updateCategoryMetaTags(categoryKeyword) {
   if (categoryKeyword && categoryMeta[categoryKeyword]) {
     meta = categoryMeta[categoryKeyword];
   }
-  // Fallback to generic if not found
+  
+  // Enhanced fallback system for missing categories/subcategories
+  let fallbackMeta = null;
+  if (!meta && categoryKeyword) {
+    // Check if it's a subcategory format (category|subcategory)
+    if (categoryKeyword.includes('|')) {
+      const [mainCategory, subCategory] = categoryKeyword.split('|');
+      
+      // Generate dynamic fallback for subcategories
+      fallbackMeta = generateSubcategoryFallback(mainCategory, subCategory);
+    } else {
+      // Generate dynamic fallback for main categories
+      fallbackMeta = generateMainCategoryFallback(categoryKeyword);
+    }
+  }
+  
+  // Use meta, fallback, or final generic fallback
+  const finalMeta = meta || fallbackMeta;
   const formatted = categoryKeyword ? formatCategoryHeader(categoryKeyword) : "All Products";
-  const title = meta ? meta.title : (categoryKeyword ? `${formatted} - Outback Gems & Minerals` : "Products - Outback Gems & Minerals");
-  const description = meta ? meta.description : (categoryKeyword
-    ? `Browse our selection of ${formatted.toLowerCase()} at Outback Gems & Minerals.`
-    : "Browse our complete collection of natural and synthetic gemstones, crystals, minerals and fossicking supplies. Find high-quality specimens at Outback Gems & Minerals.");
+  
+  const title = finalMeta ? finalMeta.title : (categoryKeyword ? `${formatted} | Outback Gems & Minerals` : "Premium Gemstones & Minerals Collection | Outback Gems & Minerals");
+  const description = finalMeta ? finalMeta.description : (categoryKeyword
+    ? `Browse our selection of ${formatted.toLowerCase()} at Outback Gems & Minerals. Quality specimens for collectors and enthusiasts.`
+    : "Discover Australia's finest collection of natural and synthetic gemstones, minerals, crystals and fossicking supplies. Quality specimens for collectors and lapidary enthusiasts.");
 
   // Set dynamic title
   document.title = title;
@@ -986,6 +1196,14 @@ function updateCategoryMetaTags(categoryKeyword) {
     document.head.appendChild(metaDesc);
   }
   metaDesc.setAttribute('content', description);
+
+  // Update keywords meta tag
+  let metaKeywords = document.querySelector('meta[name="keywords"]');
+  if (metaKeywords) {
+    const baseKeywords = "gemstones, minerals, crystals, sapphire, spinel, zircon, fossicking supplies, Australian gems, natural gemstones, synthetic gemstones, lapidary supplies";
+    const categoryKeywords = finalMeta && finalMeta.keywords ? `, ${finalMeta.keywords}` : (categoryKeyword ? `, ${categoryKeyword.replace(/-/g, ' ').replace(/\|/g, ', ')}, ${formatted.toLowerCase()}` : "");
+    metaKeywords.setAttribute('content', baseKeywords + categoryKeywords);
+  }
 
   // Update Open Graph and Twitter tags
   const ogTitle = document.querySelector('meta[property="og:title"]');
@@ -1007,9 +1225,18 @@ function updateCategoryMetaTags(categoryKeyword) {
   if (twitterUrl) twitterUrl.setAttribute('content', window.location.href);
 
   // Set Open Graph and Twitter image tags
-  const image = meta && meta.image ? meta.image : "https://www.outbackgems.com.au/images/logo.png"; // fallback image
+  let image = "https://www.outbackgems.com.au/images/main/bbj005.jpeg"; // Default fallback image
+  
+  if (finalMeta && finalMeta.image) {
+    // Handle both array of images and single image
+    if (Array.isArray(finalMeta.image)) {
+      image = finalMeta.image[0]; // Use first image for primary social media tags
+    } else {
+      image = finalMeta.image;
+    }
+  }
 
-  // og:image
+  // og:image (primary)
   let ogImage = document.querySelector('meta[property="og:image"]');
   if (!ogImage) {
     ogImage = document.createElement('meta');
@@ -1017,6 +1244,22 @@ function updateCategoryMetaTags(categoryKeyword) {
     document.head.appendChild(ogImage);
   }
   ogImage.setAttribute('content', image);
+
+  // Add additional og:image tags for multi-image support
+  if (finalMeta && finalMeta.image && Array.isArray(finalMeta.image) && finalMeta.image.length > 1) {
+    // Remove any existing additional og:image tags first
+    const existingAdditionalImages = document.querySelectorAll('meta[property="og:image"][data-additional="true"]');
+    existingAdditionalImages.forEach(img => img.remove());
+    
+    // Add additional images (skip first one as it's already set above)
+    for (let i = 1; i < Math.min(finalMeta.image.length, 4); i++) { // Limit to 4 images total
+      const additionalOgImage = document.createElement('meta');
+      additionalOgImage.setAttribute('property', 'og:image');
+      additionalOgImage.setAttribute('data-additional', 'true');
+      additionalOgImage.setAttribute('content', finalMeta.image[i]);
+      document.head.appendChild(additionalOgImage);
+    }
+  }
 
   // twitter:image
   let twitterImage = document.querySelector('meta[name="twitter:image"]');
@@ -1026,5 +1269,172 @@ function updateCategoryMetaTags(categoryKeyword) {
     document.head.appendChild(twitterImage);
   }
   twitterImage.setAttribute('content', image);
+
+  // Update image alt text for social media
+  const ogImageAlt = document.querySelector('meta[property="og:image:alt"]');
+  const twitterImageAlt = document.querySelector('meta[name="twitter:image:alt"]');
+  const altText = finalMeta && finalMeta.altText ? finalMeta.altText : `${formatted} collection at Outback Gems & Minerals`;
+  
+  if (ogImageAlt) ogImageAlt.setAttribute('content', altText);
+  if (twitterImageAlt) twitterImageAlt.setAttribute('content', altText);
+
+  // Update breadcrumb schema if category is present
+  if (categoryKeyword) {
+    updateBreadcrumbSchema(categoryKeyword, formatted);
+  }
+  
   // Optionally update canonical URL (already handled by setupCanonicalUrl)
+}
+
+// Function to generate dynamic fallback SEO for subcategories
+function generateSubcategoryFallback(mainCategory, subCategory) {
+  const formattedMain = formatCategoryHeader(mainCategory);
+  const formattedSub = formatCategoryHeader(subCategory);
+  
+  // Category-specific fallback templates
+  const templates = {
+    'tumbles': {
+      title: `${formattedSub} Tumbled Stones | Polished Crystal Tumbles | Outback Gems & Minerals`,
+      description: `Beautiful ${formattedSub.toLowerCase()} tumbled stones - premium polished crystals perfect for collecting, jewelry making and crystal healing practices.`,
+      keywords: `${formattedSub.toLowerCase()} tumbles, ${formattedSub.toLowerCase()} stones, polished ${formattedSub.toLowerCase()}, tumbled crystals, healing stones`,
+      image: "https://www.outbackgems.com.au/images/category-cards/other-tumbles.jpeg",
+      altText: `${formattedSub} tumbled stones at Outback Gems & Minerals`
+    },
+    'carvings & collectibles': {
+      title: `${formattedSub} Crystal Carvings | Handcrafted Gemstone Art | Outback Gems & Minerals`,
+      description: `Beautiful ${formattedSub.toLowerCase()} crystal carvings and collectible pieces. Handcrafted gemstone art perfect for display and collecting.`,
+      keywords: `${formattedSub.toLowerCase()} carvings, crystal ${formattedSub.toLowerCase()}, gemstone art, collectible crystals, handcrafted stones`,
+      image: "https://www.outbackgems.com.au/images/category-cards/Other-Thunder-Egg.jpeg",
+      altText: `${formattedSub} crystal carvings at Outback Gems & Minerals`
+    },
+    'faceting rough': {
+      title: `${formattedSub} Faceting Rough | Premium Cutting Material | Outback Gems & Minerals`,
+      description: `Premium ${formattedSub.toLowerCase()} faceting rough material. High-quality stones perfect for lapidary work and gemstone cutting projects.`,
+      keywords: `${formattedSub.toLowerCase()} rough, faceting material, ${formattedSub.toLowerCase()} cutting, lapidary stones, rough gemstones`,
+      image: "https://www.outbackgems.com.au/images/category-cards/Synthetic-Spinel.jpeg",
+      altText: `${formattedSub} faceting rough at Outback Gems & Minerals`
+    },
+    'raw material & specimens': {
+      title: `${formattedSub} Specimens | Natural Mineral Collection | Outback Gems & Minerals`,
+      description: `Premium ${formattedSub.toLowerCase()} specimens and natural mineral pieces. Perfect for collectors, education and mineral enthusiasts.`,
+      keywords: `${formattedSub.toLowerCase()} specimens, natural ${formattedSub.toLowerCase()}, mineral collection, collector stones, raw materials`,
+      image: "https://www.outbackgems.com.au/images/category-cards/other-herkimer-diamonds.jpeg",
+      altText: `${formattedSub} specimens at Outback Gems & Minerals`
+    },
+    'slabs': {
+      title: `${formattedSub} Slabs | Natural Rough Slabs | Outback Gems & Minerals`,
+      description: `Premium ${formattedSub.toLowerCase()} slabs perfect for lapidary work, cabochon cutting and decorative projects.`,
+      keywords: `${formattedSub.toLowerCase()} slabs, natural rough slabs, lapidary material, cabochon material, stone slabs`,
+      image: "https://www.outbackgems.com.au/images/category-cards/Other-Agate-Slice.jpeg",
+      altText: `${formattedSub} slabs at Outback Gems & Minerals`
+    }
+  };
+  
+  return templates[mainCategory] || {
+    title: `${formattedSub} | ${formattedMain} | Outback Gems & Minerals`,
+    description: `Browse our ${formattedSub.toLowerCase()} collection in ${formattedMain.toLowerCase()}. Quality specimens at Outback Gems & Minerals.`,
+    keywords: `${formattedSub.toLowerCase()}, ${formattedMain.toLowerCase()}, gemstones, minerals, crystals`,
+    image: "https://www.outbackgems.com.au/images/main/bbj005.jpeg",
+    altText: `${formattedSub} collection at Outback Gems & Minerals`
+  };
+}
+
+// Function to generate dynamic fallback SEO for main categories
+function generateMainCategoryFallback(categoryKeyword) {
+  const formatted = formatCategoryHeader(categoryKeyword);
+  
+  return {
+    title: `${formatted} Collection | Premium Quality | Outback Gems & Minerals`,
+    description: `Browse our premium ${formatted.toLowerCase()} collection. Quality specimens and materials perfect for collectors and enthusiasts at Outback Gems & Minerals.`,
+    keywords: `${formatted.toLowerCase()}, ${categoryKeyword.replace(/\s+/g, ' ')}, gemstones, minerals, crystals, quality specimens`,
+    image: "https://www.outbackgems.com.au/images/main/bbj005.jpeg",
+    altText: `${formatted} collection at Outback Gems & Minerals`
+  };
+}
+
+// Function to update breadcrumb schema dynamically
+function updateBreadcrumbSchema(categoryKeyword, formattedCategory) {
+  // Remove existing breadcrumb schema
+  const existingBreadcrumb = document.querySelector('script[type="application/ld+json"]');
+  if (existingBreadcrumb && existingBreadcrumb.textContent.includes('BreadcrumbList')) {
+    existingBreadcrumb.remove();
+  }
+
+  // Create new breadcrumb schema
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://www.outbackgems.com.au/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Products",
+        "item": "https://www.outbackgems.com.au/products.html"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": formattedCategory,
+        "item": window.location.href
+      }
+    ]
+  };
+
+  // Add new breadcrumb schema to head
+  const script = document.createElement('script');
+  script.type = 'application/ld+json';
+  script.textContent = JSON.stringify(breadcrumbSchema, null, 2);
+  document.head.appendChild(script);
+}
+
+// Function to create product catalog schema for the current category
+function createProductCatalogSchema(categoryKeyword, products) {
+  // Remove existing product catalog schema
+  const existingCatalog = document.querySelectorAll('script[type="application/ld+json"]');
+  existingCatalog.forEach(script => {
+    if (script.textContent.includes('ItemList') || script.textContent.includes('hasOfferCatalog')) {
+      script.remove();
+    }
+  });
+
+  if (!products || products.length === 0) return;
+
+  const meta = categoryKeyword && categoryMeta[categoryKeyword] ? categoryMeta[categoryKeyword] : null;
+  const categoryName = meta ? meta.category : (categoryKeyword ? formatCategoryHeader(categoryKeyword) : "All Products");
+  
+  // Create product list schema
+  const productListSchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": `${categoryName} Collection`,
+    "description": meta ? meta.description : `Browse our collection of ${categoryName.toLowerCase()} at Outback Gems & Minerals`,
+    "numberOfItems": products.length,
+    "itemListElement": products.slice(0, 10).map((product, index) => ({
+      "@type": "Product",
+      "position": index + 1,
+      "name": product.name || `Product ${product.id}`,
+      "description": product.description || `Premium ${categoryName.toLowerCase()} specimen`,
+      "image": product.images && product.images.length > 0 ? `https://www.outbackgems.com.au/${product.images[0]}` : "https://www.outbackgems.com.au/images/logo.png",
+      "url": `https://www.outbackgems.com.au/view-product.html?id=${product.id}`,
+      "sku": product.id,
+      "offers": {
+        "@type": "Offer",
+        "price": product.price || "0.00",
+        "priceCurrency": "AUD",
+        "availability": "https://schema.org/InStock"
+      }
+    }))
+  };
+
+  // Add schema to head
+  const script = document.createElement('script');
+  script.type = 'application/ld+json';
+  script.textContent = JSON.stringify(productListSchema, null, 2);
+  document.head.appendChild(script);
 }

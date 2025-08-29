@@ -5,7 +5,7 @@ body {
   
     background-color: #2e2e2e;
     color: #cc5500;
-    font-family: 'Georgia', serif; 
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     margin: 0;
     padding: 0;
     height: 100%;
@@ -523,7 +523,7 @@ button {
   border: 3px solid #cc5500;
   box-sizing: border-box;
   margin-bottom: 24px;     /* was 32px */
-  min-height: 420px;  
+  min-height: 460px;       /* Increased from 420px to accommodate better image display */
   display: flex;
   flex-direction: column;
   gap: 5px;
@@ -534,7 +534,7 @@ button {
 
 .bestseller-product-card .image-container {
   width: 100%;
-  height: 250px;
+  height: 280px;           /* Increased from 250px for better image accommodation */
   overflow: hidden;
   border-radius: 10px;
   margin-bottom: 15px;
@@ -543,7 +543,7 @@ button {
 .bestseller-product-card img {
   width: 100%;
   height: 100%;  
-  object-fit: contain;
+  object-fit: cover;        /* Changed from 'contain' to 'cover' to make images spread */
   object-position: center;
   border-radius: 10px;
   margin-bottom: 12px;
@@ -615,7 +615,7 @@ button {
   border: 3px solid #cc5500;
   box-sizing: border-box;
   margin: 0; /* Ensure no extra margin */
-  min-height: 420px;
+  min-height: 460px;       /* Increased from 420px to accommodate better image display */
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -625,7 +625,7 @@ button {
 
 .whatsnew-product-card .image-container {
   width: 100%;
-  height: 250px;
+  height: 280px;           /* Increased from 250px for better image accommodation */
   overflow: hidden;
   border-radius: 10px;
   margin-bottom: 15px;
@@ -634,7 +634,7 @@ button {
 .whatsnew-product-card img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;        /* Changed from 'contain' to 'cover' to make images spread */
   object-position: center;
   border-radius: 10px;
   margin-bottom: 12px;

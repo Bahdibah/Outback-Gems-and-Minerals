@@ -109,6 +109,48 @@ function showBannerNotification(message, type = 'success') {
     }, 4000);
   }
 
+// Function to generate SEO-optimized dynamic alt tags
+function generateDynamicAltTag(product, isMainImage = true) {
+  if (!product) return "Gemstone specimen";
+  
+  const name = product["product name"] || "Gemstone";
+  const weight = product.weight || product["weight (ct)"] || "";
+  const category = product.category || "";
+  
+  // Create descriptive alt text
+  let altText = name;
+  
+  // Add weight if available
+  if (weight) {
+    if (weight.toString().includes('ct')) {
+      altText += ` - ${weight}`;
+    } else {
+      altText += ` - ${weight}g`;
+    }
+  }
+  
+  // Add category context for better SEO
+  if (category) {
+    const categoryLower = category.toLowerCase();
+    if (categoryLower.includes('natural')) {
+      altText += " natural gemstone specimen";
+    } else if (categoryLower.includes('synthetic')) {
+      altText += " synthetic gemstone specimen";  
+    } else {
+      altText += ` ${categoryLower} gemstone specimen`;
+    }
+  } else {
+    altText += " gemstone specimen";
+  }
+  
+  // Add context for main vs thumbnail
+  if (!isMainImage) {
+    altText += " thumbnail";
+  }
+  
+  return altText;
+}
+
   // Add this function just before your fetchProductDetails function
 function highlightNavigation(category) {
   if (!category) return;
@@ -632,8 +674,10 @@ function updateProductDetails(selectedVariation) {
 
     productNameElement.textContent = selectedVariation["product name"];
     productImageElement.src = selectedVariation["image url"] || "images/placeholder.png";
+    productImageElement.alt = generateDynamicAltTag(selectedVariation, true);
     productDescriptionElement.textContent = selectedVariation.description;
-        if (availableStock > 0) {
+    
+    if (availableStock > 0) {
           // Format stock with centered number under "Stock" label
           productStockElement.innerHTML = `
             <div style="text-align: center; line-height: 1.2;">
@@ -720,6 +764,7 @@ function updateProductDetails(selectedVariation) {
         // Set the main image to the first image
         if (mainImage) {
           mainImage.src = allImages[0];
+          mainImage.alt = generateDynamicAltTag(product, true);
           mainImage.setAttribute("loading", "lazy");
         }
 
@@ -728,14 +773,17 @@ function updateProductDetails(selectedVariation) {
         allImages.forEach((imgUrl, idx) => {
           const thumb = document.createElement("img");
           thumb.src = imgUrl;
-          thumb.alt = `Thumbnail ${idx + 1}`;
+          thumb.alt = generateDynamicAltTag(product, false);
           thumb.className = "view-product-image-placeholder";
           thumb.style.cursor = "pointer";
           thumb.loading = "lazy";
           // Highlight the selected thumbnail
           if (idx === 0) thumb.style.border = "2px solid #cc5500";
           thumb.addEventListener("click", function() {
-            if (mainImage) mainImage.src = imgUrl;
+            if (mainImage) {
+              mainImage.src = imgUrl;
+              mainImage.alt = generateDynamicAltTag(product, true);
+            }
             // Optional: highlight the selected thumbnail
             thumbnailsContainer.querySelectorAll("img").forEach(img => img.style.border = "1px solid #444");
             this.style.border = "2px solid #cc5500";
@@ -748,6 +796,7 @@ function updateProductDetails(selectedVariation) {
         // Fallback: use only the API images (main + second if available)
         if (mainImage) {
           mainImage.src = allImages[0];
+          mainImage.alt = generateDynamicAltTag(product, true);
           mainImage.setAttribute("loading", "lazy");
         }
         // Create thumbnails for available API images
@@ -756,13 +805,16 @@ function updateProductDetails(selectedVariation) {
           allImages.forEach((imgUrl, idx) => {
             const thumb = document.createElement("img");
             thumb.src = imgUrl;
-            thumb.alt = `Thumbnail ${idx + 1}`;
+            thumb.alt = generateDynamicAltTag(product, false);
             thumb.className = "view-product-image-placeholder";
             thumb.style.cursor = "pointer";
             thumb.loading = "lazy";
             if (idx === 0) thumb.style.border = "2px solid #cc5500";
             thumb.addEventListener("click", function() {
-              if (mainImage) mainImage.src = imgUrl;
+              if (mainImage) {
+                mainImage.src = imgUrl;
+                mainImage.alt = generateDynamicAltTag(product, true);
+              }
               thumbnailsContainer.querySelectorAll("img").forEach(img => img.style.border = "1px solid #444");
               this.style.border = "2px solid #cc5500";
             });
@@ -1207,7 +1259,7 @@ function extractColor(productName) {
   return '';
 }
 
-// Enhanced meta tags function with product-specific optimization
+// Enhanced meta tags function with multi-image support and improved SEO
 function updateMetaTags(product) {
   if (!product) return;
   
@@ -1216,7 +1268,7 @@ function updateMetaTags(product) {
   const stockStatus = product.stock > 0 ? 'In Stock' : 'Out of Stock';
   const stockText = product.stock > 0 ? ` ${stockStatus} -` : ` ${stockStatus}.`;
   
-  let title, description, ogImage, altText;
+  let title, description, images = [], altText;
   
   if (productMeta) {
     // Use optimized templates with dynamic data
@@ -1234,18 +1286,35 @@ function updateMetaTags(product) {
       .replace('{color}', color)
       .replace('${price}', parseFloat(product["total price"]).toFixed(2)) + stockText + " Shop online at Outback Gems & Minerals.";
     
-    // Use product-specific image, fallback to API image, then category image
-    ogImage = productMeta.image || product["image url"] || productMeta.categoryImage || 'https://outbackgems.com.au/images/general/Facebook%20Logo.jpg';
+    // Single image support - use only the product's own image
+    images = [];
+    
+    // Priority: specific product image from productSEOMeta, then inventory JSON image
+    if (productMeta.image) {
+      images.push(productMeta.image);
+    } else if (product["image url"]) {
+      images.push(product["image url"]);
+    }
+    
+    // Fallback to default if no images
+    if (images.length === 0) {
+      images.push('https://outbackgems.com.au/images/general/Facebook%20Logo.jpg');
+    }
+    
     altText = productMeta.altText || `${product["product name"]} ${product.weight}${product.unit} - Premium ${color || 'gemstone'} specimen at Outback Gems & Minerals`;
   } else {
     // Fallback for products not in mapping
     title = `Buy ${product["product name"]} ${product.weight}${product.unit} - $${parseFloat(product["total price"]).toFixed(2)} | Outback Gems & Minerals`;
     description = `${product.description || 'Premium gemstone product'}${stockText} Available for $${parseFloat(product["total price"]).toFixed(2)}. Shop online at Outback Gems & Minerals.`;
-    ogImage = product["image url"] || 'https://outbackgems.com.au/images/general/Facebook%20Logo.jpg';
+    images = product["image url"] ? [product["image url"]] : ['https://outbackgems.com.au/images/general/Facebook%20Logo.jpg'];
     altText = `${product["product name"]} ${product.weight}${product.unit} - Premium ${color || 'gemstone'} specimen at Outback Gems & Minerals`;
   }
 
+  // Update document title
   document.title = title;
+
+  // Update breadcrumb
+  updateBreadcrumb(product);
 
   // Meta Description
   let metaDescription = document.querySelector('meta[name="description"]');
@@ -1263,84 +1332,96 @@ function updateMetaTags(product) {
     metaKeywords.setAttribute('name', 'keywords');
     document.head.appendChild(metaKeywords);
   }
-  const keywords = productMeta?.keywords || 'gemstones, minerals, crystals, specimen details, gem pricing, faceting rough';
+  const keywords = productMeta?.keywords || `${product["product name"]}, ${color} gemstone, ${product.category}, ${product.subcategory}, Australian gems, premium quality, specimen details, gem pricing, faceting rough`;
   metaKeywords.setAttribute('content', keywords);
 
-  // Open Graph
-  let ogTitle = document.querySelector('meta[property="og:title"]');
-  if (!ogTitle) {
-    ogTitle = document.createElement('meta');
-    ogTitle.setAttribute('property', 'og:title');
-    document.head.appendChild(ogTitle);
-  }
-  ogTitle.setAttribute('content', title);
-
-  let ogDesc = document.querySelector('meta[property="og:description"]');
-  if (!ogDesc) {
-    ogDesc = document.createElement('meta');
-    ogDesc.setAttribute('property', 'og:description');
-    document.head.appendChild(ogDesc);
-  }
-  ogDesc.setAttribute('content', description);
-  
-  let ogUrl = document.querySelector('meta[property="og:url"]');
-  if (!ogUrl) {
-    ogUrl = document.createElement('meta');
-    ogUrl.setAttribute('property', 'og:url');
-    document.head.appendChild(ogUrl);
-  }
-  ogUrl.setAttribute('content', `https://outbackgems.com.au/view-product.html?productid=${productId}`);
-  
-  let ogImageMeta = document.querySelector('meta[property="og:image"]');
-  if (!ogImageMeta) {
-    ogImageMeta = document.createElement('meta');
-    ogImageMeta.setAttribute('property', 'og:image');
-    document.head.appendChild(ogImageMeta);
-  }
-  ogImageMeta.setAttribute('content', ogImage);
+  // Open Graph - Primary
+  updateOpenGraphTags(title, description, images, altText);
   
   // Twitter Cards
-  let twitterCard = document.querySelector('meta[name="twitter:card"]');
-  if (!twitterCard) {
-    twitterCard = document.createElement('meta');
-    twitterCard.setAttribute('name', 'twitter:card');
-    document.head.appendChild(twitterCard);
-  }
-  twitterCard.setAttribute('content', 'summary_large_image');
-
-  let twitterTitle = document.querySelector('meta[name="twitter:title"]');
-  if (!twitterTitle) {
-    twitterTitle = document.createElement('meta');
-    twitterTitle.setAttribute('name', 'twitter:title');
-    document.head.appendChild(twitterTitle);
-  }
-  twitterTitle.setAttribute('content', title);
+  updateTwitterCardTags(title, description, images[0], altText);
   
-  let twitterImage = document.querySelector('meta[name="twitter:image"]');
-  if (!twitterImage) {
-    twitterImage = document.createElement('meta');
-    twitterImage.setAttribute('name', 'twitter:image');
-    document.head.appendChild(twitterImage);
-  }
-  twitterImage.setAttribute('content', ogImage);
-  
-  let twitterDesc = document.querySelector('meta[name="twitter:description"]');
-  if (!twitterDesc) {
-    twitterDesc = document.createElement('meta');
-    twitterDesc.setAttribute('name', 'twitter:description');
-    document.head.appendChild(twitterDesc);
-  }
-  twitterDesc.setAttribute('content', description);
-
-  let twitterUrl = document.querySelector('meta[name="twitter:url"]');
-  if (!twitterUrl) {
-    twitterUrl = document.createElement('meta');
-    twitterUrl.setAttribute('name', 'twitter:url');
-    document.head.appendChild(twitterUrl);
-  }
-  twitterUrl.setAttribute('content', `https://outbackgems.com.au/view-product.html?productid=${productId}`);
+  // Product-specific meta tags
+  updateProductMetaTags(product);
   
   // Add canonical URL
+  updateCanonicalURL();
+}
+
+// Function to update Open Graph tags with single image support
+function updateOpenGraphTags(title, description, images, altText) {
+  // Remove existing og:image tags
+  const existingOgImages = document.querySelectorAll('meta[property="og:image"]');
+  existingOgImages.forEach(meta => meta.remove());
+  
+  // Add single primary image
+  if (images.length > 0) {
+    const ogImage = document.createElement('meta');
+    ogImage.setAttribute('property', 'og:image');
+    ogImage.setAttribute('content', images[0]);
+    document.head.appendChild(ogImage);
+  }
+
+  // Other Open Graph tags
+  updateOrCreateMeta('property', 'og:title', title);
+  updateOrCreateMeta('property', 'og:description', description);
+  updateOrCreateMeta('property', 'og:url', `https://outbackgems.com.au/view-product.html?productid=${productId}`);
+  updateOrCreateMeta('property', 'og:image:alt', altText);
+}
+
+// Function to update Twitter Card tags
+function updateTwitterCardTags(title, description, primaryImage, altText) {
+  updateOrCreateMeta('name', 'twitter:card', 'summary_large_image');
+  updateOrCreateMeta('name', 'twitter:title', title);
+  updateOrCreateMeta('name', 'twitter:description', description);
+  updateOrCreateMeta('name', 'twitter:image', primaryImage);
+  updateOrCreateMeta('name', 'twitter:image:alt', altText);
+  updateOrCreateMeta('name', 'twitter:url', `https://outbackgems.com.au/view-product.html?productid=${productId}`);
+}
+
+// Function to update product-specific meta tags
+function updateProductMetaTags(product) {
+  // Product availability
+  const availability = product.stock > 0 ? 'in stock' : 'out of stock';
+  updateOrCreateMeta('property', 'product:availability', availability);
+  updateOrCreateMeta('property', 'product:price:amount', parseFloat(product["total price"]).toFixed(2));
+  updateOrCreateMeta('property', 'product:price:currency', 'AUD');
+  
+  // Update structured data elements
+  const offerAvailability = document.getElementById('offer-availability');
+  if (offerAvailability) {
+    offerAvailability.setAttribute('content', 
+      product.stock > 0 ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock'
+    );
+  }
+  
+  const priceValue = document.getElementById('price-value');
+  const offerUrl = document.getElementById('offer-url');
+  if (priceValue) priceValue.textContent = parseFloat(product["total price"]).toFixed(2);
+  if (offerUrl) offerUrl.setAttribute('content', `https://outbackgems.com.au/view-product.html?productid=${productId}`);
+}
+
+// Utility function to create or update meta tags
+function updateOrCreateMeta(attribute, name, content) {
+  let meta = document.querySelector(`meta[${attribute}="${name}"]`);
+  if (!meta) {
+    meta = document.createElement('meta');
+    meta.setAttribute(attribute, name);
+    document.head.appendChild(meta);
+  }
+  meta.setAttribute('content', content);
+}
+
+// Function to update breadcrumb navigation
+function updateBreadcrumb(product) {
+  const breadcrumbProductName = document.getElementById('breadcrumb-product-name');
+  if (breadcrumbProductName && product) {
+    breadcrumbProductName.textContent = product["product name"];
+  }
+}
+
+// Function to update canonical URL
+function updateCanonicalURL() {
   let canonicalLink = document.querySelector('link[rel="canonical"]');
   if (!canonicalLink) {
     canonicalLink = document.createElement('link');
@@ -1348,11 +1429,6 @@ function updateMetaTags(product) {
     document.head.appendChild(canonicalLink);
   }
   canonicalLink.setAttribute('href', `https://outbackgems.com.au/view-product.html?productid=${productId}`);
-
-  // Enhanced image alt text using product-specific alt text
-  if (productImageElement) {
-    productImageElement.alt = altText;
-  }
 }
 
 // Modal image expand setup (add this after fetchProductDetails();)
@@ -1638,7 +1714,7 @@ async function setupRelatedProducts() {
       // Create card HTML content
       const cardContent = `
         <img src="${product["image url"] || 'images/placeholder.png'}" 
-             alt="${product["product name"]}" 
+             alt="${generateDynamicAltTag(product, true)}" 
              class="related-product-image"
              loading="lazy">
         <div class="related-product-name">${product["product name"]}</div>
@@ -1862,7 +1938,7 @@ async function setupRelatedYowahNuts() {
       // Create card HTML content
       const cardContent = `
         <img src="${product["image url"] || 'images/placeholder.png'}" 
-             alt="${product["product name"]}" 
+             alt="${generateDynamicAltTag(product, true)}" 
              class="related-product-image"
              loading="lazy">
         <div class="related-product-name">${product["product name"]}</div>

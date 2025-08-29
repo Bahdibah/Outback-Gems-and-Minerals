@@ -3,183 +3,247 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <!-- Basic SEO Meta Tags -->
-  <meta name="description" content="View detailed product information, variations, and pricing for our premium gemstones and minerals at Outback Gems.">
-  <meta name="keywords" content="gemstones, minerals, crystals, specimen details, gem pricing, faceting rough">
+  
+  <!-- DNS Prefetch for Performance -->
+  <link rel="dns-prefetch" href="//fonts.googleapis.com">
+  <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+  <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+  
+  <!-- Preconnect for Critical Resources -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  
+  <!-- Basic SEO Meta Tags (will be dynamically updated) -->
+  <meta name="description" content="View detailed product information, variations, and pricing for our premium gemstones and minerals at Outback Gems & Minerals. Quality specimens for collectors and lapidary enthusiasts.">
+  <meta name="keywords" content="gemstones, minerals, crystals, specimen details, gem pricing, faceting rough, Australian gems, premium quality">
   <meta name="author" content="Outback Gems & Minerals">
   <meta http-equiv="content-language" content="en-au">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <meta name="geo.region" content="AU">
+  <meta name="geo.country" content="Australia">
 
-  <!-- Open Graph / Facebook -->
+  <!-- Open Graph / Facebook (will be dynamically updated) -->
   <meta property="og:type" content="product">
-  <meta property="og:url" content="https://outbackgems.com.au/view-product.html">
-  <meta property="og:title" content="View Product Details | Outback Gems & Minerals">
-  <meta property="og:description" content="Detailed information about our premium gemstones, crystals and minerals. View specifications, variations and pricing.">
-  <meta property="og:image" content="https://outbackgems.com.au/images/general/Facebook%20Logo.jpg">
   <meta property="og:site_name" content="Outback Gems & Minerals">
   <meta property="og:locale" content="en_AU">
+  <meta property="fb:app_id" content="61576738875731">
   <meta property="article:publisher" content="https://www.facebook.com/profile.php?id=61576738875731">
+  <meta property="product:brand" content="Outback Gems & Minerals">
+  <meta property="product:availability" content="in stock">
+  <meta property="product:condition" content="new">
 
-  <!-- Twitter Card -->
+  <!-- Twitter Card (will be dynamically updated) -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:url" content="https://outbackgems.com.au/view-product.html">
-  <meta name="twitter:title" content="View Product Details | Outback Gems & Minerals">
-  <meta name="twitter:description" content="Detailed information about our premium gemstones, crystals and minerals. View specifications, variations and pricing.">
-  <meta name="twitter:image" content="https://outbackgems.com.au/images/general/Twitter%20Logo.jpg">
+  <meta name="twitter:site" content="@OutbackGems">
+  <meta name="twitter:creator" content="@OutbackGems">
 
-  <!-- Additional SEO Tags -->
-  <meta name="robots" content="index, follow">
-  <meta name="geo.region" content="AU">
-  <title>View Product - Outback Gems</title>
+  <!-- Additional SEO and Technical Tags -->
+  <meta name="format-detection" content="telephone=no">
+  <meta name="theme-color" content="#cc5500">
+  <meta name="msapplication-TileColor" content="#cc5500">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+  <!-- Title (will be dynamically updated) -->
+  <title>Premium Gemstone Details | Outback Gems & Minerals</title>
+  
+  <!-- Favicon and Icons -->
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+  <link rel="apple-touch-icon" href="/images/favicon.png">
+  
+  <!-- Stylesheets with Performance Optimizations -->
   <link rel="stylesheet" href="view-products.css" />
   <link rel="stylesheet" href="navbar.css" />
   <link rel="stylesheet" href="category-navigation.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Parisienne&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Allura&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Satisfy&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <!-- Swiper CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-  <link rel="icon" type="image/png" href="images/favicon.png">  
-  <meta http-equiv="X-Content-Type-Options" content="nosniff">
-  <meta name="referrer" content="strict-origin-when-cross-origin">
+  
+  <!-- Critical Fonts - Preloaded for Performance -->
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet"></noscript>
+  
+  <!-- Font Awesome - Async Loading -->
+  <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></noscript>
+  
+  <!-- Swiper CSS - Preloaded -->
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"></noscript>
 </head>
 <body>
   <div id="page-wrapper">
     
     <header id="navbar-container"></header>
     
-    <div class="view-product-container">
-      <div class="view-product-detail" aria-label="Product details">
-      <div class="view-product-header-container">
-        <h1 id="view-product-name" class="view-product-title" aria-live="polite">Loading...</h1>
-      </div>
-      <div class="view-product-main">
-        <!-- Left: Main image and thumbnails -->
-        <div class="view-product-images">
-          <div class="view-product-images-row">
-            <div class="view-product-thumbnails" id="view-product-thumbnails"></div>
-            <img id="view-product-image" src=" " alt="Product Image" class="view-product-main-image" loading="lazy" />
-          </div>
-           
-           <!-- Desktop disclaimer section (below images) -->
-           <div class="view-product-disclaimer-desktop" id="view-product-disclaimer-desktop">
-             <div class="disclaimer-content">
-               <div id="disclaimer-text"></div>
-             </div>
-           </div>
-        </div>
-        
-        <!-- Right: Product info -->
-        <div class="view-product-info">
-          <div class="view-product-row">
-            <label id="view-product-variation-label" for="view-product-variation-selector">Select Size:</label>
-            <select id="view-product-variation-selector"></select>
-          </div>
-          <div class="view-product-row">
-            <label id="view-product-quantity-label" for="view-product-quantity">Select Quantity:</label>
-            <div class="quantity-selector-container">
-              <button type="button" class="quantity-btn" id="quantity-decrease">−</button>
-              <input type="number" id="view-product-quantity" name="quantity" min="1" value="1" readonly>
-              <button type="button" class="quantity-btn" id="quantity-increase">+</button>
-            </div>
-            <span id="view-product-stock">Stock: Loading...</span>
-          </div>
-          <div class="view-product-row">
-            <span id="view-product-unit-info">Loading...</span>
-            <span id="view-product-unit-price">Loading...</span>
-          </div>
-          <div class="view-product-description-block">
-            <h2 class="view-product-description-title">Description</h2>
-            <p id="view-product-description" class="view-product-description">Loading product description...</p>
-          </div>
-          <div class="view-product-subtotal">
-            <span id="view-product-price">Subtotal: Loading...</span>
-          </div>
-          <button id="view-product-add-to-cart">Add to Cart</button>
-          <a id="view-product-continue-shopping-link" href="#"><button id="view-product-continue-shopping-button" class="theme-button">
-            Loading...
-          </button></a>
-        </div>
-      </div>
+    <main class="view-product-container" role="main">
+      <!-- Breadcrumb Navigation for SEO -->
+      <nav aria-label="Breadcrumb" class="breadcrumb-container">
+        <ol class="breadcrumb">
+          <li>
+            <a href="index.html">
+              <span>Home</span>
+            </a>
+          </li>
+          <li>
+            <a href="products.html">
+              <span>Products</span>
+            </a>
+          </li>
+          <li class="breadcrumb-current">
+            <span id="breadcrumb-product-name">Product Details</span>
+          </li>
+        </ol>
+      </nav>
       
-      <!-- Related Products Section (Generic) -->
-      <div id="related-products-section" class="related-products-section hidden">
-        <div class="divider"></div>
-        <div id="related-products-header">
-          <h2 class="related-products-title" id="related-products-title">Other Products Available</h2>
+      <article class="view-product-detail" aria-label="Product details">
+        <div class="view-product-header-container">
+          <h1 id="view-product-name" class="view-product-title" aria-live="polite">Loading...</h1>
         </div>
-
-        <div class="related-products-container">
-          <div class="related-products-grid" id="related-products-wrapper">
-            <!-- Related product cards will be inserted here for desktop -->
-          </div>
-
-          <!-- Swiper for mobile layout -->
-          <div class="related-products-swiper" id="related-products-swiper">
-            <div class="swiper-wrapper" id="related-products-swiper-wrapper">
-              <!-- Related product slides will be inserted here for mobile -->
+        <div class="view-product-main">
+          <!-- Left: Main image and thumbnails -->
+          <div class="view-product-images">
+            <div class="view-product-images-row">
+              <div class="view-product-thumbnails" id="view-product-thumbnails"></div>
+              <img id="view-product-image" 
+                   src=" " 
+                   alt="Gemstone specimen" 
+                   class="view-product-main-image" 
+                   loading="lazy" />
             </div>
-            <!-- Navigation arrows -->
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
-            <!-- Pagination dots -->
-            <div class="swiper-pagination"></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Related Yowah Nuts Section (Keep existing for Yowah Nuts) -->
-      <div id="related-yowah-nuts-section" class="related-products-section hidden">
-        <div class="divider"></div>
-        <h2 class="related-products-title">Other Yowah Nuts Available</h2>
-        
-        <!-- Desktop Grid Layout -->
-        <div class="related-yowah-nuts-container">
-          <div class="related-yowah-nuts-grid" id="related-yowah-nuts-wrapper">
-            <!-- Dynamic grid content will be inserted here -->
+             
+             <!-- Desktop disclaimer section (below images) -->
+             <div class="view-product-disclaimer-desktop" id="view-product-disclaimer-desktop">
+               <div class="disclaimer-content">
+                 <div id="disclaimer-text"></div>
+               </div>
+             </div>
           </div>
           
-          <!-- Mobile Swiper Layout -->
-          <div class="related-yowah-nuts-swiper" id="related-yowah-nuts-swiper">
-            <div class="swiper-wrapper" id="related-yowah-nuts-swiper-wrapper">
-              <!-- Dynamic swiper slides will be inserted here -->
+          <!-- Right: Product info with enhanced structured data -->
+          <div class="view-product-info">
+            <!-- Product Variations -->
+            <div class="view-product-row">
+              <label id="view-product-variation-label" for="view-product-variation-selector">Select Size:</label>
+              <select id="view-product-variation-selector"></select>
             </div>
-            <!-- Navigation buttons -->
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
-            <!-- Pagination dots -->
-            <div class="swiper-pagination"></div>
+            
+            <!-- Quantity and Stock -->
+            <div class="view-product-row">
+              <label id="view-product-quantity-label" for="view-product-quantity">Select Quantity:</label>
+              <div class="quantity-selector-container">
+                <button type="button" class="quantity-btn" id="quantity-decrease" aria-label="Decrease quantity">−</button>
+                <input type="number" id="view-product-quantity" name="quantity" min="1" value="1" readonly>
+                <button type="button" class="quantity-btn" id="quantity-increase" aria-label="Increase quantity">+</button>
+              </div>
+              <span id="view-product-stock">Stock: Loading...</span>
+            </div>
+            
+            <!-- Price Information -->
+            <div class="view-product-row">
+              <span id="view-product-unit-info">Loading...</span>
+              <span id="view-product-unit-price">
+                <span>$</span>
+                <span id="price-value">Loading...</span>
+              </span>
+            </div>
+            
+            <!-- Product Description -->
+            <div class="view-product-description-block">
+              <h2 class="view-product-description-title">Description</h2>
+              <p id="view-product-description" class="view-product-description">Loading product description...</p>
+            </div>
+            
+            <!-- Subtotal -->
+            <div class="view-product-subtotal">
+              <span id="view-product-price">Subtotal: Loading...</span>
+            </div>
+            
+            <!-- Action Buttons -->
+            <button id="view-product-add-to-cart" class="add-to-cart-btn" aria-describedby="view-product-description">Add to Cart</button>
+            <a id="view-product-continue-shopping-link" href="#" rel="nofollow">
+              <button id="view-product-continue-shopping-button" class="theme-button">Loading...</button>
+            </a>
           </div>
         </div>
-      </div>
-      
-      <script src="productCache.js"></script>
-      <script src="navbar.js"></script>
-      <script src="category-navigation.js"></script>
-      <!-- Swiper JS -->
-      <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-      <script src="view-product.js"></script>
+        <!-- Related Products Section (Generic) -->
+        <section id="related-products-section" class="related-products-section hidden" aria-labelledby="related-products-title">
+          <div class="divider" role="separator"></div>
+          <div id="related-products-header">
+            <h2 class="related-products-title" id="related-products-title">Other Products Available</h2>
+          </div>
 
-    </div> <!-- End of view-product-container -->
+          <div class="related-products-container">
+            <div class="related-products-grid" id="related-products-wrapper" role="list">
+              <!-- Related product cards will be inserted here for desktop -->
+            </div>
+
+            <!-- Swiper for mobile layout -->
+            <div class="related-products-swiper" id="related-products-swiper" aria-label="Related products carousel">
+              <div class="swiper-wrapper" id="related-products-swiper-wrapper" role="list">
+                <!-- Related product slides will be inserted here for mobile -->
+              </div>
+              <!-- Navigation arrows -->
+              <div class="swiper-button-next" aria-label="Next product" role="button" tabindex="0"></div>
+              <div class="swiper-button-prev" aria-label="Previous product" role="button" tabindex="0"></div>
+              <!-- Pagination dots -->
+              <div class="swiper-pagination" role="tablist" aria-label="Product slides pagination"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Related Yowah Nuts Section (Keep existing for Yowah Nuts) -->
+        <section id="related-yowah-nuts-section" class="related-products-section hidden" aria-labelledby="related-yowah-nuts-title">
+          <div class="divider" role="separator"></div>
+          <h2 class="related-products-title" id="related-yowah-nuts-title">Other Yowah Nuts Available</h2>
+          
+          <!-- Desktop Grid Layout -->
+          <div class="related-yowah-nuts-container">
+            <div class="related-yowah-nuts-grid" id="related-yowah-nuts-wrapper" role="list">
+              <!-- Dynamic grid content will be inserted here -->
+            </div>
+            
+            <!-- Mobile Swiper Layout -->
+            <div class="related-yowah-nuts-swiper" id="related-yowah-nuts-swiper" aria-label="Related Yowah nuts carousel">
+              <div class="swiper-wrapper" id="related-yowah-nuts-swiper-wrapper" role="list">
+                <!-- Dynamic swiper slides will be inserted here -->
+              </div>
+              <!-- Navigation buttons -->
+              <div class="swiper-button-next" aria-label="Next Yowah nut" role="button" tabindex="0"></div>
+              <div class="swiper-button-prev" aria-label="Previous Yowah nut" role="button" tabindex="0"></div>
+              <!-- Pagination dots -->
+              <div class="swiper-pagination" role="tablist" aria-label="Yowah nuts slides pagination"></div>
+            </div>
+          </div>
+        </section>
+        </section>
+        
+        <!-- JavaScript Files - Optimized Loading -->
+        <script src="productCache.js"></script>
+        <script src="navbar.js"></script>
+        <script src="category-navigation.js"></script>
+        <!-- Swiper JS - Async Loading -->
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
+        <script src="view-product.js" defer></script>
+
+      </article> <!-- End of view-product-detail -->
+    </main> <!-- End of view-product-container -->
+    
+    <!-- Footer -->
+    <footer>
+      <div class="footer-left">
+        <p><a href="privacypolicy.html" rel="nofollow">Privacy Policy</a></p>
+        <p><a href="termsofuse.html" rel="nofollow">Terms Of Use</a></p>
+        <p><a href="sitemap.html">Site Map</a></p>
+      </div>
+      <div class="footer-middle">
+        <p>&copy; 2025 <span>Outback Gems &amp; Minerals</span>. All rights reserved.</p>
+        <p>ABN: <span>53 418 745 121</span></p>
+      </div>
+      <div class="footer-right">
+        <p><a href="mailto:support@outbackgems.com.au" aria-label="Email support"><i class="fa fa-envelope footer-icon" aria-hidden="true"></i></a></p>
+        <p><a href="https://www.facebook.com/profile.php?id=61576738875731" aria-label="Facebook page"><i class="fa fa-facebook-square footer-icon" aria-hidden="true"></i></a></p>
+      </div>
+    </footer>
   </div> <!-- End of page-wrapper -->
-  
-  <footer>
-    <div class="footer-left">
-      <p><a href="privacypolicy.html">Privacy Policy</a></p>
-      <p><a href="termsofuse.html">Terms Of Use</a></p>
-      <p><a href="sitemap.html">Site Map</a></p>
-    </div>
-    <div class="footer-middle">
-      <p>&copy; 2025 Outback Gems &amp; Minerals. All rights reserved.</p>
-      <p>ABN: 53 418 745 121</p>
-    </div>
-    <div class="footer-right">
-      <p><a href="mailto:support@outbackgems.com.au"><i class="fa fa-envelope footer-icon" aria-hidden="true"></i></a></p>
-      <p><a href="https://www.facebook.com/profile.php?id=61576738875731"><i class="fa fa-facebook-square footer-icon" aria-hidden="true"></i></a></p>
-    </div>
-  </footer>
 
     <!-- Pop-out image overlay -->
     <div id="image-modal-overlay" aria-expanded>
