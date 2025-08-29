@@ -262,7 +262,7 @@ class CategoryNavigation {
         mobileSubcategorySelect.innerHTML = `
           <option value="${categoryKey}">All ${categoryLabel}</option>
           ${sortedSubcategories.map(subcat => `
-            <option value="${subcat}"${currentCategory === subcat ? ' selected' : ''}>
+            <option value="${categoryKey}|${subcat.toLowerCase()}"${currentCategory === `${categoryKey}|${subcat.toLowerCase()}` ? ' selected' : ''}>
               ${this.formatSubcategoryName(subcat)}
             </option>
           `).join('')}
@@ -380,8 +380,8 @@ class CategoryNavigation {
       this.createSubcategoryButtons(categoryKeyword);
       
       // Trigger category change event for products page
-      if (window.filterProductsByCategory) {
-        window.filterProductsByCategory(categoryKeyword);
+      if (typeof loadProductsByCategory === 'function') {
+        loadProductsByCategory(categoryKeyword);
       } else {
         // Fallback for products page if function not available yet
         if (typeof updateMainCategoryActiveStates === 'function') {
