@@ -2,25 +2,26 @@ let cachedProducts = [];
 let debounceTimeout;
 let loading = true; // Track whether data is still loading
 
-// Debugging: Ensure the script is loaded
-
-function fetchProductData() {
-  loading = true; // Set loading to true while fetching data
-  return fetch("https://script.googleusercontent.com/macros/echo?user_content_key=AehSKLjckrSmV4Q396r2J5437VHynXSLyUYow6iqkCoXEY7HrOg2cr_voo08MQL6qcMM04pBDpWPA1kgKDaTRUEOJBZ48B-SMN75SrRx86Pow9494AvOa4RBDe-WLCDnlG85PhU5LDk8GvqfMbrbDHzmS9kAs0tPivdOdAxqxdhgCnvUxPy8IKXdl6i92dL9O3GKWDjsSqKlqqa9bKbFxAnZn8oVEil2fg5qGD_Izy_rtBqgkVDTQpttRxrY86FnFn8373jngn3hJLR3QkHgvIWAzf2wa9cjBsGiOi70hv-IAu87d_WCywlb4vX0d2RHsA&lib=MreWV8qvFAXZ2-rISPaQS69qZewlWwj59")
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(`API request failed with status ${response.status}`);
-      }
-      return response.json();
-    })
-    .then(data => {
-      cachedProducts = data;
-      loading = false; // Set loading to false once data is loaded
-    })
-    .catch(error => {
-      loading = false; // Ensure loading is set to false even if there's an error
-      console.error("Error fetching product data:", error);
-    });
+// Use the same data source as category navigation
+async function loadProductData() {
+  try {
+    loading = true;
+    // Use getProductData from productCache.js (same as category navigation)
+    if (typeof getProductData === 'function') {
+      cachedProducts = await getProductData();
+    } else {
+      console.warn('getProductData function not available, falling back to fetch');
+      // Fallback to fetch if productCache.js is not loaded
+      const response = await fetch('./inventory.json');
+      if (!response.ok) throw new Error('Failed to load inventory.json');
+      cachedProducts = await response.json();
+    }
+    loading = false;
+  } catch (error) {
+    loading = false;
+    console.error("Error loading product data:", error);
+    cachedProducts = [];
+  }
 }
 
 function debounceSearch() {
@@ -28,6 +29,103 @@ function debounceSearch() {
   debounceTimeout = setTimeout(() => {
     search();
   }, 300);
+}
+
+// Dynamic Shop Dropdown Population
+async function populateShopDropdown() {
+  try {
+    // Load product data using the same source as category navigation
+    await loadProductData();
+
+    if (!cachedProducts || cachedProducts.length === 0) {
+      console.warn('No product data available for dropdown population');
+      return;
+    }
+
+    // Category labels mapping
+    const categoryLabels = {
+      'faceting rough': 'Faceting Rough',
+      'carvings & collectibles': 'Carvings & Collectibles', 
+      'raw material & specimens': 'Raw Material & Specimens',
+      'tumbles': 'Tumbles',
+      'slabs': 'Slabs'
+    };
+
+    // Discover main categories from product data
+    const mainCategories = new Set();
+    
+    cachedProducts.forEach(product => {
+      if (product.category) {
+        // Use the main category directly (no more dash splitting)
+        const mainCategory = product.category.trim().toLowerCase();
+        if (mainCategory) {
+          mainCategories.add(mainCategory);
+        }
+      }
+    });
+
+    // Convert to sorted array and create category objects
+    const discoveredCategories = Array.from(mainCategories).sort().map(key => ({
+      key: key,
+      label: categoryLabels[key] || key.split('-').map(word => 
+        word.charAt(0).toUpperCase() + word.slice(1)
+      ).join(' ')
+    }));
+
+    // Find dropdown menu elements
+    const dropdownMenu = document.querySelector('.shop-dropdown-menu');
+    const burgerNavLinks = document.querySelector('.burger-nav-links');
+
+    if (dropdownMenu) {
+      // Clear existing items except "All Products"
+      dropdownMenu.innerHTML = '<li><a href="products.html" style="font-weight:bold;">All Products</a></li>';
+      
+      // Add discovered categories
+      discoveredCategories.forEach(category => {
+        const listItem = document.createElement('li');
+        listItem.innerHTML = `<a href="products.html?category=${encodeURIComponent(category.key)}" style="font-weight:bold;">${category.label}</a>`;
+        dropdownMenu.appendChild(listItem);
+      });
+    }
+
+    if (burgerNavLinks) {
+      // Find and update burger menu - keep Home and Contact, update product categories
+      const homeLink = burgerNavLinks.querySelector('a[href="index.html"]');
+      const contactLink = burgerNavLinks.querySelector('a[href="contact.html"]');
+      
+      // Clear and rebuild burger menu
+      burgerNavLinks.innerHTML = '';
+      
+      // Add Home
+      if (homeLink) {
+        const homeItem = document.createElement('li');
+        homeItem.appendChild(homeLink.cloneNode(true));
+        burgerNavLinks.appendChild(homeItem);
+      }
+      
+      // Add All Products
+      const allProductsItem = document.createElement('li');
+      allProductsItem.innerHTML = '<a href="products.html" style="font-weight:bold;">All Products</a>';
+      burgerNavLinks.appendChild(allProductsItem);
+      
+      // Add discovered categories
+      discoveredCategories.forEach(category => {
+        const listItem = document.createElement('li');
+        listItem.innerHTML = `<a href="products.html?category=${encodeURIComponent(category.key)}" style="font-weight:bold;">${category.label}</a>`;
+        burgerNavLinks.appendChild(listItem);
+      });
+      
+      // Add Contact
+      if (contactLink) {
+        const contactItem = document.createElement('li');
+        contactItem.appendChild(contactLink.cloneNode(true));
+        burgerNavLinks.appendChild(contactItem);
+      }
+    }
+
+  } catch (error) {
+    console.error('Error populating shop dropdown:', error);
+  }
 }
 
 function search() {
@@ -47,7 +145,7 @@ function search() {
   }
 
   // Check if data is still loading
-  if (loading) {
+  if (loading || !cachedProducts || cachedProducts.length === 0) {
     resultContainer.innerHTML = "<p>Loading products...</p>"; // Show loading message
 
     // Wait and retry the search once loading is complete
@@ -183,8 +281,8 @@ document.addEventListener("cartUpdated", function() {
 
 document.addEventListener("DOMContentLoaded", () => {
 
-  // Fetch product data
-  fetchProductData();
+  // Load product data using same source as category navigation
+  loadProductData();
 
   // Wait for navbar.html to load
   fetch("navbar.html")
@@ -194,10 +292,13 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       return response.text();
     })
-    .then(html => {
+    .then(async html => {
       const navbarContainer = document.querySelector("header") || document.getElementById("navbar-container");
       if (navbarContainer) {
         navbarContainer.innerHTML = html;
+
+        // Populate shop dropdown dynamically
+        await populateShopDropdown();
 
             // --- Add burger menu toggle here ---
           const burger = document.getElementById("burger-menu");
@@ -222,6 +323,19 @@ document.addEventListener("DOMContentLoaded", () => {
         });
           }
         // --- End burger menu toggle ---
+
+        // --- Mobile shop dropdown toggle ---
+        const mobileShopToggle = document.querySelector(".mobile-shop-toggle");
+        const mobileShopDropdown = document.querySelector(".burger-nav-links .shop-dropdown");
+        
+        if (mobileShopToggle && mobileShopDropdown) {
+          mobileShopToggle.addEventListener("click", function(e) {
+            e.preventDefault();
+            mobileShopDropdown.classList.toggle("open");
+          });
+        }
+        // --- End mobile shop dropdown toggle ---
+
         // Add event listener for checkout button
         const checkoutBtn = document.getElementById("checkout-button");
         if (checkoutBtn) {
@@ -236,7 +350,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const searchContainer = searchInput?.closest('.navbar-search');
         if (searchButton && searchInput && searchContainer) {
           searchButton.addEventListener('click', (e) => {
-            if (window.innerWidth <= 900) {
+            if (window.innerWidth <= 1024) {
               e.preventDefault();
               searchContainer.classList.add('mobile-search-active');
               searchInput.focus();
@@ -245,7 +359,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
           });
           
-          searchInput.addEventListener("focus", search);
           searchInput.addEventListener("input", debounceSearch);
           searchInput.addEventListener("keydown", (event) => {
             if (event.key === "Enter") {
@@ -256,7 +369,7 @@ document.addEventListener("DOMContentLoaded", () => {
   
           // Optionally, hide input when it loses focus
           searchInput.addEventListener('blur', () => {
-            if (window.innerWidth <= 900) {
+            if (window.innerWidth <= 1024) {
               //Set delay for the searchbar to disappear to allow results to disappear first
               setTimeout(() => {
               searchContainer.classList.remove('mobile-search-active');
@@ -295,6 +408,15 @@ document.addEventListener("DOMContentLoaded", () => {
         updateCartCount();
         updateCartDropdown();
 
+        // Mark navbar as fully loaded
+        document.body.classList.add('navbar-loaded');
+        
+        // Hide loading message if it exists
+        const loadingMessage = document.getElementById('loading-message');
+        if (loadingMessage) {
+          loadingMessage.style.display = 'none';
+        }
+
         //Hightlght navlink for current page
         // Highlight navlink for current page/category
         const navLinks = document.querySelectorAll("nav ul li a");
@@ -302,6 +424,23 @@ document.addEventListener("DOMContentLoaded", () => {
         const urlParams = new URLSearchParams(window.location.search);
         const categoryParam = urlParams.get("category");
         const mainCategory = categoryParam ? categoryParam.split('-')[0].toLowerCase() : null;
+
+        // Clear all existing active classes first
+        navLinks.forEach(link => {
+          link.classList.remove("active");
+        });
+
+        // EXPLICIT: Remove active class from category links (synthetic, natural, other)
+        const categoryLinks = document.querySelectorAll('a[href*="synthetic"], a[href*="natural"], a[href*="other"]');
+        categoryLinks.forEach(link => {
+          link.classList.remove("active");
+        });
+
+        // Additional timeout to ensure active classes stay removed
+        setTimeout(() => {
+          navLinks.forEach(link => link.classList.remove("active"));
+          categoryLinks.forEach(link => link.classList.remove("active"));
+        }, 100);
 
         // Map mainCategory to high-level page
         const categoryToPage = {
@@ -312,29 +451,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
         let categoryLinkHighlighted = false;
 
-        if (
-          (currentPath === "products.html" || currentPath === "view-product.html") &&
-          mainCategory &&
-          categoryToPage[mainCategory]
-        ) {
-          navLinks.forEach(link => {
-            const href = link.getAttribute("href").replace(/^\//, '').toLowerCase();
-            if (href === categoryToPage[mainCategory]) {
-              link.classList.add("active");
-              categoryLinkHighlighted = true;
-            }
-          });
-        }
+        // Removed category highlighting logic - no highlighting when viewing filtered products page
+        // if (
+        //   (currentPath === "products.html" || currentPath === "view-product.html") &&
+        //   mainCategory &&
+        //   categoryToPage[mainCategory]
+        // ) {
+        //   navLinks.forEach(link => {
+        //     const href = link.getAttribute("href").replace(/^\//, '').toLowerCase();
+        //     if (href === categoryToPage[mainCategory]) {
+        //       link.classList.add("active");
+        //       categoryLinkHighlighted = true;
+        //     }
+        //   });
+        // }
 
-        // If not on a category, or no category link matched, highlight the page link
-        if (!categoryLinkHighlighted) {
-          navLinks.forEach(link => {
-            const linkPath = link.getAttribute("href").replace(/^\//, '').split("?")[0].split("#")[0].toLowerCase();
-            if (linkPath === currentPath) {
-              link.classList.add("active");
-            }
-          });
-        }
+        // Highlight only exact page matches (not filtered category pages)
+        // DISABLED: We don't want category highlighting on filtered pages
+        // if (!categoryLinkHighlighted) {
+        //   navLinks.forEach(link => {
+        //     const linkPath = link.getAttribute("href").replace(/^\//, '').split("?")[0].split("#")[0].toLowerCase();
+        //     if (linkPath === currentPath) {
+        //       link.classList.add("active");
+        //     }
+        //   });
+        // }
       } else {
         console.error("Navbar container not found in the DOM.");
       }
@@ -344,21 +485,22 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
-document.addEventListener("productCategoryLoaded", function(e) {
-  const category = e.detail.category;
-  const mainCategory = category ? category.split('-')[0].toLowerCase() : null;
-  const categoryToPage = {
-    synthetic: "synthetic.html",
-    natural: "natural.html",
-    other: "other.html"
-  };
-  const navLinks = document.querySelectorAll("nav ul li a");
-  if (mainCategory && categoryToPage[mainCategory]) {
-    navLinks.forEach(link => {
-      const href = link.getAttribute("href").replace(/^\//, '').toLowerCase();
-      if (href === categoryToPage[mainCategory]) {
-        link.classList.add("active");
-      }
-    });
-  }
-});
+// Removed category highlighting event listener - no highlighting for filtered category pages
+// document.addEventListener("productCategoryLoaded", function(e) {
+//   const category = e.detail.category;
+//   const mainCategory = category ? category.split('-')[0].toLowerCase() : null;
+//   const categoryToPage = {
+//     synthetic: "synthetic.html",
+//     natural: "natural.html",
+//     other: "other.html"
+//   };
+//   const navLinks = document.querySelectorAll("nav ul li a");
+//   if (mainCategory && categoryToPage[mainCategory]) {
+//     navLinks.forEach(link => {
+//       const href = link.getAttribute("href").replace(/^\//, '').toLowerCase();
+//       if (href === categoryToPage[mainCategory]) {
+//         link.classList.add("active");
+//       }
+//     });
+//   }
+// });

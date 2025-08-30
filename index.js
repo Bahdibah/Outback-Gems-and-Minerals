@@ -135,7 +135,7 @@ document.addEventListener("DOMContentLoaded", function () {
         imageContainer.className = "image-container";
         const img = document.createElement("img");
         img.src = product["image url"];
-        img.alt = product["product name"] || "Product Image";
+        img.alt = `${product["product name"]} - Premium ${product.category || 'gemstone'} from Outback Gems & Minerals` || "Premium gemstone from Outback Gems";
         img.loading = "lazy"; // Add this line
         imageContainer.appendChild(img);
 

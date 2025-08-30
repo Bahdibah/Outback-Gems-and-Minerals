@@ -10,6 +10,13 @@ main {
   flex: 1 0 auto;
 }
 
+/* PayPal status message */
+.paypal-status-message {
+  margin-top: 90px;
+  text-align: center;
+  font-size: 1.2em;
+}
+
 /* Thank you container sits below navbar with a good gap */
 .thankyou-container {
   display: none;

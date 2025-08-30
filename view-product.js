@@ -46,28 +46,8 @@ function updateQuantityButtons() {
   }
 }
 
-// Dynamically load the side menu HTML
-fetch("side-menu.html")
-  .then(response => response.text())
-  .then(html => {
-    document.getElementById("side-menu-container").innerHTML = html;
-    // Dynamically load side-menu.js AFTER the HTML is present
-    const script = document.createElement('script');
-    script.src = 'side-menu.js';
-    script.onload = () => {
-      // Now that side-menu.js is loaded, initialize the menu
-      if (typeof fetchAndLoadMenu === "function") {
-        fetchAndLoadMenu();
-      }
-      if (typeof setupSideMenuListeners === "function") {
-        setupSideMenuListeners();
-      }
-    };
-    document.body.appendChild(script);
-  });
-
-  // Function to show banner notifications
-  function showBannerNotification(message, type = 'success') {
+// Function to show banner notifications
+function showBannerNotification(message, type = 'success') {
     // Remove any existing banners first
     const existingBanners = document.querySelectorAll('.notification-banner');
     existingBanners.forEach(banner => banner.remove());
@@ -129,11 +109,54 @@ fetch("side-menu.html")
     }, 4000);
   }
 
+// Function to generate SEO-optimized dynamic alt tags
+function generateDynamicAltTag(product, isMainImage = true) {
+  if (!product) return "Gemstone specimen";
+  
+  const name = product["product name"] || "Gemstone";
+  const weight = product.weight || product["weight (ct)"] || "";
+  const category = product.category || "";
+  
+  // Create descriptive alt text
+  let altText = name;
+  
+  // Add weight if available
+  if (weight) {
+    if (weight.toString().includes('ct')) {
+      altText += ` - ${weight}`;
+    } else {
+      altText += ` - ${weight}g`;
+    }
+  }
+  
+  // Add category context for better SEO
+  if (category) {
+    const categoryLower = category.toLowerCase();
+    if (categoryLower.includes('natural')) {
+      altText += " natural gemstone specimen";
+    } else if (categoryLower.includes('synthetic')) {
+      altText += " synthetic gemstone specimen";  
+    } else {
+      altText += ` ${categoryLower} gemstone specimen`;
+    }
+  } else {
+    altText += " gemstone specimen";
+  }
+  
+  // Add context for main vs thumbnail
+  if (!isMainImage) {
+    altText += " thumbnail";
+  }
+  
+  return altText;
+}
+
   // Add this function just before your fetchProductDetails function
 function highlightNavigation(category) {
   if (!category) return;
   
-  const mainCategory = category.split(',')[0].split('-')[0].toLowerCase();
+  // Use the main category directly (no more splitting)
+  const mainCategory = category.toLowerCase();
   const categoryToPage = {
     synthetic: "synthetic.html",
     natural: "natural.html",
@@ -162,27 +185,62 @@ function highlightNavigation(category) {
   }, 100); // Check every 100ms
 }
 
-// Function to extract disclaimer text from technical information
-function extractDisclaimerText(techInfos) {
-  let disclaimerText = '';
-  
-  for (const techInfo of techInfos) {
-    const fullText = techInfo.fullText;
-    // Look for disclaimer section in the HTML content - multiple patterns
-    let disclaimerMatch = fullText.match(/<p><strong>Disclaimer:<\/strong><\/p><p>(.*?)<\/p>/s);
+// Function to load and display disclaimer based on product category/subcategory
+async function loadDisclaimer(product) {
+  try {
+    const response = await fetch('disclaimers.json');
+    const disclaimers = await response.json();
     
-    // Also check for "Important Notice" pattern and convert to "Disclaimer"
-    if (!disclaimerMatch) {
-      disclaimerMatch = fullText.match(/<p><strong>Important Notice:<\/strong><\/p><p>(.*?)<\/p>/s);
+    const disclaimerContainer = document.getElementById('disclaimer-text');
+    if (!disclaimerContainer) return;
+    
+    // Find matching disclaimer based on category or subcategory
+    let matchedDisclaimer = null;
+    
+    // Special handling for single tumbles
+    if (product.category === 'Tumbles' && product['product name'] && 
+        product['product name'].toLowerCase().includes('single')) {
+      matchedDisclaimer = disclaimers.find(d => d['applies-to'].includes('Single Tumbles'));
     }
     
-    if (disclaimerMatch) {
-      disclaimerText = `<p><strong>Disclaimer:</strong></p><p>${disclaimerMatch[1]}</p>`;
-      break; // Use the first disclaimer found
+    // If not a single tumble, use normal matching logic
+    if (!matchedDisclaimer) {
+      for (const disclaimer of disclaimers) {
+        const appliesToArray = disclaimer['applies-to'];
+        
+        // Check if product category or subcategory matches
+        if (appliesToArray.includes(product.category) || 
+            appliesToArray.includes(product['sub category'])) {
+          matchedDisclaimer = disclaimer;
+          break;
+        }
+      }
+    }
+    
+    // If no specific match found, use general disclaimer
+    if (!matchedDisclaimer) {
+      matchedDisclaimer = disclaimers.find(d => d.category === 'general products');
+    }
+    
+    // Display the disclaimer
+    if (matchedDisclaimer) {
+      disclaimerContainer.innerHTML = `
+        <h3>${matchedDisclaimer['disclaimer-title']}</h3>
+        <p>${matchedDisclaimer['disclaimer-text']}</p>
+      `;
+    }
+    
+  } catch (error) {
+    console.error('Error loading disclaimer:', error);
+    // Fallback disclaimer
+    const disclaimerContainer = document.getElementById('disclaimer-text');
+    if (disclaimerContainer) {
+      disclaimerContainer.innerHTML = `
+        <h3>General Product Disclaimer</h3>
+        <p>Due to the natural origin and handcrafted nature of our products, expect some variations in colour, shape, size, and characteristics. Photos are taken under optimal lighting conditions to showcase features. Actual colours may vary depending on lighting and screen settings.</p>
+      `;
     }
   }
-  
-  return disclaimerText;
 }
 
 // Function to match disclaimer height with right column content
@@ -302,7 +360,7 @@ async function fetchProductDetails() {
     variations.forEach((variation, index) => {
       const option = document.createElement("option");
       option.value = index;
-      option.textContent = `${variation.weight} ${variation.unit} - $${variation["total price"].toFixed(2)}`;
+      option.textContent = `${variation.weight} ${variation.unit} - $${parseFloat(variation["total price"]).toFixed(2)}`;
       variationSelector.appendChild(option);
     });
 
@@ -328,6 +386,9 @@ async function fetchProductDetails() {
     updateProductDetails(currentVariation);
     updateMetaTags(currentVariation); // Add this line
     injectProductSchema(currentVariation);
+    
+    // Load disclaimer based on product category/subcategory
+    await loadDisclaimer(currentVariation);
 
     // Add this line to highlight navigation based on the category
     if (variations[0] && variations[0].category) {
@@ -341,6 +402,7 @@ async function fetchProductDetails() {
       optimizeImageLoading(); // Add image optimization
       enhanceAccessibility(); // Improve accessibility
       setupRelatedYowahNuts(); // Setup related Yowah Nuts section
+      setupRelatedProducts(); // Setup generic related products section
     }, 100);
     
     
@@ -360,6 +422,13 @@ async function fetchProductDetails() {
 
     // Add to cart functionality (only once)
     addToCartButton.addEventListener("click", () => {
+      // Check if this is an out-of-stock item based on button text
+      if (addToCartButton.textContent === "Email Me When Available") {
+        // Open email notification modal
+        openEmailNotificationModal();
+        return;
+      }
+      
       // Prevent multiple clicks during processing
       if (addToCartButton.disabled) return;
       
@@ -451,7 +520,7 @@ async function fetchProductDetails() {
         updateProductDetails(selectedVariation);
 
         // Show success banner notification
-        const totalPrice = selectedVariation["total price"] * quantity;
+        const totalPrice = parseFloat(selectedVariation["total price"]) * quantity;
         showBannerNotification(`${quantity} × ${selectedVariation["product name"]} added to cart for $${totalPrice.toFixed(2)}`, 'success');
         
         // Reset button state
@@ -484,7 +553,7 @@ async function fetchProductDetails() {
         quantityInputElement.value = displayedStock; // Reset to max stock
       }
 
-      const totalPrice = currentVariation["total price"] * quantity;
+      const totalPrice = parseFloat(currentVariation["total price"]) * quantity;
       productPriceElement.textContent = `Subtotal: $${totalPrice.toFixed(2)}`;
     });
 
@@ -499,7 +568,7 @@ async function fetchProductDetails() {
         if (currentQty > 1) {
           currentQty--;
           quantityInputElement.value = currentQty;
-          const totalPrice = currentVariation["total price"] * currentQty;
+          const totalPrice = parseFloat(currentVariation["total price"]) * currentQty;
           productPriceElement.textContent = `Subtotal: $${totalPrice.toFixed(2)}`;
         }
         // Update button states
@@ -528,7 +597,7 @@ async function fetchProductDetails() {
         if (currentQty < displayedStock) {
           currentQty++;
           quantityInputElement.value = currentQty;
-          const totalPrice = currentVariation["total price"] * currentQty;
+          const totalPrice = parseFloat(currentVariation["total price"]) * currentQty;
           productPriceElement.textContent = `Subtotal: $${totalPrice.toFixed(2)}`;
         }
         // Update button states
@@ -538,53 +607,16 @@ async function fetchProductDetails() {
 
     // After you set variations and before using category:
     const category = variations[0]?.category;
+    const subcategory = variations[0]?.["sub category"];
 
     // Dispatch event for navbar highlighting
     if (category) {
-      document.dispatchEvent(new CustomEvent("productCategoryLoaded", { detail: { category } }));
-    }
-
-    // Load technical information based on the product category
-    if (category) {
-      const categories = category.split(",").map(c => c.trim());
-      fetch("products.json")
-        .then(res => res.json())
-        .then(products => {
-          const techInfos = categories.map(cat => {
-            // Find the first product with this category (single, not comma-separated)
-            const product = products.find(p => {
-              // Handle both single and multi-category products in products.json
-              const prodCats = (p.category || "").split(",").map(x => x.trim());
-              return prodCats.includes(cat);
-            });
-            const title = product?.["product name"]
-  ? `<h3 style="color:#cc5500; margin-top:1.5em;">${product["product name"]}</h3>`
-  : "";
-const info = product?.["product-description"] || "<p>No technical info available.</p>";
-return { title: title, info: info, fullText: title + info };
-          });
-          
-          // Populate technical info section
-          const techDiv = document.getElementById("view-product-technical-info");
-          if (techDiv) techDiv.innerHTML = techInfos.map(item => item.fullText).join("<hr>");
-          
-          // Extract and populate disclaimer for desktop section
-          const disclaimerText = extractDisclaimerText(techInfos);
-          const desktopDisclaimerDiv = document.getElementById("disclaimer-text");
-          if (desktopDisclaimerDiv && disclaimerText) {
-            desktopDisclaimerDiv.innerHTML = disclaimerText;
-          }
-          
-          // Recalculate disclaimer height after content loads
-          setTimeout(() => {
-            matchDisclaimerHeight();
-          }, 100);
-        })
-        .catch(err => {
-          const techDiv = document.getElementById("view-product-technical-info");
-          if (techDiv) techDiv.innerHTML = "<p>Error loading technical info.</p>";
-          console.error("Error loading technical info:", err);
-        });
+      document.dispatchEvent(new CustomEvent("productCategoryLoaded", { 
+        detail: { 
+          category: category,
+          subcategory: subcategory 
+        } 
+      }));
     }
 
     //Continue shopping button to escape to category level//
@@ -604,7 +636,13 @@ return { title: title, info: info, fullText: title + info };
         continueLink.href = `products.html?category=synthetic`;
       }
       else {
-      continueLink.href = `products.html?category=${encodeURIComponent(category)}`;}
+        // If there's a subcategory, include it in the URL using the format: mainCategory|subcategory
+        if (subcategory) {
+          continueLink.href = `products.html?category=${encodeURIComponent(category)}|${encodeURIComponent(subcategory.toLowerCase())}`;
+        } else {
+          continueLink.href = `products.html?category=${encodeURIComponent(category)}`;
+        }
+      }
       continueBtn.textContent = `Continue Shopping`;
     }
 
@@ -636,8 +674,10 @@ function updateProductDetails(selectedVariation) {
 
     productNameElement.textContent = selectedVariation["product name"];
     productImageElement.src = selectedVariation["image url"] || "images/placeholder.png";
+    productImageElement.alt = generateDynamicAltTag(selectedVariation, true);
     productDescriptionElement.textContent = selectedVariation.description;
-        if (availableStock > 0) {
+    
+    if (availableStock > 0) {
           // Format stock with centered number under "Stock" label
           productStockElement.innerHTML = `
             <div style="text-align: center; line-height: 1.2;">
@@ -647,6 +687,10 @@ function updateProductDetails(selectedVariation) {
           `;
           quantityInputElement.disabled = false;
           quantityInputElement.value = 1;
+          
+          // Update button for in-stock items
+          addToCartButton.textContent = "Add to Cart";
+          addToCartButton.style.backgroundColor = "#cc5500";
         } else {
           productStockElement.innerHTML = `
             <div style="text-align: center; line-height: 1.2;">
@@ -655,22 +699,32 @@ function updateProductDetails(selectedVariation) {
           `;
           quantityInputElement.disabled = true;
           quantityInputElement.value = 0;
+          
+          // Update button for out-of-stock items
+          addToCartButton.textContent = "Email Me When Available";
+          addToCartButton.style.backgroundColor = "#666666";
         }
     addToCartButton.disabled = false; // Always enabled
-    productPriceElement.textContent = `Subtotal: $${selectedVariation["total price"].toFixed(2)}`;
+    productPriceElement.textContent = `Subtotal: $${parseFloat(selectedVariation["total price"]).toFixed(2)}`;
 
     // Update unit information
     if (productUnitInfoElement) {
       // Format the unit info more clearly
-      const unitText = selectedVariation.unit.toLowerCase() === 'each' || selectedVariation.unit.toLowerCase() === 'bag' || selectedVariation.unit.toLowerCase() === 'piece' 
+      let unitText = selectedVariation.unit.toLowerCase() === 'each' || selectedVariation.unit.toLowerCase() === 'bag' || selectedVariation.unit.toLowerCase() === 'piece' 
         ? `${selectedVariation.weight} ${selectedVariation.unit}`
         : `${selectedVariation.weight} ${selectedVariation.unit}`;
+      
+      // Add dimensions for slabs directly in the unit text
+      if (selectedVariation["Dimensions"] && selectedVariation.category === "Slabs") {
+        unitText += ` - ${selectedVariation["Dimensions"]}`;
+      }
+      
       productUnitInfoElement.textContent = unitText;
       productUnitInfoElement.style.fontWeight = 'bold';
       productUnitInfoElement.style.color = '#ffb366';
     }
     if (productUnitPriceElement) {
-      productUnitPriceElement.textContent = `$${selectedVariation["total price"].toFixed(2)}`;
+      productUnitPriceElement.textContent = `$${parseFloat(selectedVariation["total price"]).toFixed(2)}`;
       productUnitPriceElement.style.fontWeight = 'bold';
       productUnitPriceElement.style.color = '#ffb366';
     }
@@ -680,51 +734,93 @@ function updateProductDetails(selectedVariation) {
 
     // Main image from API
     const apiImage = selectedVariation["image url"] || "images/placeholder.png";
+    const apiImage2 = selectedVariation["image 2 url"] || "";
     const mainImage = document.getElementById("view-product-image");
     const thumbnailsContainer = document.getElementById("view-product-thumbnails");
     const modalOverlay = document.getElementById("image-modal-overlay");
     const modalImg = document.getElementById("image-modal-img");
+    
+    // Start building the image array with API images
+    let allImages = [apiImage];
+    if (apiImage2 && apiImage2.trim() !== "") {
+      allImages.push(apiImage2);
+    }
+    
     // Fetch extra images from productid.json
     fetch("productid.json")
       .then(res => res.json())
       .then(productImagesList => {
         // Find the entry for this product id
         const productImages = productImagesList.find(p => p.productid === productId);
-        // Use the 3 images from JSON, or fallback to placeholders
-        const extraImages = productImages?.images || [
-          `images/products/${productId}/image1.jpg`,
-          `images/products/${productId}/image2.jpg`,
-          `images/products/${productId}/image3.jpg`
-        ];
-
-        // Build the thumbnails: API image first, then the 3 from JSON
-        const allThumbs = [apiImage, ...extraImages];
-
-        // Set the main image to the API image by default
+        
+        if (productImages && productImages.images) {
+          // Add images from productid.json, but limit total to 4
+          const extraImages = productImages.images;
+          const remainingSlots = 4 - allImages.length;
+          const imagesToAdd = extraImages.slice(0, remainingSlots);
+          allImages = [...allImages, ...imagesToAdd];
+        }
+        
+        // Set the main image to the first image
         if (mainImage) {
-          mainImage.src = apiImage;
-          mainImage.setAttribute("loading", "lazy"); // Add this line
+          mainImage.src = allImages[0];
+          mainImage.alt = generateDynamicAltTag(selectedVariation, true);
+          mainImage.setAttribute("loading", "lazy");
         }
 
-        // Render thumbnails
+        // Render thumbnails for all images
         thumbnailsContainer.innerHTML = "";
-        allThumbs.forEach((imgUrl, idx) => {
+        allImages.forEach((imgUrl, idx) => {
           const thumb = document.createElement("img");
           thumb.src = imgUrl;
-          thumb.alt = `Thumbnail ${idx + 1}`;
+          thumb.alt = generateDynamicAltTag(selectedVariation, false);
           thumb.className = "view-product-image-placeholder";
           thumb.style.cursor = "pointer";
-          thumb.loading = "lazy"; // Add this line
+          thumb.loading = "lazy";
           // Highlight the selected thumbnail
           if (idx === 0) thumb.style.border = "2px solid #cc5500";
           thumb.addEventListener("click", function() {
-            if (mainImage) mainImage.src = imgUrl;
+            if (mainImage) {
+              mainImage.src = imgUrl;
+              mainImage.alt = generateDynamicAltTag(selectedVariation, true);
+            }
             // Optional: highlight the selected thumbnail
             thumbnailsContainer.querySelectorAll("img").forEach(img => img.style.border = "1px solid #444");
             this.style.border = "2px solid #cc5500";
           });
           thumbnailsContainer.appendChild(thumb);
         });
+      })
+      .catch(error => {
+        console.warn("Could not load productid.json, using fallback images:", error);
+        // Fallback: use only the API images (main + second if available)
+        if (mainImage) {
+          mainImage.src = allImages[0];
+          mainImage.alt = generateDynamicAltTag(selectedVariation, true);
+          mainImage.setAttribute("loading", "lazy");
+        }
+        // Create thumbnails for available API images
+        if (thumbnailsContainer) {
+          thumbnailsContainer.innerHTML = "";
+          allImages.forEach((imgUrl, idx) => {
+            const thumb = document.createElement("img");
+            thumb.src = imgUrl;
+            thumb.alt = generateDynamicAltTag(selectedVariation, false);
+            thumb.className = "view-product-image-placeholder";
+            thumb.style.cursor = "pointer";
+            thumb.loading = "lazy";
+            if (idx === 0) thumb.style.border = "2px solid #cc5500";
+            thumb.addEventListener("click", function() {
+              if (mainImage) {
+                mainImage.src = imgUrl;
+                mainImage.alt = generateDynamicAltTag(selectedVariation, true);
+              }
+              thumbnailsContainer.querySelectorAll("img").forEach(img => img.style.border = "1px solid #444");
+              this.style.border = "2px solid #cc5500";
+            });
+            thumbnailsContainer.appendChild(thumb);
+          });
+        }
       });
 
     quantityInputElement.setAttribute("max", availableStock);
@@ -732,6 +828,9 @@ function updateProductDetails(selectedVariation) {
     
     // Update quantity button states after setting values
     setTimeout(updateQuantityButtons, 100);
+    
+    // Load disclaimer for the selected variation
+    loadDisclaimer(selectedVariation);
 }
 
 fetchProductDetails();
@@ -1160,7 +1259,7 @@ function extractColor(productName) {
   return '';
 }
 
-// Enhanced meta tags function with product-specific optimization
+// Enhanced meta tags function with multi-image support and improved SEO
 function updateMetaTags(product) {
   if (!product) return;
   
@@ -1169,7 +1268,7 @@ function updateMetaTags(product) {
   const stockStatus = product.stock > 0 ? 'In Stock' : 'Out of Stock';
   const stockText = product.stock > 0 ? ` ${stockStatus} -` : ` ${stockStatus}.`;
   
-  let title, description, ogImage, altText;
+  let title, description, images = [], altText;
   
   if (productMeta) {
     // Use optimized templates with dynamic data
@@ -1178,27 +1277,44 @@ function updateMetaTags(product) {
       .replace('{weight}', product.weight)
       .replace('{unit}', product.unit)
       .replace('{color}', color)
-      .replace('${price}', product["total price"].toFixed(2));
+      .replace('${price}', parseFloat(product["total price"]).toFixed(2));
       
     description = productMeta.description
       .replace('{name}', product["product name"])
       .replace('{weight}', product.weight)
       .replace('{unit}', product.unit)
       .replace('{color}', color)
-      .replace('${price}', product["total price"].toFixed(2)) + stockText + " Shop online at Outback Gems & Minerals.";
+      .replace('${price}', parseFloat(product["total price"]).toFixed(2)) + stockText + " Shop online at Outback Gems & Minerals.";
     
-    // Use product-specific image, fallback to API image, then category image
-    ogImage = productMeta.image || product["image url"] || productMeta.categoryImage || 'https://outbackgems.com.au/images/general/Facebook%20Logo.jpg';
+    // Single image support - use only the product's own image
+    images = [];
+    
+    // Priority: specific product image from productSEOMeta, then inventory JSON image
+    if (productMeta.image) {
+      images.push(productMeta.image);
+    } else if (product["image url"]) {
+      images.push(product["image url"]);
+    }
+    
+    // Fallback to default if no images
+    if (images.length === 0) {
+      images.push('https://outbackgems.com.au/images/general/Facebook%20Logo.jpg');
+    }
+    
     altText = productMeta.altText || `${product["product name"]} ${product.weight}${product.unit} - Premium ${color || 'gemstone'} specimen at Outback Gems & Minerals`;
   } else {
     // Fallback for products not in mapping
-    title = `Buy ${product["product name"]} ${product.weight}${product.unit} - $${product["total price"].toFixed(2)} | Outback Gems & Minerals`;
-    description = `${product.description || 'Premium gemstone product'}${stockText} Available for $${product["total price"].toFixed(2)}. Shop online at Outback Gems & Minerals.`;
-    ogImage = product["image url"] || 'https://outbackgems.com.au/images/general/Facebook%20Logo.jpg';
+    title = `Buy ${product["product name"]} ${product.weight}${product.unit} - $${parseFloat(product["total price"]).toFixed(2)} | Outback Gems & Minerals`;
+    description = `${product.description || 'Premium gemstone product'}${stockText} Available for $${parseFloat(product["total price"]).toFixed(2)}. Shop online at Outback Gems & Minerals.`;
+    images = product["image url"] ? [product["image url"]] : ['https://outbackgems.com.au/images/general/Facebook%20Logo.jpg'];
     altText = `${product["product name"]} ${product.weight}${product.unit} - Premium ${color || 'gemstone'} specimen at Outback Gems & Minerals`;
   }
 
+  // Update document title
   document.title = title;
+
+  // Update breadcrumb
+  updateBreadcrumb(product);
 
   // Meta Description
   let metaDescription = document.querySelector('meta[name="description"]');
@@ -1216,84 +1332,96 @@ function updateMetaTags(product) {
     metaKeywords.setAttribute('name', 'keywords');
     document.head.appendChild(metaKeywords);
   }
-  const keywords = productMeta?.keywords || 'gemstones, minerals, crystals, specimen details, gem pricing, faceting rough';
+  const keywords = productMeta?.keywords || `${product["product name"]}, ${color} gemstone, ${product.category}, ${product.subcategory}, Australian gems, premium quality, specimen details, gem pricing, faceting rough`;
   metaKeywords.setAttribute('content', keywords);
 
-  // Open Graph
-  let ogTitle = document.querySelector('meta[property="og:title"]');
-  if (!ogTitle) {
-    ogTitle = document.createElement('meta');
-    ogTitle.setAttribute('property', 'og:title');
-    document.head.appendChild(ogTitle);
-  }
-  ogTitle.setAttribute('content', title);
-
-  let ogDesc = document.querySelector('meta[property="og:description"]');
-  if (!ogDesc) {
-    ogDesc = document.createElement('meta');
-    ogDesc.setAttribute('property', 'og:description');
-    document.head.appendChild(ogDesc);
-  }
-  ogDesc.setAttribute('content', description);
-  
-  let ogUrl = document.querySelector('meta[property="og:url"]');
-  if (!ogUrl) {
-    ogUrl = document.createElement('meta');
-    ogUrl.setAttribute('property', 'og:url');
-    document.head.appendChild(ogUrl);
-  }
-  ogUrl.setAttribute('content', `https://outbackgems.com.au/view-product.html?productid=${productId}`);
-  
-  let ogImageMeta = document.querySelector('meta[property="og:image"]');
-  if (!ogImageMeta) {
-    ogImageMeta = document.createElement('meta');
-    ogImageMeta.setAttribute('property', 'og:image');
-    document.head.appendChild(ogImageMeta);
-  }
-  ogImageMeta.setAttribute('content', ogImage);
+  // Open Graph - Primary
+  updateOpenGraphTags(title, description, images, altText);
   
   // Twitter Cards
-  let twitterCard = document.querySelector('meta[name="twitter:card"]');
-  if (!twitterCard) {
-    twitterCard = document.createElement('meta');
-    twitterCard.setAttribute('name', 'twitter:card');
-    document.head.appendChild(twitterCard);
-  }
-  twitterCard.setAttribute('content', 'summary_large_image');
-
-  let twitterTitle = document.querySelector('meta[name="twitter:title"]');
-  if (!twitterTitle) {
-    twitterTitle = document.createElement('meta');
-    twitterTitle.setAttribute('name', 'twitter:title');
-    document.head.appendChild(twitterTitle);
-  }
-  twitterTitle.setAttribute('content', title);
+  updateTwitterCardTags(title, description, images[0], altText);
   
-  let twitterImage = document.querySelector('meta[name="twitter:image"]');
-  if (!twitterImage) {
-    twitterImage = document.createElement('meta');
-    twitterImage.setAttribute('name', 'twitter:image');
-    document.head.appendChild(twitterImage);
-  }
-  twitterImage.setAttribute('content', ogImage);
-  
-  let twitterDesc = document.querySelector('meta[name="twitter:description"]');
-  if (!twitterDesc) {
-    twitterDesc = document.createElement('meta');
-    twitterDesc.setAttribute('name', 'twitter:description');
-    document.head.appendChild(twitterDesc);
-  }
-  twitterDesc.setAttribute('content', description);
-
-  let twitterUrl = document.querySelector('meta[name="twitter:url"]');
-  if (!twitterUrl) {
-    twitterUrl = document.createElement('meta');
-    twitterUrl.setAttribute('name', 'twitter:url');
-    document.head.appendChild(twitterUrl);
-  }
-  twitterUrl.setAttribute('content', `https://outbackgems.com.au/view-product.html?productid=${productId}`);
+  // Product-specific meta tags
+  updateProductMetaTags(product);
   
   // Add canonical URL
+  updateCanonicalURL();
+}
+
+// Function to update Open Graph tags with single image support
+function updateOpenGraphTags(title, description, images, altText) {
+  // Remove existing og:image tags
+  const existingOgImages = document.querySelectorAll('meta[property="og:image"]');
+  existingOgImages.forEach(meta => meta.remove());
+  
+  // Add single primary image
+  if (images.length > 0) {
+    const ogImage = document.createElement('meta');
+    ogImage.setAttribute('property', 'og:image');
+    ogImage.setAttribute('content', images[0]);
+    document.head.appendChild(ogImage);
+  }
+
+  // Other Open Graph tags
+  updateOrCreateMeta('property', 'og:title', title);
+  updateOrCreateMeta('property', 'og:description', description);
+  updateOrCreateMeta('property', 'og:url', `https://outbackgems.com.au/view-product.html?productid=${productId}`);
+  updateOrCreateMeta('property', 'og:image:alt', altText);
+}
+
+// Function to update Twitter Card tags
+function updateTwitterCardTags(title, description, primaryImage, altText) {
+  updateOrCreateMeta('name', 'twitter:card', 'summary_large_image');
+  updateOrCreateMeta('name', 'twitter:title', title);
+  updateOrCreateMeta('name', 'twitter:description', description);
+  updateOrCreateMeta('name', 'twitter:image', primaryImage);
+  updateOrCreateMeta('name', 'twitter:image:alt', altText);
+  updateOrCreateMeta('name', 'twitter:url', `https://outbackgems.com.au/view-product.html?productid=${productId}`);
+}
+
+// Function to update product-specific meta tags
+function updateProductMetaTags(product) {
+  // Product availability
+  const availability = product.stock > 0 ? 'in stock' : 'out of stock';
+  updateOrCreateMeta('property', 'product:availability', availability);
+  updateOrCreateMeta('property', 'product:price:amount', parseFloat(product["total price"]).toFixed(2));
+  updateOrCreateMeta('property', 'product:price:currency', 'AUD');
+  
+  // Update structured data elements
+  const offerAvailability = document.getElementById('offer-availability');
+  if (offerAvailability) {
+    offerAvailability.setAttribute('content', 
+      product.stock > 0 ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock'
+    );
+  }
+  
+  const priceValue = document.getElementById('price-value');
+  const offerUrl = document.getElementById('offer-url');
+  if (priceValue) priceValue.textContent = parseFloat(product["total price"]).toFixed(2);
+  if (offerUrl) offerUrl.setAttribute('content', `https://outbackgems.com.au/view-product.html?productid=${productId}`);
+}
+
+// Utility function to create or update meta tags
+function updateOrCreateMeta(attribute, name, content) {
+  let meta = document.querySelector(`meta[${attribute}="${name}"]`);
+  if (!meta) {
+    meta = document.createElement('meta');
+    meta.setAttribute(attribute, name);
+    document.head.appendChild(meta);
+  }
+  meta.setAttribute('content', content);
+}
+
+// Function to update breadcrumb navigation
+function updateBreadcrumb(product) {
+  const breadcrumbProductName = document.getElementById('breadcrumb-product-name');
+  if (breadcrumbProductName && product) {
+    breadcrumbProductName.textContent = product["product name"];
+  }
+}
+
+// Function to update canonical URL
+function updateCanonicalURL() {
   let canonicalLink = document.querySelector('link[rel="canonical"]');
   if (!canonicalLink) {
     canonicalLink = document.createElement('link');
@@ -1301,15 +1429,10 @@ function updateMetaTags(product) {
     document.head.appendChild(canonicalLink);
   }
   canonicalLink.setAttribute('href', `https://outbackgems.com.au/view-product.html?productid=${productId}`);
-
-  // Enhanced image alt text using product-specific alt text
-  if (productImageElement) {
-    productImageElement.alt = altText;
-  }
 }
 
 // Modal image expand setup (add this after fetchProductDetails();)
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", async function() {
   const mainImage = document.getElementById("view-product-image");
   const modalOverlay = document.getElementById("image-modal-overlay");
   const modalImg = document.getElementById("image-modal-img");
@@ -1344,6 +1467,11 @@ document.addEventListener("DOMContentLoaded", function() {
       }
     });
   }
+  
+  // Initialize category navigation
+  if (window.categoryNavigation) {
+    await window.categoryNavigation.initializeFromURL();
+  }
 });
 
 function injectProductSchema(product) {
@@ -1375,6 +1503,332 @@ function injectProductSchema(product) {
   script.type = 'application/ld+json';
   script.textContent = JSON.stringify(schema);
   document.head.appendChild(script);
+}
+
+// Generic Related Products System
+async function setupRelatedProducts() {
+  const relatedSection = document.getElementById('related-products-section');
+  
+  // Skip if no product ID or if this is a Yowah Nut (handled separately)
+  if (!productId || productId.startsWith('yn')) {
+    if (relatedSection) {
+      relatedSection.classList.add('hidden');
+      relatedSection.style.display = 'none';
+    }
+    return;
+  }
+
+  try {
+    const products = await getProductData();
+    
+    // Determine the current product's subcategory
+    const currentProduct = products.find(item => item["product id"] === productId);
+    if (!currentProduct) {
+      if (relatedSection) {
+        relatedSection.classList.add('hidden');
+        relatedSection.style.display = 'none';
+      }
+      return;
+    }
+
+    // Get the subcategory from the current product
+    const currentCategory = currentProduct.category;
+    const currentSubcategory = currentProduct["sub category"];
+    
+    // Skip if this is a main category only (no subcategory) - only show for subcategories
+    if (!currentSubcategory) {
+      if (relatedSection) {
+        relatedSection.classList.add('hidden');
+        relatedSection.style.display = 'none';
+      }
+      return;
+    }
+
+    // Filter products in the same subcategory (handle comma-separated subcategories)
+    let relatedProducts = products.filter(item => {
+      if (item["product id"] === productId) return false; // Exclude current product
+      
+      const itemSubCategoryString = item["sub category"] || "";
+      const currentSubCategoryString = currentSubcategory || "";
+      
+      if (!itemSubCategoryString || !currentSubCategoryString) return false;
+      
+      // Split both subcategory strings by comma and check for overlap
+      const itemSubCategories = itemSubCategoryString.split(',').map(sub => sub.trim());
+      const currentSubCategories = currentSubCategoryString.split(',').map(sub => sub.trim());
+      
+      // Check if there's any overlap between the subcategories
+      return itemSubCategories.some(itemSub => 
+        currentSubCategories.some(currentSub => 
+          itemSub.toLowerCase() === currentSub.toLowerCase()
+        )
+      );
+    });
+
+    // Special handling for Tumbles category: if we have fewer than 4 products, 
+    // add more from the same main category
+    if (currentCategory === "Tumbles" && relatedProducts.length < 4) {
+      const additionalProducts = products.filter(item => {
+        if (item["product id"] === productId) return false; // Exclude current product
+        if (item.category !== "Tumbles") return false; // Only tumbles
+        
+        // Check if this product is already in our relatedProducts array
+        const alreadyIncluded = relatedProducts.some(existing => 
+          existing["product id"] === item["product id"]
+        );
+        
+        return !alreadyIncluded;
+      });
+      
+      // Shuffle the additional products randomly
+      const shuffleArray = (array) => {
+        const shuffled = [...array];
+        for (let i = shuffled.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        }
+        return shuffled;
+      };
+      
+      const shuffledAdditional = shuffleArray(additionalProducts);
+      
+      // Add additional products to reach 4 total (or until we run out)
+      const needed = 4 - relatedProducts.length;
+      relatedProducts = relatedProducts.concat(shuffledAdditional.slice(0, needed));
+    }
+
+    if (relatedProducts.length === 0) {
+      if (relatedSection) {
+        relatedSection.classList.add('hidden');
+        relatedSection.style.display = 'none';
+      }
+      return;
+    }
+
+    // Group by product ID to get unique products
+    const uniqueProducts = [];
+    const seenIds = new Set();
+    
+    relatedProducts.forEach(item => {
+      const id = item["product id"].trim();
+      if (!seenIds.has(id)) {
+        seenIds.add(id);
+        uniqueProducts.push(item);
+      }
+    });
+
+    // Handle product ordering - special case for Tumbles to maintain subcategory priority
+    let displayProducts;
+    if (currentCategory === "Tumbles") {
+      // For Tumbles, keep the order: same subcategory first, then additional random products
+      // The products are already in the correct order from our filtering logic above
+      displayProducts = uniqueProducts.slice(0, 4);
+    } else {
+      // For other categories, shuffle randomly as before
+      const shuffleArray = (array) => {
+        const shuffled = [...array];
+        for (let i = shuffled.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        }
+        return shuffled;
+      };
+
+      const shuffledProducts = shuffleArray(uniqueProducts);
+      displayProducts = shuffledProducts.slice(0, 4);
+    }
+
+    if (displayProducts.length === 0) {
+      if (relatedSection) {
+        relatedSection.classList.add('hidden');
+        relatedSection.style.display = 'none';
+      }
+      return;
+    }
+
+    // Update the title based on subcategory and whether we're showing broader category
+    const titleElement = document.getElementById('related-products-title');
+    if (titleElement) {
+      // Use the subcategory name directly for the title
+      const subcategoryName = currentSubcategory || 'Items';
+      
+      // For Tumbles category, adjust title if we're showing products from broader category
+      if (currentCategory === "Tumbles") {
+        const subcategoryProductCount = products.filter(item => {
+          if (item["product id"] === productId) return false;
+          const itemSubCategoryString = item["sub category"] || "";
+          const currentSubCategoryString = currentSubcategory || "";
+          if (!itemSubCategoryString || !currentSubCategoryString) return false;
+          const itemSubCategories = itemSubCategoryString.split(',').map(sub => sub.trim());
+          const currentSubCategories = currentSubCategoryString.split(',').map(sub => sub.trim());
+          return itemSubCategories.some(itemSub => 
+            currentSubCategories.some(currentSub => 
+              itemSub.toLowerCase() === currentSub.toLowerCase()
+            )
+          );
+        }).length;
+        
+        if (subcategoryProductCount < 4) {
+          titleElement.textContent = `Other Tumbles Available`;
+        } else {
+          titleElement.textContent = `Other ${subcategoryName} Available`;
+        }
+      } else {
+        titleElement.textContent = `Other ${subcategoryName} Available`;
+      }
+    }
+
+    // Show the related products section
+    if (relatedSection) {
+      relatedSection.classList.remove('hidden');
+      relatedSection.style.display = 'block';
+    }
+
+    // Generate the related products HTML
+    const gridWrapper = document.getElementById('related-products-wrapper');
+    const swiperWrapper = document.getElementById('related-products-swiper-wrapper');
+    
+    if (!gridWrapper || !swiperWrapper) return;
+
+    // Get cart data to calculate stock
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    // Clear existing content
+    gridWrapper.innerHTML = '';
+    swiperWrapper.innerHTML = '';
+
+    displayProducts.forEach(product => {
+      // Calculate available stock
+      const cartItem = cart.find(item => 
+        item.id === product["product id"] && 
+        item.weight === product.weight && 
+        item.unit === product.unit
+      );
+      const cartQuantity = cartItem ? cartItem.quantity : 0;
+      const availableStock = product.stock - cartQuantity;
+      
+      // Determine stock status
+      let stockClass = availableStock > 0 ? 'in-stock' : 'out-of-stock';
+      let stockText = availableStock > 0 ? `${availableStock} in stock` : 'Out of stock';
+
+      // Create card HTML content
+      const cardContent = `
+        <img src="${product["image url"] || 'images/placeholder.png'}" 
+             alt="${product["product name"]}" 
+             class="related-product-image"
+             loading="lazy">
+        <div class="related-product-name">${product["product name"]}</div>
+        <div class="related-product-price">$${parseFloat(product["total price"]).toFixed(2)}</div>
+        <div class="related-product-stock ${stockClass}">${stockText}</div>
+      `;
+
+      // Create grid card
+      const gridCard = document.createElement('div');
+      gridCard.className = 'product-card';
+      gridCard.innerHTML = cardContent;
+      gridCard.style.cursor = 'pointer';
+      gridCard.addEventListener('click', () => {
+        window.location.href = `view-product.html?productid=${product["product id"]}`;
+      });
+      gridWrapper.appendChild(gridCard);
+
+      // Create swiper slide
+      const swiperSlide = document.createElement('div');
+      swiperSlide.className = 'swiper-slide';
+      const swiperCard = document.createElement('div');
+      swiperCard.className = 'product-card';
+      swiperCard.innerHTML = cardContent;
+      swiperCard.style.cursor = 'pointer';
+      swiperCard.addEventListener('click', () => {
+        window.location.href = `view-product.html?productid=${product["product id"]}`;
+      });
+      swiperSlide.appendChild(swiperCard);
+      swiperWrapper.appendChild(swiperSlide);
+    });
+
+    // Add centering class based on number of products
+    gridWrapper.className = 'related-products-grid';
+    if (displayProducts.length === 1) {
+      gridWrapper.classList.add('center-one');
+    } else if (displayProducts.length === 2) {
+      gridWrapper.classList.add('center-two');
+    } else if (displayProducts.length === 3) {
+      gridWrapper.classList.add('center-three');
+    }
+
+    // Initialize Swiper for mobile layout
+    initializeRelatedProductsSwiper();
+
+  } catch (error) {
+    console.error("Error setting up related products:", error);
+  }
+}
+
+// Function to initialize Swiper for generic related products
+function initializeRelatedProductsSwiper() {
+  // Destroy existing swiper if it exists
+  if (window.relatedProductsSwiper) {
+    window.relatedProductsSwiper.destroy(true, true);
+  }
+
+  // Initialize new swiper
+  window.relatedProductsSwiper = new Swiper('#related-products-swiper', {
+    // Basic configuration
+    loop: false,
+    autoplay: false,
+    
+    // Responsive breakpoints
+    breakpoints: {
+      // Mobile (up to 767px) - 1 slide
+      0: {
+        slidesPerView: 1,
+        spaceBetween: 10,
+        centeredSlides: true,
+      },
+      // Small tablet (768px and up) - 2 slides  
+      768: {
+        slidesPerView: 2,
+        spaceBetween: 15,
+        centeredSlides: false,
+      }
+    },
+    
+    // Navigation arrows
+    navigation: {
+      nextEl: '.related-products-swiper .swiper-button-next',
+      prevEl: '.related-products-swiper .swiper-button-prev',
+    },
+    
+    // Pagination dots
+    pagination: {
+      el: '.related-products-swiper .swiper-pagination',
+      clickable: true,
+      dynamicBullets: true,
+    },
+    
+    // Touch/swipe settings
+    touchEventsTarget: 'container',
+    simulateTouch: true,
+    allowTouchMove: true,
+    touchStartPreventDefault: false,
+    
+    // Additional options
+    grabCursor: true,
+    watchOverflow: true,
+    
+    // Keyboard navigation
+    keyboard: {
+      enabled: true,
+      onlyInViewport: true,
+    },
+    
+    // Accessibility
+    a11y: {
+      enabled: true,
+      prevSlideMessage: 'Previous product',
+      nextSlideMessage: 'Next product',
+    }
+  });
 }
 
 // Function to setup Related Yowah Nuts section (Dual Layout: Grid + Swiper)
@@ -1489,7 +1943,7 @@ async function setupRelatedYowahNuts() {
              loading="lazy">
         <div class="related-product-name">${product["product name"]}</div>
         <div class="related-product-size">${sizeInfo}</div>
-        <div class="related-product-price">$${product["total price"].toFixed(2)}</div>
+        <div class="related-product-price">$${parseFloat(product["total price"]).toFixed(2)}</div>
         <div class="related-product-stock ${stockClass}">${stockText}</div>
       `;
 
@@ -1591,3 +2045,168 @@ function initializeRelatedYowahNutsSwiper() {
     }
   });
 }
+
+// Email Notification Modal Functions
+function openEmailNotificationModal() {
+  const modal = document.getElementById('email-notification-modal');
+  const form = document.getElementById('email-notification-form');
+  const successMessage = document.getElementById('email-success-message');
+  
+  // Reset form and show form, hide success message
+  if (form) {
+    form.style.display = 'block';
+    form.reset();
+  }
+  if (successMessage) {
+    successMessage.classList.add('hidden-element');
+  }
+  
+  // Populate hidden fields with current product details
+  populateEmailFormFields();
+  
+  // Show modal
+  if (modal) {
+    modal.style.display = 'block';
+    // Focus on name input field
+    setTimeout(() => {
+      const nameInput = document.getElementById('notification-name');
+      if (nameInput) {
+        nameInput.focus();
+      }
+    }, 100);
+  }
+}
+
+function closeEmailNotificationModal() {
+  const modal = document.getElementById('email-notification-modal');
+  if (modal) {
+    modal.style.display = 'none';
+  }
+}
+
+function populateEmailFormFields() {
+  const selectedIndex = parseInt(variationSelector.value, 10);
+  const selectedVariation = variations[selectedIndex];
+  
+  if (selectedVariation) {
+    // Populate hidden fields
+    const productIdField = document.getElementById('notification-product-id');
+    const productNameField = document.getElementById('notification-product-name');
+    const productSizeField = document.getElementById('notification-product-size');
+    const productPriceField = document.getElementById('notification-product-price');
+    
+    if (productIdField) productIdField.value = productId;
+    if (productNameField) productNameField.value = selectedVariation["product name"];
+    if (productSizeField) productSizeField.value = `${selectedVariation.weight} ${selectedVariation.unit}`;
+    if (productPriceField) productPriceField.value = selectedVariation["total price"];
+  }
+}
+
+function setupEmailNotificationModal() {
+  const modal = document.getElementById('email-notification-modal');
+  const closeBtn = document.querySelector('.email-modal-close');
+  const form = document.getElementById('email-notification-form');
+  const successMessage = document.getElementById('email-success-message');
+  
+  // Close modal when clicking X
+  if (closeBtn) {
+    closeBtn.addEventListener('click', closeEmailNotificationModal);
+  }
+  
+  // Close modal when clicking outside
+  if (modal) {
+    modal.addEventListener('click', function(e) {
+      if (e.target === modal) {
+        closeEmailNotificationModal();
+      }
+    });
+  }
+  
+  // Close modal on Escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && modal && modal.style.display === 'block') {
+      closeEmailNotificationModal();
+    }
+  });
+  
+  // Handle form submission
+  if (form) {
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      // Honeypot spam protection
+      const honeypot = document.getElementById('notification-website');
+      if (honeypot && honeypot.value.trim() !== '') {
+        console.log('Spam submission blocked by honeypot');
+        // Show fake success message to confuse bots
+        form.style.display = 'none';
+        successMessage.classList.remove('hidden-element');
+        setTimeout(() => {
+          closeEmailNotificationModal();
+        }, 2000);
+        return;
+      }
+      
+      const submitBtn = form.querySelector('.email-submit-btn');
+      const originalText = submitBtn.textContent;
+      
+      // Show loading state
+      submitBtn.textContent = 'Sending...';
+      submitBtn.disabled = true;
+      
+      try {
+        // Create FormData object
+        const formData = new FormData(form);
+        
+        // Add custom message
+        const productName = formData.get('product_name');
+        const productSize = formData.get('product_size');
+        const customerEmail = formData.get('email');
+        const customerName = formData.get('name');
+        
+        const customMessage = `Stock Notification Request:
+        
+Customer: ${customerName}
+Email: ${customerEmail}
+Product: ${productName}
+Size: ${productSize}
+
+Please notify this customer when the above item is back in stock.`;
+        
+        formData.set('message', customMessage);
+        
+        // Submit to form handler
+        const response = await fetch('form-to-email.php', {
+          method: 'POST',
+          body: formData
+        });
+        
+        if (response.ok) {
+          // Show success message
+          form.style.display = 'none';
+          successMessage.classList.remove('hidden-element');
+          
+          // Auto-close modal after 3 seconds
+          setTimeout(() => {
+            closeEmailNotificationModal();
+          }, 3000);
+        } else {
+          throw new Error('Network response was not ok');
+        }
+        
+      } catch (error) {
+        console.error('Error submitting form:', error);
+        alert('There was an error submitting your request. Please try again or contact us directly.');
+        
+        // Reset button
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+      }
+    });
+  }
+}
+
+// Initialize email notification modal when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+  setupEmailNotificationModal();
+});

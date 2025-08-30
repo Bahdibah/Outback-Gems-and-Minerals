@@ -2,6 +2,15 @@
 $errors = [];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Honeypot spam protection
+    $honeypot = isset($_POST['website']) ? trim($_POST['website']) : '';
+    if (!empty($honeypot)) {
+        // This is likely spam - honeypot field was filled
+        http_response_code(200); // Return success to confuse bots
+        echo "Thank you for your message!";
+        exit;
+    }
+    
     // Get POST data
     $name = isset($_POST['name']) ? strip_tags(trim($_POST['name'])) : '';
     $email = isset($_POST['email']) ? trim($_POST['email']) : '';

@@ -1,6 +1,6 @@
 /* General Styles */
 body {
-  font-family: 'Georgia', serif; 
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   margin: 0;
   padding: 0;
   background-color: #2e2e2e; /* Dark grey background for the page and container */
@@ -33,7 +33,7 @@ body {
   font-size: 28px;
   font-weight: 700;
   color: #cc5500;
-  font-family: 'Inter', Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   display: flex;
   align-items: center;
   gap: 15px;
@@ -46,7 +46,7 @@ body {
 .pre-cart-trust-section {
   width: 85%;
   max-width: 1200px;
-  margin: 2% auto 1% auto;
+  margin: 0.5% auto 1% auto; /* Set to 0.5% as requested */
   padding: 0;
 }
 
@@ -59,21 +59,13 @@ body {
   padding: 0;
   background: linear-gradient(135deg, #2a4a3d 0%, #1a3d2e 100%);
   border-radius: 12px;
-  border: 2px solid #cc5500;
+  border: 3px solid #cc5500; /* Increased border to match the previous thick top border */
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
   position: relative;
   overflow: hidden;
 }
 
-.trust-badges::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, #cc5500, #ff7700, #cc5500);
-}
+/* Removed - using even border all around instead */
 
 .trust-badge {
   display: flex;
@@ -83,7 +75,7 @@ body {
   text-align: center;
   color: #fff;
   font-size: 14px;
-  font-family: 'Inter', Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   font-weight: 600;
   flex: 1;
   min-width: 200px;
@@ -134,7 +126,7 @@ body {
   padding: 18px 35px;
   font-size: 16px;
   font-weight: 600;
-  font-family: 'Inter', Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   border: none;
   border-radius: 8px;
   cursor: pointer;
@@ -319,7 +311,7 @@ body {
   margin: 0;
   font-size: 18px;
   font-weight: 600;
-  font-family: 'Inter', Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 
 .shipping-toggle {
@@ -502,7 +494,7 @@ body {
   font-weight: 600;
   font-size: 16px;
   flex-grow: 1;
-  font-family: 'Inter', Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 
 .shipping-badge {
@@ -545,7 +537,7 @@ body {
   color: #cc5500;
   font-size: 15px;
   font-weight: 600;
-  font-family: 'Inter', Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 
 .australia-post {
@@ -854,7 +846,7 @@ body {
   margin: 0;
   font-size: 18px;
   font-weight: 600;
-  font-family: 'Inter', Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 
 #cart-table {
@@ -877,7 +869,7 @@ body {
   color: #cc5500;
   font-size: 14px;
   font-weight: 600;
-  font-family: 'Inter', Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   padding: 15px;
   background-color: #2a2a2a;
   border: 1px solid #555;
@@ -956,7 +948,7 @@ body {
   vertical-align: middle;
   border: none;
   color: #fff;
-  font-family: 'Inter', Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   text-align: center;
 }
 
@@ -1027,7 +1019,7 @@ body {
 .order-summary-text {
   color: #fff;
   font-size: 1.1em;
-  font-family: 'Inter', Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 
 .order-confirmation-text {
@@ -1129,7 +1121,7 @@ body {
   background-color: #2a2a2a;
   color: #fff;
   border-radius: 4px;
-  font-family: 'Inter', Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   font-weight: 500;
   font-size: 14px;
 }
@@ -1147,7 +1139,7 @@ body {
   padding: 8px 16px;
   border-radius: 4px;
   cursor: pointer;
-  font-family: 'Inter', Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   font-weight: 500;
   transition: all 0.3s ease;
 }
@@ -1202,7 +1194,7 @@ body {
   margin: 0;
   font-size: 18px;
   font-weight: 600;
-  font-family: 'Inter', Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 
 .cart-totals p {
@@ -1214,7 +1206,7 @@ body {
   background-color: #444;
   border-radius: 6px;
   border: 1px solid #555;
-  font-family: 'Inter', Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   font-size: 16px;
   color: #fff;
 }
@@ -1564,7 +1556,7 @@ footer >div{
 .modal-section-title,
 .modal-confirmation {
   color: #cc5500;
-  font-family: 'Inter', Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   font-weight: 700;
 }
 
@@ -1891,7 +1883,7 @@ div.modal-content * {
   margin: 0;
   font-size: 18px;
   font-weight: 600;
-  font-family: 'Inter', Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 
 /* Payment Methods Preview */
@@ -1900,7 +1892,7 @@ div.modal-content * {
   font-size: 18px;
   font-weight: 600;
   margin-bottom: 25px;
-  font-family: 'Inter', Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   text-align: center;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -2042,7 +2034,7 @@ div.modal-content * {
   color: #fff;
   font-weight: 700;
   font-size: 16px;
-  font-family: 'Inter', Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   margin-bottom: 4px;
@@ -2316,4 +2308,163 @@ div.modal-content * {
 .footer-right .fa-envelope,
 .footer-right .fa-facebook-square {
   color: white;
+}
+
+/* Mobile responsive: Hide plus/minus buttons below 1024px */
+@media (max-width: 1023px) {
+  .quantity-btn {
+    display: none !important;
+  }
+  
+  .quantity-controls {
+    justify-content: center;
+  }
+  
+  .quantity-input {
+    width: 60px;
+    padding: 8px;
+  }
+  
+  /* Match the table container padding to shipping sections */
+  .cart-table-container {
+    padding: 20px 15px !important;
+  }
+  
+  /* Ensure the shipping and checkout sections use same padding */
+  .shipping-options,
+  .checkout-section {
+    padding: 20px 15px !important;
+  }
+  
+  /* Remove all table cell padding for full width content */
+  #cart-table {
+    border-collapse: collapse !important;
+    border-spacing: 0 !important;
+    margin: 0 !important;
+  }
+  
+  /* Hide price column completely on mobile to save space */
+  #cart-table thead th.price-header,
+  #cart-table tbody td.price-cell,
+  #cart-table colgroup col:nth-child(4) {
+    display: none !important;
+  }
+  
+  /* Adjust column widths to fill space without price column */
+  #cart-table colgroup col:nth-child(1) { width: 50% !important; } /* Product */
+  #cart-table colgroup col:nth-child(2) { width: 15% !important; } /* Unit */
+  #cart-table colgroup col:nth-child(3) { width: 20% !important; } /* Quantity */
+  #cart-table colgroup col:nth-child(5) { width: 15% !important; } /* Total */
+  
+  #cart-table td {
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+  }
+  
+  #cart-table td.product-cell {
+    padding: 0 !important;
+  }
+  
+  #cart-table td.quantity-cell,
+  #cart-table td.action-cell {
+    padding: 0 !important;
+  }
+  
+  /* Remove header padding too */
+  #cart-table thead th {
+    padding: 8px 0 !important;
+  }
+  
+  #cart-table thead th.product-header {
+    padding-left: 0 !important;
+  }
+}
+
+/* Mobile phones (768px and below): Hide unit column for better scaling */
+@media (max-width: 768px) {
+  /* Hide unit column completely */
+  #cart-table thead th.weight-header,
+  #cart-table tbody td.unit-cell,
+  #cart-table colgroup col:nth-child(2) {
+    display: none !important;
+  }
+  
+  /* Redistribute widths for remaining columns: Product, Quantity, Total, Action */
+  #cart-table colgroup col:nth-child(1) { width: 55% !important; } /* Product - more space */
+  #cart-table colgroup col:nth-child(3) { width: 20% !important; } /* Quantity */
+  #cart-table colgroup col:nth-child(5) { width: 15% !important; } /* Total */
+  #cart-table colgroup col:nth-child(6) { width: 10% !important; } /* Action */
+  
+  /* Fix quantity alignment - center vertically and align with header */
+  #cart-table td.quantity-cell {
+    vertical-align: middle !important;
+    text-align: center !important;
+    padding: 8px 4px !important;
+  }
+  
+  .quantity-controls {
+    justify-content: center !important;
+    align-items: center !important;
+    height: 100% !important;
+  }
+}
+
+/* Very small phones (425px and below): Replace action button with small red X */
+@media (max-width: 425px) {
+  /* Hide action header completely */
+  #cart-table thead th.action-header {
+    font-size: 0 !important;
+    padding: 8px 2px !important;
+  }
+  
+  /* Change "QUANTITY" to "QTY" to save space */
+  #cart-table thead th.quantity-header {
+    font-size: 0 !important;
+  }
+  
+  #cart-table thead th.quantity-header::after {
+    content: "QTY" !important;
+    font-size: 14px !important;
+    color: #cc5500 !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+  }
+  
+  /* Replace remove button with small red X */
+  .remove-button {
+    background: none !important;
+    border: none !important;
+    color: #dc3545 !important;
+    font-size: 20px !important;
+    font-weight: bold !important;
+    padding: 4px !important;
+    width: 24px !important;
+    height: 24px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 50% !important;
+  }
+  
+  .remove-button:hover {
+    background-color: #dc3545 !important;
+    color: white !important;
+  }
+  
+  /* Make remove button show only X */
+  .remove-button {
+    font-size: 0 !important;
+  }
+  
+  .remove-button::after {
+    content: "×" !important;
+    font-size: 16px !important;
+    font-weight: bold !important;
+  }
+  
+  /* Adjust action column width for small X */
+  #cart-table colgroup col:nth-child(6) { width: 8% !important; } /* Smaller action column */
+  #cart-table colgroup col:nth-child(1) { width: 57% !important; } /* Give product more space */
 }

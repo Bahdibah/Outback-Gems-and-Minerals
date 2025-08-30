@@ -1,0 +1,104 @@
+/* Sitemap specific styles */
+.sitemap-container {
+  max-width: 1200px;
+  margin: 110px auto auto auto;
+  padding: 0 20px;
+}
+
+.sitemap-section {
+  margin-bottom: 30px;
+}
+
+.sitemap-section h2 {
+  color: #cc5500;
+  border-bottom: 2px solid #cc5500;
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+}
+
+.sitemap-section h2 a {
+  color: #cc5500;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.sitemap-section h2 a:hover {
+  color: #ff6600;
+  text-decoration: underline;
+}
+
+.sitemap-list {
+  list-style-type: none;
+  padding-left: 20px;
+}
+
+.sitemap-list li {
+  margin-bottom: 10px;
+}
+
+.sitemap-list a {
+  color: #bfbfbfd2;
+  text-decoration: none;
+  font-size: 16px;
+  transition: color 0.3s;
+}
+
+.sitemap-list a:hover {
+  color: #cc5500;
+  text-decoration: underline;
+}
+
+/* Footer always at the bottom */
+footer {
+  flex-shrink: 0;
+  width: 100%;
+}
+
+/* Subcategory styling */
+.sitemap-subcategory {
+  margin-bottom: 20px;
+  margin-left: 15px;
+}
+
+.sitemap-subcategory h3 {
+  color: #e67300;
+  font-size: 18px;
+  margin-bottom: 8px;
+  padding-left: 10px;
+  border-left: 3px solid #e67300;
+}
+
+.sitemap-subcategory h3 a {
+  color: #e67300;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.sitemap-subcategory h3 a:hover {
+  color: #ff8533;
+  text-decoration: underline;
+}
+
+.sitemap-sublist {
+  margin-left: 20px;
+}
+
+.sitemap-sublist li {
+  margin-bottom: 5px;
+}
+
+.sitemap-sublist a {
+  font-size: 14px;
+  color: #a0a0a0;
+}
+
+.sitemap-sublist a:hover {
+  color: #e67300;
+}
+
+@media (max-width: 700px) {
+  .footer-left {
+    display: flex;
+    flex-direction: column;
+  }
+}

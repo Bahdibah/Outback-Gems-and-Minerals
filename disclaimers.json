@@ -1,0 +1,86 @@
+[
+  {
+    "category": "synthetic stones",
+    "applies-to": ["Synthetic Spinel", "Synthetic CZ"],
+    "disclaimer-title": "Synthetic Gemstones Disclaimer",
+    "disclaimer-text": "Although these stones have been grown to be consistent, some variations in colour, shape, and inclusions may occur. Please note that photos are taken under lighting conditions that best showcase the stone's features. Colours may vary slightly depending on lighting and screen settings. The piece pictured may not be the exact piece received - when purchasing bulk packs, colours and sizes of received pieces will vary."
+  },
+  {
+    "category": "natural stones",
+    "applies-to": ["Natural Zircon", "Natural Sapphire", "Natural Garnet", "Natural Apatite", "Natural Amethyst", "Natural Peridot"],
+    "disclaimer-title": "Natural Gemstones Disclaimer", 
+    "disclaimer-text": "Due to the natural origin of each stone, expect some variations in colour, shape, and inclusions. Please note that photos are taken under lighting conditions that best showcase the stone's features. Colours may vary slightly depending on lighting and screen settings. Natural imperfections and variations are typical and contribute to the authenticity of the specimen."
+  },
+  {
+    "category": "sapphire wash bags",
+    "applies-to": ["Sapphire Wash Bag"],
+    "disclaimer-title": "Sapphire Wash Bags Disclaimer",
+    "disclaimer-text": "Each washbag is unique and contains a random mix of sapphires and natural material. We do not guarantee the presence of cuttable or high-value stones. Images are representative only, your experience will vary depending on the specific material in your bag. Sieving equipment not included."
+  },
+  {
+    "category": "yowah nuts", 
+    "applies-to": ["Yowah Nuts"],
+    "disclaimer-title": "Yowah Nuts Disclaimer",
+    "disclaimer-text": "Yowah nuts are natural products and may or may not contain visible opal. Each piece is unique, and results will vary when cracked or cut. Photos are representative only — your item may differ in size, colour, and opal content. Cutting or cracking tools not included."
+  },
+  {
+    "category": "tumbled stones",
+    "applies-to": ["Tumbles"],
+    "disclaimer-title": "Tumbled Stones Disclaimer", 
+    "disclaimer-text": "Each pack contains a random assortment of tumbled stones of your chosen variety. Colours, types, and sizes will vary. Images are representative only— your selection may differ from those shown. All stones are natural, unless otherwise stated, and may include minor imperfections or variations in shape and polish."
+  },
+  {
+    "category": "single tumbled stones",
+    "applies-to": ["Single Tumbles"],
+    "disclaimer-title": "Single Tumbled Stone Disclaimer",
+    "disclaimer-text": "Each single tumbled stone is individually selected from our collection. Stones may include minor imperfections or variations in shape, size, colour, and polish. Photos are representative only— your stone may differ from those shown in terms of exact colour, patterns, and inclusions. Each piece is unique with its own natural character."
+  },
+  {
+    "category": "slabs",
+    "applies-to": ["Slabs"],
+    "disclaimer-title": "Slabs Disclaimer",
+    "disclaimer-text": "All slabs are cut from natural materials and may contain natural inclusions, fractures, or color variations. Photos are taken under optimal lighting conditions to showcase features. Actual colours may vary depending on lighting and screen settings. Dimensions are approximate and may vary slightly. All measurements are taken at the widest point unless otherwise specified."
+  },
+  {
+    "category": "crystal hearts",
+    "applies-to": ["Crystal Hearts"],
+    "disclaimer-title": "Crystal Hearts Disclaimer",
+    "disclaimer-text": "Crystal hearts are hand-carved from various materials and may show slight variations in size, shape, color, inclusions and patterns. Each piece is unique with its own character and charm. Photos are taken under optimal lighting conditions to showcase features. Colours may vary depending on lighting and screen settings. The piece pictured may not be the piece received."
+  },
+  {
+    "category": "crystal chip bottles",
+    "applies-to": ["Crystal Chip Bottles"],
+    "disclaimer-title": "Crystal Chip Bottles Disclaimer",
+    "disclaimer-text": "Crystal chip bottles contain assorted chips that vary in size, shape, color, and patterns. Each bottle is unique and contents may differ from those shown. Photos are taken under optimal lighting conditions to showcase features. Colours may vary depending on lighting and screen settings. The bottle pictured may not be the bottle received."
+  },
+  {
+    "category": "crystal butterflies",
+    "applies-to": ["Crystal Butterflies"],
+    "disclaimer-title": "Crystal Butterflies Disclaimer",
+    "disclaimer-text": "Crystal butterflies are hand-carved from various materials and may show slight variations in size, shape, color, inclusions and patterns. Each piece is unique with its own character and charm. Photos are taken under optimal lighting conditions to showcase features. Colours may vary depending on lighting and screen settings. The piece pictured may not be the piece received."
+  },
+  {
+    "category": "crystal towers mini",
+    "applies-to": ["Crystal Towers Mini"],
+    "disclaimer-title": "Crystal Towers Mini Disclaimer",
+    "disclaimer-text": "Crystal towers are carved from various materials and may show slight variations in size, shape, color, inclusions and patterns. Each piece is unique with its own character and charm. Photos are taken under optimal lighting conditions to showcase features. Colours may vary depending on lighting and screen settings. The piece pictured may not be the piece received."
+  },
+  {
+    "category": "gem tree",
+    "applies-to": ["Gem Tree (5-7cm)"],
+    "disclaimer-title": "Gem Tree Disclaimer",
+    "disclaimer-text": "Gem trees are handcrafted decorative pieces that may show variations in size, shape, color, arrangement and quantity of crystals. Each piece is unique with its own character and charm. Photos are taken under optimal lighting conditions to showcase features. Colours may vary depending on lighting and screen settings. The piece pictured may not be the piece received."
+  },
+  {
+    "category": "raw materials specimens",
+    "applies-to": ["Amethyst", "Smoky Quartz", "Olivine"],
+    "disclaimer-title": "Raw Materials & Specimens Disclaimer",
+    "disclaimer-text": "Raw materials and specimens are sold in their natural state and may contain inclusions, fractures, or other natural characteristics. Suitability for faceting or lapidary work will vary depending on individual specimen quality and intended use. Photos are taken under optimal lighting conditions to showcase features. Colours may vary depending on lighting and screen settings. The specimen pictured is the one you will receive."
+  },
+  {
+    "category": "herkimer diamonds",
+    "applies-to": ["Herkimer Diamonds"],
+    "disclaimer-title": "Herkimer Diamonds Disclaimer",
+    "disclaimer-text": "Herkimer diamonds are sold in bags containing assorted specimens that vary in size, shape, clarity, and quality. Each bag is unique and contents may differ from those shown. Suitability for faceting or lapidary work will vary depending on individual specimen quality and intended use. Photos are taken under optimal lighting conditions to showcase features. Colours may vary depending on lighting and screen settings. The bag pictured may not be the bag received."
+  }
+]
