@@ -39,7 +39,9 @@ exports.handler = async (event) => {
     });
     const captureData = await captureRes.json();
 
-    // Check if shipping address is in Australia
+    // MULTIPLE VALIDATION LAYERS FOR AUSTRALIA-ONLY SHIPPING
+    
+    // 1. Check if shipping address is in Australia
     const shippingAddress = captureData.purchase_units?.[0]?.shipping?.address;
     if (shippingAddress && shippingAddress.country_code !== 'AU') {
       // Reject the payment if shipping is outside Australia
@@ -53,6 +55,39 @@ exports.handler = async (event) => {
         body: JSON.stringify({
           error: "SHIPPING_RESTRICTED",
           message: "We only ship within Australia. Please use an Australian shipping address."
+        }),
+      };
+    }
+
+    // 2. Double-check payer address as backup validation
+    const payerAddress = captureData.payer?.address;
+    if (payerAddress && payerAddress.country_code && payerAddress.country_code !== 'AU') {
+      return {
+        statusCode: 400,
+        headers: {
+          "Access-Control-Allow-Origin": "https://outbackgems.com.au",
+          "Access-Control-Allow-Headers": "Content-Type",
+          "Access-Control-Allow-Methods": "POST, OPTIONS",
+        },
+        body: JSON.stringify({
+          error: "BILLING_RESTRICTED",
+          message: "Orders must be placed from Australia. International orders are temporarily suspended."
+        }),
+      };
+    }
+
+    // 3. Validate that we have an Australian shipping address
+    if (!shippingAddress) {
+      return {
+        statusCode: 400,
+        headers: {
+          "Access-Control-Allow-Origin": "https://outbackgems.com.au",
+          "Access-Control-Allow-Headers": "Content-Type",
+          "Access-Control-Allow-Methods": "POST, OPTIONS",
+        },
+        body: JSON.stringify({
+          error: "NO_SHIPPING_ADDRESS",
+          message: "A valid Australian shipping address is required."
         }),
       };
     }

@@ -18,6 +18,21 @@ exports.handler = async (event) => {
   try {
     const { cart, shippingMethod, customerEmail, shippingAddress, phone } = JSON.parse(event.body);
 
+    // First check: Reject international shipping requests immediately
+    if (shippingMethod === 'international') {
+      return {
+        statusCode: 400,
+        headers: {
+          "Access-Control-Allow-Origin": "https://outbackgems.com.au",
+          "Access-Control-Allow-Headers": "Content-Type",
+        },
+        body: JSON.stringify({ 
+          error: "INTERNATIONAL_SHIPPING_SUSPENDED", 
+          message: "International shipping is temporarily suspended. Please select Standard or Express delivery." 
+        }),
+      };
+    }
+
     // Fetch trusted products
     const trustedProducts = await fetch('https://script.google.com/macros/s/AKfycbyCY8VW0D1A7AFJiU7X6tN5-RTrnYxQIV4QCzmFprxYrCVv2o4uKWnmKfJ6Xh40H4uqXA/exec').then(res => res.json());
 

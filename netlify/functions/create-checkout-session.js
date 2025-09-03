@@ -23,6 +23,21 @@ exports.handler = async (event) => {
   try {
     const { cart, shippingMethod, shippingCost } = JSON.parse(event.body);
 
+    // First check: Reject international shipping requests immediately
+    if (shippingMethod === 'international') {
+      return {
+        statusCode: 400,
+        headers: {
+          "Access-Control-Allow-Origin": "https://outbackgems.com.au",
+          "Access-Control-Allow-Headers": "Content-Type",
+        },
+        body: JSON.stringify({ 
+          error: "INTERNATIONAL_SHIPPING_SUSPENDED", 
+          message: "International shipping is temporarily suspended. Please select Standard or Express delivery." 
+        }),
+      };
+    }
+
     if (!cart || !Array.isArray(cart) || cart.length === 0) {
       return {
         statusCode: 400,

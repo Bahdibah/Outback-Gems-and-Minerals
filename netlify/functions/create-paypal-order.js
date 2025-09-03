@@ -17,6 +17,21 @@ exports.handler = async (event) => {
   try {
     const { cart, shippingCost, shippingMethod } = JSON.parse(event.body);
 
+    // First check: Reject international shipping requests immediately
+    if (shippingMethod === 'international') {
+      return {
+        statusCode: 400,
+        headers: {
+          "Access-Control-Allow-Origin": "https://outbackgems.com.au",
+          "Access-Control-Allow-Headers": "Content-Type",
+        },
+        body: JSON.stringify({ 
+          error: "INTERNATIONAL_SHIPPING_SUSPENDED", 
+          message: "International shipping is temporarily suspended. Please select Standard or Express delivery." 
+        }),
+      };
+    }
+
     const trustedProducts = await fetch('https://script.google.com/macros/s/AKfycbyCY8VW0D1A7AFJiU7X6tN5-RTrnYxQIV4QCzmFprxYrCVv2o4uKWnmKfJ6Xh40H4uqXA/exec').then(res => res.json());
 
     const validatedCart = cart.map(item => {
@@ -108,12 +123,28 @@ exports.handler = async (event) => {
           },
           items,
           shipping: {
-            type: 'SHIPPING',
+            name: {
+              full_name: "Australia Only Delivery"
+            },
             address: {
-              country_code: 'AU'
+              address_line_1: "Australia Only",
+              admin_area_2: "Australia",
+              country_code: "AU"
             }
           }
         }],
+        payment_source: {
+          paypal: {
+            experience_context: {
+              payment_method_preference: "IMMEDIATE_PAYMENT_REQUIRED",
+              brand_name: "Outback Gems & Minerals",
+              locale: "en-AU",
+              landing_page: "LOGIN",
+              shipping_preference: "SET_PROVIDED_ADDRESS",
+              user_action: "PAY_NOW"
+            }
+          }
+        },
         application_context: {
           return_url: 'https://outbackgems.com.au/thankyou.html',
           cancel_url: 'https://outbackgems.com.au/cancel.html',
