@@ -39,6 +39,24 @@ exports.handler = async (event) => {
     });
     const captureData = await captureRes.json();
 
+    // BASIC AUSTRALIA-ONLY SHIPPING VALIDATION
+    const shippingAddress = captureData.purchase_units?.[0]?.shipping?.address;
+    if (shippingAddress && shippingAddress.country_code !== 'AU') {
+      // Block payment if shipping address is outside Australia
+      return {
+        statusCode: 400,
+        headers: {
+          "Access-Control-Allow-Origin": "https://outbackgems.com.au",
+          "Access-Control-Allow-Headers": "Content-Type",
+          "Access-Control-Allow-Methods": "POST, OPTIONS",
+        },
+        body: JSON.stringify({
+          error: "SHIPPING_RESTRICTED",
+          message: "We only ship within Australia. Please use an Australian shipping address."
+        }),
+      };
+    }
+
     return {
       statusCode: 200,
       headers: {
