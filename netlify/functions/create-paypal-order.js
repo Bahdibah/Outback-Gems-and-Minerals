@@ -121,17 +121,7 @@ exports.handler = async (event) => {
               shipping: { currency_code: 'AUD', value: validatedShippingCost.toFixed(2) }
             }
           },
-          items,
-          shipping: {
-            name: {
-              full_name: "Australia Only Delivery"
-            },
-            address: {
-              address_line_1: "Australia Only",
-              admin_area_2: "Australia",
-              country_code: "AU"
-            }
-          }
+          items
         }],
         payment_source: {
           paypal: {
@@ -140,7 +130,6 @@ exports.handler = async (event) => {
               brand_name: "Outback Gems & Minerals",
               locale: "en-AU",
               landing_page: "LOGIN",
-              shipping_preference: "SET_PROVIDED_ADDRESS",
               user_action: "PAY_NOW"
             }
           }
