@@ -130,17 +130,11 @@ exports.handler = async (event) => {
               brand_name: "Outback Gems & Minerals",
               locale: "en-AU",
               landing_page: "LOGIN",
-              user_action: "PAY_NOW"
+              user_action: "PAY_NOW",
+              return_url: 'https://outbackgems.com.au/thankyou.html',
+              cancel_url: 'https://outbackgems.com.au/cancel.html'
             }
           }
-        },
-        application_context: {
-          return_url: 'https://outbackgems.com.au/thankyou.html',
-          cancel_url: 'https://outbackgems.com.au/cancel.html',
-          shipping_preference: "SET_PROVIDED_ADDRESS",
-          user_action: "PAY_NOW",
-          brand_name: "Outback Gems & Minerals",
-          locale: 'en-AU'
         }
       })
     });
