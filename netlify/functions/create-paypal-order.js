@@ -131,13 +131,10 @@ exports.handler = async (event) => {
           reference_id: 'OGM-' + Math.floor(100000 + Math.random() * 900000),
           amount: {
             currency_code: 'AUD',
-            value: total.toFixed(2),
-            breakdown: {
-              item_total: { currency_code: 'AUD', value: itemsTotal.toFixed(2) },
-              shipping: { currency_code: 'AUD', value: validatedShippingCost.toFixed(2) }
-            }
-          },
-          items
+            value: total.toFixed(2)
+            // Simplified - remove breakdown that might be causing issues
+          }
+          // Simplified - remove items array temporarily for debugging
         }],
         payment_source: {
           paypal: {
