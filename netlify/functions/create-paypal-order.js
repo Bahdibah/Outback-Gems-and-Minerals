@@ -91,11 +91,13 @@ exports.handler = async (event) => {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${tokenData.access_token}`,
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'PayPal-Request-Id': 'OGM-' + Date.now() // Unique request ID
       },
       body: JSON.stringify({
         intent: 'CAPTURE',
         purchase_units: [{
+          reference_id: 'OGM-' + Math.floor(100000 + Math.random() * 900000),
           amount: {
             currency_code: 'AUD',
             value: total.toFixed(2),
@@ -104,12 +106,21 @@ exports.handler = async (event) => {
               shipping: { currency_code: 'AUD', value: validatedShippingCost.toFixed(2) }
             }
           },
-          items
+          items,
+          shipping: {
+            type: 'SHIPPING',
+            address: {
+              country_code: 'AU'
+            }
+          }
         }],
         application_context: {
           return_url: 'https://outbackgems.com.au/thankyou.html',
           cancel_url: 'https://outbackgems.com.au/cancel.html',
-          shipping_preference: "GET_FROM_FILE"
+          shipping_preference: "SET_PROVIDED_ADDRESS",
+          user_action: "PAY_NOW",
+          brand_name: "Outback Gems & Minerals",
+          locale: 'en-AU'
         }
       })
     });

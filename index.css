@@ -141,6 +141,58 @@ header {
   min-width: 100%;
 }
 
+/* Shipping Notice Banner */
+.shipping-notice-banner {
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  color: white;
+  padding: 18px 0;
+  text-align: center;
+  border-bottom: 3px solid #cc5500;
+}
+
+.shipping-notice-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-size: 16px;
+  font-weight: 500;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.shipping-notice-content i {
+  color: #ffd700;
+  font-size: 20px;
+}
+
+.shipping-notice-content a {
+  color: #ffd700;
+  text-decoration: underline;
+}
+
+.shipping-notice-content a:hover {
+  color: #ffed4a;
+  text-decoration: none;
+}
+
+@media (max-width: 768px) {
+  .shipping-notice-content {
+    font-size: 14px;
+    padding: 0 15px;
+    gap: 10px;
+  }
+  
+  .shipping-notice-content i {
+    font-size: 18px;
+  }
+  
+  .shipping-notice-banner {
+    padding: 15px 0;
+  }
+}
+
 /* Footer Styling */
 footer {
     background-color: #1e1e1e;

@@ -1,4 +1,292 @@
+// Location-based shipping restrictions
+function checkLocationAndShowWarning() {
+  // Check if user is likely from outside Australia using various methods
+  let showInternationalWarning = false;
+  
+  try {
+    // Method 1: Check timezone (not 100% reliable but a good indicator)
+    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    if (timezone && !timezone.includes('Australia')) {
+      showInternationalWarning = true;
+    }
+    
+    // Method 2: Browser language check (secondary indicator)
+    const language = navigator.language || navigator.userLanguage;
+    if (language && !language.startsWith('en-AU')) {
+      // Don't set warning based on language alone, but use as supporting factor
+    }
+    
+    // Method 3: Check if warning already dismissed for this session
+    if (sessionStorage.getItem('shippingWarningDismissed') === 'true') {
+      showInternationalWarning = false;
+    }
+    
+    if (showInternationalWarning) {
+      showShippingRestrictionModal();
+    }
+  } catch (error) {
+    console.log('Location detection error:', error);
+    // Fail silently, don't block cart functionality
+  }
+}
+
+function showShippingRestrictionModal() {
+  // Create modal if it doesn't exist
+  if (!document.getElementById('shipping-restriction-modal')) {
+    const modal = document.createElement('div');
+    modal.id = 'shipping-restriction-modal';
+    modal.className = 'shipping-modal-overlay';
+    modal.innerHTML = `
+      <div class="shipping-modal-content">
+        <div class="shipping-modal-header">
+          <h2><i class="fa fa-exclamation-triangle"></i> Temporary International Shipping Suspension</h2>
+          <button class="shipping-modal-close" onclick="closeShippingModal()">&times;</button>
+        </div>
+        <div class="shipping-modal-body">
+          <p><strong>We currently ship within Australia only.</strong></p>
+          <p>International shipping is temporarily suspended due to ongoing Australia Post service disruptions and current tariff restrictions.</p>
+          <p>For more information about these disruptions, please visit the <a href="https://auspost.com.au/disruptions-and-updates/international-service-updates" target="_blank" rel="noopener">Australia Post website</a>.</p>
+          <p>If you're located in Australia, you can continue with your purchase. We apologize for any inconvenience to our international customers.</p>
+        </div>
+        <div class="shipping-modal-actions">
+          <button class="shipping-modal-btn shipping-modal-btn-secondary" onclick="closeShippingModal()">I Understand</button>
+          <button class="shipping-modal-btn shipping-modal-btn-primary" onclick="closeShippingModalPermanent()">Don't Show Again</button>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(modal);
+    
+    // Add styles for the modal
+    if (!document.getElementById('shipping-modal-styles')) {
+      const styles = document.createElement('style');
+      styles.id = 'shipping-modal-styles';
+      styles.textContent = `
+        .shipping-modal-overlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(0, 0, 0, 0.8);
+          z-index: 10000;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 20px;
+        }
+        .shipping-modal-content {
+          background: #fff;
+          border-radius: 12px;
+          max-width: 500px;
+          width: 100%;
+          max-height: 90vh;
+          overflow: auto;
+        }
+        .shipping-modal-header {
+          background: linear-gradient(135deg, #cc5500, #e66600);
+          color: white;
+          padding: 20px;
+          border-radius: 12px 12px 0 0;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+        .shipping-modal-header h2 {
+          margin: 0;
+          font-size: 20px;
+        }
+        .shipping-modal-close {
+          background: none;
+          border: none;
+          color: white;
+          font-size: 24px;
+          cursor: pointer;
+          padding: 0;
+          width: 30px;
+          height: 30px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .shipping-modal-body {
+          padding: 20px;
+          color: #333;
+          line-height: 1.6;
+        }
+        .shipping-modal-body a {
+          color: #cc5500;
+          text-decoration: underline;
+        }
+        .shipping-modal-body a:hover {
+          color: #e66600;
+          text-decoration: none;
+        }
+        .shipping-modal-actions {
+          padding: 0 20px 20px;
+          display: flex;
+          gap: 10px;
+          justify-content: flex-end;
+        }
+        .shipping-modal-btn {
+          padding: 10px 20px;
+          border: none;
+          border-radius: 6px;
+          cursor: pointer;
+          font-weight: 600;
+        }
+        .shipping-modal-btn-primary {
+          background: #cc5500;
+          color: white;
+        }
+        .shipping-modal-btn-secondary {
+          background: #f0f0f0;
+          color: #333;
+        }
+        .shipping-modal-btn:hover {
+          opacity: 0.9;
+        }
+      `;
+      document.head.appendChild(styles);
+    }
+  }
+  
+  document.getElementById('shipping-restriction-modal').style.display = 'flex';
+}
+
+function closeShippingModal() {
+  document.getElementById('shipping-restriction-modal').style.display = 'none';
+}
+
+function closeShippingModalPermanent() {
+  sessionStorage.setItem('shippingWarningDismissed', 'true');
+  closeShippingModal();
+}
+
+// Australian postcode validation
+function validateAustralianPostcode(postcode) {
+  // Australian postcodes are 4 digits, ranging from 0200-9999
+  const postcodeRegex = /^[0-9]{4}$/;
+  if (!postcodeRegex.test(postcode)) {
+    return false;
+  }
+  
+  const code = parseInt(postcode);
+  // Exclude invalid ranges (0000-0199 are not used)
+  if (code < 200) {
+    return false;
+  }
+  
+  return true;
+}
+
+// Toggle payment buttons based on shipping selection
+function togglePaymentButtons(disablePayments) {
+  const paymentButtons = document.querySelectorAll('.payment-button, #checkout-btn, #paypal-btn, #bank-transfer-btn, #checkout-now-button, #final-checkout-button, #place-bank-order');
+  const paymentOptions = document.querySelectorAll('#pay-card, #pay-paypal, #pay-bank, .payment-option');
+  const checkoutSection = document.querySelector('.checkout-section');
+  
+  // Store the disabled state globally
+  window.internationalShippingSelected = disablePayments;
+  
+  // Handle payment buttons
+  paymentButtons.forEach(button => {
+    if (disablePayments) {
+      button.disabled = true;
+      button.classList.add('disabled-payment');
+      button.style.pointerEvents = 'none';
+    } else {
+      button.disabled = false;
+      button.classList.remove('disabled-payment');
+      button.style.pointerEvents = 'auto';
+    }
+  });
+  
+  // Handle payment option divs (pay-card, pay-paypal, pay-bank)
+  paymentOptions.forEach(option => {
+    if (disablePayments) {
+      option.classList.add('disabled-payment');
+      option.style.pointerEvents = 'none';
+      option.style.opacity = '0.5';
+      option.style.cursor = 'not-allowed';
+    } else {
+      option.classList.remove('disabled-payment');
+      option.style.pointerEvents = 'auto';
+      option.style.opacity = '1';
+      option.style.cursor = 'pointer';
+    }
+  });
+  
+  // Add or remove disabled styling to checkout section
+  if (checkoutSection) {
+    if (disablePayments) {
+      checkoutSection.classList.add('checkout-disabled');
+      
+      // Show message about international shipping suspension
+      let disabledMessage = document.querySelector('.international-checkout-message');
+      if (!disabledMessage) {
+        disabledMessage = document.createElement('div');
+        disabledMessage.className = 'international-checkout-message';
+        disabledMessage.innerHTML = `
+          <p><i class="fa fa-info-circle"></i> <strong>International shipping is temporarily suspended.</strong></p>
+          <p>Payment options are disabled. Please <a href="contact.html">contact us</a> for assistance or select Australia-only shipping.</p>
+        `;
+        checkoutSection.insertBefore(disabledMessage, checkoutSection.firstChild);
+      }
+    } else {
+      checkoutSection.classList.remove('checkout-disabled');
+      
+      // Remove disabled message
+      const disabledMessage = document.querySelector('.international-checkout-message');
+      if (disabledMessage) {
+        disabledMessage.remove();
+      }
+    }
+  }
+}
+
+// Global event interceptor to catch all payment-related clicks
+document.addEventListener('click', function(event) {
+  if (window.internationalShippingSelected) {
+    const target = event.target;
+    const isPaymentRelated = 
+      target.matches('#pay-card, #pay-paypal, #pay-bank, .payment-option') ||
+      target.closest('#pay-card, #pay-paypal, #pay-bank, .payment-option') ||
+      target.matches('#checkout-now-button, #final-checkout-button, #place-bank-order') ||
+      target.matches('.payment-button, #checkout-btn, #paypal-btn, #bank-transfer-btn') ||
+      target.classList.contains('payment-button') ||
+      target.closest('.payment-option');
+    
+    if (isPaymentRelated) {
+      event.preventDefault();
+      event.stopPropagation();
+      event.stopImmediatePropagation();
+      
+      alert('International shipping is temporarily suspended. Please select Standard or Express delivery to continue with checkout.');
+      return false;
+    }
+  }
+}, true); // Use capture phase to intercept before other handlers
+
+// Function to prevent checkout when international shipping is selected (keeping for backwards compatibility)
+function preventCheckout(event) {
+  event.preventDefault();
+  event.stopPropagation();
+  event.stopImmediatePropagation();
+  
+  // Show alert to user
+  alert('International shipping is temporarily suspended. Please select Standard or Express delivery to continue with checkout.');
+  
+  return false;
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+  // Check location and display warning if needed
+  checkLocationAndShowWarning();
+  
+  // Initialize payment button state based on current shipping selection
+  const savedShippingMethod = localStorage.getItem('selectedShippingMethod') || 'standard';
+  togglePaymentButtons(savedShippingMethod === 'international');
+  
   // Payment Method Security Information Configuration
   window.paymentSecurityInfo = {
     'default': [
@@ -84,7 +372,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
                 <div class="shipping-details">
                   <span class="delivery-time">5-7 business days</span>
-                  <span class="australia-post">Australia Post Reliable Service</span>
+                  <span class="australia-post">Australia Post Reliable Service - Australia Only</span>
                 </div>
               </div>
             </label>
@@ -98,7 +386,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
                 <div class="shipping-details">
                   <span class="delivery-time">1-3 business days</span>
-                  <span class="australia-post">Australia Post Express Service</span>
+                  <span class="australia-post">Australia Post Express Service - Australia Only</span>
+                </div>
+              </div>
+            </label>
+            <label class="shipping-option international-shipping-option ${savedShippingMethod === 'international' ? 'selected' : ''}" for="international-radio">
+              <input type="radio" id="international-radio" name="shipping-method" value="international" ${savedShippingMethod === 'international' ? 'checked' : ''}>
+              <div class="shipping-option-content">
+                <div class="shipping-title">
+                  <i class="fa fa-globe" aria-hidden="true"></i>
+                  <span>International Shipping</span>
+                </div>
+                <div class="shipping-details">
+                  <span class="delivery-time">Temporarily Suspended</span>
+                  <span class="australia-post">Due to Australia Post service disruptions - <a href="contact.html">Contact us</a></span>
                 </div>
               </div>
             </label>
@@ -140,7 +441,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
                 <div class="shipping-details">
                   <span class="delivery-time">5-7 business days</span>
-                  <span class="australia-post">Australia Post Reliable Service</span>
+                  <span class="australia-post">Australia Post Reliable Service - Australia Only</span>
                 </div>
               </div>
             </label>
@@ -150,14 +451,28 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="shipping-title">
                   <i class="fa fa-plane" aria-hidden="true"></i>
                   <span>Express Delivery</span>
-                <span class="shipping-badge express">$14.45</span>
+                  <span class="shipping-badge express">$14.45</span>
+                </div>
+                <div class="shipping-details">
+                  <span class="delivery-time">1-3 business days</span>
+                  <span class="australia-post">Australia Post Express Service - Australia Only</span>
+                </div>
               </div>
-              <div class="shipping-details">
-                <span class="delivery-time">1-3 business days</span>
-                <span class="australia-post">Australia Post Express Service</span>
+            </label>
+            <label class="shipping-option international-shipping-option ${savedShippingMethod === 'international' ? 'selected' : ''}" for="international-radio-paid">
+              <input type="radio" id="international-radio-paid" name="shipping-method" value="international" ${savedShippingMethod === 'international' ? 'checked' : ''}>
+              <div class="shipping-option-content">
+                <div class="shipping-title">
+                  <i class="fa fa-globe" aria-hidden="true"></i>
+                  <span>International Shipping</span>
+                </div>
+                <div class="shipping-details">
+                  <span class="delivery-time">Temporarily Suspended</span>
+                  <span class="australia-post">Due to Australia Post service disruptions - <a href="contact.html">Contact us</a></span>
+                </div>
               </div>
-            </div>
-          </label>
+            </label>
+          </div>
         </div>
       `;
       shippingCost = savedShippingMethod === 'standard' ? 10.95 : 14.45;
@@ -176,6 +491,9 @@ document.addEventListener('DOMContentLoaded', () => {
             option.classList.remove('selected');
           });
           radio.closest('.shipping-option').classList.add('selected');
+          
+          // Disable/enable payment buttons based on shipping selection
+          togglePaymentButtons(radio.value === 'international');
         }
       });
     });
@@ -188,6 +506,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     shippingCostElement.textContent = `Shipping: $${shippingCost.toFixed(2)}`;
     totalPriceElement.textContent = `Total Price: $${(subtotal + shippingCost).toFixed(2)}`;
+    
+    // Check current shipping method and toggle payment buttons accordingly
+    togglePaymentButtons(savedShippingMethod === 'international');
   }
 
   // Load cart items and render
@@ -462,6 +783,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const paymentOptionsBox = document.getElementById('payment-options-box');
   if (checkoutButton && paymentOptionsBox) {
     checkoutButton.addEventListener("click", () => {
+      // Check if international shipping is selected
+      const selectedShippingMethod = localStorage.getItem('selectedShippingMethod') || 'standard';
+      if (selectedShippingMethod === 'international') {
+        alert('International shipping is temporarily suspended. Please select Standard or Express delivery to continue with checkout.');
+        return;
+      }
+      
       if (checkoutButton.disabled) {
         alert("Please adjust your cart to available stock before checking out.");
         return;
@@ -485,6 +813,13 @@ document.addEventListener('DOMContentLoaded', () => {
   // Optional: Handle the final checkout button click
   if (finalCheckoutButton) {
     finalCheckoutButton.addEventListener('click', async function() {
+      // Check if international shipping is selected
+      const selectedShippingMethod = localStorage.getItem('selectedShippingMethod') || 'standard';
+      if (selectedShippingMethod === 'international') {
+        alert('International shipping is temporarily suspended. Please select Standard or Express delivery to continue with checkout.');
+        return;
+      }
+      
       const overlay = document.getElementById('please-wait-overlay');
       if (overlay) overlay.classList.add('show-flex'); // Show overlay
 
@@ -531,6 +866,13 @@ document.addEventListener('DOMContentLoaded', () => {
           const stripe = Stripe('pk_live_51RSrS62LkmYKgi6m273LNQSjpKI8SnxNtiQMGcHijiiL3eliZZzqKDR00BL8uNlwYFloGGO3kyNQJKctTvEK4eB000e8dIlEQd');
           stripe.redirectToCheckout({ sessionId: data.id });
         } else if (method === 'pay-paypal') {
+          // Check if international shipping is selected
+          const selectedShippingMethod = localStorage.getItem('selectedShippingMethod') || 'standard';
+          if (selectedShippingMethod === 'international') {
+            alert('International shipping is temporarily suspended. Please select Standard or Express delivery to continue with checkout.');
+            return;
+          }
+          
           let cart = JSON.parse(localStorage.getItem('cart')) || [];
           cart = cart.map(item => ({
             id: item.id,
@@ -606,6 +948,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // Validate required fields
     if (!email || !street || !suburb || !state || !postcode) {
       alert('Please fill out your email and all shipping address fields.');
+      return;
+    }
+
+    // Validate Australian postcode
+    if (!validateAustralianPostcode(postcode)) {
+      alert('Please enter a valid Australian postcode (4 digits, 0200-9999). We only ship within Australia.');
       return;
     }
 
@@ -817,6 +1165,13 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   async function processPayPalPayment() {
+    // Check if international shipping is selected
+    const selectedShippingMethod = localStorage.getItem('selectedShippingMethod') || 'standard';
+    if (selectedShippingMethod === 'international') {
+      alert('International shipping is temporarily suspended. Please select Standard or Express delivery to continue with checkout.');
+      return;
+    }
+    
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
     cart = cart.map(item => ({
       id: item.id,
@@ -845,6 +1200,13 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function processBankTransfer() {
+    // Check if international shipping is selected
+    const selectedShippingMethod = localStorage.getItem('selectedShippingMethod') || 'standard';
+    if (selectedShippingMethod === 'international') {
+      alert('International shipping is temporarily suspended. Please select Standard or Express delivery to continue with checkout.');
+      return;
+    }
+    
     const overlay = document.getElementById('please-wait-overlay');
     if (overlay) overlay.classList.remove('show-flex');
     

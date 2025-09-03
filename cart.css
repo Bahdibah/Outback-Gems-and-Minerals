@@ -42,7 +42,122 @@ body {
   letter-spacing: 1px;
 }
 
-/* Pre-Cart Trust Section - Standalone confidence builder */
+/* Shipping Notice Styles */
+.shipping-notice-container {
+  margin: 20px auto;
+  max-width: 1200px;
+  padding: 0 20px;
+}
+
+.shipping-notice {
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  box-shadow: 0 4px 15px rgba(30, 60, 114, 0.2);
+  border-left: 4px solid #cc5500;
+}
+
+.notice-icon {
+  flex-shrink: 0;
+}
+
+.notice-icon i {
+  font-size: 24px;
+  color: #ffd700;
+}
+
+.notice-content h3 {
+  margin: 0 0 8px 0;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.notice-content p {
+  margin: 0;
+  color: #e0e6ed;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+@media (max-width: 768px) {
+  .shipping-notice {
+    padding: 15px;
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .shipping-notice-container {
+    margin: 15px auto;
+    padding: 0 15px;
+  }
+  
+  .notice-content h3 {
+    font-size: 16px;
+  }
+}
+
+/* Shipping Notice Styles */
+.shipping-notice-container {
+  margin: 20px auto;
+  max-width: 1200px;
+  padding: 0 20px;
+}
+
+.shipping-notice {
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  box-shadow: 0 4px 15px rgba(30, 60, 114, 0.2);
+  border-left: 4px solid #cc5500;
+}
+
+.notice-icon {
+  flex-shrink: 0;
+}
+
+.notice-icon i {
+  font-size: 24px;
+  color: #ffd700;
+}
+
+.notice-content h3 {
+  margin: 0 0 8px 0;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.notice-content p {
+  margin: 0;
+  color: #e0e6ed;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+@media (max-width: 768px) {
+  .shipping-notice {
+    padding: 15px;
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .shipping-notice-container {
+    margin: 15px auto;
+    padding: 0 15px;
+  }
+  
+  .notice-content h3 {
+    font-size: 16px;
+  }
+}
+
 .pre-cart-trust-section {
   width: 85%;
   max-width: 1200px;
@@ -526,6 +641,59 @@ body {
   color: white;
 }
 
+.shipping-badge.suspended {
+  background-color: #e67e22;
+  color: white;
+  font-size: 11px;
+  padding: 4px 8px;
+  display: none; /* Hide this badge as we're showing status in delivery-time */
+}
+
+/* International Shipping Option Styles */
+.international-shipping-option {
+  opacity: 0.7;
+  cursor: not-allowed;
+  position: relative;
+  background-color: #444;
+  border: 2px solid #e67e22;
+}
+
+.international-shipping-option .shipping-option-content {
+  background: inherit;
+  border: none;
+}
+
+.international-shipping-option .shipping-title span:first-of-type {
+  color: #fff;
+}
+
+.international-shipping-option .delivery-time {
+  color: #e67e22;
+  font-style: italic;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.international-shipping-option .australia-post {
+  color: #aaa;
+}
+
+.international-shipping-option .australia-post a {
+  color: #3498db;
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+.international-shipping-option .australia-post a:hover {
+  color: #2980b9;
+  text-decoration: none;
+}
+
+.international-shipping-option:hover {
+  transform: none;
+  box-shadow: none;
+}
+
 .shipping-details {
   display: flex;
   flex-direction: column;
@@ -547,13 +715,27 @@ body {
 }
 
 /* Responsive Design for Shipping */
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
+  .shipping-options-grid {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  
+  .shipping-option {
+    min-height: 130px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
   .shipping-options-grid {
     grid-template-columns: 1fr 1fr;
   }
   
   .shipping-option {
     min-height: 130px;
+  }
+  
+  .international-shipping-option {
+    grid-column: 1 / -1;
   }
 }
 
@@ -2467,4 +2649,96 @@ div.modal-content * {
   /* Adjust action column width for small X */
   #cart-table colgroup col:nth-child(6) { width: 8% !important; } /* Smaller action column */
   #cart-table colgroup col:nth-child(1) { width: 57% !important; } /* Give product more space */
+}
+
+/* Shipping Notice Link Styles */
+.shipping-notice .notice-content a {
+  color: #ffd700 !important;
+  text-decoration: underline !important;
+}
+
+.shipping-notice .notice-content a:hover {
+  color: #ffed4a !important;
+  text-decoration: none !important;
+}
+
+/* International Shipping Payment Restrictions */
+.disabled-payment {
+  opacity: 0.5 !important;
+  cursor: not-allowed !important;
+  pointer-events: none !important;
+  background-color: #ccc !important;
+  color: #666 !important;
+  position: relative;
+}
+
+.disabled-payment::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(128, 128, 128, 0.3);
+  z-index: 10;
+  pointer-events: none;
+}
+
+/* Specific styling for payment option divs */
+.payment-option.disabled-payment {
+  background-color: #f0f0f0 !important;
+  border-color: #ccc !important;
+  color: #666 !important;
+}
+
+.payment-option.disabled-payment .payment-icon {
+  color: #999 !important;
+}
+
+.checkout-disabled {
+  opacity: 0.6;
+  position: relative;
+}
+
+.checkout-disabled::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(200, 200, 200, 0.3);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.international-checkout-message {
+  background: linear-gradient(135deg, #f39c12, #e67e22);
+  color: white;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.international-checkout-message p {
+  margin: 5px 0;
+}
+
+.international-checkout-message a {
+  color: #fff;
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+.international-checkout-message a:hover {
+  color: #ffed4a;
+}
+
+/* Update international shipping option to remove disabled styling when selectable */
+.international-shipping-option {
+  opacity: 1; /* Remove the previous 0.7 opacity */
+  cursor: pointer; /* Make it clickable */
 }
