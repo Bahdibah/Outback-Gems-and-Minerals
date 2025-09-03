@@ -17,21 +17,6 @@ exports.handler = async (event) => {
   try {
     const { cart, shippingCost, shippingMethod } = JSON.parse(event.body);
 
-    // Temporarily disable international shipping check for debugging
-    // if (shippingMethod === 'international') {
-    //   return {
-    //     statusCode: 400,
-    //     headers: {
-    //       "Access-Control-Allow-Origin": "https://outbackgems.com.au",
-    //       "Access-Control-Allow-Headers": "Content-Type",
-    //     },
-    //     body: JSON.stringify({ 
-    //       error: "INTERNATIONAL_SHIPPING_SUSPENDED", 
-    //       message: "International shipping is temporarily suspended. Please select Standard or Express delivery." 
-    //     }),
-    //   };
-    // }
-
     const trustedProducts = await fetch('https://script.google.com/macros/s/AKfycbyCY8VW0D1A7AFJiU7X6tN5-RTrnYxQIV4QCzmFprxYrCVv2o4uKWnmKfJ6Xh40H4uqXA/exec').then(res => res.json());
 
     const validatedCart = cart.map(item => {
@@ -101,92 +86,37 @@ exports.handler = async (event) => {
     });
     const tokenData = await tokenRes.json();
 
-    // Check if token acquisition failed
-    if (!tokenRes.ok || !tokenData.access_token) {
-      return {
-        statusCode: 500,
-        headers: {
-          "Access-Control-Allow-Origin": "https://outbackgems.com.au",
-          "Access-Control-Allow-Headers": "Content-Type",
-        },
-        body: JSON.stringify({ 
-          error: "PAYPAL_TOKEN_FAILED", 
-          message: "Failed to get PayPal access token",
-          details: tokenData
-        }),
-      };
-    }
-
     // Create PayPal order
     const orderRes = await fetch('https://api-m.paypal.com/v2/checkout/orders', { // LIVE
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${tokenData.access_token}`,
-        'Content-Type': 'application/json',
-        'PayPal-Request-Id': 'OGM-' + Date.now() // Unique request ID
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
         intent: 'CAPTURE',
         purchase_units: [{
-          reference_id: 'OGM-' + Math.floor(100000 + Math.random() * 900000),
           amount: {
             currency_code: 'AUD',
-            value: total.toFixed(2)
-            // Simplified - remove breakdown that might be causing issues
-          }
-          // Simplified - remove items array temporarily for debugging
-        }],
-        payment_source: {
-          paypal: {
-            experience_context: {
-              payment_method_preference: "IMMEDIATE_PAYMENT_REQUIRED",
-              brand_name: "Outback Gems & Minerals",
-              locale: "en-AU",
-              landing_page: "LOGIN",
-              user_action: "PAY_NOW",
-              return_url: 'https://outbackgems.com.au/thankyou.html',
-              cancel_url: 'https://outbackgems.com.au/cancel.html'
+            value: total.toFixed(2),
+            breakdown: {
+              item_total: { currency_code: 'AUD', value: itemsTotal.toFixed(2) },
+              shipping: { currency_code: 'AUD', value: validatedShippingCost.toFixed(2) }
             }
-          }
+          },
+          items
+        }],
+        application_context: {
+          return_url: 'https://outbackgems.com.au/thankyou.html',
+          cancel_url: 'https://outbackgems.com.au/cancel.html',
+          shipping_preference: "GET_FROM_FILE"
         }
       })
     });
     const orderData = await orderRes.json();
 
-    // Check if PayPal returned an error
-    if (!orderRes.ok || orderData.error) {
-      return {
-        statusCode: 400,
-        headers: {
-          "Access-Control-Allow-Origin": "https://outbackgems.com.au",
-          "Access-Control-Allow-Headers": "Content-Type",
-        },
-        body: JSON.stringify({ 
-          error: "PAYPAL_ORDER_CREATION_FAILED", 
-          message: orderData.error?.message || "Failed to create PayPal order",
-          details: orderData
-        }),
-      };
-    }
-
     // Find approval URL
-    const approvalUrl = orderData.links?.find(link => link.rel === 'approve')?.href;
-
-    // If no approval URL found, return error with full response for debugging
-    if (!approvalUrl) {
-      return {
-        statusCode: 400,
-        headers: {
-          "Access-Control-Allow-Origin": "https://outbackgems.com.au",
-          "Access-Control-Allow-Headers": "Content-Type",
-        },
-        body: JSON.stringify({ 
-          error: "NO_APPROVAL_URL", 
-          message: "PayPal order created but no approval URL found",
-          orderData: orderData
-        }),
-      };
-    }
+    const approvalUrl = orderData.links.find(link => link.rel === 'approve')?.href;
 
     return {
       statusCode: 200,
