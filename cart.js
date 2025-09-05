@@ -863,7 +863,7 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('Checkout failed: ' + (data.error || 'No session ID returned.'));
             return;
           }
-          const stripe = Stripe('pk_live_51RSrS62LkmYKgi6m273LNQSjpKI8SnxNtiQMGcHijiiL3eliZZzqKDR00BL8uNlwYFloGGO3kyNQJKctTvEK4eB000e8dIlEQd');
+          const stripe = Stripe(window.CONFIG.STRIPE_PUBLISHABLE_KEY);
           stripe.redirectToCheckout({ sessionId: data.id });
         } else if (method === 'pay-paypal') {
           // Check if international shipping is selected
@@ -1159,7 +1159,7 @@ document.addEventListener('DOMContentLoaded', () => {
       alert('Checkout failed: ' + (data.error || 'No session ID returned.'));
       return;
     }
-    const stripe = Stripe('pk_live_51RSrS62LkmYKgi6m273LNQSjpKI8SnxNtiQMGcHijiiL3eliZZzqKDR00BL8uNlwYFloGGO3kyNQJKctTvEK4eB000e8dIlEQd');
+    const stripe = Stripe(window.CONFIG.STRIPE_PUBLISHABLE_KEY);
     // DON'T clear cart here - only clear on successful payment
     stripe.redirectToCheckout({ sessionId: data.id });
   }

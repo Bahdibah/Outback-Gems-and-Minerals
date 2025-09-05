@@ -266,6 +266,13 @@
             <label for="notification-email">Your Email</label>
             <input type="email" id="notification-email" name="email" placeholder="you@example.com" required>
           </div>
+          
+          <!-- Honeypot field - hidden from users but visible to bots -->
+          <div class="honeypot-field" aria-hidden="true">
+            <label for="notification-website">Website (leave blank):</label>
+            <input type="text" id="notification-website" name="website" tabindex="-1" autocomplete="off" />
+          </div>
+          
           <!-- Hidden fields for product details -->
           <input type="hidden" id="notification-product-id" name="product_id" value="">
           <input type="hidden" id="notification-product-name" name="product_name" value="">

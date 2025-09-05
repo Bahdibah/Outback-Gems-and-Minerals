@@ -294,8 +294,15 @@
        
        
       <p>Sign up here to stay updated with the latest news and offers from Outback Gems &amp; Minerals:</p>
-      <form action="https://script.google.com/macros/s/AKfycbxXCspp43Dd21cSB34eju-qTBLi01vVFrwzEuZzvDViB5QmKf7dqLlWPin2Ijr-B6X1IA/exec" method="post">
+      <form action="https://script.google.com/macros/s/AKfycbxXCspp43Dd21cSB34eju-qTBLi01vVFrwzEuZzvDViB5QmKf7dqLlWPin2Ijr-B6X1IA/exec" method="post" name="newsletter-form">
         <input type="email" name="email" autocomplete="email" placeholder="you@example.com" required />
+        
+        <!-- Honeypot field - hidden from users but visible to bots -->
+        <div class="honeypot-field" aria-hidden="true">
+          <label for="newsletter-website">Website (leave blank):</label>
+          <input type="text" id="newsletter-website" name="website" tabindex="-1" autocomplete="off" />
+        </div>
+        
         <button type="submit">Subscribe</button>
       </form>
     </div>

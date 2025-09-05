@@ -81,8 +81,18 @@ document.querySelector('.newsletter-container form').addEventListener('submit', 
 
   const form = this;
   const emailInput = form.querySelector('input[name="email"]');
+  const honeypot = form.querySelector('input[name="website"]');
   const email = emailInput.value.trim();
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  // Honeypot spam protection
+  if (honeypot && honeypot.value.trim() !== '') {
+    console.log('Spam submission blocked by honeypot');
+    // Show fake success message to confuse bots
+    alert('Thank you for subscribing!');
+    form.reset();
+    return;
+  }
 
   // Basic email validation
   if (!emailRegex.test(email)) {

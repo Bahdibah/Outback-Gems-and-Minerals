@@ -903,3 +903,11 @@ button {
 .hidden {
   display: none !important;
 }
+
+/* Honeypot field styling */
+.honeypot-field {
+  position: absolute !important;
+  left: -9999px !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
