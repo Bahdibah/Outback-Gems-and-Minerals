@@ -194,6 +194,7 @@ async function sendShippingNotificationEmail(orderData) {
 
     const result = await resend.emails.send(emailData);
     console.log('Shipping email sent successfully:', result.id);
+    return result;
     
   } catch (error) {
     console.error('Failed to send shipping email:', error);
