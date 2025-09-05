@@ -15,7 +15,21 @@ async function getProductData() {
     return JSON.parse(cached);
   }
 
-  // Try local inventory.json file first (instant load)
+  // Try dynamic inventory endpoint first (with live stock updates)
+  try {
+    const dynamicResponse = await fetch("/.netlify/functions/update-inventory");
+    if (dynamicResponse.ok) {
+      const data = await dynamicResponse.json();
+      localStorage.setItem(CACHE_KEY, JSON.stringify(data));
+      localStorage.setItem(CACHE_TIME_KEY, now);
+      localStorage.setItem(VERSION_KEY, INVENTORY_VERSION);
+      return data;
+    }
+  } catch (error) {
+    console.log('Dynamic inventory endpoint not available, trying static file...');
+  }
+
+  // Try local inventory.json file as fallback (instant load)
   try {
     const localResponse = await fetch("inventory.json");
     if (localResponse.ok) {
