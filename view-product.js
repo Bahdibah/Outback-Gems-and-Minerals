@@ -1154,8 +1154,8 @@ const productSEOMeta = {
   
   // Sapphire Washbags
   "sw001": {
-    titleTemplate: "Buy {name} 1kg Bag - ${price} | Sapphire Fossicking from Queensland Gemfields | Outback Gems & Minerals",
-    description: "1kg sapphire washbag from Queensland Gemfields. Includes bonus cut sapphire. Home fossicking experience at ${price}.",
+    titleTemplate: "Buy {name} 700g Bag - ${price} | Sapphire Fossicking from Queensland Gemfields | Outback Gems & Minerals",
+    description: "700g sapphire washbag from Queensland Gemfields. Includes bonus cut sapphire. Home fossicking experience at ${price}.",
     keywords: "sapphire washbag, Queensland sapphires, fossicking, gemfield dirt, sapphire hunting",
     image: "https://outbackgems.com.au/images/main/sw001.jpeg",
     altText: "Queensland Sapphire Washbag - Premium fossicking experience from Queensland Gemfields at Outback Gems & Minerals",
