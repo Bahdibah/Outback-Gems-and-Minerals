@@ -248,17 +248,13 @@ function generateShippingEmailHTML(orderData) {
           <div class="section">
             <h2>📋 CUSTOMER INFORMATION</h2>
             <div class="customer-section">
-              <div class="info-grid">
-                <div>
-                  <strong>Customer Name:</strong> ${orderData.customerName}<br>
-                  <strong>Email:</strong> ${orderData.customerEmail}<br>
-                  <strong>Phone:</strong> ${orderData.customerPhone}
-                </div>
-                <div>
-                  <strong>Order Reference:</strong> <span class="highlight">${orderData.sessionId}</span><br>
-                  <strong>Payment Method:</strong> Stripe Credit Card<br>
-                  <strong>Order Time:</strong> ${orderData.createdAt.toLocaleString('en-AU', { timeZone: 'Australia/Sydney' })}
-                </div>
+              <div class="info-box">
+                <strong>Customer Name:</strong> ${orderData.customerName}<br>
+                <strong>Email:</strong> ${orderData.customerEmail}<br>
+                <strong>Phone:</strong> ${orderData.customerPhone}<br>
+                <strong>Order Reference:</strong> <span class="highlight">${orderData.sessionId}</span><br>
+                <strong>Payment Method:</strong> Stripe Credit Card<br>
+                <strong>Order Time:</strong> ${orderData.createdAt.toLocaleString('en-AU', { timeZone: 'Australia/Sydney' })}
               </div>
             </div>
           </div>
@@ -283,30 +279,22 @@ function generateShippingEmailHTML(orderData) {
 
           <div class="section">
             <h2>📦 PRODUCTS TO SHIP</h2>
-            <table class="products-table">
-              <thead>
-                <tr>
-                  <th>Product Name</th>
-                  <th>Product ID</th>
-                  <th>Weight/Size</th>
-                  <th>Quantity</th>
-                  <th>Unit Price</th>
-                  <th>Total</th>
-                </tr>
-              </thead>
-              <tbody>
-                ${orderData.lineItems.filter(item => !item.name.toLowerCase().includes('shipping')).map(item => `
-                  <tr>
-                    <td><strong>${item.name}</strong></td>
-                    <td><span class="product-id">${item.productId}</span></td>
-                    <td>${item.weight}</td>
-                    <td><strong>${item.quantity}</strong></td>
-                    <td>$${item.unitPrice} AUD</td>
-                    <td><strong>$${item.totalPrice} AUD</strong></td>
-                  </tr>
-                `).join('')}
-              </tbody>
-            </table>
+            <div style="margin-bottom: 20px;">
+              ${orderData.lineItems.filter(item => !item.name.toLowerCase().includes('shipping')).map(item => `
+                <div style="background: linear-gradient(135deg, #f9f9f9, #f5f5f5); border: 2px solid #cc5500; border-radius: 10px; padding: 20px; margin-bottom: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap;">
+                    <h3 style="color: #cc5500; margin: 0; font-size: 1.2em;">${item.name}</h3>
+                    <span style="background-color: #cc5500; color: white; padding: 6px 12px; border-radius: 6px; font-weight: bold; font-family: monospace; font-size: 1.1em;">SKU: ${item.productId}</span>
+                  </div>
+                  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 15px; font-size: 1em;">
+                    <div><strong>Quantity:</strong><br><span style="font-size: 1.3em; color: #cc5500; font-weight: bold;">${item.quantity}</span></div>
+                    <div><strong>Weight/Size:</strong><br>${item.weight}</div>
+                    <div><strong>Unit Price:</strong><br>$${item.unitPrice} AUD</div>
+                    <div><strong>Total:</strong><br><span style="font-size: 1.2em; color: #cc5500; font-weight: bold;">$${item.totalPrice} AUD</span></div>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
           </div>
 
           <div class="total-section">
