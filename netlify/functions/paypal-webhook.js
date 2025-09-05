@@ -99,19 +99,65 @@ async function handlePaymentCaptureCompleted(event) {
     };
 
     // PayPal doesn't provide detailed line items in the webhook
-    // We'll need to fetch this from your cart or store it when creating the PayPal order
-    console.log('Note: PayPal webhooks do not include detailed line items');
-    console.log('Consider storing cart data when creating PayPal orders');
+    // So we'll fetch them using PayPal's API
+    let detailedOrderData = null;
+    if (orderId) {
+      try {
+        detailedOrderData = await fetchPayPalOrderDetails(orderId);
+        console.log('Successfully fetched PayPal order details');
+      } catch (apiError) {
+        console.error('Failed to fetch PayPal order details:', apiError.message);
+      }
+    }
 
-    // For now, create a generic line item
-    orderData.lineItems.push({
-      name: 'PayPal Order Items',
-      quantity: 1,
-      unitPrice: orderData.orderTotal,
-      totalPrice: orderData.orderTotal,
-      productId: 'PAYPAL_ORDER',
-      weight: 'Unknown'
-    });
+    // Use detailed order data if available
+    if (detailedOrderData && detailedOrderData.purchase_units) {
+      const purchaseUnit = detailedOrderData.purchase_units[0];
+      
+      // Extract line items from PayPal order details
+      if (purchaseUnit.items) {
+        orderData.lineItems = purchaseUnit.items.map(item => ({
+          name: item.name,
+          quantity: parseInt(item.quantity),
+          unitPrice: item.unit_amount?.value || '0.00',
+          totalPrice: (parseFloat(item.unit_amount?.value || '0') * parseInt(item.quantity)).toFixed(2),
+          productId: item.sku || item.category || 'PAYPAL_ITEM',
+          weight: item.description || 'Unknown'
+        }));
+
+        // Update inventory for each item
+        for (const item of orderData.lineItems) {
+          if (item.productId !== 'PAYPAL_ITEM' && !item.name.toLowerCase().includes('shipping')) {
+            await updateInventoryStock(item.productId, item.weight, item.quantity);
+          }
+        }
+      } else {
+        // Fallback to generic item
+        orderData.lineItems.push({
+          name: 'PayPal Order Items',
+          quantity: 1,
+          unitPrice: orderData.orderTotal,
+          totalPrice: orderData.orderTotal,
+          productId: 'PAYPAL_ORDER',
+          weight: 'Unknown'
+        });
+      }
+
+      // Extract shipping method if available
+      if (purchaseUnit.shipping && purchaseUnit.shipping.options) {
+        orderData.shippingMethod = purchaseUnit.shipping.options[0].label || 'PayPal Checkout';
+      }
+    } else {
+      // Fallback when API call fails
+      orderData.lineItems.push({
+        name: 'PayPal Order Items (Details unavailable)',
+        quantity: 1,
+        unitPrice: orderData.orderTotal,
+        totalPrice: orderData.orderTotal,
+        productId: 'PAYPAL_ORDER',
+        weight: 'Unknown'
+      });
+    }
 
     // Send shipping notification email (reusing Stripe email function)
     await sendShippingNotificationEmail(orderData);
@@ -289,5 +335,69 @@ async function updateInventoryStock(productId, weight, quantityPurchased) {
 
   } catch (error) {
     console.error('Error updating inventory:', error);
+  }
+}
+
+// New function to fetch PayPal order details via API
+async function fetchPayPalOrderDetails(orderId) {
+  try {
+    // First, get an access token from PayPal
+    const accessToken = await getPayPalAccessToken();
+    
+    // Then fetch the order details
+    const response = await fetch(`https://api.paypal.com/v2/checkout/orders/${orderId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${accessToken}`,
+        'PayPal-Request-Id': `${orderId}-${Date.now()}`
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error(`PayPal API error: ${response.status} ${response.statusText}`);
+    }
+
+    const orderDetails = await response.json();
+    console.log('PayPal order details fetched successfully');
+    return orderDetails;
+
+  } catch (error) {
+    console.error('Error fetching PayPal order details:', error);
+    throw error;
+  }
+}
+
+// Function to get PayPal access token
+async function getPayPalAccessToken() {
+  try {
+    const clientId = process.env.PAYPAL_WEBHOOK_CLIENT_ID;
+    const clientSecret = process.env.PAYPAL_WEBHOOK_CLIENT_SECRET;
+
+    if (!clientId || !clientSecret) {
+      throw new Error('PayPal webhook credentials not configured');
+    }
+
+    const auth = Buffer.from(`${clientId}:${clientSecret}`).toString('base64');
+
+    const response = await fetch('https://api.paypal.com/v1/oauth2/token', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Basic ${auth}`,
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: 'grant_type=client_credentials'
+    });
+
+    if (!response.ok) {
+      throw new Error(`PayPal auth error: ${response.status} ${response.statusText}`);
+    }
+
+    const authData = await response.json();
+    return authData.access_token;
+
+  } catch (error) {
+    console.error('Error getting PayPal access token:', error);
+    throw error;
   }
 }
