@@ -34,7 +34,7 @@ async function testEmailFunction() {
   const session = {
     id: "cs_test_email_session_123",
     payment_intent: "pi_test_email_123",
-    amount_total: 2400, // $24.00 AUD in cents
+    amount_total: 4200, // $42.00 AUD in cents
     currency: "aud",
     created: Math.floor(Date.now() / 1000),
     customer_details: {
@@ -71,6 +71,34 @@ async function testEmailFunction() {
         },
         {
           id: "li_test_2", 
+          description: "Amethyst Crystal Points",
+          quantity: 1,
+          amount_total: 1200, // $12.00
+          price: {
+            product_data: {
+              metadata: {
+                product_id: "cryst047",
+                weight: "200"
+              }
+            }
+          }
+        },
+        {
+          id: "li_test_3", 
+          description: "Rose Quartz Tumbles (Large)",
+          quantity: 3,
+          amount_total: 2400, // $24.00
+          price: {
+            product_data: {
+              metadata: {
+                product_id: "tmb025",
+                weight: "150"
+              }
+            }
+          }
+        },
+        {
+          id: "li_test_4", 
           description: "Express Shipping",
           quantity: 1,
           amount_total: 800, // $8.00
@@ -137,18 +165,18 @@ async function testEmailFunction() {
             <div style="background: linear-gradient(135deg, #f9f9f9, #f5f5f5); border: 2px solid #cc5500; border-radius: 10px; padding: 20px; margin-bottom: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap;">
                 <h3 style="color: #cc5500; margin: 0; font-size: 1.2em;">${item.description}</h3>
-                <span style="background-color: #cc5500; color: white; padding: 6px 12px; border-radius: 6px; font-weight: bold; font-family: monospace; font-size: 1.1em;">SKU: ${productId}</span>
+                <span style="background-color: #cc5500; color: white; padding: 6px 12px; border-radius: 6px; font-weight: bold; font-family: monospace; font-size: 1.1em;">ID: ${productId}</span>
               </div>
-              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 15px; font-size: 1em;">
-                <div><strong>Quantity:</strong><br><span style="font-size: 1.3em; color: #cc5500; font-weight: bold;">${item.quantity}</span></div>
-                <div><strong>Weight/Size:</strong><br>${weight}</div>
-                <div><strong>Unit Price:</strong><br>$${(item.amount_total / item.quantity / 100).toFixed(2)} AUD</div>
-                <div><strong>Total:</strong><br><span style="font-size: 1.2em; color: #cc5500; font-weight: bold;">$${amount} AUD</span></div>
+              <div style="display: block;">
+                <div style="margin-bottom: 10px;"><strong>Quantity:</strong> <span style="font-size: 1.3em; color: #cc5500; font-weight: bold;">${item.quantity}</span></div>
+                <div style="margin-bottom: 10px;"><strong>Weight/Size:</strong> ${weight}</div>
+                <div style="margin-bottom: 10px;"><strong>Unit Price:</strong> $${(item.amount_total / item.quantity / 100).toFixed(2)} AUD</div>
+                <div><strong>Total:</strong> <span style="font-size: 1.2em; color: #cc5500; font-weight: bold;">$${amount} AUD</span></div>
               </div>
             </div>
           `;
           
-          productsList += `• ${item.quantity}x ${item.description} (SKU: ${productId}, ${weight}) - $${amount}\n`;
+          productsList += `• ${item.quantity}x ${item.description} (ID: ${productId}, ${weight}) - $${amount}\n`;
         }
       }
     }
@@ -308,7 +336,7 @@ Automatic order notification system
     const emailData = await resend.emails.send({
       from: 'orders@outbackgems.com.au',
       to: 'support@outbackgems.com.au',
-      subject: `🚨 NEW ORDER #${session.id.slice(-8)} - $${totalAmount} AUD - ${session.customer_details.name}`,
+      subject: `NEW STRIPE ORDER #${session.id.slice(-8)} - $${totalAmount} AUD - ${session.customer_details.name}`,
       html: htmlContent,
       text: textContent,
     });

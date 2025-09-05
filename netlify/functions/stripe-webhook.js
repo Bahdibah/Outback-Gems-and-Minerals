@@ -168,7 +168,7 @@ async function sendShippingNotificationEmail(orderData) {
     const emailData = {
       from: 'Outback Gems <support@outbackgems.com.au>',
       to: 'support@outbackgems.com.au',
-      subject: `🚚 NEW STRIPE ORDER - ${orderData.sessionId} - $${orderData.orderTotal} AUD - SHIP NOW`,
+      subject: `NEW STRIPE ORDER - ${orderData.sessionId} - $${orderData.orderTotal} AUD - SHIP NOW`,
       html: htmlContent,
     };
 
@@ -284,13 +284,13 @@ function generateShippingEmailHTML(orderData) {
                 <div style="background: linear-gradient(135deg, #f9f9f9, #f5f5f5); border: 2px solid #cc5500; border-radius: 10px; padding: 20px; margin-bottom: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
                   <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap;">
                     <h3 style="color: #cc5500; margin: 0; font-size: 1.2em;">${item.name}</h3>
-                    <span style="background-color: #cc5500; color: white; padding: 6px 12px; border-radius: 6px; font-weight: bold; font-family: monospace; font-size: 1.1em;">SKU: ${item.productId}</span>
+                    <span style="background-color: #cc5500; color: white; padding: 6px 12px; border-radius: 6px; font-weight: bold; font-family: monospace; font-size: 1.1em;">ID: ${item.productId}</span>
                   </div>
-                  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 15px; font-size: 1em;">
-                    <div><strong>Quantity:</strong><br><span style="font-size: 1.3em; color: #cc5500; font-weight: bold;">${item.quantity}</span></div>
-                    <div><strong>Weight/Size:</strong><br>${item.weight}</div>
-                    <div><strong>Unit Price:</strong><br>$${item.unitPrice} AUD</div>
-                    <div><strong>Total:</strong><br><span style="font-size: 1.2em; color: #cc5500; font-weight: bold;">$${item.totalPrice} AUD</span></div>
+                  <div style="display: block;">
+                    <div style="margin-bottom: 10px;"><strong>Quantity:</strong> <span style="font-size: 1.3em; color: #cc5500; font-weight: bold;">${item.quantity}</span></div>
+                    <div style="margin-bottom: 10px;"><strong>Weight/Size:</strong> ${item.weight}</div>
+                    <div style="margin-bottom: 10px;"><strong>Unit Price:</strong> $${item.unitPrice} AUD</div>
+                    <div><strong>Total:</strong> <span style="font-size: 1.2em; color: #cc5500; font-weight: bold;">$${item.totalPrice} AUD</span></div>
                   </div>
                 </div>
               `).join('')}
