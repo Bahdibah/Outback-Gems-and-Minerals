@@ -126,13 +126,22 @@ async function handleCheckoutSessionCompleted(session) {
 
 async function updateInventoryStock(productId, weight, quantityPurchased) {
   try {
-    // Call the inventory update function that will update the live inventory
-    const response = await fetch(`${process.env.URL || 'https://outbackgems.com.au'}/.netlify/functions/update-inventory`, {
+    // Get the Google Sheets update URL from environment variables
+    const googleSheetsUpdateUrl = process.env.GOOGLE_SHEETS_INVENTORY_UPDATE_URL;
+    
+    if (!googleSheetsUpdateUrl) {
+      console.log('Google Sheets update URL not configured, skipping inventory update');
+      return;
+    }
+
+    // Call your Google Apps Script to update the inventory
+    const response = await fetch(googleSheetsUpdateUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
+        action: 'updateStock',
         productId: productId,
         weight: weight,
         quantityToReduce: quantityPurchased
@@ -140,14 +149,14 @@ async function updateInventoryStock(productId, weight, quantityPurchased) {
     });
 
     if (!response.ok) {
-      throw new Error(`Failed to update inventory: ${response.status} ${response.statusText}`);
+      throw new Error(`Failed to update Google Sheets inventory: ${response.status} ${response.statusText}`);
     }
 
     const result = await response.json();
-    console.log(`Live inventory updated for ${productId} (${weight}): reduced by ${quantityPurchased}`, result);
+    console.log(`Google Sheets inventory updated for ${productId} (${weight}): reduced by ${quantityPurchased}`, result);
 
   } catch (error) {
-    console.error(`Failed to update stock for product ${productId}:`, error);
+    console.error(`Failed to update Google Sheets stock for product ${productId}:`, error);
     // Don't throw error - we don't want to fail the entire webhook for inventory issues
   }
 }
