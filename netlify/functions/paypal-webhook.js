@@ -31,6 +31,7 @@ exports.handler = async (event) => {
   let paypalEvent;
   try {
     paypalEvent = JSON.parse(event.body);
+    console.log('📦 PayPal webhook received:', JSON.stringify(paypalEvent, null, 2));
   } catch (err) {
     console.error('Failed to parse PayPal webhook body:', err.message);
     return {
@@ -66,11 +67,15 @@ exports.handler = async (event) => {
 };
 
 async function handlePaymentCaptureCompleted(event) {
-  console.log('Processing PayPal payment capture:', event.id);
+  console.log('🎯 Processing PayPal payment capture:', event.id);
+  console.log('📦 Full event data:', JSON.stringify(event, null, 2));
 
   try {
     const capture = event.resource;
     const orderId = capture.supplementary_data?.related_ids?.order_id;
+    
+    console.log('🔍 Capture resource:', JSON.stringify(capture, null, 2));
+    console.log('📋 Order ID extracted:', orderId);
     
     // Extract customer and order information from PayPal event
     const orderData = {
@@ -113,17 +118,22 @@ async function handlePaymentCaptureCompleted(event) {
     // Use detailed order data if available
     if (detailedOrderData && detailedOrderData.purchase_units) {
       const purchaseUnit = detailedOrderData.purchase_units[0];
+      console.log('🛍️ Purchase unit data:', JSON.stringify(purchaseUnit, null, 2));
       
       // Extract line items from PayPal order details
       if (purchaseUnit.items) {
-        orderData.lineItems = purchaseUnit.items.map(item => ({
-          name: item.name,
-          quantity: parseInt(item.quantity),
-          unitPrice: item.unit_amount?.value || '0.00',
-          totalPrice: (parseFloat(item.unit_amount?.value || '0') * parseInt(item.quantity)).toFixed(2),
-          productId: item.sku || item.category || 'PAYPAL_ITEM',
-          weight: item.description || 'Unknown'
-        }));
+        console.log('📦 Items found:', purchaseUnit.items.length);
+        orderData.lineItems = purchaseUnit.items.map(item => {
+          console.log('🔍 Processing item:', JSON.stringify(item, null, 2));
+          return {
+            name: item.name,
+            quantity: parseInt(item.quantity),
+            unitPrice: item.unit_amount?.value || '0.00',
+            totalPrice: (parseFloat(item.unit_amount?.value || '0') * parseInt(item.quantity)).toFixed(2),
+            productId: item.sku || item.category || 'PAYPAL_ITEM',
+            weight: item.description || 'Unknown'
+          };
+        });
 
         // Update inventory for each item
         for (const item of orderData.lineItems) {
