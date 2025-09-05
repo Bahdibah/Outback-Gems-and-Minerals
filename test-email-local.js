@@ -221,11 +221,11 @@ async function testEmailFunction() {
                 <!-- Order Details -->
                 <div style="background-color: #f8f9fa; border-radius: 8px; padding: 20px; margin-bottom: 25px;">
                     <h2 style="color: #8B4513; margin: 0 0 15px 0; font-size: 20px;">📋 Order Details</h2>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                        <div><strong>Order ID:</strong><br>${session.id}</div>
-                        <div><strong>Payment ID:</strong><br>${session.payment_intent}</div>
-                        <div><strong>Date:</strong><br>${orderDate}</div>
-                        <div><strong>Time:</strong><br>${orderTime}</div>
+                    <div>
+                        <div style="margin-bottom: 10px;"><strong>Order ID:</strong> ${session.id}</div>
+                        <div style="margin-bottom: 10px;"><strong>Payment ID:</strong> ${session.payment_intent}</div>
+                        <div style="margin-bottom: 10px;"><strong>Date:</strong> ${orderDate}</div>
+                        <div><strong>Time:</strong> ${orderTime}</div>
                     </div>
                 </div>
                 
@@ -260,11 +260,11 @@ async function testEmailFunction() {
                 <!-- Shipping & Payment -->
                 <div style="background-color: #f3e5f5; border-radius: 8px; padding: 20px; margin-bottom: 25px;">
                     <h2 style="color: #7b1fa2; margin: 0 0 15px 0; font-size: 20px;">💳 Shipping & Payment</h2>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                        <div><strong>Shipping Method:</strong><br>${shippingMethod}</div>
-                        <div><strong>Shipping Cost:</strong><br>$${shippingCost}</div>
-                        <div><strong>Payment Status:</strong><br><span style="color: #2e7d32; font-weight: bold;">✅ PAID</span></div>
-                        <div><strong>Total Amount:</strong><br><span style="font-size: 18px; font-weight: bold; color: #d84315;">$${totalAmount} AUD</span></div>
+                    <div>
+                        <div style="margin-bottom: 10px;"><strong>Method:</strong> ${shippingMethod}</div>
+                        <div style="margin-bottom: 10px;"><strong>Cost:</strong> $${shippingCost}</div>
+                        <div style="margin-bottom: 10px;"><strong>Payment Status:</strong> <span style="color: #2e7d32; font-weight: bold;">✅ PAID</span></div>
+                        <div><strong>Total Amount:</strong> <span style="font-size: 18px; font-weight: bold; color: #d84315;">$${totalAmount} AUD</span></div>
                     </div>
                 </div>
                 
@@ -318,8 +318,8 @@ ${session.shipping_details.address.country}
 ${productsList}
 
 💳 SHIPPING & PAYMENT
-Shipping Method: ${shippingMethod}
-Shipping Cost: $${shippingCost}
+Method: ${shippingMethod}
+Cost: $${shippingCost}
 Payment Status: ✅ PAID
 Total Amount: $${totalAmount} AUD
 

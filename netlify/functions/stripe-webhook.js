@@ -202,7 +202,6 @@ function generateShippingEmailHTML(orderData) {
         .content { padding: 30px; }
         .section { margin-bottom: 35px; }
         .section h2 { color: #cc5500; border-bottom: 3px solid #cc5500; padding-bottom: 12px; margin-bottom: 20px; font-size: 1.4em; }
-        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-bottom: 25px; }
         .info-box { background: linear-gradient(135deg, #f9f9f9, #f5f5f5); padding: 20px; border-radius: 10px; border-left: 5px solid #cc5500; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
         .info-box strong { color: #cc5500; display: block; margin-bottom: 8px; font-size: 1.1em; }
         .products-table { width: 100%; border-collapse: collapse; margin-top: 15px; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
@@ -272,7 +271,7 @@ function generateShippingEmailHTML(orderData) {
                 ${shippingAddress.country}
               </div>
               <br>
-              <strong>📦 Shipping Method:</strong> <span class="highlight">${orderData.shippingMethod}</span>
+              <strong>📦 Method:</strong> <span class="highlight">${orderData.shippingMethod}</span>
             </div>
           </div>
           ` : ''}
