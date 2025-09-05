@@ -170,7 +170,11 @@ async function handlePaymentCaptureCompleted(event) {
     }
 
     // Send shipping notification email (reusing Stripe email function)
-    await sendShippingNotificationEmail(orderData);
+    console.log('📋 About to send email with orderData keys:', Object.keys(orderData));
+    console.log('📋 OrderData lineItems length:', orderData.lineItems?.length);
+    
+    const emailResult = await sendShippingNotificationEmail(orderData);
+    console.log('📧 Email sending result:', emailResult);
 
     console.log('Successfully processed PayPal order:', orderData.sessionId);
 
@@ -183,6 +187,9 @@ async function handlePaymentCaptureCompleted(event) {
 // Reuse the same email function from Stripe webhook
 async function sendShippingNotificationEmail(orderData) {
   try {
+    console.log('🔧 RESEND_API_KEY exists:', !!process.env.RESEND_API_KEY);
+    console.log('📧 Attempting to send email with orderData:', JSON.stringify(orderData, null, 2));
+    
     const emailHtml = generateShippingEmailTemplate(orderData);
     
     const emailData = {
@@ -192,12 +199,24 @@ async function sendShippingNotificationEmail(orderData) {
       html: emailHtml,
     };
 
+    console.log('📨 Email data prepared:', {
+      from: emailData.from,
+      to: emailData.to,
+      subject: emailData.subject,
+      htmlLength: emailHtml.length
+    });
+
     const result = await resend.emails.send(emailData);
-    console.log('Shipping email sent successfully:', result.id);
+    console.log('✅ Shipping email sent successfully:', result.id);
     return result;
     
   } catch (error) {
-    console.error('Failed to send shipping email:', error);
+    console.error('❌ Failed to send shipping email:', error);
+    console.error('❌ Error details:', {
+      message: error.message,
+      stack: error.stack,
+      name: error.name
+    });
     throw error;
   }
 }
