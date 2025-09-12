@@ -248,23 +248,8 @@
   {
     "productid": "sw001",
     "images": [
-      "images/products/sw001/image2.jpg"
-    ]
-  },
-  {
-    "productid": "sw002",
-    "images": [
-      "images/products/sw002/image1.jpg",
-      "images/products/sw002/image2.jpg",
-      "images/products/sw002/image3.jpg"
-    ]
-  },
-  {
-    "productid": "sw003",
-    "images": [
-      "images/products/sw003/image1.jpg",
-      "images/products/sw003/image2.jpg",
-      "images/products/sw003/image3.jpg"
+      "images/products/sw001/image1.jpeg",
+      "images/products/sw001/image2.jpeg"
     ]
   },
   {
