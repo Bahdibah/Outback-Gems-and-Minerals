@@ -82,13 +82,11 @@ RewriteRule ^(.*)$ https://service.prerender.io/https://outbackgems.com.au/$1 [P
 # JSON files - allow from your domain with caching, block direct access
 <Files ~ "\.(json)$">
     RewriteEngine On
-    # Allow access from your domain and set cache headers
+    # Allow access only if referrer is from your domain
     RewriteCond %{HTTP_REFERER} ^https://outbackgems\.com\.au/ [NC]
     RewriteRule .* - [E=ALLOWED:1,L]
     
-    # Block all other direct access
-    RewriteCond %{HTTP_REFERER} !^https://outbackgems\.com\.au/ [NC]
-    RewriteCond %{HTTP_REFERER} !^$ 
+    # Block all other access (including direct access with no referrer)
     RewriteRule .* - [F,L]
     
     # Set cache headers for allowed access
