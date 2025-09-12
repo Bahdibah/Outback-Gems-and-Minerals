@@ -261,11 +261,12 @@ class CategoryNavigation {
         
         mobileSubcategorySelect.innerHTML = `
           <option value="${categoryKey}">All ${categoryLabel}</option>
-          ${sortedSubcategories.map(subcat => `
-            <option value="${subcat}"${currentCategory === subcat ? ' selected' : ''}>
+          ${sortedSubcategories.map(subcat => {
+            const subcategoryKey = `${categoryKey}|${subcat.toLowerCase()}`;
+            return `<option value="${subcategoryKey}"${currentCategory === subcategoryKey ? ' selected' : ''}>
               ${this.formatSubcategoryName(subcat)}
-            </option>
-          `).join('')}
+            </option>`;
+          }).join('')}
         `;
       } else {
         mobileSubcategorySelect.style.display = 'none';

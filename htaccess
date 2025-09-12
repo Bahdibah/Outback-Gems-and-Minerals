@@ -72,6 +72,47 @@ RewriteCond %{HTTP_USER_AGENT} (googlebot|bingbot|yahoo|baiduspider|facebookexte
 RequestHeader set X-Prerender-Token "jB2NVBnrYbku2t67YS1V"
 RewriteRule ^(.*)$ https://service.prerender.io/https://outbackgems.com.au/$1 [P,L]
 
+# --- File Access Security ---
+
+# Block access to backup and config files
+<FilesMatch "(\.htaccess|\.htpasswd|\.env|\.git|\.svn|\.DS_Store|Thumbs\.db|\.bak|\.backup|\.old|\.orig|\.save|\.swp|\.tmp|~)$">
+    Require all denied
+</FilesMatch>
+
+# JSON files - allow from your domain with caching, block direct access
+<Files ~ "\.(json)$">
+    RewriteEngine On
+    # Allow access from your domain and set cache headers
+    RewriteCond %{HTTP_REFERER} ^https://outbackgems\.com\.au/ [NC]
+    RewriteRule .* - [E=ALLOWED:1,L]
+    
+    # Block all other direct access
+    RewriteCond %{HTTP_REFERER} !^https://outbackgems\.com\.au/ [NC]
+    RewriteCond %{HTTP_REFERER} !^$ 
+    RewriteRule .* - [F,L]
+    
+    # Set cache headers for allowed access
+    Header always set Cache-Control "public, max-age=300" env=ALLOWED
+</Files>
+
+# Only allow POST requests to PHP files
+<Files ~ "\.php$">
+    RewriteEngine On
+    RewriteCond %{REQUEST_METHOD} !^POST$ [NC]
+    RewriteRule .* - [F,L]
+</Files>
+
+# Block problematic bots and scrapers
+RewriteCond %{HTTP_USER_AGENT} (httrack|wget|curl|libwww|python|ruby|java) [NC]
+RewriteRule .* - [F,L]
+
+# --- Caching Rules ---
+
+# Cache navbar for 24 hours
+<Files "navbar.html">
+    Header set Cache-Control "public, max-age=86400"
+</Files>
+
 
 # --- Security Headers ---
 
