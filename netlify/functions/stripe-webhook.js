@@ -88,20 +88,65 @@ async function handleCheckoutSessionCompleted(session) {
 
     // Process line items
     for (const item of sessionWithLineItems.line_items.data) {
+      console.log('Line item structure:', JSON.stringify(item, null, 2)); // Debug log
+      
+      // Try multiple paths to get product metadata
+      let productId = 'Unknown';
+      let weight = 'Unknown';
+      
+      // Path 1: Check if metadata is in price.product_data.metadata
+      if (item.price.product_data?.metadata) {
+        productId = item.price.product_data.metadata.product_id || productId;
+        weight = item.price.product_data.metadata.weight || weight;
+      }
+      
+      // Path 2: Check if there's a product object with metadata
+      if (item.price.product && typeof item.price.product === 'string') {
+        // If product is a string ID, we need to fetch the product
+        try {
+          const product = await stripe.products.retrieve(item.price.product);
+          if (product.metadata) {
+            productId = product.metadata.product_id || productId;
+            weight = product.metadata.weight || weight;
+          }
+        } catch (error) {
+          console.log('Could not retrieve product:', error.message);
+        }
+      }
+      
+      // Path 3: Try to extract from item description
+      if (productId === 'Unknown' && item.description) {
+        const idMatch = item.description.match(/ID:\s*([^,\s]+)/);
+        if (idMatch) {
+          productId = idMatch[1];
+        }
+        
+        // Extract weight from product name
+        const weightMatch = item.description.match(/\((\d+(?:\.\d+)?)([a-zA-Z]+)\)/);
+        if (weightMatch) {
+          weight = weightMatch[1];
+        }
+      }
+      
       const productData = {
         name: item.description,
         quantity: item.quantity,
         unitPrice: (item.amount_total / item.quantity / 100).toFixed(2),
         totalPrice: (item.amount_total / 100).toFixed(2),
-        productId: item.price.product_data?.metadata?.product_id || 'Unknown',
-        weight: item.price.product_data?.metadata?.weight || 'Unknown'
+        productId: productId,
+        weight: weight
       };
+      
+      console.log('Processed product data:', productData); // Debug log
       
       orderData.lineItems.push(productData);
 
       // Update inventory stock (skip shipping items)
       if (productData.productId !== 'Unknown' && !productData.name.toLowerCase().includes('shipping')) {
+        console.log(`Updating inventory for product ${productData.productId}, weight ${productData.weight}, quantity ${productData.quantity}`);
         await updateInventoryStock(productData.productId, productData.weight, productData.quantity);
+      } else {
+        console.log(`Skipping inventory update for: ${productData.name} (ID: ${productData.productId})`);
       }
     }
 
@@ -287,7 +332,6 @@ function generateShippingEmailHTML(orderData) {
                   </div>
                   <div style="display: block;">
                     <div style="margin-bottom: 10px;"><strong>Quantity:</strong> <span style="font-size: 1.3em; color: #cc5500; font-weight: bold;">${item.quantity}</span></div>
-                    <div style="margin-bottom: 10px;"><strong>Weight/Size:</strong> ${item.weight}</div>
                     <div style="margin-bottom: 10px;"><strong>Unit Price:</strong> $${item.unitPrice} AUD</div>
                     <div><strong>Total:</strong> <span style="font-size: 1.2em; color: #cc5500; font-weight: bold;">$${item.totalPrice} AUD</span></div>
                   </div>
@@ -299,33 +343,6 @@ function generateShippingEmailHTML(orderData) {
           <div class="total-section">
             <div class="total">💰 TOTAL ORDER VALUE: $${orderData.orderTotal} AUD</div>
             <div>✅ Payment Status: PAID IN FULL via Stripe</div>
-          </div>
-
-          <div class="action-section">
-            <h3>📋 SHIPPING CHECKLIST</h3>
-            <ul class="checklist">
-              <li>☐ Locate products using the Product IDs above</li>
-              <li>☐ Verify quantities against inventory</li>
-              <li>☐ Package items securely for ${orderData.shippingMethod}</li>
-              <li>☐ Print shipping label for address above</li>
-              <li>☐ Update customer with tracking information</li>
-              <li>☐ Mark order as dispatched in system</li>
-            </ul>
-            <div style="margin-top: 20px; font-size: 1.1em; color: #721c24;">
-              <strong>⏰ PRIORITY: ${orderData.shippingMethod.includes('Express') ? 'EXPRESS SHIPPING - Ship today!' : 'Standard shipping - Ship within 24 hours'}</strong>
-            </div>
-          </div>
-
-          <div class="section">
-            <h2>💳 PAYMENT DETAILS</h2>
-            <div class="info-box">
-              <strong>Payment Status:</strong> ✅ CONFIRMED & PROCESSED<br>
-              <strong>Payment Method:</strong> Stripe Credit Card Processing<br>
-              <strong>Payment Intent ID:</strong> ${orderData.paymentIntentId}<br>
-              <strong>Session ID:</strong> ${orderData.sessionId}<br>
-              <strong>Amount Charged:</strong> $${orderData.orderTotal} AUD<br>
-              <strong>Transaction Date:</strong> ${orderData.createdAt.toLocaleString('en-AU', { timeZone: 'Australia/Sydney' })}
-            </div>
           </div>
 
           <div style="background-color: #e8f5e8; border: 2px solid #4CAF50; padding: 25px; border-radius: 12px; text-align: center; margin: 30px 0;">
