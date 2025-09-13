@@ -182,6 +182,8 @@ function validateAustralianPostcode(postcode) {
 // Background validation for faster checkout
 let validationResult = null;
 let validationPromise = null;
+let validationInProgress = false;
+let lastValidationCart = null;
 
 async function startBackgroundValidation() {
   const cart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -191,9 +193,23 @@ async function startBackgroundValidation() {
     return;
   }
   
+  // Prevent multiple concurrent validations
+  if (validationInProgress) {
+    console.log('⏳ Validation already in progress, skipping...');
+    return;
+  }
+  
+  // Check if cart hasn't changed since last validation
+  const cartString = JSON.stringify(cart);
+  if (lastValidationCart === cartString && validationResult && validationResult.valid) {
+    console.log('📋 Cart unchanged and previously validated, skipping...');
+    return;
+  }
+  
   const shippingMethod = localStorage.getItem('selectedShippingMethod') || 'standard';
   
   console.log('🔄 Starting background cart validation...');
+  validationInProgress = true;
   
   try {
     validationPromise = fetch('https://outbackgems.netlify.app/.netlify/functions/validate-cart', {
@@ -218,6 +234,7 @@ async function startBackgroundValidation() {
     
     if (validationResult.valid) {
       console.log('✅ Background validation completed successfully');
+      lastValidationCart = JSON.stringify(cart);
       showValidationSuccess();
     } else {
       console.log('❌ Background validation failed:', validationResult.error);
@@ -233,6 +250,9 @@ async function startBackgroundValidation() {
     } else {
       validationResult = { valid: false, error: 'Network error during validation' };
     }
+  } finally {
+    // Always reset the flag
+    validationInProgress = false;
   }
 }
 
@@ -256,11 +276,13 @@ function invalidateValidation() {
   console.log('🔄 Cart changed, invalidating validation...');
   validationResult = null;
   validationPromise = null;
+  lastValidationCart = null;
+  validationInProgress = false;
   
-  // Restart validation after a short delay
+  // Restart validation after a short delay to avoid rapid-fire requests
   setTimeout(() => {
     startBackgroundValidation();
-  }, 1000);
+  }, 2000); // Increased delay to 2 seconds
 }
 
 // Toggle payment buttons based on shipping selection
