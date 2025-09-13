@@ -3,7 +3,6 @@ let fetch;
 try {
   fetch = (...args) => import('node-fetch').then(mod => mod.default(...args));
 } catch (e) {
-  // fallback or error handling    const productsRes = await fetch('https://script.google.com/macros/s/AKfycbyCY8VW0D1A7AFJiU7X6tN5-RTrnYxQIV4QCkmFprxYrCVv2o4uKWnmKfJ6Xh40H4uqXA/exec');if needed
 }
 
 exports.handler = async (event) => {

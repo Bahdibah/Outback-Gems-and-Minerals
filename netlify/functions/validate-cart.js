@@ -83,76 +83,19 @@ exports.handler = async (event) => {
     console.log('Fetching products from Google Sheets for validation...');
     const startTime = Date.now();
 
-    // Fetch products from Google Sheets (this can take time, but that's OK here)
-    let productsRes;
+    // Use the exact same simple approach as working PayPal/Stripe functions
+    let products;
     try {
-      // Use the same simple fetch as the working PayPal function
-      productsRes = await fetch('https://script.google.com/macros/s/AKfycbyCY8VW0D1A7AFJiU7X6tN5-RTrnYxQIV4QCkmFprxYrCVv2o4uKWnmKfJ6Xh40H4uqXA/exec');
-    } catch (fetchError) {
-      console.error('Network error fetching from Google Sheets:', fetchError.message);
-      console.error('Full fetch error:', JSON.stringify(fetchError, Object.getOwnPropertyNames(fetchError)));
+      products = await fetch('https://script.google.com/macros/s/AKfycbyCY8VW0D1A7AFJiU7X6tN5-RTrnYxQIV4QCkmFprxYrCVv2o4uKWnmKfJ6Xh40H4uqXA/exec').then(res => res.json());
+      console.log('Successfully fetched', products.length, 'products from Google Sheets');
+    } catch (error) {
+      console.error('Error fetching from Google Sheets:', error.message);
       return {
         statusCode: 200,
         headers: corsHeaders,
         body: JSON.stringify({ 
           valid: false,
           error: 'Product validation service is temporarily unavailable. Validation will occur during checkout.' 
-        }),
-      };
-    }
-    
-    console.log('Google Sheets response status:', productsRes.status, productsRes.statusText);
-    console.log('Google Sheets response headers:', Object.fromEntries(productsRes.headers.entries()));
-    
-    if (!productsRes.ok) {
-      console.error('Google Sheets returned error:', productsRes.status, productsRes.statusText);
-      const errorText = await productsRes.text();
-      console.error('Google Sheets error details:', errorText.substring(0, 500));
-      
-      // Check if it's a Google service error or 404
-      if (errorText.includes('Google Docs encountered an error') || 
-          errorText.includes('file you have requested does not exist') ||
-          errorText.includes('Script function not found') ||
-          productsRes.status === 404) {
-        console.error('Google Apps Script appears to be down, unavailable, or not properly deployed');
-        return {
-          statusCode: 200,
-          headers: corsHeaders,
-          body: JSON.stringify({ 
-            valid: false,
-            error: 'Product validation service is temporarily unavailable. Validation will occur during checkout.' 
-          }),
-        };
-      }
-      
-      return {
-        statusCode: 200,
-        headers: corsHeaders,
-        body: JSON.stringify({ 
-          valid: false,
-          error: 'Unable to validate products at this time. Please try again in a moment.' 
-        }),
-      };
-    }
-
-    console.log('✅ Google Sheets request successful!');
-    let products;
-    try {
-      const responseText = await productsRes.text();
-      console.log('Google Sheets response length:', responseText.length);
-      console.log('Google Sheets response start:', responseText.substring(0, 200));
-      products = JSON.parse(responseText);
-      console.log('Successfully parsed', products.length, 'products from Google Sheets');
-    } catch (jsonError) {
-      console.error('Failed to parse Google Sheets response as JSON:', jsonError);
-      const responseText = await productsRes.text();
-      console.error('Google Sheets response text:', responseText.substring(0, 500));
-      return {
-        statusCode: 200,
-        headers: corsHeaders,
-        body: JSON.stringify({ 
-          valid: false,
-          error: 'Unable to validate products at this time. Please try again in a moment.' 
         }),
       };
     }
