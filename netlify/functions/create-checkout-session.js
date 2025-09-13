@@ -160,7 +160,7 @@ exports.handler = async (event) => {
       phone_number_collection: {
         enabled: true
       },
-      success_url: 'https://outbackgems.com.au/thankyou.html',
+      success_url: 'https://outbackgems.com.au/thankyou.html?session_id={CHECKOUT_SESSION_ID}',
       cancel_url: 'https://outbackgems.com.au/cancel.html',
     });
 

@@ -16,11 +16,13 @@ document.addEventListener("DOMContentLoaded", function() {
     if (statusMessageDiv) {
       statusMessageDiv.innerHTML = '<span style="color: #27ae60;"><i class="fa fa-check-circle"></i> Payment completed successfully!</span>';
     }
-    return; // Exit early for Stripe
   }
-  
-  // Handle PayPal success
-  if (orderId) {
+  // Handle PayPal cases ONLY if no Stripe session
+  else if (orderId) {
+    if (!statusMessageDiv) {
+      console.error('PayPal status message div not found');
+      return;
+    }
     statusMessageDiv.innerHTML = '<span class="fa fa-spinner fa-spin"></span> Processing your payment, please wait...';
     fetch('https://outbackgems.netlify.app/.netlify/functions/capture-paypal-order', {
       method: 'POST',
@@ -52,8 +54,12 @@ document.addEventListener("DOMContentLoaded", function() {
       if (thankyouBox) thankyouBox.style.display = 'none';
       statusMessageDiv.innerHTML = '<span style="color: #e74c3c;"><i class="fa fa-exclamation-circle"></i> There was a network error capturing your payment.</span>';
     });
-  } else if (statusMessageDiv) {
+  }
+  // Handle cases with no payment parameters (direct access or errors)
+  else {
     if (thankyouBox) thankyouBox.style.display = 'none';
-    statusMessageDiv.innerHTML = '<span style="color: #e74c3c;"><i class="fa fa-exclamation-circle"></i> No PayPal order was found. If you believe this is an error, please contact support.</span>';
+    if (statusMessageDiv) {
+      statusMessageDiv.innerHTML = '<span style="color: #e74c3c;"><i class="fa fa-exclamation-circle"></i> No payment information found. If you believe this is an error, please contact support.</span>';
+    }
   }
 });
