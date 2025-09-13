@@ -89,11 +89,16 @@ exports.handler = async (event) => {
       productsRes = await fetch('https://script.google.com/macros/s/AKfycbyCY8VW0D1A7AFJiU7X6tN5-RTrnYxQIV4QCkmFprxYrCVv2o4uKWnmKfJ6Xh40H4uqXA/exec', {
         method: 'GET',
         headers: {
-          'User-Agent': 'Outback-Gems-Validator/1.0'
-        }
+          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+          'Accept': 'application/json, text/plain, */*',
+          'Accept-Language': 'en-US,en;q=0.9',
+          'Cache-Control': 'no-cache'
+        },
+        timeout: 30000 // 30 second timeout
       });
     } catch (fetchError) {
-      console.error('Network error fetching from Google Sheets:', fetchError);
+      console.error('Network error fetching from Google Sheets:', fetchError.message);
+      console.error('Full fetch error:', JSON.stringify(fetchError, Object.getOwnPropertyNames(fetchError)));
       return {
         statusCode: 200,
         headers: corsHeaders,
@@ -104,10 +109,13 @@ exports.handler = async (event) => {
       };
     }
     
+    console.log('Google Sheets response status:', productsRes.status, productsRes.statusText);
+    console.log('Google Sheets response headers:', Object.fromEntries(productsRes.headers.entries()));
+    
     if (!productsRes.ok) {
       console.error('Google Sheets returned error:', productsRes.status, productsRes.statusText);
       const errorText = await productsRes.text();
-      console.error('Google Sheets error details:', errorText.substring(0, 200));
+      console.error('Google Sheets error details:', errorText.substring(0, 500));
       
       // Check if it's a Google service error or 404
       if (errorText.includes('Google Docs encountered an error') || 
@@ -135,9 +143,14 @@ exports.handler = async (event) => {
       };
     }
 
+    console.log('✅ Google Sheets request successful!');
     let products;
     try {
-      products = await productsRes.json();
+      const responseText = await productsRes.text();
+      console.log('Google Sheets response length:', responseText.length);
+      console.log('Google Sheets response start:', responseText.substring(0, 200));
+      products = JSON.parse(responseText);
+      console.log('Successfully parsed', products.length, 'products from Google Sheets');
     } catch (jsonError) {
       console.error('Failed to parse Google Sheets response as JSON:', jsonError);
       const responseText = await productsRes.text();
