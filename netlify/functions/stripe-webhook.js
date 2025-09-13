@@ -274,7 +274,6 @@ function generateShippingEmailHTML(orderData) {
                 ${shippingAddress.city}, ${shippingAddress.state} ${shippingAddress.postalCode}<br>
                 ${shippingAddress.country}<br>` : ''}
                 <strong>Shipping Method:</strong> <span class="highlight">${orderData.shippingMethod}</span><br>
-                <strong>Order Reference:</strong> <span class="highlight">${orderData.sessionId}</span><br>
                 <strong>Payment Method:</strong> Stripe Credit Card<br>
                 <strong>Order Time:</strong> ${orderData.createdAt.toLocaleString('en-AU', { timeZone: 'Australia/Sydney' })}
               </div>
@@ -286,9 +285,9 @@ function generateShippingEmailHTML(orderData) {
             <div style="margin-bottom: 20px;">
               ${orderData.lineItems.filter(item => !item.name.toLowerCase().includes('shipping')).map(item => `
                 <div style="background: linear-gradient(135deg, #f9f9f9, #f5f5f5); border: 2px solid #cc5500; border-radius: 10px; padding: 20px; margin-bottom: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap;">
-                    <h3 style="color: #cc5500; margin: 0; font-size: 1.2em;">${item.name}</h3>
-                    <span style="background-color: #cc5500; color: white; padding: 6px 12px; border-radius: 6px; font-weight: bold; font-family: monospace; font-size: 1.1em;">ID: ${item.productId}</span>
+                  <div style="margin-bottom: 15px;">
+                    <h3 style="color: #cc5500; margin: 0 0 8px 0; font-size: 1.2em;">${item.name}</h3>
+                    <div style="background-color: #cc5500; color: white; padding: 4px 8px; border-radius: 4px; font-weight: bold; font-family: monospace; font-size: 0.9em; display: inline-block;">ID: ${item.productId}</div>
                   </div>
                   <div style="display: block;">
                     <div style="margin-bottom: 10px;"><strong>Quantity:</strong> <span style="font-size: 1.3em; color: #cc5500; font-weight: bold;">${item.quantity}</span></div>
