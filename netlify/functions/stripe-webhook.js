@@ -62,7 +62,7 @@ async function handleCheckoutSessionCompleted(session) {
 
     // Extract customer information
     const customerDetails = sessionWithLineItems.customer_details;
-    const shippingDetails = sessionWithLineItems.shipping_details;
+    const shippingDetails = sessionWithLineItems.shipping_details || sessionWithLineItems.collected_information?.shipping_details;
     
     // Extract order information
     const orderData = {
