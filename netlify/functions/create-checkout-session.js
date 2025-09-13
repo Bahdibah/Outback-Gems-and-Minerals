@@ -7,15 +7,18 @@ try {
 }
 
 exports.handler = async (event) => {
+  // CORS headers for all responses
+  const corsHeaders = {
+    "Access-Control-Allow-Origin": "https://outbackgems.com.au",
+    "Access-Control-Allow-Headers": "Content-Type, Authorization",
+    "Access-Control-Allow-Methods": "POST, OPTIONS",
+  };
+
   // Handle CORS preflight request
   if (event.httpMethod === "OPTIONS") {
     return {
       statusCode: 200,
-      headers: {
-        "Access-Control-Allow-Origin": "https://outbackgems.com.au",
-        "Access-Control-Allow-Headers": "Content-Type",
-        "Access-Control-Allow-Methods": "POST, OPTIONS",
-      },
+      headers: corsHeaders,
       body: "",
     };
   }
@@ -27,10 +30,7 @@ exports.handler = async (event) => {
     if (shippingMethod === 'international') {
       return {
         statusCode: 400,
-        headers: {
-          "Access-Control-Allow-Origin": "https://outbackgems.com.au",
-          "Access-Control-Allow-Headers": "Content-Type",
-        },
+        headers: corsHeaders,
         body: JSON.stringify({ 
           error: "INTERNATIONAL_SHIPPING_SUSPENDED", 
           message: "International shipping is temporarily suspended. Please select Standard or Express delivery." 
@@ -41,6 +41,7 @@ exports.handler = async (event) => {
     if (!cart || !Array.isArray(cart) || cart.length === 0) {
       return {
         statusCode: 400,
+        headers: corsHeaders,
         body: JSON.stringify({ error: 'Cart is empty or invalid.' }),
       };
     }
@@ -134,21 +135,14 @@ exports.handler = async (event) => {
 
     return {
       statusCode: 200,
-      headers: {
-        "Access-Control-Allow-Origin": "https://outbackgems.com.au",
-        "Access-Control-Allow-Headers": "Content-Type",
-        // ...other headers as needed
-      },
+      headers: corsHeaders,
       body: JSON.stringify({ id: session.id, orderSummary }),
     };
   } catch (error) {
     console.error('Stripe error:', error);
     return {
       statusCode: 500,
-      headers: {
-        "Access-Control-Allow-Origin": "https://outbackgems.com.au",
-        "Access-Control-Allow-Headers": "Content-Type",
-      },
+      headers: corsHeaders,
       body: JSON.stringify({ error: error.message }),
     };
   }
