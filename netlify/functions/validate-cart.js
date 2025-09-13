@@ -131,6 +131,7 @@ exports.handler = async (event) => {
       if (!product) {
         errors.push(`Product not found: ${item.id} (weight: ${item.weight})`);
         continue;
+      }
 
       const authoritativePrice = Number(product["total price"]);
       if (isNaN(authoritativePrice)) {
