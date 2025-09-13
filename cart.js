@@ -278,17 +278,26 @@ function invalidateValidation() {
   validationResult = null;
   validationPromise = null;
   lastValidationCart = null;
-  validationInProgress = false;
   
   // Clear any existing timeout to prevent multiple scheduled validations
   if (validationTimeout) {
     clearTimeout(validationTimeout);
   }
   
-  // Restart validation after a short delay to avoid rapid-fire requests
+  // If validation is currently in progress, don't reset the flag immediately
+  // Just schedule a new validation after the current one completes
   validationTimeout = setTimeout(() => {
     validationTimeout = null;
-    startBackgroundValidation();
+    // Only start new validation if no validation is currently running
+    if (!validationInProgress) {
+      startBackgroundValidation();
+    } else {
+      // If still in progress, schedule another check
+      validationTimeout = setTimeout(() => {
+        validationTimeout = null;
+        startBackgroundValidation();
+      }, 500);
+    }
   }, 2000); // Increased delay to 2 seconds
 }
 
