@@ -184,6 +184,7 @@ let validationResult = null;
 let validationPromise = null;
 let validationInProgress = false;
 let lastValidationCart = null;
+let validationTimeout = null;
 
 async function startBackgroundValidation() {
   const cart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -279,8 +280,14 @@ function invalidateValidation() {
   lastValidationCart = null;
   validationInProgress = false;
   
+  // Clear any existing timeout to prevent multiple scheduled validations
+  if (validationTimeout) {
+    clearTimeout(validationTimeout);
+  }
+  
   // Restart validation after a short delay to avoid rapid-fire requests
-  setTimeout(() => {
+  validationTimeout = setTimeout(() => {
+    validationTimeout = null;
     startBackgroundValidation();
   }, 2000); // Increased delay to 2 seconds
 }
