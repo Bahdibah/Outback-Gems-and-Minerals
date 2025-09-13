@@ -206,6 +206,14 @@ async function startBackgroundValidation() {
     });
     
     const response = await validationPromise;
+    
+    // Check if the endpoint exists (not deployed yet)
+    if (response.status === 404) {
+      console.log('🔧 Validation endpoint not deployed yet - validation will happen during checkout');
+      validationResult = { valid: false, error: 'Validation will occur during checkout', notDeployed: true };
+      return;
+    }
+    
     validationResult = await response.json();
     
     if (validationResult.valid) {
@@ -218,18 +226,30 @@ async function startBackgroundValidation() {
     
   } catch (error) {
     console.log('⚠️ Background validation failed with network error:', error);
-    validationResult = { valid: false, error: 'Network error during validation' };
+    // Check if this might be due to endpoint not being deployed
+    if (error.message && (error.message.includes('fetch') || error.message.includes('Failed to fetch'))) {
+      console.log('🔧 This might be because the validation endpoint is not deployed yet');
+      validationResult = { valid: false, error: 'Validation will occur during checkout', notDeployed: true };
+    } else {
+      validationResult = { valid: false, error: 'Network error during validation' };
+    }
   }
 }
 
 function showValidationSuccess() {
   // Minimal visual feedback - just console for now, can be expanded later
-  console.log('Cart validated - ready for instant checkout');
+  console.log('✅ Cart validated - ready for instant checkout');
 }
 
 function showValidationWarning(error) {
   // Minimal visual feedback - just console for now, can be expanded later
-  console.log('Cart validation warning:', error);
+  if (error === 'Validation will occur during checkout') {
+    console.log('🔧 Background validation not available - will validate during checkout');
+  } else if (error === 'Product validation service is temporarily unavailable. Validation will occur during checkout.') {
+    console.log('⚠️ Google Apps Script temporarily unavailable - will validate during checkout instead');
+  } else {
+    console.log('⚠️ Cart validation warning:', error);
+  }
 }
 
 function invalidateValidation() {
@@ -1205,7 +1225,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const shippingCost = getShippingCostForMethod(shippingMethod);
 
     // Check if we have pre-validated data for instant checkout
-    if (validationResult && validationResult.valid) {
+    if (validationResult && validationResult.valid && !validationResult.notDeployed) {
       console.log('🚀 Using pre-validated data for instant checkout!');
       
       // Check if validation is still fresh (under 5 minutes)
