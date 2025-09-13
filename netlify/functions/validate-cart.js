@@ -86,7 +86,7 @@ exports.handler = async (event) => {
     // Use the exact same simple approach as working PayPal/Stripe functions
     let products;
     try {
-      products = await fetch('https://script.google.com/macros/s/AKfycbyCY8VW0D1A7AFJiU7X6tN5-RTrnYxQIV4QCkmFprxYrCVv2o4uKWnmKfJ6Xh40H4uqXA/exec').then(res => res.json());
+      products = await fetch('https://script.google.com/macros/s/AKfycbyCY8VW0D1A7AFJiU7X6tN5-RTrnYxQIV4QCzmFprxYrCVv2o4uKWnmKfJ6Xh40H4uqXA/exec').then(res => res.json());
       console.log('Successfully fetched', products.length, 'products from Google Sheets');
     } catch (error) {
       console.error('Error fetching from Google Sheets:', error.message);
