@@ -14,17 +14,57 @@ exports.handler = async (event) => {
     "Access-Control-Allow-Methods": "POST, OPTIONS",
   };
 
-  // Handle CORS preflight request
-  if (event.httpMethod === "OPTIONS") {
-    return {
-      statusCode: 200,
-      headers: corsHeaders,
-      body: "",
-    };
-  }
+  console.log('Function called with method:', event.httpMethod);
+  console.log('Function called with headers:', event.headers);
 
   try {
-    const { cart, shippingMethod, shippingCost } = JSON.parse(event.body);
+    // Handle CORS preflight request
+    if (event.httpMethod === "OPTIONS") {
+      console.log('Handling OPTIONS preflight request');
+      return {
+        statusCode: 200,
+        headers: corsHeaders,
+        body: "",
+      };
+    }
+
+    // Only allow POST requests for the main function
+    if (event.httpMethod !== "POST") {
+      console.log('Method not allowed:', event.httpMethod);
+      return {
+        statusCode: 405,
+        headers: corsHeaders,
+        body: JSON.stringify({ error: 'Method not allowed. Use POST.' }),
+      };
+    }
+
+    // Simple test response if body is missing (for debugging)
+    if (!event.body) {
+      console.log('No body provided - returning test response');
+      return {
+        statusCode: 200,
+        headers: corsHeaders,
+        body: JSON.stringify({ message: 'Function is working, but no body provided' }),
+      };
+    }
+
+  try {
+    console.log('Request body:', event.body);
+    
+    // Parse request body with error handling
+    let requestData;
+    try {
+      requestData = JSON.parse(event.body || '{}');
+    } catch (parseError) {
+      console.error('JSON parse error:', parseError);
+      return {
+        statusCode: 400,
+        headers: corsHeaders,
+        body: JSON.stringify({ error: 'Invalid JSON in request body' }),
+      };
+    }
+
+    const { cart, shippingMethod, shippingCost } = requestData;
 
     // First check: Reject international shipping requests immediately
     if (shippingMethod === 'international') {
@@ -144,6 +184,18 @@ exports.handler = async (event) => {
       statusCode: 500,
       headers: corsHeaders,
       body: JSON.stringify({ error: error.message }),
+    };
+  }
+  } catch (outerError) {
+    console.error('Function error:', outerError);
+    return {
+      statusCode: 500,
+      headers: {
+        "Access-Control-Allow-Origin": "https://outbackgems.com.au",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization",
+        "Access-Control-Allow-Methods": "POST, OPTIONS",
+      },
+      body: JSON.stringify({ error: 'Function execution error' }),
     };
   }
 };
