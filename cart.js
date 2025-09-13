@@ -179,6 +179,128 @@ function validateAustralianPostcode(postcode) {
   return true;
 }
 
+// Background validation for faster checkout
+let validationResult = null;
+let validationPromise = null;
+let validationInProgress = false;
+let lastValidationCart = null;
+let validationTimeout = null;
+
+async function startBackgroundValidation() {
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
+  
+  if (cart.length === 0) {
+    console.log('Cart is empty, skipping background validation');
+    return;
+  }
+  
+  // Prevent multiple concurrent validations
+  if (validationInProgress) {
+    console.log('⏳ Validation already in progress, skipping...');
+    return;
+  }
+  
+  // Check if cart hasn't changed since last validation
+  const cartString = JSON.stringify(cart);
+  if (lastValidationCart === cartString && validationResult && validationResult.valid) {
+    console.log('📋 Cart unchanged and previously validated, skipping...');
+    return;
+  }
+  
+  const shippingMethod = localStorage.getItem('selectedShippingMethod') || 'standard';
+  
+  console.log('🔄 Starting background cart validation...');
+  validationInProgress = true;
+  
+  try {
+    validationPromise = fetch('https://outbackgems.netlify.app/.netlify/functions/validate-cart', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ 
+        cart: cart,
+        shippingMethod: shippingMethod
+      })
+    });
+    
+    const response = await validationPromise;
+    
+    // Check if the endpoint exists (not deployed yet)
+    if (response.status === 404) {
+      console.log('🔧 Validation endpoint not deployed yet - validation will happen during checkout');
+      validationResult = { valid: false, error: 'Validation will occur during checkout', notDeployed: true };
+      return;
+    }
+    
+    validationResult = await response.json();
+    
+    if (validationResult.valid) {
+      console.log('✅ Background validation completed successfully');
+      lastValidationCart = JSON.stringify(cart);
+      showValidationSuccess();
+    } else {
+      console.log('❌ Background validation failed:', validationResult.error);
+      showValidationWarning(validationResult.error);
+    }
+    
+  } catch (error) {
+    console.log('⚠️ Background validation failed with network error:', error);
+    // Check if this might be due to endpoint not being deployed
+    if (error.message && (error.message.includes('fetch') || error.message.includes('Failed to fetch'))) {
+      console.log('🔧 This might be because the validation endpoint is not deployed yet');
+      validationResult = { valid: false, error: 'Validation will occur during checkout', notDeployed: true };
+    } else {
+      validationResult = { valid: false, error: 'Network error during validation' };
+    }
+  } finally {
+    // Always reset the flag
+    validationInProgress = false;
+  }
+}
+
+function showValidationSuccess() {
+  // Minimal visual feedback - just console for now, can be expanded later
+  console.log('✅ Cart validated - ready for instant checkout');
+}
+
+function showValidationWarning(error) {
+  // Minimal visual feedback - just console for now, can be expanded later
+  if (error === 'Validation will occur during checkout') {
+    console.log('🔧 Background validation not available - will validate during checkout');
+  } else if (error === 'Product validation service is temporarily unavailable. Validation will occur during checkout.') {
+    console.log('⚠️ Google Apps Script temporarily unavailable - will validate during checkout instead');
+  } else {
+    console.log('⚠️ Cart validation warning:', error);
+  }
+}
+
+function invalidateValidation() {
+  console.log('🔄 Cart changed, invalidating validation...');
+  validationResult = null;
+  validationPromise = null;
+  lastValidationCart = null;
+  
+  // Clear any existing timeout to prevent multiple scheduled validations
+  if (validationTimeout) {
+    clearTimeout(validationTimeout);
+  }
+  
+  // If validation is currently in progress, don't reset the flag immediately
+  // Just schedule a new validation after the current one completes
+  validationTimeout = setTimeout(() => {
+    validationTimeout = null;
+    // Only start new validation if no validation is currently running
+    if (!validationInProgress) {
+      startBackgroundValidation();
+    } else {
+      // If still in progress, schedule another check
+      validationTimeout = setTimeout(() => {
+        validationTimeout = null;
+        startBackgroundValidation();
+      }, 500);
+    }
+  }, 2000); // Increased delay to 2 seconds
+}
+
 // Toggle payment buttons based on shipping selection
 function togglePaymentButtons(disablePayments) {
   const paymentButtons = document.querySelectorAll('.payment-button, #checkout-btn, #paypal-btn, #bank-transfer-btn, #checkout-now-button, #final-checkout-button, #place-bank-order');
@@ -286,6 +408,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initialize payment button state based on current shipping selection
   const savedShippingMethod = localStorage.getItem('selectedShippingMethod') || 'standard';
   togglePaymentButtons(savedShippingMethod === 'international');
+  
+  // Start background cart validation for faster checkout
+  startBackgroundValidation();
   
   // Payment Method Security Information Configuration
   window.paymentSecurityInfo = {
@@ -485,6 +610,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (radio.checked) {
           localStorage.setItem('selectedShippingMethod', radio.value);
           updateShippingAndTotal(subtotal);
+          invalidateValidation(); // Re-validate cart when shipping method changes
           
           // Update visual selection
           shippingOptionsContainer.querySelectorAll('.shipping-option').forEach(option => {
@@ -606,6 +732,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     localStorage.setItem('cart', JSON.stringify(cart));
     updateCartCount();
+    invalidateValidation(); // Re-validate cart after stock adjustments
 
     if (!stockOk && checkoutButton) {
       checkoutButton.disabled = true;
@@ -663,6 +790,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (changed) {
       localStorage.setItem('cart', JSON.stringify(cart));
       updateCartCount();
+      invalidateValidation(); // Re-validate cart after item removal
       loadCart(false); // Don't verify stock immediately
       debouncedVerifyCartStock();
     }
@@ -687,6 +815,7 @@ document.addEventListener('DOMContentLoaded', () => {
           cart[idx].quantity = newQuantity;
           localStorage.setItem('cart', JSON.stringify(cart));
           updateCartCount();
+          invalidateValidation(); // Re-validate cart after quantity change
           loadCart(false);
           debouncedVerifyCartStock();
         } else if (cart[idx]) {
@@ -717,6 +846,7 @@ document.addEventListener('DOMContentLoaded', () => {
   shippingOptionsContainer.addEventListener('change', (event) => {
     if (event.target.name === 'shipping-method') {
       localStorage.setItem('selectedShippingMethod', event.target.value);
+      invalidateValidation(); // Re-validate cart when shipping method changes
       
       // Update visual selection immediately
       shippingOptionsContainer.querySelectorAll('.shipping-option').forEach(option => {
@@ -1129,6 +1259,62 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Payment processing functions (using existing logic)
   async function processCardPayment() {
+    const shippingMethod = localStorage.getItem('selectedShippingMethod') || 'standard';
+    const shippingCost = getShippingCostForMethod(shippingMethod);
+
+    // Check if we have pre-validated data for instant checkout
+    if (validationResult && validationResult.valid && !validationResult.notDeployed) {
+      console.log('🚀 Using pre-validated data for instant checkout!');
+      
+      // Check if validation is still fresh (under 5 minutes)
+      const validationAge = Date.now() - validationResult.validatedAt;
+      if (validationAge < 5 * 60 * 1000) {
+        
+        try {
+          console.log('⚡ Creating checkout session with pre-validated data...');
+          
+          const response = await fetch('https://outbackgems.netlify.app/.netlify/functions/create-checkout-session', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+              validatedCart: validationResult.cart,
+              validationToken: validationResult.validationToken,
+              shippingCost: shippingCost,
+              shippingMethod: shippingMethod
+            }),
+          });
+          
+          const text = await response.text();
+          let data;
+          try {
+            data = JSON.parse(text);
+          } catch (e) {
+            console.log('Failed to parse pre-validated response, falling back to normal flow');
+            throw new Error('Invalid server response');
+          }
+          
+          if (data.id) {
+            console.log('🎉 Instant checkout successful!');
+            const stripe = Stripe('pk_live_51RSrS62LkmYKgi6m273LNQSjpKI8SnxNtiQMGcHijiiL3eliZZzqKDR00BL8uNlwYFloGGO3kyNQJKctTvEK4eB000e8dIlEQd');
+            stripe.redirectToCheckout({ sessionId: data.id });
+            return;
+          } else {
+            console.log('Pre-validated checkout failed:', data.error, '- falling back to normal flow');
+          }
+          
+        } catch (error) {
+          console.log('Pre-validated checkout error:', error, '- falling back to normal flow');
+        }
+      } else {
+        console.log('Pre-validation expired, falling back to normal flow');
+      }
+    } else {
+      console.log('No valid pre-validation available, using normal flow');
+    }
+
+    // Fallback to traditional validation method
+    console.log('📋 Processing checkout with traditional validation...');
+    
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
     cart = cart.map(item => ({
       id: item.id,
@@ -1138,9 +1324,6 @@ document.addEventListener('DOMContentLoaded', () => {
       unit: item.unit,
       quantity: item.quantity
     }));
-
-    const shippingMethod = localStorage.getItem('selectedShippingMethod') || 'standard';
-    const shippingCost = getShippingCostForMethod(shippingMethod);
 
     const response = await fetch('https://outbackgems.netlify.app/.netlify/functions/create-checkout-session', {
       method: 'POST',
