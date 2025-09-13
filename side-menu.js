@@ -1,4 +1,0 @@
-// Side menu JavaScript removed
-
-
-
