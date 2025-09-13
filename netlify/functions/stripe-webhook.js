@@ -213,7 +213,7 @@ async function sendShippingNotificationEmail(orderData) {
     const emailData = {
       from: 'Outback Gems <support@outbackgems.com.au>',
       to: 'support@outbackgems.com.au',
-      subject: `NEW STRIPE ORDER - ${orderData.sessionId} - $${orderData.orderTotal} AUD - SHIP NOW`,
+      subject: `NEW STRIPE ORDER - $${orderData.orderTotal} AUD - SHIP NOW`,
       html: htmlContent,
     };
 
@@ -234,16 +234,10 @@ function generateShippingEmailHTML(orderData) {
     <html>
     <head>
       <meta charset="utf-8">
-      <title>🚚 URGENT: New Order Requiring Immediate Shipment</title>
+      <title>New Order - Ship Now</title>
       <style>
         body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background-color: #f5f5f5; }
         .container { max-width: 900px; margin: 0 auto; background-color: white; padding: 0; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); overflow: hidden; }
-        .header { background: linear-gradient(135deg, #cc5500, #ff6600); color: white; padding: 30px; text-align: center; position: relative; }
-        .header::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="30" r="1.5" fill="rgba(255,255,255,0.1)"/><circle cx="60" cy="70" r="1" fill="rgba(255,255,255,0.1)"/></svg>'); }
-        .header h1 { margin: 0; font-size: 2.2em; font-weight: bold; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); position: relative; z-index: 1; }
-        .header .subtitle { margin: 10px 0 0 0; font-size: 1.1em; opacity: 0.95; position: relative; z-index: 1; }
-        .urgent-banner { background: linear-gradient(90deg, #ff4444, #ff6666); color: white; padding: 20px; text-align: center; margin: 0; font-size: 1.3em; font-weight: bold; animation: pulse 2s infinite; }
-        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.8; } }
         .content { padding: 30px; }
         .section { margin-bottom: 35px; }
         .section h2 { color: #cc5500; border-bottom: 3px solid #cc5500; padding-bottom: 12px; margin-bottom: 20px; font-size: 1.4em; }
@@ -271,17 +265,6 @@ function generateShippingEmailHTML(orderData) {
     </head>
     <body>
       <div class="container">
-        <div class="header">
-          <h1>🚚 NEW ORDER - SHIP IMMEDIATELY</h1>
-          <div class="subtitle">Stripe Payment Completed Successfully</div>
-          <div class="subtitle">Order ID: ${orderData.sessionId}</div>
-          <div class="subtitle">Order Date: ${orderData.createdAt.toLocaleString('en-AU', { timeZone: 'Australia/Sydney' })}</div>
-        </div>
-
-        <div class="urgent-banner">
-          ⚠️ URGENT ACTION REQUIRED: This order is PAID and ready for immediate dispatch ⚠️
-        </div>
-
         <div class="content">
           
           <div class="payment-status">
