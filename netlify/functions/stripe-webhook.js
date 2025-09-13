@@ -243,24 +243,12 @@ function generateShippingEmailHTML(orderData) {
         .section h2 { color: #cc5500; border-bottom: 3px solid #cc5500; padding-bottom: 12px; margin-bottom: 20px; font-size: 1.4em; }
         .info-box { background: linear-gradient(135deg, #f9f9f9, #f5f5f5); padding: 20px; border-radius: 10px; border-left: 5px solid #cc5500; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
         .info-box strong { color: #cc5500; display: block; margin-bottom: 8px; font-size: 1.1em; }
-        .products-table { width: 100%; border-collapse: collapse; margin-top: 15px; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        .products-table th { background: linear-gradient(135deg, #cc5500, #ff6600); color: white; padding: 15px; text-align: left; font-size: 1.1em; }
-        .products-table td { padding: 15px; text-align: left; border-bottom: 1px solid #eee; }
-        .products-table tr:nth-child(even) { background-color: #f9f9f9; }
-        .products-table tr:hover { background-color: #f0f0f0; }
-        .product-id { background-color: #cc5500; color: white; padding: 4px 8px; border-radius: 4px; font-weight: bold; font-family: monospace; }
         .total-section { background: linear-gradient(135deg, #e8f5e8, #d4edda); border: 2px solid #4CAF50; padding: 20px; border-radius: 10px; text-align: center; margin: 25px 0; }
         .total { font-size: 1.5em; font-weight: bold; color: #2c6c2c; margin-bottom: 10px; }
         .payment-status { background-color: #d4edda; border: 2px solid #4CAF50; color: #2c6c2c; padding: 15px; border-radius: 8px; text-align: center; font-weight: bold; margin: 20px 0; }
         .customer-section { background: linear-gradient(135deg, #fff3cd, #ffeaa7); border-left: 5px solid #ffc107; padding: 20px; border-radius: 10px; margin: 20px 0; }
-        .shipping-section { background: linear-gradient(135deg, #cce7ff, #b3d9ff); border-left: 5px solid #007bff; padding: 20px; border-radius: 10px; margin: 20px 0; }
-        .action-section { background: linear-gradient(135deg, #f8d7da, #f5c6cb); border: 2px solid #dc3545; padding: 25px; border-radius: 12px; text-align: center; margin: 30px 0; }
-        .action-section h3 { color: #721c24; margin-top: 0; font-size: 1.3em; }
-        .checklist { text-align: left; margin: 15px 0; }
-        .checklist li { margin: 8px 0; padding: 5px 0; }
         .footer { background-color: #f8f9fa; padding: 25px; text-align: center; border-top: 3px solid #cc5500; }
         .highlight { background-color: #fff3cd; padding: 2px 6px; border-radius: 3px; }
-        .address-box { background-color: white; border: 2px solid #007bff; padding: 15px; border-radius: 8px; font-family: monospace; line-height: 1.6; }
       </style>
     </head>
     <body>
@@ -279,30 +267,19 @@ function generateShippingEmailHTML(orderData) {
                 <strong>Customer Name:</strong> ${orderData.customerName}<br>
                 <strong>Email:</strong> ${orderData.customerEmail}<br>
                 <strong>Phone:</strong> ${orderData.customerPhone}<br>
+                ${shippingAddress ? `<strong>Shipping Address:</strong><br>
+                ${shippingAddress.name}<br>
+                ${shippingAddress.line1}<br>
+                ${shippingAddress.line2 ? shippingAddress.line2 + '<br>' : ''}
+                ${shippingAddress.city}, ${shippingAddress.state} ${shippingAddress.postalCode}<br>
+                ${shippingAddress.country}<br>` : ''}
+                <strong>Shipping Method:</strong> <span class="highlight">${orderData.shippingMethod}</span><br>
                 <strong>Order Reference:</strong> <span class="highlight">${orderData.sessionId}</span><br>
                 <strong>Payment Method:</strong> Stripe Credit Card<br>
                 <strong>Order Time:</strong> ${orderData.createdAt.toLocaleString('en-AU', { timeZone: 'Australia/Sydney' })}
               </div>
             </div>
           </div>
-
-          ${shippingAddress ? `
-          <div class="section">
-            <h2>📍 SHIPPING ADDRESS</h2>
-            <div class="shipping-section">
-              <strong>Ship To:</strong>
-              <div class="address-box">
-                ${shippingAddress.name}<br>
-                ${shippingAddress.line1}<br>
-                ${shippingAddress.line2 ? shippingAddress.line2 + '<br>' : ''}
-                ${shippingAddress.city}, ${shippingAddress.state} ${shippingAddress.postalCode}<br>
-                ${shippingAddress.country}
-              </div>
-              <br>
-              <strong>📦 Method:</strong> <span class="highlight">${orderData.shippingMethod}</span>
-            </div>
-          </div>
-          ` : ''}
 
           <div class="section">
             <h2>📦 PRODUCTS TO SHIP</h2>
