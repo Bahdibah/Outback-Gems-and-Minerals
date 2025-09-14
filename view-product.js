@@ -1191,6 +1191,24 @@ const productSEOMeta = {
     categoryImage: "https://outbackgems.com.au/images/category-cards/Other-Yowah-Nuts.jpeg",
     categoryAltText: "Yowah nut specimens - Premium opal hunting supplies at Outback Gems & Minerals"
   },
+  "yn004": {
+    titleTemplate: "Buy {name} 3-Pack - ${price} | Small Unopened Yowah Nuts from QLD | Outback Gems & Minerals",
+    description: "3-pack of small Yowah Nuts (≤150ct each) from Queensland opal fields. Great value pack for opal hunting enthusiasts at ${price}.",
+    keywords: "Yowah nut pack, Queensland opal, unopened ironstone, opal hunting, small opal nuts, value pack",
+    image: "https://outbackgems.com.au/images/main/yn004.jpeg",
+    altText: "3-Pack Small Yowah Nuts from Queensland - Premium opal hunting value pack at Outback Gems & Minerals",
+    categoryImage: "https://outbackgems.com.au/images/category-cards/Other-Yowah-Nuts.jpeg",
+    categoryAltText: "Yowah nut specimens - Premium opal hunting supplies at Outback Gems & Minerals"
+  },
+  "yn005": {
+    titleTemplate: "Buy {name} 1001-1750ct - ${price} | Extra Large Unopened Yowah Nut from QLD | Outback Gems & Minerals",
+    description: "Extra large unopened Yowah Nut (1001-1750ct) from Queensland opal fields. Maximum potential for precious opal discovery at ${price}.",
+    keywords: "Yowah nut, Queensland opal, unopened ironstone, opal hunting, extra large opal nuts",
+    image: "https://outbackgems.com.au/images/main/yn005.jpeg",
+    altText: "Extra Large Unopened Yowah Nut from Queensland - Premium opal hunting specimen at Outback Gems & Minerals",
+    categoryImage: "https://outbackgems.com.au/images/category-cards/Other-Yowah-Nuts.jpeg",
+    categoryAltText: "Yowah nut specimens - Premium opal hunting supplies at Outback Gems & Minerals"
+  },
   
   // Tumbles
   "tb001": {

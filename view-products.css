@@ -689,6 +689,10 @@ label[for="view-product-quantity"] {
   color: #ffb366;
   font-weight: 600;
   min-width: 80px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  line-height: 1.3;
 }
 
 #view-product-unit-price {
@@ -1184,6 +1188,10 @@ h1 {
   
   #view-product-unit-info {
     flex: 0 0 auto !important;
+    max-width: 60% !important;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
   }
   
   #view-product-unit-price {
