@@ -659,9 +659,13 @@ document.addEventListener('DOMContentLoaded', () => {
       row.innerHTML = `
         <td class="product-cell">
           <div class="product-info">
-            <img src="${item.image}" alt="${item.name}" class="product-image" />
+            <a href="view-product.html?productid=${item.id || item["product id"]}" class="product-link">
+              <img src="${item.image}" alt="${item.name}" class="product-image" />
+            </a>
             <div class="product-details">
-              <div class="product-name">${item.name}</div>
+              <a href="view-product.html?productid=${item.id || item["product id"]}" class="product-name-link">
+                <div class="product-name">${item.name}</div>
+              </a>
               <div class="cart-product-id">${item.id || item["product id"] || ''}</div>
             </div>
           </div>

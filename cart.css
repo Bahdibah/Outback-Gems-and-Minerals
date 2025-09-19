@@ -1251,6 +1251,32 @@ body {
   margin: 0;
 }
 
+/* Cart product links styling */
+.product-link {
+  text-decoration: none;
+  display: block;
+  transition: opacity 0.2s ease;
+}
+
+.product-link:hover {
+  opacity: 0.8;
+}
+
+.product-name-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  transition: opacity 0.2s ease;
+}
+
+.product-name-link:hover {
+  opacity: 0.8;
+}
+
+.product-name-link:visited {
+  color: inherit;
+}
+
 .cart-product-id {
   font-size: 12px;
   color: #888;
