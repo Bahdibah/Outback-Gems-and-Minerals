@@ -910,4 +910,14 @@ button {
   left: -9999px !important;
   opacity: 0 !important;
   pointer-events: none !important;
+  display: none !important;
+}
+
+.honeypot-field label,
+.honeypot-field input {
+  display: none !important;
+  visibility: hidden !important;
+  position: absolute !important;
+  left: -9999px !important;
+  opacity: 0 !important;
 }
