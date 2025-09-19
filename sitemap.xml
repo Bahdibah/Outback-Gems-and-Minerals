@@ -31,6 +31,21 @@
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
+  <url>
+    <loc>https://outbackgems.com.au/cart.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://outbackgems.com.au/thankyou.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://outbackgems.com.au/cancel.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
 
   <!-- Category Pages -->
   <url>
@@ -293,16 +308,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://outbackgems.com.au/view-product.html?productid=hzr002</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://outbackgems.com.au/view-product.html?productid=hzr003</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://outbackgems.com.au/view-product.html?productid=waam001</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -329,11 +334,6 @@
   </url>
   <url>
     <loc>https://outbackgems.com.au/view-product.html?productid=fb003</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://outbackgems.com.au/view-product.html?productid=as001</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -381,21 +381,6 @@
     <loc>https://outbackgems.com.au/termsofuse.html</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
-</url>
-  <url>
-    <loc>https://outbackgems.com.au/view-product.html?productid=tb001</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://outbackgems.com.au/view-product.html?productid=tb002</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://outbackgems.com.au/view-product.html?productid=tb003</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://outbackgems.com.au/view-product.html?productid=hd001</loc>
@@ -1100,6 +1085,31 @@
   </url>
   <url>
     <loc>https://outbackgems.com.au/view-product.html?productid=rfj005</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://outbackgems.com.au/view-product.html?productid=rfj006</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://outbackgems.com.au/view-product.html?productid=rfj007</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://outbackgems.com.au/view-product.html?productid=rfj008</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://outbackgems.com.au/view-product.html?productid=rfj009</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://outbackgems.com.au/view-product.html?productid=rfj010</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>

@@ -47,6 +47,7 @@
 <body class="contact-page">
 
   <header id="navbar-container"></header>
+<script src="productCache.js"></script>
 <script src="navbar.js"></script>
 
     <section id="home">
@@ -106,6 +107,23 @@
       <textarea id="message" name="message" rows="4" placeholder="Let us know what you're looking for..." required></textarea>
       
       <button type="submit">Send Message</button>
+    </form>
+    
+    <!-- Math CAPTCHA Modal (hidden by default) -->
+    <div id="captcha-modal" class="captcha-modal" style="display: none;">
+      <div class="captcha-modal-content">
+        <h3>Security Check</h3>
+        <p>Please solve this simple math problem to verify you're human:</p>
+        <div class="math-problem">
+          <span id="math-question">3 + 4</span> = 
+          <input type="number" id="math-input" placeholder="?" min="0" max="20" />
+        </div>
+        <div class="captcha-buttons">
+          <button type="button" id="captcha-submit">Verify & Send</button>
+          <button type="button" id="captcha-cancel">Cancel</button>
+        </div>
+      </div>
+    </div>
     </form>
   </div>
 </section>

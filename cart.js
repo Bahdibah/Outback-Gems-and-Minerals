@@ -196,20 +196,20 @@ async function startBackgroundValidation() {
   
   // Prevent multiple concurrent validations
   if (validationInProgress) {
-    console.log('⏳ Validation already in progress, skipping...');
+    // console.log('⏳ Validation already in progress, skipping...');
     return;
   }
   
   // Check if cart hasn't changed since last validation
   const cartString = JSON.stringify(cart);
   if (lastValidationCart === cartString && validationResult && validationResult.valid) {
-    console.log('📋 Cart unchanged and previously validated, skipping...');
+    // console.log('📋 Cart unchanged and previously validated, skipping...');
     return;
   }
   
   const shippingMethod = localStorage.getItem('selectedShippingMethod') || 'standard';
   
-  console.log('🔄 Starting background cart validation...');
+  // console.log('🔄 Starting background cart validation...');
   validationInProgress = true;
   
   try {
@@ -234,7 +234,7 @@ async function startBackgroundValidation() {
     validationResult = await response.json();
     
     if (validationResult.valid) {
-      console.log('✅ Background validation completed successfully');
+      // console.log('✅ Background validation completed successfully');
       lastValidationCart = JSON.stringify(cart);
       showValidationSuccess();
     } else {
@@ -259,7 +259,7 @@ async function startBackgroundValidation() {
 
 function showValidationSuccess() {
   // Minimal visual feedback - just console for now, can be expanded later
-  console.log('✅ Cart validated - ready for instant checkout');
+  // console.log('✅ Cart validated - ready for instant checkout');
 }
 
 function showValidationWarning(error) {
@@ -274,7 +274,7 @@ function showValidationWarning(error) {
 }
 
 function invalidateValidation() {
-  console.log('🔄 Cart changed, invalidating validation...');
+  // console.log('🔄 Cart changed, invalidating validation...');
   validationResult = null;
   validationPromise = null;
   lastValidationCart = null;
