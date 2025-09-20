@@ -1,7 +1,7 @@
 [
   {
     "category": "synthetic stones",
-    "applies-to": ["Synthetic Spinel", "Synthetic CZ"],
+    "applies-to": ["Synthetic Spinel", "Synthetic CZ", "Synthetic CZ,Synthetic Spinel"],
     "disclaimer-title": "Synthetic Gemstones Disclaimer",
     "disclaimer-text": "Although these stones have been grown to be consistent, some variations in colour, shape, and inclusions may occur. Please note that photos are taken under lighting conditions that best showcase the stone's features. Colours may vary slightly depending on lighting and screen settings. The piece pictured may not be the exact piece received - when purchasing bulk packs, colours and sizes of received pieces will vary."
   },
@@ -76,6 +76,12 @@
     "applies-to": ["Amethyst", "Smoky Quartz", "Olivine"],
     "disclaimer-title": "Raw Materials & Specimens Disclaimer",
     "disclaimer-text": "Raw materials and specimens are sold in their natural state and may contain inclusions, fractures, or other natural characteristics. Suitability for faceting or lapidary work will vary depending on individual specimen quality and intended use. Photos are taken under optimal lighting conditions to showcase features. Colours may vary depending on lighting and screen settings. The specimen pictured is the one you will receive."
+  },
+  {
+    "category": "rose quartz crystals",
+    "applies-to": ["Rose Quartz"],
+    "disclaimer-title": "Rose Quartz Crystals Disclaimer",
+    "disclaimer-text": "Rose quartz crystals are sold in boxes/packets containing assorted specimens that vary in size, shape, clarity, and quality. Each box is unique and contents may differ from those shown. Suitability for faceting or lapidary work will vary depending on individual specimen quality and intended use. Photos are taken under optimal lighting conditions to showcase features. Colours may vary depending on lighting and screen settings. The box pictured may not be the box received."
   },
   {
     "category": "herkimer diamonds",

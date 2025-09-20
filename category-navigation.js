@@ -71,13 +71,24 @@ class CategoryNavigation {
       existingNav.remove();
     }
 
+    // Determine if activeCategory is a subcategory and extract main category
+    let mainCategoryForSubcategories = '';
+    let isSubcategory = false;
+    
+    if (activeCategory && activeCategory.includes('|')) {
+      mainCategoryForSubcategories = activeCategory.split('|')[0];
+      isSubcategory = true;
+    } else if (activeCategory) {
+      mainCategoryForSubcategories = activeCategory;
+    }
+
     const navigationHTML = `
       <div id="category-navigation" class="category-navigation">
         <!-- Mobile dropdown selectors -->
         <select class="mobile-category-dropdown" id="mobile-category-select">
           <option value="">All Products</option>
           ${this.categories.map(category => `
-            <option value="${category.key}"${(activeCategory === category.key || (activeCategory && activeCategory.startsWith(category.key + '-'))) ? ' selected' : ''}>
+            <option value="${category.key}"${(mainCategoryForSubcategories === category.key) ? ' selected' : ''}>
               ${category.label}
             </option>
           `).join('')}
@@ -89,7 +100,7 @@ class CategoryNavigation {
         <!-- Desktop/tablet button navigation -->
         <div id="main-categories" class="main-categories">
           ${this.categories.map(category => `
-            <button class="category-nav-btn${(activeCategory === category.key || (activeCategory && activeCategory.startsWith(category.key + '-'))) ? ' active' : ''}" data-category="${category.key}">
+            <button class="category-nav-btn${(activeCategory === category.key || mainCategoryForSubcategories === category.key) ? ' active' : ''}" data-category="${category.key}">
               ${category.label}
             </button>
           `).join('')}
@@ -118,16 +129,23 @@ class CategoryNavigation {
       document.body.insertAdjacentHTML('afterbegin', navigationHTML);
     }
 
-    // Add subcategories if a main category is selected
-    if (activeCategory && !window.location.pathname.includes('view-product.html')) {
-      this.createSubcategoryButtons(activeCategory);
-      // Also update mobile subcategory dropdown only if it's a main category (not a subcategory)
-      const mainCategory = activeCategory.split('-')[0];
-      if (this.categories.some(cat => cat.key === mainCategory)) {
-        this.updateMobileSubcategoryDropdown(mainCategory);
-        const mobileSubcategorySelect = document.getElementById('mobile-subcategory-select');
-        if (mobileSubcategorySelect) {
-          mobileSubcategorySelect.style.display = 'block';
+    // Add subcategories if a main category is selected or if it's a subcategory
+    if (mainCategoryForSubcategories && !window.location.pathname.includes('view-product.html')) {
+      this.createSubcategoryButtons(mainCategoryForSubcategories);
+      // Also update mobile subcategory dropdown
+      this.updateMobileSubcategoryDropdown(mainCategoryForSubcategories);
+      const mobileSubcategorySelect = document.getElementById('mobile-subcategory-select');
+      if (mobileSubcategorySelect) {
+        mobileSubcategorySelect.style.display = 'block';
+        
+        // If it's a subcategory, select the correct option
+        if (isSubcategory) {
+          setTimeout(() => {
+            const option = mobileSubcategorySelect.querySelector(`option[value="${activeCategory}"]`);
+            if (option) {
+              mobileSubcategorySelect.value = activeCategory;
+            }
+          }, 100);
         }
       }
     } else {
@@ -331,8 +349,8 @@ class CategoryNavigation {
         const newUrl = `${window.location.pathname}?category=${encodeURIComponent(categoryKeyword)}`;
         history.pushState({ category: categoryKeyword }, "", newUrl);
         
-        // Update active states
-        this.updateMainCategoryActiveStates(categoryKeyword.split('-')[0]);
+        // Update active states - pass the full subcategory for proper highlighting
+        this.updateMainCategoryActiveStates(categoryKeyword);
         this.updateSubcategoryActiveStates(categoryKeyword);
         
         // Trigger products page functions
@@ -420,7 +438,17 @@ class CategoryNavigation {
     document.querySelectorAll('.category-nav-btn').forEach(btn => {
       const btnCategory = btn.getAttribute('data-category');
       
-      if (btnCategory === activeCategory || 
+      // Handle subcategory format (e.g., "slabs|tiger eye")
+      let categoryToCheck = activeCategory;
+      let isSubcategory = false;
+      
+      if (activeCategory && activeCategory.includes('|')) {
+        // Extract main category from subcategory
+        categoryToCheck = activeCategory.split('|')[0];
+        isSubcategory = true;
+      }
+      
+      if (btnCategory === categoryToCheck || 
           (activeCategory && activeCategory.startsWith(btnCategory + '-') && btnCategory !== '')) {
         btn.classList.add('active');
       } else if (btnCategory === '' && !activeCategory) {
