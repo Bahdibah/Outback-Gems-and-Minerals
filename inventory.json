@@ -11,10 +11,11 @@
     "price per unit": 0.2,
     "stock": 1,
     "image url": "images\\main\\s104.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\s104-2.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\s104-3.jpeg"
   },
   {
     "product name": "Silver Blue Spinel",
@@ -28,10 +29,11 @@
     "price per unit": 0.2,
     "stock": 1,
     "image url": "images\\main\\s104.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\s104-2.jpeg",
     "total price": 12,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\s104-3.jpeg"
   },
   {
     "product name": "Silver Blue Spinel",
@@ -45,10 +47,11 @@
     "price per unit": 0.2,
     "stock": 1,
     "image url": "images\\main\\s104.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\s104-2.jpeg",
     "total price": 13,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\s104-3.jpeg"
   },
   {
     "product name": "Silver Blue Spinel",
@@ -62,10 +65,11 @@
     "price per unit": 0.2,
     "stock": 1,
     "image url": "images\\main\\s104.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\s104-2.jpeg",
     "total price": 14.8,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\s104-3.jpeg"
   },
   {
     "product name": "Powder Blue Spinel",
@@ -79,10 +83,11 @@
     "price per unit": 0.2,
     "stock": 2,
     "image url": "images\\main\\s105.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\s105-2.jpeg",
     "total price": 9.6,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\s105-3.jpeg"
   },
   {
     "product name": "Powder Blue Spinel",
@@ -96,10 +101,11 @@
     "price per unit": 0.2,
     "stock": 1,
     "image url": "images\\main\\s105.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\s105-2.jpeg",
     "total price": 12.8,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\s105-3.jpeg"
   },
   {
     "product name": "Powder Blue Spinel",
@@ -113,10 +119,11 @@
     "price per unit": 0.2,
     "stock": 1,
     "image url": "images\\main\\s105.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\s105-2.jpeg",
     "total price": 13.6,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\s105-3.jpeg"
   },
   {
     "product name": "Powder Blue Spinel",
@@ -130,10 +137,11 @@
     "price per unit": 0.2,
     "stock": 1,
     "image url": "images\\main\\s105.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\s105-2.jpeg",
     "total price": 16.8,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\s105-3.jpeg"
   },
   {
     "product name": "Powder Blue Spinel",
@@ -147,10 +155,11 @@
     "price per unit": 0.2,
     "stock": 1,
     "image url": "images\\main\\s105.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\s105-2.jpeg",
     "total price": 8.8,
     "bestseller": "Y",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\s105-3.jpeg"
   },
   {
     "product name": "Ice Blue Spinel",
@@ -164,10 +173,11 @@
     "price per unit": 0.2,
     "stock": 1,
     "image url": "images\\main\\s106.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\s106-2.jpeg",
     "total price": 6,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\s106-3.jpeg"
   },
   {
     "product name": "Sky Blue Spinel",
@@ -181,10 +191,11 @@
     "price per unit": 0.2,
     "stock": 1,
     "image url": "images\\main\\s107.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\s107-2.jpeg",
     "total price": 7,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\s107-3.jpeg"
   },
   {
     "product name": "Ice Blue Spinel",
@@ -198,10 +209,11 @@
     "price per unit": 0.2,
     "stock": 1,
     "image url": "images\\main\\s106.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\s106-2.jpeg",
     "total price": 9.8,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\s106-3.jpeg"
   },
   {
     "product name": "Ice Blue Spinel",
@@ -215,10 +227,11 @@
     "price per unit": 0.2,
     "stock": 1,
     "image url": "images\\main\\s106.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\s106-2.jpeg",
     "total price": 9.6,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\s106-3.jpeg"
   },
   {
     "product name": "Ice Blue Spinel",
@@ -232,10 +245,11 @@
     "price per unit": 0.2,
     "stock": 1,
     "image url": "images\\main\\s106.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\s106-2.jpeg",
     "total price": 12.2,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\s106-3.jpeg"
   },
   {
     "product name": "Ice Blue Spinel",
@@ -249,10 +263,11 @@
     "price per unit": 0.2,
     "stock": 1,
     "image url": "images\\main\\s106.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\s106-2.jpeg",
     "total price": 17.2,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\s106-3.jpeg"
   },
   {
     "product name": "Sky Blue Spinel",
@@ -266,10 +281,11 @@
     "price per unit": 0.2,
     "stock": 1,
     "image url": "images\\main\\s107.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\s107-2.jpeg",
     "total price": 4.6,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\s107-3.jpeg"
   },
   {
     "product name": "Sky Blue Spinel",
@@ -283,10 +299,11 @@
     "price per unit": 0.2,
     "stock": 1,
     "image url": "images\\main\\s107.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\s107-2.jpeg",
     "total price": 8.4,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\s107-3.jpeg"
   },
   {
     "product name": "Sky Blue Spinel",
@@ -300,10 +317,11 @@
     "price per unit": 0.2,
     "stock": 1,
     "image url": "images\\main\\s107.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\s107-2.jpeg",
     "total price": 9.6,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\s107-3.jpeg"
   },
   {
     "product name": "Royal Blue Spinel",
@@ -317,10 +335,11 @@
     "price per unit": 0.2,
     "stock": 1,
     "image url": "images\\main\\s112.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\s112-2.jpeg",
     "total price": 6.6,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\s112-3.jpeg"
   },
   {
     "product name": "Royal Blue Spinel",
@@ -334,10 +353,11 @@
     "price per unit": 0.2,
     "stock": 1,
     "image url": "images\\main\\s112.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\s112-2.jpeg",
     "total price": 6.6,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\s112-3.jpeg"
   },
   {
     "product name": "Royal Blue Spinel",
@@ -351,10 +371,11 @@
     "price per unit": 0.2,
     "stock": 1,
     "image url": "images\\main\\s112.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\s112-2.jpeg",
     "total price": 8.8,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\s112-3.jpeg"
   },
   {
     "product name": "Royal Blue Spinel",
@@ -368,10 +389,11 @@
     "price per unit": 0.2,
     "stock": 1,
     "image url": "images\\main\\s112.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\s112-2.jpeg",
     "total price": 11,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\s112-3.jpeg"
   },
   {
     "product name": "Sapphire Blue Spinel",
@@ -385,10 +407,11 @@
     "price per unit": 0.2,
     "stock": 1,
     "image url": "images\\main\\s113.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\s113-2.jpeg",
     "total price": 4.8,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\s113-3.jpeg"
   },
   {
     "product name": "Sapphire Blue Spinel",
@@ -402,10 +425,11 @@
     "price per unit": 0.2,
     "stock": 1,
     "image url": "images\\main\\s113.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\s113-2.jpeg",
     "total price": 6.4,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\s113-3.jpeg"
   },
   {
     "product name": "Sapphire Blue Spinel",
@@ -419,10 +443,11 @@
     "price per unit": 0.2,
     "stock": 1,
     "image url": "images\\main\\s113.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\s113-2.jpeg",
     "total price": 7.4,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\s113-3.jpeg"
   },
   {
     "product name": "Sapphire Blue Spinel",
@@ -436,10 +461,11 @@
     "price per unit": 0.2,
     "stock": 2,
     "image url": "images\\main\\s113.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\s113-2.jpeg",
     "total price": 8,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\s113-3.jpeg"
   },
   {
     "product name": "Sapphire Blue Spinel",
@@ -453,10 +479,11 @@
     "price per unit": 0.2,
     "stock": 1,
     "image url": "images\\main\\s113.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\s113-2.jpeg",
     "total price": 9.6,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\s113-3.jpeg"
   },
   {
     "product name": "Sapphire Blue Spinel",
@@ -470,10 +497,11 @@
     "price per unit": 0.2,
     "stock": 1,
     "image url": "images\\main\\s113.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\s113-2.jpeg",
     "total price": 12.4,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\s113-3.jpeg"
   },
   {
     "product name": "Midnight Blue Spinel",
@@ -487,10 +515,11 @@
     "price per unit": 0.2,
     "stock": 1,
     "image url": "images\\main\\s114.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\s114-2.jpeg",
     "total price": 4.8,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\s114-3.jpeg"
   },
   {
     "product name": "Midnight Blue Spinel",
@@ -504,10 +533,11 @@
     "price per unit": 0.2,
     "stock": 1,
     "image url": "images\\main\\s114.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\s114-2.jpeg",
     "total price": 8.4,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\s114-3.jpeg"
   },
   {
     "product name": "Midnight Blue Spinel",
@@ -521,10 +551,11 @@
     "price per unit": 0.2,
     "stock": 1,
     "image url": "images\\main\\s114.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\s114-2.jpeg",
     "total price": 9,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\s114-3.jpeg"
   },
   {
     "product name": "Ocean Blue Spinel",
@@ -538,10 +569,11 @@
     "price per unit": 0.2,
     "stock": 1,
     "image url": "images\\main\\s119.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\s119-2.jpeg",
     "total price": 10.6,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\s119-3.jpeg"
   },
   {
     "product name": "Midnight Blue Spinel",
@@ -555,10 +587,11 @@
     "price per unit": 0.2,
     "stock": 1,
     "image url": "images\\main\\s114.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\s114-2.jpeg",
     "total price": 12,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\s114-3.jpeg"
   },
   {
     "product name": "Ocean Blue Spinel",
@@ -572,10 +605,11 @@
     "price per unit": 0.2,
     "stock": 1,
     "image url": "images\\main\\s119.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\s119-2.jpeg",
     "total price": 9.6,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\s119-3.jpeg"
   },
   {
     "product name": "Ocean Blue Spinel",
@@ -589,10 +623,11 @@
     "price per unit": 0.2,
     "stock": 1,
     "image url": "images\\main\\s119.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\s119-2.jpeg",
     "total price": 9.8,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\s119-3.jpeg"
   },
   {
     "product name": "Ocean Blue Spinel",
@@ -606,10 +641,11 @@
     "price per unit": 0.2,
     "stock": 1,
     "image url": "images\\main\\s119.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\s119-2.jpeg",
     "total price": 10.8,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\s119-3.jpeg"
   },
   {
     "product name": "Slate Blue Spinel",
@@ -623,10 +659,11 @@
     "price per unit": 0.2,
     "stock": 1,
     "image url": "images\\main\\s120.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\s120-2.jpeg",
     "total price": 6.6,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\s120-3.jpeg"
   },
   {
     "product name": "Slate Blue Spinel",
@@ -640,10 +677,11 @@
     "price per unit": 0.2,
     "stock": 1,
     "image url": "images\\main\\s120.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\s120-2.jpeg",
     "total price": 9.4,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\s120-3.jpeg"
   },
   {
     "product name": "Slate Blue Spinel",
@@ -657,10 +695,11 @@
     "price per unit": 0.2,
     "stock": 1,
     "image url": "images\\main\\s120.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\s120-2.jpeg",
     "total price": 10.2,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\s120-3.jpeg"
   },
   {
     "product name": "Slate Blue Spinel",
@@ -674,10 +713,11 @@
     "price per unit": 0.2,
     "stock": 1,
     "image url": "images\\main\\s120.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\s120-2.jpeg",
     "total price": 16.2,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\s120-3.jpeg"
   },
   {
     "product name": "Smoky Quartz",
@@ -691,10 +731,11 @@
     "price per unit": 0.23,
     "stock": 1,
     "image url": "images\\main\\sq002.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\sq002-2.jpeg",
     "total price": 25,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\sq002-3.jpeg"
   },
   {
     "product name": "Mixed Faceting Bag - CZ",
@@ -707,11 +748,12 @@
     "weight": 1000,
     "price per unit": 0.08,
     "stock": 1,
-    "image url": "images\\main\\Other-Faceting-Bag-CZ.jpeg",
-    "image 2 url": "",
+    "image url": "images\\main\\fb001.jpeg",
+    "image 2 url": "images\\main\\fb001-2.jpeg",
     "total price": 80,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\fb001-3.jpeg"
   },
   {
     "product name": "Mixed Faceting Bag - Spinel",
@@ -724,11 +766,12 @@
     "weight": 300,
     "price per unit": 0.18,
     "stock": 1,
-    "image url": "images\\main\\Other-Faceting-Bag-Spinel.jpeg",
-    "image 2 url": "",
+    "image url": "images\\main\\fb002.jpeg",
+    "image 2 url": "images\\main\\fb002-2.jpeg",
     "total price": 55,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\fb002-3.jpeg"
   },
   {
     "product name": "Mixed Faceting Bag - CZ & Spinel",
@@ -741,11 +784,12 @@
     "weight": 300,
     "price per unit": 0.18,
     "stock": 1,
-    "image url": "images\\main\\Other-Faceting-Bag-CZ-Spinel.jpeg",
-    "image 2 url": "",
+    "image url": "images\\main\\fb003.jpeg",
+    "image 2 url": "images\\main\\fb003-2.jpeg",
     "total price": 55,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\fb003-3.jpeg"
   },
   {
     "product name": "Mixed Faceting Bag - CZ & Spinel",
@@ -758,11 +802,12 @@
     "weight": 300,
     "price per unit": 0.18,
     "stock": 1,
-    "image url": "images\\main\\Other-Faceting-Bag-CZ-Spinel.jpeg",
-    "image 2 url": "",
+    "image url": "images\\main\\fb003.jpeg",
+    "image 2 url": "images\\main\\fb003-2.jpeg",
     "total price": 55,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\fb003-3.jpeg"
   },
   {
     "product name": "Sapphire Washbags",
@@ -776,10 +821,11 @@
     "price per unit": 30,
     "stock": 20,
     "image url": "images\\main\\sw001.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\sw001-2.jpeg",
     "total price": 30,
     "bestseller": "Y",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\sw001-3.jpeg"
   },
   {
     "product name": "Yowah Nut Large - Single",
@@ -793,10 +839,11 @@
     "price per unit": 50,
     "stock": 7,
     "image url": "images\\main\\yn001.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\yn001-2.jpeg",
     "total price": 50,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\yn001-3.jpeg"
   },
   {
     "product name": "Yowah Nut Medium - Single",
@@ -810,10 +857,11 @@
     "price per unit": 25,
     "stock": 7,
     "image url": "images\\main\\yn002.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\yn002-2.jpeg",
     "total price": 25,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\yn002-3.jpeg"
   },
   {
     "product name": "Yowah Nut Medium - 3 Pack",
@@ -827,10 +875,11 @@
     "price per unit": 65,
     "stock": 5,
     "image url": "images\\main\\yn003.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\yn003-2.jpeg",
     "total price": 65,
     "bestseller": "Y",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\yn003-3.jpeg"
   },
   {
     "product name": "Yowah Nut Small - 3 Pack",
@@ -844,10 +893,11 @@
     "price per unit": 35,
     "stock": 10,
     "image url": "images\\main\\yn004.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\yn004-2.jpeg",
     "total price": 35,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\yn004-3.jpeg"
   },
   {
     "product name": "Yowah Nut Extra Large - Single",
@@ -861,10 +911,11 @@
     "price per unit": 80,
     "stock": 11,
     "image url": "images\\main\\yn005.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\yn005-2.jpeg",
     "total price": 80,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\yn005-3.jpeg"
   },
   {
     "product name": "Herkimer Diamonds",
@@ -877,11 +928,12 @@
     "weight": 100,
     "price per unit": 0.13,
     "stock": 10,
-    "image url": "images\\main\\other-herkimer-diamonds.jpeg",
-    "image 2 url": "",
+    "image url": "images\\main\\hd001.jpeg",
+    "image 2 url": "images\\main\\hd001-2.jpeg",
     "total price": 12.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\hd001-3.jpeg"
   },
   {
     "product name": "Strawberry Bottle",
@@ -895,10 +947,11 @@
     "price per unit": 5,
     "stock": 4,
     "image url": "images\\main\\ccb001.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\ccb001-2.jpeg",
     "total price": 5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\ccb001-3.jpeg"
   },
   {
     "product name": "Tiger Eye Bottle",
@@ -912,10 +965,11 @@
     "price per unit": 5,
     "stock": 4,
     "image url": "images\\main\\ccb002.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\ccb002-2.jpeg",
     "total price": 5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\ccb002-3.jpeg"
   },
   {
     "product name": "Moonstone Bottle",
@@ -929,10 +983,11 @@
     "price per unit": 5,
     "stock": 4,
     "image url": "images\\main\\ccb003.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\ccb003-2.jpeg",
     "total price": 5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\ccb003-3.jpeg"
   },
   {
     "product name": "Red Jasper Bottle",
@@ -946,10 +1001,11 @@
     "price per unit": 5,
     "stock": 3,
     "image url": "images\\main\\ccb004.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\ccb004-2.jpeg",
     "total price": 5,
     "bestseller": "Y",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\ccb004-3.jpeg"
   },
   {
     "product name": "Amethyst Bottle",
@@ -963,10 +1019,11 @@
     "price per unit": 5,
     "stock": 4,
     "image url": "images\\main\\ccb005.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\ccb005-2.jpeg",
     "total price": 5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\ccb005-3.jpeg"
   },
   {
     "product name": "Rose Quartz Bottle",
@@ -980,10 +1037,11 @@
     "price per unit": 5,
     "stock": 4,
     "image url": "images\\main\\ccb006.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\ccb006-2.jpeg",
     "total price": 5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\ccb006-3.jpeg"
   },
   {
     "product name": "Clear Quartz Bottle",
@@ -997,10 +1055,11 @@
     "price per unit": 5,
     "stock": 4,
     "image url": "images\\main\\ccb007.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\ccb007-2.jpeg",
     "total price": 5,
     "bestseller": "",
-    "newitem": "Y"
+    "newitem": "Y",
+    "image 3 url": "images\\main\\ccb007-3.jpeg"
   },
   {
     "product name": "Ruby Zoisite Bottle",
@@ -1014,10 +1073,11 @@
     "price per unit": 5,
     "stock": 4,
     "image url": "images\\main\\ccb008.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\ccb008-2.jpeg",
     "total price": 5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\ccb008-3.jpeg"
   },
   {
     "product name": "Lapis Lazuli Bottle",
@@ -1031,10 +1091,11 @@
     "price per unit": 5,
     "stock": 4,
     "image url": "images\\main\\ccb009.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\ccb009-2.jpeg",
     "total price": 5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\ccb009-3.jpeg"
   },
   {
     "product name": "Citrine Bottle",
@@ -1048,10 +1109,11 @@
     "price per unit": 5,
     "stock": 4,
     "image url": "images\\main\\ccb010.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\ccb010-2.jpeg",
     "total price": 5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\ccb010-3.jpeg"
   },
   {
     "product name": "Fire Quartz Bottle",
@@ -1065,10 +1127,11 @@
     "price per unit": 5,
     "stock": 4,
     "image url": "images\\main\\ccb011.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\ccb011-2.jpeg",
     "total price": 5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\ccb011-3.jpeg"
   },
   {
     "product name": "Black Obsidian Bottle",
@@ -1082,10 +1145,11 @@
     "price per unit": 5,
     "stock": 4,
     "image url": "images\\main\\ccb012.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\ccb012-2.jpeg",
     "total price": 5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\ccb012-3.jpeg"
   },
   {
     "product name": "Black Tourmaline Bottle",
@@ -1099,10 +1163,11 @@
     "price per unit": 5,
     "stock": 4,
     "image url": "images\\main\\ccb013.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\ccb013-2.jpeg",
     "total price": 5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\ccb013-3.jpeg"
   },
   {
     "product name": "Sodalite Bottle",
@@ -1116,10 +1181,11 @@
     "price per unit": 5,
     "stock": 4,
     "image url": "images\\main\\ccb014.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\ccb014-2.jpeg",
     "total price": 5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\ccb014-3.jpeg"
   },
   {
     "product name": "Dragon Blood Bottle",
@@ -1133,10 +1199,11 @@
     "price per unit": 5,
     "stock": 4,
     "image url": "images\\main\\ccb015.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\ccb015-2.jpeg",
     "total price": 5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\ccb015-3.jpeg"
   },
   {
     "product name": "Amethyst Bottle",
@@ -1150,10 +1217,11 @@
     "price per unit": 5,
     "stock": 4,
     "image url": "images\\main\\ccb016.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\ccb016-2.jpeg",
     "total price": 5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\ccb016-3.jpeg"
   },
   {
     "product name": "Blue Tiger Eye Butterfly",
@@ -1167,10 +1235,11 @@
     "price per unit": 7.5,
     "stock": 0,
     "image url": "images\\main\\btf001.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\btf001-2.jpeg",
     "total price": 7.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\btf001-3.jpeg"
   },
   {
     "product name": "Citrine Butterfly",
@@ -1184,10 +1253,11 @@
     "price per unit": 7.5,
     "stock": 2,
     "image url": "images\\main\\btf002.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\btf002-2.jpeg",
     "total price": 7.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\btf002-3.jpeg"
   },
   {
     "product name": "Clear Quartz Butterfly",
@@ -1201,10 +1271,11 @@
     "price per unit": 7.5,
     "stock": 2,
     "image url": "images\\main\\btf003.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\btf003-2.jpeg",
     "total price": 7.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\btf003-3.jpeg"
   },
   {
     "product name": "Dream Amethyst Butterfly",
@@ -1218,10 +1289,11 @@
     "price per unit": 7.5,
     "stock": 2,
     "image url": "images\\main\\btf004.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\btf004-2.jpeg",
     "total price": 7.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\btf004-3.jpeg"
   },
   {
     "product name": "Flower Agate Butterfly",
@@ -1235,10 +1307,11 @@
     "price per unit": 7.5,
     "stock": 0,
     "image url": "images\\main\\btf005.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\btf005-2.jpeg",
     "total price": 7.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\btf005-3.jpeg"
   },
   {
     "product name": "Fluorite Butterfly",
@@ -1252,10 +1325,11 @@
     "price per unit": 7.5,
     "stock": 4,
     "image url": "images\\main\\btf006.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\btf006-2.jpeg",
     "total price": 7.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\btf006-3.jpeg"
   },
   {
     "product name": "Aventurine Butterfly",
@@ -1269,10 +1343,11 @@
     "price per unit": 7.5,
     "stock": 2,
     "image url": "images\\main\\btf007.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\btf007-2.jpeg",
     "total price": 7.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\btf007-3.jpeg"
   },
   {
     "product name": "Opalite Butterfly",
@@ -1286,10 +1361,11 @@
     "price per unit": 7.5,
     "stock": 0,
     "image url": "images\\main\\btf008.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\btf008-2.jpeg",
     "total price": 7.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\btf008-3.jpeg"
   },
   {
     "product name": "Lapis Lazuli Butterfly",
@@ -1303,10 +1379,11 @@
     "price per unit": 7.5,
     "stock": 3,
     "image url": "images\\main\\btf009.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\btf009-2.jpeg",
     "total price": 7.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\btf009-3.jpeg"
   },
   {
     "product name": "Moss Agate Butterfly",
@@ -1320,10 +1397,11 @@
     "price per unit": 7.5,
     "stock": 0,
     "image url": "images\\main\\btf010.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\btf010-2.jpeg",
     "total price": 7.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\btf010-3.jpeg"
   },
   {
     "product name": "Strawberry Butterfly",
@@ -1337,10 +1415,11 @@
     "price per unit": 7.5,
     "stock": 0,
     "image url": "images\\main\\btf011.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\btf011-2.jpeg",
     "total price": 7.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\btf011-3.jpeg"
   },
   {
     "product name": "Rose Quartz Butterfly",
@@ -1354,10 +1433,11 @@
     "price per unit": 7.5,
     "stock": 4,
     "image url": "images\\main\\btf012.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\btf012-2.jpeg",
     "total price": 7.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\btf012-3.jpeg"
   },
   {
     "product name": "Silver Butterfly",
@@ -1371,10 +1451,11 @@
     "price per unit": 7.5,
     "stock": 0,
     "image url": "images\\main\\btf013.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\btf013-2.jpeg",
     "total price": 7.5,
     "bestseller": "",
-    "newitem": "Y"
+    "newitem": "Y",
+    "image 3 url": "images\\main\\btf013-3.jpeg"
   },
   {
     "product name": "Tiger Eye Butterfly",
@@ -1388,10 +1469,11 @@
     "price per unit": 7.5,
     "stock": 0,
     "image url": "images\\main\\btf014.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\btf014-2.jpeg",
     "total price": 7.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\btf014-3.jpeg"
   },
   {
     "product name": "Howlite Heart",
@@ -1405,10 +1487,11 @@
     "price per unit": 2.5,
     "stock": 2,
     "image url": "images\\main\\hrt001.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\hrt001-2.jpeg",
     "total price": 2.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\hrt001-3.jpeg"
   },
   {
     "product name": "Rose Quartz Heart",
@@ -1422,10 +1505,11 @@
     "price per unit": 2.5,
     "stock": 2,
     "image url": "images\\main\\hrt002.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\hrt002-2.jpeg",
     "total price": 2.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\hrt002-3.jpeg"
   },
   {
     "product name": "Tiger Eye Heart",
@@ -1439,10 +1523,11 @@
     "price per unit": 2.5,
     "stock": 2,
     "image url": "images\\main\\hrt003.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\hrt003-2.jpeg",
     "total price": 2.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\hrt003-3.jpeg"
   },
   {
     "product name": "Avetruine Heart (Green)",
@@ -1456,10 +1541,11 @@
     "price per unit": 2.5,
     "stock": 2,
     "image url": "images\\main\\hrt004.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\hrt004-2.jpeg",
     "total price": 2.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\hrt004-3.jpeg"
   },
   {
     "product name": "Unakite Heart",
@@ -1473,10 +1559,11 @@
     "price per unit": 2.5,
     "stock": 2,
     "image url": "images\\main\\hrt005.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\hrt005-2.jpeg",
     "total price": 2.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\hrt005-3.jpeg"
   },
   {
     "product name": "Clear Quartz Heart",
@@ -1490,10 +1577,11 @@
     "price per unit": 2.5,
     "stock": 2,
     "image url": "images\\main\\hrt006.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\hrt006-2.jpeg",
     "total price": 2.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\hrt006-3.jpeg"
   },
   {
     "product name": "Opalte Heart",
@@ -1507,10 +1595,11 @@
     "price per unit": 2.5,
     "stock": 2,
     "image url": "images\\main\\hrt007.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\hrt007-2.jpeg",
     "total price": 2.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\hrt007-3.jpeg"
   },
   {
     "product name": "Dalmation Jasper Heart",
@@ -1524,10 +1613,11 @@
     "price per unit": 2.5,
     "stock": 2,
     "image url": "images\\main\\hrt008.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\hrt008-2.jpeg",
     "total price": 2.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\hrt008-3.jpeg"
   },
   {
     "product name": "Africa Blood Heart",
@@ -1541,10 +1631,11 @@
     "price per unit": 2.5,
     "stock": 2,
     "image url": "images\\main\\hrt009.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\hrt009-2.jpeg",
     "total price": 2.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\hrt009-3.jpeg"
   },
   {
     "product name": "Obsidian Heart",
@@ -1558,10 +1649,11 @@
     "price per unit": 2.5,
     "stock": 2,
     "image url": "images\\main\\hrt010.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\hrt010-2.jpeg",
     "total price": 2.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\hrt010-3.jpeg"
   },
   {
     "product name": "Aventurine Heart (Blue)",
@@ -1575,10 +1667,11 @@
     "price per unit": 2.5,
     "stock": 2,
     "image url": "images\\main\\hrt011.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\hrt011-2.jpeg",
     "total price": 2.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\hrt011-3.jpeg"
   },
   {
     "product name": "Sodalite Heart",
@@ -1592,10 +1685,11 @@
     "price per unit": 2.5,
     "stock": 2,
     "image url": "images\\main\\hrt012.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\hrt012-2.jpeg",
     "total price": 2.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\hrt012-3.jpeg"
   },
   {
     "product name": "Dragon Blood Heart",
@@ -1609,10 +1703,11 @@
     "price per unit": 2.5,
     "stock": 2,
     "image url": "images\\main\\hrt013.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\hrt013-2.jpeg",
     "total price": 2.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\hrt013-3.jpeg"
   },
   {
     "product name": "Moss Agate Heart",
@@ -1626,10 +1721,11 @@
     "price per unit": 2.5,
     "stock": 2,
     "image url": "images\\main\\hrt014.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\hrt014-2.jpeg",
     "total price": 2.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\hrt014-3.jpeg"
   },
   {
     "product name": "Amethyst Heart",
@@ -1643,10 +1739,11 @@
     "price per unit": 2.5,
     "stock": 2,
     "image url": "images\\main\\hrt015.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\hrt015-2.jpeg",
     "total price": 2.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\hrt015-3.jpeg"
   },
   {
     "product name": "Dream Amethyst Heart",
@@ -1660,10 +1757,11 @@
     "price per unit": 2.5,
     "stock": 2,
     "image url": "images\\main\\hrt016.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\hrt016-2.jpeg",
     "total price": 2.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\hrt016-3.jpeg"
   },
   {
     "product name": "Red Agate Heart",
@@ -1677,10 +1775,11 @@
     "price per unit": 2.5,
     "stock": 2,
     "image url": "images\\main\\hrt017.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\hrt017-2.jpeg",
     "total price": 2.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\hrt017-3.jpeg"
   },
   {
     "product name": "Strawberry Heart",
@@ -1694,10 +1793,11 @@
     "price per unit": 2.5,
     "stock": 2,
     "image url": "images\\main\\hrt018.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\hrt018-2.jpeg",
     "total price": 2.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\hrt018-3.jpeg"
   },
   {
     "product name": "Red Obsidian Heart",
@@ -1711,10 +1811,11 @@
     "price per unit": 2.5,
     "stock": 2,
     "image url": "images\\main\\hrt019.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\hrt019-2.jpeg",
     "total price": 2.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\hrt019-3.jpeg"
   },
   {
     "product name": "Aventurine Tower (Blue)",
@@ -1728,10 +1829,11 @@
     "price per unit": 3.5,
     "stock": 3,
     "image url": "images\\main\\mtr001.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\mtr001-2.jpeg",
     "total price": 3.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\mtr001-3.jpeg"
   },
   {
     "product name": "Blue Jasper Tower",
@@ -1745,10 +1847,11 @@
     "price per unit": 3.5,
     "stock": 3,
     "image url": "images\\main\\mtr002.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\mtr002-2.jpeg",
     "total price": 3.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\mtr002-3.jpeg"
   },
   {
     "product name": "Carnelian Agate Tower",
@@ -1762,10 +1865,11 @@
     "price per unit": 3.5,
     "stock": 3,
     "image url": "images\\main\\mtr003.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\mtr003-2.jpeg",
     "total price": 3.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\mtr003-3.jpeg"
   },
   {
     "product name": "Clear Quartz Tower",
@@ -1779,10 +1883,11 @@
     "price per unit": 3.5,
     "stock": 3,
     "image url": "images\\main\\mtr004.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\mtr004-2.jpeg",
     "total price": 3.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\mtr004-3.jpeg"
   },
   {
     "product name": "Dalmation Jasper Tower",
@@ -1796,10 +1901,11 @@
     "price per unit": 3.5,
     "stock": 3,
     "image url": "images\\main\\mtr005.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\mtr005-2.jpeg",
     "total price": 3.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\mtr005-3.jpeg"
   },
   {
     "product name": "Dragon Blood Tower",
@@ -1813,10 +1919,11 @@
     "price per unit": 3.5,
     "stock": 3,
     "image url": "images\\main\\mtr006.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\mtr006-2.jpeg",
     "total price": 3.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\mtr006-3.jpeg"
   },
   {
     "product name": "Dream Amethyst Tower",
@@ -1830,10 +1937,11 @@
     "price per unit": 3.5,
     "stock": 3,
     "image url": "images\\main\\mtr007.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\mtr007-2.jpeg",
     "total price": 3.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\mtr007-3.jpeg"
   },
   {
     "product name": "Lapis Lazuli Tower (Dyed)",
@@ -1847,10 +1955,11 @@
     "price per unit": 3.5,
     "stock": 3,
     "image url": "images\\main\\mtr008.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\mtr008-2.jpeg",
     "total price": 3.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\mtr008-3.jpeg"
   },
   {
     "product name": "Aventurine Tower (Green)",
@@ -1864,10 +1973,11 @@
     "price per unit": 3.5,
     "stock": 3,
     "image url": "images\\main\\mtr009.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\mtr009-2.jpeg",
     "total price": 3.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\mtr009-3.jpeg"
   },
   {
     "product name": "Lavakite Tower",
@@ -1881,10 +1991,11 @@
     "price per unit": 3.5,
     "stock": 3,
     "image url": "images\\main\\mtr010.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\mtr010-2.jpeg",
     "total price": 3.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\mtr010-3.jpeg"
   },
   {
     "product name": "Lepidolite Tower",
@@ -1898,10 +2009,11 @@
     "price per unit": 3.5,
     "stock": 3,
     "image url": "images\\main\\mtr011.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\mtr011-2.jpeg",
     "total price": 3.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\mtr011-3.jpeg"
   },
   {
     "product name": "Malachite Tower (Synthetic)",
@@ -1915,10 +2027,11 @@
     "price per unit": 3.5,
     "stock": 3,
     "image url": "images\\main\\mtr012.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\mtr012-2.jpeg",
     "total price": 3.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\mtr012-3.jpeg"
   },
   {
     "product name": "Turquoise Tower (Synthetic)",
@@ -1932,10 +2045,11 @@
     "price per unit": 3.5,
     "stock": 3,
     "image url": "images\\main\\mtr013.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\mtr013-2.jpeg",
     "total price": 3.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\mtr013-3.jpeg"
   },
   {
     "product name": "Obsidian Tower",
@@ -1949,10 +2063,11 @@
     "price per unit": 3.5,
     "stock": 3,
     "image url": "images\\main\\mtr014.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\mtr014-2.jpeg",
     "total price": 3.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\mtr014-3.jpeg"
   },
   {
     "product name": "Red Jasper Tower",
@@ -1966,10 +2081,11 @@
     "price per unit": 3.5,
     "stock": 3,
     "image url": "images\\main\\mtr015.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\mtr015-2.jpeg",
     "total price": 3.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\mtr015-3.jpeg"
   },
   {
     "product name": "Rhodonite Tower",
@@ -1983,10 +2099,11 @@
     "price per unit": 3.5,
     "stock": 3,
     "image url": "images\\main\\mtr016.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\mtr016-2.jpeg",
     "total price": 3.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\mtr016-3.jpeg"
   },
   {
     "product name": "Rose Quartz Tower",
@@ -2000,10 +2117,11 @@
     "price per unit": 3.5,
     "stock": 3,
     "image url": "images\\main\\mtr017.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\mtr017-2.jpeg",
     "total price": 3.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\mtr017-3.jpeg"
   },
   {
     "product name": "Topaz Tower",
@@ -2017,10 +2135,11 @@
     "price per unit": 3.5,
     "stock": 3,
     "image url": "images\\main\\mtr018.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\mtr018-2.jpeg",
     "total price": 3.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\mtr018-3.jpeg"
   },
   {
     "product name": "Unakite Tower",
@@ -2034,10 +2153,11 @@
     "price per unit": 3.5,
     "stock": 3,
     "image url": "images\\main\\mtr019.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\mtr019-2.jpeg",
     "total price": 3.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\mtr019-3.jpeg"
   },
   {
     "product name": "Clear Quartz Tree",
@@ -2051,10 +2171,11 @@
     "price per unit": 10,
     "stock": 2,
     "image url": "images\\main\\mgt001.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\mgt001-2.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\mgt001-3.jpeg"
   },
   {
     "product name": "Amethyst Tree",
@@ -2068,10 +2189,11 @@
     "price per unit": 10,
     "stock": 2,
     "image url": "images\\main\\mgt002.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\mgt002-2.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\mgt002-3.jpeg"
   },
   {
     "product name": "Aventurine Tree (Green)",
@@ -2085,10 +2207,11 @@
     "price per unit": 10,
     "stock": 2,
     "image url": "images\\main\\mgt003.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\mgt003-2.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\mgt003-3.jpeg"
   },
   {
     "product name": "Fluorite Tree",
@@ -2102,10 +2225,11 @@
     "price per unit": 10,
     "stock": 2,
     "image url": "images\\main\\mgt004.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\mgt004-2.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\mgt004-3.jpeg"
   },
   {
     "product name": "Red Jasper Tree",
@@ -2119,10 +2243,11 @@
     "price per unit": 10,
     "stock": 2,
     "image url": "images\\main\\mgt005.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\mgt005-2.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\mgt005-3.jpeg"
   },
   {
     "product name": "Tiger Eye Tree",
@@ -2136,10 +2261,11 @@
     "price per unit": 10,
     "stock": 2,
     "image url": "images\\main\\mgt006.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\mgt006-2.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\mgt006-3.jpeg"
   },
   {
     "product name": "Strawberry Tree",
@@ -2153,10 +2279,11 @@
     "price per unit": 10,
     "stock": 2,
     "image url": "images\\main\\mgt007.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\mgt007-2.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\mgt007-3.jpeg"
   },
   {
     "product name": "Rose Quartz Tree",
@@ -2170,10 +2297,11 @@
     "price per unit": 10,
     "stock": 2,
     "image url": "images\\main\\mgt008.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\mgt008-2.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\mgt008-3.jpeg"
   },
   {
     "product name": "Lapis Lazuli Tree",
@@ -2187,10 +2315,11 @@
     "price per unit": 10,
     "stock": 2,
     "image url": "images\\main\\mgt009.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\mgt009-2.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\mgt009-3.jpeg"
   },
   {
     "product name": "Carnelian Agate Tree",
@@ -2204,10 +2333,11 @@
     "price per unit": 10,
     "stock": 2,
     "image url": "images\\main\\mgt010.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\mgt010-2.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\mgt010-3.jpeg"
   },
   {
     "product name": "Labradorite Tree",
@@ -2221,10 +2351,11 @@
     "price per unit": 10,
     "stock": 2,
     "image url": "images\\main\\mgt011.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\mgt011-2.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\mgt011-3.jpeg"
   },
   {
     "product name": "Quartz Tumbles (Small)",
@@ -2237,11 +2368,12 @@
     "weight": 100,
     "price per unit": 0.08,
     "stock": 9,
-    "image url": "images\\main\\other-quartz-tumbles.jpeg",
-    "image 2 url": "",
+    "image url": "images\\main\\tmb001.jpeg",
+    "image 2 url": "images\\main\\tmb001-2.jpeg",
     "total price": 8,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\tmb001-3.jpeg"
   },
   {
     "product name": "Amethyst Tumbles (Small)",
@@ -2254,11 +2386,12 @@
     "weight": 100,
     "price per unit": 0.1,
     "stock": 9,
-    "image url": "images\\main\\other-amethyst-tumbles.jpeg",
-    "image 2 url": "",
+    "image url": "images\\main\\tmb002.jpeg",
+    "image 2 url": "images\\main\\tmb002-2.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\tmb002-3.jpeg"
   },
   {
     "product name": "Agate Tumbles (Small)",
@@ -2271,11 +2404,12 @@
     "weight": 100,
     "price per unit": 0.13,
     "stock": 9,
-    "image url": "images\\main\\other-agate-tumbles.jpeg",
-    "image 2 url": "",
+    "image url": "images\\main\\tmb003.jpeg",
+    "image 2 url": "images\\main\\tmb003-2.jpeg",
     "total price": 12.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\tmb003-3.jpeg"
   },
   {
     "product name": "Aventurine Tumbles (Green)",
@@ -2289,10 +2423,11 @@
     "price per unit": 0.1,
     "stock": 1,
     "image url": "images\\main\\tmb004.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\tmb004-2.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\tmb004-3.jpeg"
   },
   {
     "product name": "Amethyst Tumbles",
@@ -2306,10 +2441,11 @@
     "price per unit": 0.1,
     "stock": 1,
     "image url": "images\\main\\tmb005.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\tmb005-2.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\tmb005-3.jpeg"
   },
   {
     "product name": "Fire Quartz Tumbles",
@@ -2323,10 +2459,11 @@
     "price per unit": 0.1,
     "stock": 1,
     "image url": "images\\main\\tmb006.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\tmb006-2.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\tmb006-3.jpeg"
   },
   {
     "product name": "Aventurine Tumbles (Blue)",
@@ -2340,10 +2477,11 @@
     "price per unit": 0.1,
     "stock": 1,
     "image url": "images\\main\\tmb007.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\tmb007-2.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\tmb007-3.jpeg"
   },
   {
     "product name": "Obsidian Tumbles",
@@ -2357,10 +2495,11 @@
     "price per unit": 0.1,
     "stock": 1,
     "image url": "images\\main\\tmb008.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\tmb008-2.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\tmb008-3.jpeg"
   },
   {
     "product name": "Mookite Tumbles",
@@ -2374,10 +2513,11 @@
     "price per unit": 0.1,
     "stock": 1,
     "image url": "images\\main\\tmb009.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\tmb009-2.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\tmb009-3.jpeg"
   },
   {
     "product name": "Crazy Lace Agate Tumbles",
@@ -2391,10 +2531,11 @@
     "price per unit": 0.1,
     "stock": 1,
     "image url": "images\\main\\tmb010.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\tmb010-2.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\tmb010-3.jpeg"
   },
   {
     "product name": "Red Jasper Tumbles",
@@ -2408,10 +2549,11 @@
     "price per unit": 0.1,
     "stock": 1,
     "image url": "images\\main\\tmb011.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\tmb011-2.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\tmb011-3.jpeg"
   },
   {
     "product name": "Citrine Tumbles",
@@ -2425,10 +2567,11 @@
     "price per unit": 0.1,
     "stock": 1,
     "image url": "images\\main\\tmb012.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\tmb012-2.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\tmb012-3.jpeg"
   },
   {
     "product name": "Cherry Agate Tumbles",
@@ -2442,10 +2585,11 @@
     "price per unit": 0.1,
     "stock": 1,
     "image url": "images\\main\\tmb013.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\tmb013-2.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\tmb013-3.jpeg"
   },
   {
     "product name": "Mexican Agate Tumbles",
@@ -2459,10 +2603,11 @@
     "price per unit": 0.1,
     "stock": 1,
     "image url": "images\\main\\tmb014.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\tmb014-2.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\tmb014-3.jpeg"
   },
   {
     "product name": "Prehnite Tumbles",
@@ -2476,10 +2621,11 @@
     "price per unit": 0.1,
     "stock": 1,
     "image url": "images\\main\\tmb015.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\tmb015-2.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\tmb015-3.jpeg"
   },
   {
     "product name": "Malachite Tumbles",
@@ -2493,10 +2639,11 @@
     "price per unit": 0.2,
     "stock": 1,
     "image url": "images\\main\\tmb016.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\tmb016-2.jpeg",
     "total price": 20,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\tmb016-3.jpeg"
   },
   {
     "product name": "Amazonite Tumbles",
@@ -2510,10 +2657,11 @@
     "price per unit": 0.1,
     "stock": 1,
     "image url": "images\\main\\tmb017.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\tmb017-2.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\tmb017-3.jpeg"
   },
   {
     "product name": "Smoky Quartz Tumbles",
@@ -2527,10 +2675,11 @@
     "price per unit": 0.13,
     "stock": 1,
     "image url": "images\\main\\tmb018.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\tmb018-2.jpeg",
     "total price": 12.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\tmb018-3.jpeg"
   },
   {
     "product name": "Quartz Tumbles",
@@ -2544,10 +2693,11 @@
     "price per unit": 0.1,
     "stock": 1,
     "image url": "images\\main\\tmb019.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\tmb019-2.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\tmb019-3.jpeg"
   },
   {
     "product name": "Rose Quartz Tumbles",
@@ -2561,10 +2711,11 @@
     "price per unit": 0.1,
     "stock": 1,
     "image url": "images\\main\\tmb020.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\tmb020-2.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\tmb020-3.jpeg"
   },
   {
     "product name": "Tiger Eye Tumbles",
@@ -2578,10 +2729,11 @@
     "price per unit": 0.1,
     "stock": 1,
     "image url": "images\\main\\tmb021.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\tmb021-2.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\tmb021-3.jpeg"
   },
   {
     "product name": "Aventurine Single (Green)",
@@ -2595,10 +2747,11 @@
     "price per unit": 3,
     "stock": 5,
     "image url": "images\\main\\tbs001.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\tbs001-2.jpeg",
     "total price": 3,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\tbs001-3.jpeg"
   },
   {
     "product name": "Amethyst Single ",
@@ -2612,10 +2765,11 @@
     "price per unit": 3,
     "stock": 5,
     "image url": "images\\main\\tbs002.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\tbs002-2.jpeg",
     "total price": 3,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\tbs002-3.jpeg"
   },
   {
     "product name": "Fire Quartz Single ",
@@ -2629,10 +2783,11 @@
     "price per unit": 3,
     "stock": 5,
     "image url": "images\\main\\tbs003.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\tbs003-2.jpeg",
     "total price": 3,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\tbs003-3.jpeg"
   },
   {
     "product name": "Aventurine Single (Blue)",
@@ -2646,10 +2801,11 @@
     "price per unit": 3,
     "stock": 5,
     "image url": "images\\main\\tbs004.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\tbs004-2.jpeg",
     "total price": 3,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\tbs004-3.jpeg"
   },
   {
     "product name": "Obsidian Single ",
@@ -2663,10 +2819,11 @@
     "price per unit": 3,
     "stock": 5,
     "image url": "images\\main\\tbs005.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\tbs005-2.jpeg",
     "total price": 3,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\tbs005-3.jpeg"
   },
   {
     "product name": "Mookite Single ",
@@ -2680,10 +2837,11 @@
     "price per unit": 3,
     "stock": 5,
     "image url": "images\\main\\tbs006.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\tbs006-2.jpeg",
     "total price": 3,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\tbs006-3.jpeg"
   },
   {
     "product name": "Crazy Lace Agate Single ",
@@ -2697,10 +2855,11 @@
     "price per unit": 3,
     "stock": 5,
     "image url": "images\\main\\tbs007.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\tbs007-2.jpeg",
     "total price": 3,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\tbs007-3.jpeg"
   },
   {
     "product name": "Red Jasper Single ",
@@ -2714,10 +2873,11 @@
     "price per unit": 3,
     "stock": 5,
     "image url": "images\\main\\tbs008.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\tbs008-2.jpeg",
     "total price": 3,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\tbs008-3.jpeg"
   },
   {
     "product name": "Citrine Single ",
@@ -2731,10 +2891,11 @@
     "price per unit": 3,
     "stock": 5,
     "image url": "images\\main\\tbs009.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\tbs009-2.jpeg",
     "total price": 3,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\tbs009-3.jpeg"
   },
   {
     "product name": "Cherry Agate Single ",
@@ -2748,10 +2909,11 @@
     "price per unit": 3,
     "stock": 5,
     "image url": "images\\main\\tbs010.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\tbs010-2.jpeg",
     "total price": 3,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\tbs010-3.jpeg"
   },
   {
     "product name": "Mexican Agate Single ",
@@ -2765,10 +2927,11 @@
     "price per unit": 3,
     "stock": 5,
     "image url": "images\\main\\tbs011.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\tbs011-2.jpeg",
     "total price": 3,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\tbs011-3.jpeg"
   },
   {
     "product name": "Prehnite Single ",
@@ -2782,10 +2945,11 @@
     "price per unit": 3,
     "stock": 5,
     "image url": "images\\main\\tbs012.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\tbs012-2.jpeg",
     "total price": 3,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\tbs012-3.jpeg"
   },
   {
     "product name": "Malachite Single ",
@@ -2799,10 +2963,11 @@
     "price per unit": 5,
     "stock": 5,
     "image url": "images\\main\\tbs013.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\tbs013-2.jpeg",
     "total price": 5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\tbs013-3.jpeg"
   },
   {
     "product name": "Amazonite Single ",
@@ -2816,10 +2981,11 @@
     "price per unit": 3,
     "stock": 5,
     "image url": "images\\main\\tbs014.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\tbs014-2.jpeg",
     "total price": 3,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\tbs014-3.jpeg"
   },
   {
     "product name": "Smoky Quartz Single ",
@@ -2833,10 +2999,11 @@
     "price per unit": 3,
     "stock": 5,
     "image url": "images\\main\\tbs015.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\tbs015-2.jpeg",
     "total price": 3,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\tbs015-3.jpeg"
   },
   {
     "product name": "Quartz Tumbles",
@@ -2850,10 +3017,11 @@
     "price per unit": 3,
     "stock": 5,
     "image url": "images\\main\\tbs016.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\tbs016-2.jpeg",
     "total price": 3,
     "bestseller": "Y",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\tbs016-3.jpeg"
   },
   {
     "product name": "Rose Quartz Tumbles",
@@ -2867,10 +3035,11 @@
     "price per unit": 3,
     "stock": 5,
     "image url": "images\\main\\tbs017.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\tbs017-2.jpeg",
     "total price": 3,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\tbs017-3.jpeg"
   },
   {
     "product name": "Tiger Eye Tumbles",
@@ -2884,10 +3053,11 @@
     "price per unit": 3,
     "stock": 5,
     "image url": "images\\main\\tbs018.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\tbs018-2.jpeg",
     "total price": 3,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\tbs018-3.jpeg"
   },
   {
     "product name": "Rainforest Jasper Slab",
@@ -2904,7 +3074,8 @@
     "image 2 url": "images\\main\\rfj001-2.jpeg",
     "total price": 12.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\rfj001-3.jpeg"
   },
   {
     "product name": "Rainforest Jasper Slab",
@@ -2921,7 +3092,8 @@
     "image 2 url": "images\\main\\rfj002-2.jpeg",
     "total price": 12.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\rfj002-3.jpeg"
   },
   {
     "product name": "Rainforest Jasper Slab",
@@ -2938,7 +3110,8 @@
     "image 2 url": "images\\main\\rfj003-2.jpeg",
     "total price": 12.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\rfj003-3.jpeg"
   },
   {
     "product name": "Rainforest Jasper Slab",
@@ -2952,10 +3125,11 @@
     "price per unit": 12.5,
     "stock": 1,
     "image url": "images\\main\\rfj004.jpeg",
-    "image 2 url": "images\\main\\rfj004-2jpeg",
+    "image 2 url": "images\\main\\rfj004-2.jpeg",
     "total price": 12.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\rfj004-3.jpeg"
   },
   {
     "product name": "Rainforest Jasper Slab",
@@ -2972,7 +3146,8 @@
     "image 2 url": "images\\main\\rfj005-2.jpeg",
     "total price": 12.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\rfj005-3.jpeg"
   },
   {
     "product name": "Bumblebee Jasper Slab",
@@ -2989,7 +3164,8 @@
     "image 2 url": "images\\main\\bbj002-2.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\bbj002-3.jpeg"
   },
   {
     "product name": "Bumblebee Jasper Slab",
@@ -3006,7 +3182,8 @@
     "image 2 url": "images\\main\\bbj003-2.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\bbj003-3.jpeg"
   },
   {
     "product name": "Bumblebee Jasper Slab",
@@ -3023,7 +3200,8 @@
     "image 2 url": "images\\main\\bbj004-2.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": "Y"
+    "newitem": "Y",
+    "image 3 url": "images\\main\\bbj004-3.jpeg"
   },
   {
     "product name": "Bumblebee Jasper Slab",
@@ -3040,7 +3218,8 @@
     "image 2 url": "images\\main\\bbj005-2.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\bbj005-3.jpeg"
   },
   {
     "product name": "Bumblebee Jasper Slab",
@@ -3057,7 +3236,8 @@
     "image 2 url": "images\\main\\bbj006-2.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\bbj006-3.jpeg"
   },
   {
     "product name": "Bumblebee Jasper Slab",
@@ -3074,7 +3254,8 @@
     "image 2 url": "images\\main\\bbj007-2.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\bbj007-3.jpeg"
   },
   {
     "product name": "Bumblebee Jasper Slab",
@@ -3091,7 +3272,8 @@
     "image 2 url": "images\\main\\bbj008-2.jpeg",
     "total price": 7.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\bbj008-3.jpeg"
   },
   {
     "product name": "Bumblebee Jasper Slab",
@@ -3108,7 +3290,8 @@
     "image 2 url": "images\\main\\bbj009-2.jpeg",
     "total price": 7.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\bbj009-3.jpeg"
   },
   {
     "product name": "Bumblebee Jasper Slab",
@@ -3125,7 +3308,8 @@
     "image 2 url": "images\\main\\bbj010-2.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\bbj010-3.jpeg"
   },
   {
     "product name": "Crazy Lace Agate Slab",
@@ -3142,7 +3326,8 @@
     "image 2 url": "images\\main\\cla001-2.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\cla001-3.jpeg"
   },
   {
     "product name": "Crazy Lace Agate Slab",
@@ -3159,7 +3344,8 @@
     "image 2 url": "images\\main\\cla002-2.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\cla002-3.jpeg"
   },
   {
     "product name": "Crazy Lace Agate Slab",
@@ -3176,7 +3362,8 @@
     "image 2 url": "images\\main\\cla003-2.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\cla003-3.jpeg"
   },
   {
     "product name": "Crazy Lace Agate Slab",
@@ -3189,11 +3376,12 @@
     "weight": 1,
     "price per unit": 10,
     "stock": 1,
-    "image url": "images\\main\\cla001.jpeg",
-    "image 2 url": "images\\main\\cla001-2.jpeg",
+    "image url": "images\\main\\cla004.jpeg",
+    "image 2 url": "images\\main\\cla004-2.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\cla004-3.jpeg"
   },
   {
     "product name": "Crazy Lace Agate Slab",
@@ -3206,11 +3394,12 @@
     "weight": 1,
     "price per unit": 10,
     "stock": 1,
-    "image url": "images\\main\\cla002.jpeg",
-    "image 2 url": "images\\main\\cla002-2.jpeg",
+    "image url": "images\\main\\cla005.jpeg",
+    "image 2 url": "images\\main\\cla005-2.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\cla005-3.jpeg"
   },
   {
     "product name": "Crazy Lace Agate Slab",
@@ -3223,11 +3412,12 @@
     "weight": 1,
     "price per unit": 10,
     "stock": 1,
-    "image url": "images\\main\\cla003.jpeg",
-    "image 2 url": "images\\main\\cla003-2.jpeg",
+    "image url": "images\\main\\cla006.jpeg",
+    "image 2 url": "images\\main\\cla006-2.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": "Y"
+    "newitem": "Y",
+    "image 3 url": "images\\main\\cla006-3.jpeg"
   },
   {
     "product name": "Moss Agate Slab",
@@ -3244,7 +3434,8 @@
     "image 2 url": "images\\main\\msa001-2.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\msa001-3.jpeg"
   },
   {
     "product name": "Moss Agate Slab",
@@ -3261,7 +3452,8 @@
     "image 2 url": "images\\main\\msa002-2.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\msa002-3.jpeg"
   },
   {
     "product name": "Moss Agate Slab",
@@ -3278,7 +3470,8 @@
     "image 2 url": "images\\main\\msa003-2.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\msa003-3.jpeg"
   },
   {
     "product name": "Moss Agate Slab",
@@ -3295,7 +3488,8 @@
     "image 2 url": "images\\main\\msa004-2.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\msa004-3.jpeg"
   },
   {
     "product name": "Moss Agate Slab",
@@ -3312,7 +3506,8 @@
     "image 2 url": "images\\main\\msa005-2.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\msa005-3.jpeg"
   },
   {
     "product name": "Moss Agate Slab",
@@ -3329,7 +3524,8 @@
     "image 2 url": "images\\main\\msa006-2.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\msa006-3.jpeg"
   },
   {
     "product name": "Moss Agate Slab",
@@ -3346,7 +3542,8 @@
     "image 2 url": "images\\main\\msa007-2.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\msa007-3.jpeg"
   },
   {
     "product name": "Moss Agate Slab",
@@ -3363,7 +3560,8 @@
     "image 2 url": "images\\main\\msa008-2.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\msa008-3.jpeg"
   },
   {
     "product name": "Moss Agate Slab",
@@ -3380,7 +3578,8 @@
     "image 2 url": "images\\main\\msa009-2.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\msa009-3.jpeg"
   },
   {
     "product name": "Moss Agate Slab",
@@ -3397,7 +3596,8 @@
     "image 2 url": "images\\main\\msa010-2.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\msa010-3.jpeg"
   },
   {
     "product name": "Moss Agate Slab",
@@ -3410,11 +3610,12 @@
     "weight": 1,
     "price per unit": 10,
     "stock": 1,
-    "image url": "images\\main\\msa006.jpeg",
-    "image 2 url": "images\\main\\msa006-2.jpeg",
+    "image url": "images\\main\\msa011.jpeg",
+    "image 2 url": "images\\main\\msa011-2.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\msa011-3.jpeg"
   },
   {
     "product name": "Moss Agate Slab",
@@ -3427,11 +3628,12 @@
     "weight": 1,
     "price per unit": 10,
     "stock": 1,
-    "image url": "images\\main\\msa007.jpeg",
-    "image 2 url": "images\\main\\msa007-2.jpeg",
+    "image url": "images\\main\\msa012.jpeg",
+    "image 2 url": "images\\main\\msa012-2.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\msa012-3.jpeg"
   },
   {
     "product name": "Moss Agate Slab",
@@ -3444,11 +3646,12 @@
     "weight": 1,
     "price per unit": 10,
     "stock": 1,
-    "image url": "images\\main\\msa008.jpeg",
-    "image 2 url": "images\\main\\msa008-2.jpeg",
+    "image url": "images\\main\\msa013.jpeg",
+    "image 2 url": "images\\main\\msa013-2.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\msa013-3.jpeg"
   },
   {
     "product name": "Moss Agate Slab",
@@ -3461,11 +3664,12 @@
     "weight": 1,
     "price per unit": 10,
     "stock": 1,
-    "image url": "images\\main\\msa009.jpeg",
-    "image 2 url": "images\\main\\msa009-2.jpeg",
+    "image url": "images\\main\\msa014.jpeg",
+    "image 2 url": "images\\main\\msa014-2.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\msa014-3.jpeg"
   },
   {
     "product name": "Moss Agate Slab",
@@ -3478,11 +3682,12 @@
     "weight": 1,
     "price per unit": 10,
     "stock": 1,
-    "image url": "images\\main\\msa010.jpeg",
-    "image 2 url": "images\\main\\msa010-2.jpeg",
+    "image url": "images\\main\\msa015.jpeg",
+    "image 2 url": "images\\main\\msa015-2.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\msa015-3.jpeg"
   },
   {
     "product name": "Moroccan Agate Slab",
@@ -3499,7 +3704,8 @@
     "image 2 url": "images\\main\\mag001-2.jpeg",
     "total price": 7.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\mag001-3.jpeg"
   },
   {
     "product name": "Moroccan Agate Slab",
@@ -3516,7 +3722,8 @@
     "image 2 url": "images\\main\\mag002-2.jpeg",
     "total price": 7.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\mag002-3.jpeg"
   },
   {
     "product name": "Moroccan Agate Slab",
@@ -3533,7 +3740,8 @@
     "image 2 url": "images\\main\\mag003-2.jpeg",
     "total price": 7.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\mag003-3.jpeg"
   },
   {
     "product name": "Moroccan Agate Slab",
@@ -3550,7 +3758,8 @@
     "image 2 url": "images\\main\\mag004-2.jpeg",
     "total price": 7.5,
     "bestseller": "",
-    "newitem": "Y"
+    "newitem": "Y",
+    "image 3 url": "images\\main\\mag004-3.jpeg"
   },
   {
     "product name": "Moroccan Agate Slab",
@@ -3567,7 +3776,8 @@
     "image 2 url": "images\\main\\mag005-2.jpeg",
     "total price": 7.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\mag005-3.jpeg"
   },
   {
     "product name": "Moroccan Agate Slab",
@@ -3584,7 +3794,8 @@
     "image 2 url": "images\\main\\mag006-2.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\mag006-3.jpeg"
   },
   {
     "product name": "Moroccan Agate Slab",
@@ -3601,7 +3812,8 @@
     "image 2 url": "images\\main\\mag007-2.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\mag007-3.jpeg"
   },
   {
     "product name": "Rainforest Jasper Slab",
@@ -3618,7 +3830,8 @@
     "image 2 url": "images\\main\\rfj006-2.jpeg",
     "total price": 7.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\rfj006-3.jpeg"
   },
   {
     "product name": "Rainforest Jasper Slab",
@@ -3635,7 +3848,8 @@
     "image 2 url": "images\\main\\rfj007-2.jpeg",
     "total price": 7.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\rfj007-3.jpeg"
   },
   {
     "product name": "Rainforest Jasper Slab",
@@ -3652,7 +3866,8 @@
     "image 2 url": "images\\main\\rfj008-2.jpeg",
     "total price": 7.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\rfj008-3.jpeg"
   },
   {
     "product name": "Rainforest Jasper Slab",
@@ -3669,7 +3884,8 @@
     "image 2 url": "images\\main\\rfj009-2.jpeg",
     "total price": 7.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\rfj009-3.jpeg"
   },
   {
     "product name": "Rainforest Jasper Slab",
@@ -3686,7 +3902,8 @@
     "image 2 url": "images\\main\\rfj010-2.jpeg",
     "total price": 7.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\rfj010-3.jpeg"
   },
   {
     "product name": "Petrified Wood Slab",
@@ -3703,7 +3920,8 @@
     "image 2 url": "images\\main\\pwd001-2.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\pwd001-3.jpeg"
   },
   {
     "product name": "Petrified Wood Slab",
@@ -3720,7 +3938,8 @@
     "image 2 url": "images\\main\\pwd002-2.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\pwd002-3.jpeg"
   },
   {
     "product name": "Petrified Wood Slab",
@@ -3737,7 +3956,8 @@
     "image 2 url": "images\\main\\pwd003-2.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\pwd003-3.jpeg"
   },
   {
     "product name": "Petrified Wood Slab",
@@ -3754,7 +3974,8 @@
     "image 2 url": "images\\main\\pwd004-2.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\pwd004-3.jpeg"
   },
   {
     "product name": "Petrified Wood Slab",
@@ -3771,7 +3992,8 @@
     "image 2 url": "images\\main\\pwd005-2.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\pwd005-3.jpeg"
   },
   {
     "product name": "Petrified Wood Slab",
@@ -3788,7 +4010,8 @@
     "image 2 url": "images\\main\\pwd006-2.jpeg",
     "total price": 15,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\pwd006-3.jpeg"
   },
   {
     "product name": "Petrified Wood Slab",
@@ -3805,7 +4028,8 @@
     "image 2 url": "images\\main\\pwd007-2.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\pwd007-3.jpeg"
   },
   {
     "product name": "Petrified Wood Slab",
@@ -3822,7 +4046,8 @@
     "image 2 url": "images\\main\\pwd008-2.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\pwd008-3.jpeg"
   },
   {
     "product name": "Petrified Wood Slab",
@@ -3839,7 +4064,8 @@
     "image 2 url": "images\\main\\pwd009-2.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\pwd009-3.jpeg"
   },
   {
     "product name": "Petrified Wood Slab",
@@ -3856,7 +4082,8 @@
     "image 2 url": "images\\main\\pwd010-2.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\pwd010-3.jpeg"
   },
   {
     "product name": "Petrified Wood Slab",
@@ -3873,7 +4100,8 @@
     "image 2 url": "images\\main\\pwd011-2.jpeg",
     "total price": 40,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\pwd011-3.jpeg"
   },
   {
     "product name": "Cubic Zirconia Rough - Champagne",
@@ -3886,11 +4114,12 @@
     "weight": 395,
     "price per unit": 0.1,
     "stock": 1,
-    "image url": "images\\main\\CZ-Champagne.jpeg",
-    "image 2 url": "",
+    "image url": "images\\main\\cz001.jpeg",
+    "image 2 url": "images\\main\\cz001-2.jpeg",
     "total price": 39.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\cz001-3.jpeg"
   },
   {
     "product name": "Cubic Zirconia Rough - Champagne",
@@ -3903,11 +4132,12 @@
     "weight": 234,
     "price per unit": 0.1,
     "stock": 1,
-    "image url": "images\\main\\CZ-Champagne.jpeg",
-    "image 2 url": "",
+    "image url": "images\\main\\cz001.jpeg",
+    "image 2 url": "images\\main\\cz001-2.jpeg",
     "total price": 23.4,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\cz001-3.jpeg"
   },
   {
     "product name": "Cubic Zirconia Rough - Champagne",
@@ -3920,11 +4150,12 @@
     "weight": 60,
     "price per unit": 0.1,
     "stock": 1,
-    "image url": "images\\main\\CZ-Champagne.jpeg",
-    "image 2 url": "",
+    "image url": "images\\main\\cz001.jpeg",
+    "image 2 url": "images\\main\\cz001-2.jpeg",
     "total price": 6,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\cz001-3.jpeg"
   },
   {
     "product name": "Cubic Zirconia Rough - Champagne",
@@ -3937,11 +4168,12 @@
     "weight": 40,
     "price per unit": 0.1,
     "stock": 1,
-    "image url": "images\\main\\CZ-Champagne.jpeg",
-    "image 2 url": "",
+    "image url": "images\\main\\cz001.jpeg",
+    "image 2 url": "images\\main\\cz001-2.jpeg",
     "total price": 4,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\cz001-3.jpeg"
   },
   {
     "product name": "Cubic Zirconia Rough - Champagne",
@@ -3954,11 +4186,12 @@
     "weight": 56,
     "price per unit": 0.1,
     "stock": 1,
-    "image url": "images\\main\\CZ-Champagne.jpeg",
-    "image 2 url": "",
+    "image url": "images\\main\\cz001.jpeg",
+    "image 2 url": "images\\main\\cz001-2.jpeg",
     "total price": 5.6,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\cz001-3.jpeg"
   },
   {
     "product name": "Cubic Zirconia Rough - Champagne",
@@ -3971,11 +4204,12 @@
     "weight": 101,
     "price per unit": 0.1,
     "stock": 0,
-    "image url": "images\\main\\CZ-Champagne.jpeg",
-    "image 2 url": "",
+    "image url": "images\\main\\cz001.jpeg",
+    "image 2 url": "images\\main\\cz001-2.jpeg",
     "total price": 10.1,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\cz001-3.jpeg"
   },
   {
     "product name": "Cubic Zirconia Rough - Champagne",
@@ -3988,11 +4222,12 @@
     "weight": 92,
     "price per unit": 0.1,
     "stock": 1,
-    "image url": "images\\main\\CZ-Champagne.jpeg",
-    "image 2 url": "",
+    "image url": "images\\main\\cz001.jpeg",
+    "image 2 url": "images\\main\\cz001-2.jpeg",
     "total price": 9.2,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\cz001-3.jpeg"
   },
   {
     "product name": "Cubic Zirconia Rough - Champagne",
@@ -4005,11 +4240,12 @@
     "weight": 84,
     "price per unit": 0.1,
     "stock": 1,
-    "image url": "images\\main\\CZ-Champagne.jpeg",
-    "image 2 url": "",
+    "image url": "images\\main\\cz001.jpeg",
+    "image 2 url": "images\\main\\cz001-2.jpeg",
     "total price": 8.4,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\cz001-3.jpeg"
   },
   {
     "product name": "Cubic Zirconia Rough - Champagne",
@@ -4022,11 +4258,12 @@
     "weight": 124,
     "price per unit": 0.1,
     "stock": 1,
-    "image url": "images\\main\\CZ-Champagne.jpeg",
-    "image 2 url": "",
+    "image url": "images\\main\\cz001.jpeg",
+    "image 2 url": "images\\main\\cz001-2.jpeg",
     "total price": 12.4,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\cz001-3.jpeg"
   },
   {
     "product name": "Cubic Zirconia Rough - Champagne",
@@ -4039,11 +4276,12 @@
     "weight": 62,
     "price per unit": 0.1,
     "stock": 1,
-    "image url": "images\\main\\CZ-Champagne.jpeg",
-    "image 2 url": "",
+    "image url": "images\\main\\cz001.jpeg",
+    "image 2 url": "images\\main\\cz001-2.jpeg",
     "total price": 6.2,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\cz001-3.jpeg"
   },
   {
     "product name": "Cubic Zirconia Rough - Orange",
@@ -4056,11 +4294,12 @@
     "weight": 46,
     "price per unit": 0.1,
     "stock": 1,
-    "image url": "images\\main\\CZ-Orange.jpeg",
-    "image 2 url": "",
+    "image url": "images\\main\\cz004.jpeg",
+    "image 2 url": "images\\main\\cz004-2.jpeg",
     "total price": 4.6,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\cz004-3.jpeg"
   },
   {
     "product name": "Cubic Zirconia Rough - Orange",
@@ -4073,11 +4312,12 @@
     "weight": 79,
     "price per unit": 0.1,
     "stock": 0,
-    "image url": "images\\main\\CZ-Orange.jpeg",
-    "image 2 url": "",
+    "image url": "images\\main\\cz004.jpeg",
+    "image 2 url": "images\\main\\cz004-2.jpeg",
     "total price": 7.9,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\cz004-3.jpeg"
   },
   {
     "product name": "Cubic Zirconia Rough - Orange",
@@ -4090,11 +4330,12 @@
     "weight": 110,
     "price per unit": 0.1,
     "stock": 1,
-    "image url": "images\\main\\CZ-Orange.jpeg",
-    "image 2 url": "",
+    "image url": "images\\main\\cz004.jpeg",
+    "image 2 url": "images\\main\\cz004-2.jpeg",
     "total price": 11,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\cz004-3.jpeg"
   },
   {
     "product name": "Cubic Zirconia Rough - Orange",
@@ -4107,11 +4348,12 @@
     "weight": 114,
     "price per unit": 0.1,
     "stock": 1,
-    "image url": "images\\main\\CZ-Orange.jpeg",
-    "image 2 url": "",
+    "image url": "images\\main\\cz004.jpeg",
+    "image 2 url": "images\\main\\cz004-2.jpeg",
     "total price": 11.4,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\cz004-3.jpeg"
   },
   {
     "product name": "Cubic Zirconia Rough - Orange",
@@ -4124,11 +4366,12 @@
     "weight": 65,
     "price per unit": 0.1,
     "stock": 1,
-    "image url": "images\\main\\CZ-Orange.jpeg",
-    "image 2 url": "",
+    "image url": "images\\main\\cz004.jpeg",
+    "image 2 url": "images\\main\\cz004-2.jpeg",
     "total price": 6.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\cz004-3.jpeg"
   },
   {
     "product name": "Cubic Zirconia Rough - Orange",
@@ -4141,11 +4384,12 @@
     "weight": 84,
     "price per unit": 0.1,
     "stock": 1,
-    "image url": "images\\main\\CZ-Orange.jpeg",
-    "image 2 url": "",
+    "image url": "images\\main\\cz004.jpeg",
+    "image 2 url": "images\\main\\cz004-2.jpeg",
     "total price": 8.4,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\cz004-3.jpeg"
   },
   {
     "product name": "Cubic Zirconia Rough - Orange",
@@ -4158,11 +4402,12 @@
     "weight": 103,
     "price per unit": 0.1,
     "stock": 1,
-    "image url": "images\\main\\CZ-Orange.jpeg",
-    "image 2 url": "",
+    "image url": "images\\main\\cz004.jpeg",
+    "image 2 url": "images\\main\\cz004-2.jpeg",
     "total price": 10.3,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\cz004-3.jpeg"
   },
   {
     "product name": "Cubic Zirconia Rough - Orange",
@@ -4175,11 +4420,12 @@
     "weight": 180,
     "price per unit": 0.1,
     "stock": 1,
-    "image url": "images\\main\\CZ-Orange.jpeg",
-    "image 2 url": "",
+    "image url": "images\\main\\cz004.jpeg",
+    "image 2 url": "images\\main\\cz004-2.jpeg",
     "total price": 18,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\cz004-3.jpeg"
   },
   {
     "product name": "Cubic Zirconia Rough - Orange",
@@ -4192,11 +4438,12 @@
     "weight": 485,
     "price per unit": 0.1,
     "stock": 1,
-    "image url": "images\\main\\CZ-Orange.jpeg",
-    "image 2 url": "",
+    "image url": "images\\main\\cz004.jpeg",
+    "image 2 url": "images\\main\\cz004-2.jpeg",
     "total price": 48.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\cz004-3.jpeg"
   },
   {
     "product name": "Cubic Zirconia Rough - Orange",
@@ -4209,11 +4456,12 @@
     "weight": 263,
     "price per unit": 0.1,
     "stock": 1,
-    "image url": "images\\main\\CZ-Orange.jpeg",
-    "image 2 url": "",
+    "image url": "images\\main\\cz004.jpeg",
+    "image 2 url": "images\\main\\cz004-2.jpeg",
     "total price": 26.3,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\cz004-3.jpeg"
   },
   {
     "product name": "Cubic Zirconia Rough - Orange",
@@ -4226,11 +4474,12 @@
     "weight": 330,
     "price per unit": 0.1,
     "stock": 1,
-    "image url": "images\\main\\CZ-Orange.jpeg",
-    "image 2 url": "",
+    "image url": "images\\main\\cz004.jpeg",
+    "image 2 url": "images\\main\\cz004-2.jpeg",
     "total price": 33,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\cz004-3.jpeg"
   },
   {
     "product name": "Cubic Zirconia Rough - Golden Yellow",
@@ -4243,11 +4492,12 @@
     "weight": 453,
     "price per unit": 0.1,
     "stock": 1,
-    "image url": "images\\main\\CZ-Golden.jpeg",
-    "image 2 url": "",
+    "image url": "images\\main\\cz003.jpeg",
+    "image 2 url": "images\\main\\cz003-2.jpeg",
     "total price": 45.3,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\cz003-3.jpeg"
   },
   {
     "product name": "Cubic Zirconia Rough - Golden Yellow",
@@ -4260,11 +4510,12 @@
     "weight": 174,
     "price per unit": 0.1,
     "stock": 1,
-    "image url": "images\\main\\CZ-Golden.jpeg",
-    "image 2 url": "",
+    "image url": "images\\main\\cz003.jpeg",
+    "image 2 url": "images\\main\\cz003-2.jpeg",
     "total price": 17.4,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\cz003-3.jpeg"
   },
   {
     "product name": "Cubic Zirconia Rough - Golden Yellow",
@@ -4277,11 +4528,12 @@
     "weight": 64,
     "price per unit": 0.1,
     "stock": 0,
-    "image url": "images\\main\\CZ-Golden.jpeg",
-    "image 2 url": "",
+    "image url": "images\\main\\cz003.jpeg",
+    "image 2 url": "images\\main\\cz003-2.jpeg",
     "total price": 6.4,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\cz003-3.jpeg"
   },
   {
     "product name": "Cubic Zirconia Rough - Golden Yellow",
@@ -4294,11 +4546,12 @@
     "weight": 67,
     "price per unit": 0.1,
     "stock": 0,
-    "image url": "images\\main\\CZ-Golden.jpeg",
-    "image 2 url": "",
+    "image url": "images\\main\\cz003.jpeg",
+    "image 2 url": "images\\main\\cz003-2.jpeg",
     "total price": 6.7,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\cz003-3.jpeg"
   },
   {
     "product name": "Cubic Zirconia Rough - Golden Yellow",
@@ -4311,11 +4564,12 @@
     "weight": 133,
     "price per unit": 0.1,
     "stock": 0,
-    "image url": "images\\main\\CZ-Golden.jpeg",
-    "image 2 url": "",
+    "image url": "images\\main\\cz003.jpeg",
+    "image 2 url": "images\\main\\cz003-2.jpeg",
     "total price": 13.3,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\cz003-3.jpeg"
   },
   {
     "product name": "Cubic Zirconia Rough - Golden Yellow",
@@ -4328,11 +4582,12 @@
     "weight": 130,
     "price per unit": 0.1,
     "stock": 1,
-    "image url": "images\\main\\CZ-Golden.jpeg",
-    "image 2 url": "",
+    "image url": "images\\main\\cz003.jpeg",
+    "image 2 url": "images\\main\\cz003-2.jpeg",
     "total price": 13,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\cz003-3.jpeg"
   },
   {
     "product name": "Cubic Zirconia Rough - Golden Yellow",
@@ -4345,11 +4600,12 @@
     "weight": 55,
     "price per unit": 0.1,
     "stock": 0,
-    "image url": "images\\main\\CZ-Golden.jpeg",
-    "image 2 url": "",
+    "image url": "images\\main\\cz003.jpeg",
+    "image 2 url": "images\\main\\cz003-2.jpeg",
     "total price": 5.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\cz003-3.jpeg"
   },
   {
     "product name": "Cubic Zirconia Rough - Lavender",
@@ -4362,11 +4618,12 @@
     "weight": 305,
     "price per unit": 0.1,
     "stock": 2,
-    "image url": "images\\main\\CZ-Lavender.jpeg",
-    "image 2 url": "",
+    "image url": "images\\main\\cz002.jpeg",
+    "image 2 url": "images\\main\\cz002-2.jpeg",
     "total price": 30.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\cz002-3.jpeg"
   },
   {
     "product name": "Cubic Zirconia Rough - Lavender",
@@ -4379,11 +4636,12 @@
     "weight": 485,
     "price per unit": 0.1,
     "stock": 1,
-    "image url": "images\\main\\CZ-Lavender.jpeg",
-    "image 2 url": "",
+    "image url": "images\\main\\cz002.jpeg",
+    "image 2 url": "images\\main\\cz002-2.jpeg",
     "total price": 48.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\cz002-3.jpeg"
   },
   {
     "product name": "Cubic Zirconia Rough - Lavender",
@@ -4396,11 +4654,12 @@
     "weight": 225,
     "price per unit": 0.1,
     "stock": 1,
-    "image url": "images\\main\\CZ-Lavender.jpeg",
-    "image 2 url": "",
+    "image url": "images\\main\\cz002.jpeg",
+    "image 2 url": "images\\main\\cz002-2.jpeg",
     "total price": 22.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\cz002-3.jpeg"
   },
   {
     "product name": "Cubic Zirconia Rough - Lavender",
@@ -4413,11 +4672,12 @@
     "weight": 108,
     "price per unit": 0.1,
     "stock": 1,
-    "image url": "images\\main\\CZ-Lavender.jpeg",
-    "image 2 url": "",
+    "image url": "images\\main\\cz002.jpeg",
+    "image 2 url": "images\\main\\cz002-2.jpeg",
     "total price": 10.8,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\cz002-3.jpeg"
   },
   {
     "product name": "Cubic Zirconia Rough - Lavender",
@@ -4430,11 +4690,12 @@
     "weight": 98,
     "price per unit": 0.1,
     "stock": 1,
-    "image url": "images\\main\\CZ-Lavender.jpeg",
-    "image 2 url": "",
+    "image url": "images\\main\\cz002.jpeg",
+    "image 2 url": "images\\main\\cz002-2.jpeg",
     "total price": 9.8,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\cz002-3.jpeg"
   },
   {
     "product name": "Cubic Zirconia Rough - Lavender",
@@ -4447,11 +4708,12 @@
     "weight": 96,
     "price per unit": 0.1,
     "stock": 1,
-    "image url": "images\\main\\CZ-Lavender.jpeg",
-    "image 2 url": "",
+    "image url": "images\\main\\cz002.jpeg",
+    "image 2 url": "images\\main\\cz002-2.jpeg",
     "total price": 9.6,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\cz002-3.jpeg"
   },
   {
     "product name": "Cubic Zirconia Rough - Lavender",
@@ -4464,11 +4726,12 @@
     "weight": 92,
     "price per unit": 0.1,
     "stock": 1,
-    "image url": "images\\main\\CZ-Lavender.jpeg",
-    "image 2 url": "",
+    "image url": "images\\main\\cz002.jpeg",
+    "image 2 url": "images\\main\\cz002-2.jpeg",
     "total price": 9.2,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\cz002-3.jpeg"
   },
   {
     "product name": "Cubic Zirconia Rough - Lavender",
@@ -4481,11 +4744,12 @@
     "weight": 71,
     "price per unit": 0.1,
     "stock": 1,
-    "image url": "images\\main\\CZ-Lavender.jpeg",
-    "image 2 url": "",
+    "image url": "images\\main\\cz002.jpeg",
+    "image 2 url": "images\\main\\cz002-2.jpeg",
     "total price": 7.1,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\cz002-3.jpeg"
   },
   {
     "product name": "Cubic Zirconia Rough - Lavender",
@@ -4498,11 +4762,12 @@
     "weight": 48,
     "price per unit": 0.1,
     "stock": 2,
-    "image url": "images\\main\\CZ-Lavender.jpeg",
-    "image 2 url": "",
+    "image url": "images\\main\\cz002.jpeg",
+    "image 2 url": "images\\main\\cz002-2.jpeg",
     "total price": 4.8,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\cz002-3.jpeg"
   },
   {
     "product name": "Amethyst Mixed Crystals",
@@ -4519,7 +4784,8 @@
     "image 2 url": "images\\main\\waam001-2.jpeg",
     "total price": 40,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\waam001-3.jpeg"
   },
   {
     "product name": "Amethyst Mixed Crystals",
@@ -4536,7 +4802,8 @@
     "image 2 url": "images\\main\\waam002-2.jpeg",
     "total price": 30,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\waam002-3.jpeg"
   },
   {
     "product name": "Olivine Bomb",
@@ -4553,7 +4820,8 @@
     "image 2 url": "images\\main\\olv004-2.jpeg",
     "total price": 25,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\olv004-3.jpeg"
   },
   {
     "product name": "Olivine Bomb",
@@ -4570,7 +4838,8 @@
     "image 2 url": "images\\main\\olv006-2.jpeg",
     "total price": 50,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\olv006-3.jpeg"
   },
   {
     "product name": "Olivine Bomb",
@@ -4587,7 +4856,8 @@
     "image 2 url": "images\\main\\olv009-2.jpeg",
     "total price": 30,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\olv009-3.jpeg"
   },
   {
     "product name": "Tigers Eye Slab",
@@ -4604,7 +4874,8 @@
     "image 2 url": "images\\main\\tge001-2.jpeg",
     "total price": 15,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\tge001-3.jpeg"
   },
   {
     "product name": "Tigers Eye Slab",
@@ -4618,10 +4889,11 @@
     "price per unit": 12.5,
     "stock": 1,
     "image url": "images\\main\\tge002.jpeg",
-    "image 2 url": "images\\main\\tge002.-2.jpeg",
+    "image 2 url": "images\\main\\tge002-2.jpeg",
     "total price": 12.5,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\tge002-3.jpeg"
   },
   {
     "product name": "Tigers Eye Slab",
@@ -4634,11 +4906,12 @@
     "weight": 1,
     "price per unit": 15,
     "stock": 1,
-    "image url": "images\\main\\tge002.jpeg",
-    "image 2 url": "images\\main\\tge002-2.jpeg",
+    "image url": "images\\main\\tge003.jpeg",
+    "image 2 url": "images\\main\\tge003-2.jpeg",
     "total price": 15,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\tge003-3.jpeg"
   },
   {
     "product name": "Rose Quartz Crystals Box",
@@ -4655,7 +4928,8 @@
     "image 2 url": "images\\main\\rqb001-2.jpeg",
     "total price": 15,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\rqb001-3.jpeg"
   },
   {
     "product name": "Garnets",
@@ -4669,10 +4943,11 @@
     "price per unit": 45,
     "stock": 1,
     "image url": "images\\main\\g001.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\g001-2.jpeg",
     "total price": 45,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\g001-3.jpeg"
   },
   {
     "product name": "Garnets",
@@ -4686,10 +4961,11 @@
     "price per unit": 55,
     "stock": 1,
     "image url": "images\\main\\g002.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\g002-2.jpeg",
     "total price": 55,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\g002-3.jpeg"
   },
   {
     "product name": "Garnets",
@@ -4703,10 +4979,11 @@
     "price per unit": 70,
     "stock": 1,
     "image url": "images\\main\\g003.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\g003-2.jpeg",
     "total price": 70,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\g003-3.jpeg"
   },
   {
     "product name": "Zircons (Harts Ranges)",
@@ -4720,10 +4997,11 @@
     "price per unit": 40,
     "stock": 1,
     "image url": "images\\main\\hrz001.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\hrz001-2.jpeg",
     "total price": 45,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\hrz001-3.jpeg"
   },
   {
     "product name": "Zircons (Harts Ranges)",
@@ -4737,10 +5015,11 @@
     "price per unit": 45,
     "stock": 1,
     "image url": "images\\main\\hrz002.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\hrz002-2.jpeg",
     "total price": 50,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\hrz002-3.jpeg"
   },
   {
     "product name": "Zircons (Harts Ranges)",
@@ -4754,10 +5033,11 @@
     "price per unit": 50,
     "stock": 1,
     "image url": "images\\main\\hrz003.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\hrz003-2.jpeg",
     "total price": 55,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\hrz003-3.jpeg"
   },
   {
     "product name": "Apatite (Harts Ranges)",
@@ -4771,10 +5051,11 @@
     "price per unit": 20,
     "stock": 1,
     "image url": "images\\main\\hap001.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\hap001-2.jpeg",
     "total price": 20,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\hap001-3.jpeg"
   },
   {
     "product name": "Apatite (Harts Ranges)",
@@ -4788,9 +5069,10 @@
     "price per unit": 25,
     "stock": 1,
     "image url": "images\\main\\hap002.jpeg",
-    "image 2 url": "",
+    "image 2 url": "images\\main\\hap002-2.jpeg",
     "total price": 25,
     "bestseller": "",
-    "newitem": ""
+    "newitem": "",
+    "image 3 url": "images\\main\\hap002-3.jpeg"
   }
 ]
