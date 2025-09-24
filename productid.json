@@ -233,22 +233,22 @@
   {
     "productid": "g001",
     "images": [
-      "images/products/g001/image1.jpg",
-      "images/products/g001/image2.jpg"
+      "images/products/g001/image1.jpeg",
+      "images/products/g001/image2.jpeg"
     ]
   },
   {
     "productid": "g002",
     "images": [
-      "images/products/g002/image1.jpg",
-      "images/products/g002/image2.jpg"
+      "images/products/g002/image1.jpeg",
+      "images/products/g002/image2.jpeg"
     ]
   },
   {
     "productid": "g003",
     "images": [
-      "images/products/g003/image1.jpg",
-      "images/products/g003/image2.jpg"
+      "images/products/g003/image1.jpeg",
+      "images/products/g003/image2.jpeg"
     ]
   },
   {
@@ -358,7 +358,7 @@
     "images": [
       "images/products/as001/image3.jpg"
     ]
-  }  
+  }, 
   {
     "productid": "hap001",
     "images": [
@@ -372,5 +372,5 @@
       "images/products/hap002/image1.jpeg",
       "images/products/hap002/image2.jpeg"
     ]
-  },
+  }
 ]
