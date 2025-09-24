@@ -160,14 +160,6 @@
     ]
   },
   {
-    "productid": "hap001",
-    "images": [
-      "images/products/hap001/image1.jpg",
-      "images/products/hap001/image2.jpg",
-      "images/products/hap001/image3.jpg"
-    ]
-  },
-  {
     "productid": "olv003",
     "images": [
       "images/products/olv003/image1.jpg",
@@ -201,17 +193,26 @@
     "images": [
       "images/products/waam002/image1.jpg"
     ]
-  },  
+  },    
   {
-    "productid": "hzr002",
+    "productid": "hrz001",
     "images": [
-      "images/products/hzr002/image2.jpg"
+      "images/products/hrz001/image1.jpeg",
+      "images/products/hrz001/image2.jpeg"
+    ]
+  }, 
+  {
+    "productid": "hrz002",
+    "images": [
+      "images/products/hrz002/image1.jpeg",
+      "images/products/hrz002/image2.jpeg"
     ]
   },  
   {
-    "productid": "hzr003",
+    "productid": "hrz003",
     "images": [
-      "images/products/hzr003/image1.jpg"
+      "images/products/hrz003/image1.jpeg",
+      "images/products/hrz003/image2.jpeg"
     ]
   },
   {
@@ -230,11 +231,24 @@
     ]
   },
   {
-    "productid": "gn001",
+    "productid": "g001",
     "images": [
-      "images/products/gn001/image1.jpg",
-      "images/products/gn001/image2.jpg",
-      "images/products/gn001/image3.jpg"
+      "images/products/g001/image1.jpg",
+      "images/products/g001/image2.jpg"
+    ]
+  },
+  {
+    "productid": "g002",
+    "images": [
+      "images/products/g002/image1.jpg",
+      "images/products/g002/image2.jpg"
+    ]
+  },
+  {
+    "productid": "g003",
+    "images": [
+      "images/products/g003/image1.jpg",
+      "images/products/g003/image2.jpg"
     ]
   },
   {
@@ -344,5 +358,19 @@
     "images": [
       "images/products/as001/image3.jpg"
     ]
-  }
+  }  
+  {
+    "productid": "hap001",
+    "images": [
+      "images/products/hap001/image1.jpeg",
+      "images/products/hap001/image2.jpeg"
+    ]
+  },  
+  {
+    "productid": "hap002",
+    "images": [
+      "images/products/hap002/image1.jpeg",
+      "images/products/hap002/image2.jpeg"
+    ]
+  },
 ]
