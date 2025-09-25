@@ -924,7 +924,7 @@ const categoryMeta = {
   "faceting rough|synthetic cz,synthetic spinel": {
     title: "Mixed Synthetic Faceting Rough | CZ & Spinel Cutting Material | Outback Gems & Minerals",
     description: "Premium mixed synthetic faceting rough including both cubic zirconia and synthetic spinel. Variety pack perfect for faceting enthusiasts.",
-    image: "https://www.outbackgems.com.au/images/category-cards/Synthetic-Spinel.jpeg",
+    image: "https://outbackgems.com.au/images/main/s104.jpeg",
     altText: "Mixed synthetic CZ and spinel faceting rough at Outback Gems & Minerals",
     category: "Faceting Rough", 
     keywords: "mixed synthetic rough, CZ and spinel, variety faceting pack, synthetic gemstones, cutting material"
@@ -1028,7 +1028,7 @@ const categoryMeta = {
   "tumbles|amazonite": {
     title: "Amazonite Tumbled Stones | Blue-Green Crystal Tumbles | Outback Gems & Minerals",
     description: "Stunning amazonite tumbled stones in beautiful blue-green hues. Premium feldspar crystals perfect for collecting and crystal healing.",
-    image: "https://www.outbackgems.com.au/images/category-cards/other-tumbles.jpeg",
+    image: "https://outbackgems.com.au/images/main/tmb004.jpeg",
     altText: "Amazonite tumbled stones - Blue-green crystal tumbles at Outback Gems & Minerals",
     category: "Tumbles",
     keywords: "amazonite tumbles, blue green crystals, feldspar tumbles, healing crystals, amazonite stones"
@@ -1036,7 +1036,7 @@ const categoryMeta = {
   "tumbles|aventurine": {
     title: "Aventurine Tumbled Stones | Green Crystal Tumbles | Outback Gems & Minerals",
     description: "Premium aventurine tumbled stones with beautiful sparkly inclusions. Green quartz crystals perfect for luck, prosperity and crystal healing.",
-    image: "https://www.outbackgems.com.au/images/category-cards/other-tumbles.jpeg",
+    image: "https://outbackgems.com.au/images/main/tmb004.jpeg",
     altText: "Green aventurine tumbled stones with sparkly inclusions at Outback Gems & Minerals",
     category: "Tumbles",
     keywords: "aventurine tumbles, green aventurine, sparkly crystals, luck stones, prosperity crystals"
@@ -1044,7 +1044,7 @@ const categoryMeta = {
   "tumbles|bumblebee jasper": {
     title: "Bumblebee Jasper Tumbled Stones | Yellow & Black Crystal Tumbles | Outback Gems & Minerals",
     description: "Vibrant bumblebee jasper tumbled stones with striking yellow and black patterns. Unique volcanic stones perfect for collectors.",
-    image: "https://www.outbackgems.com.au/images/category-cards/other-tumbles.jpeg",
+    image: "https://outbackgems.com.au/images/main/tmb004.jpeg",
     altText: "Bumblebee jasper tumbled stones with yellow and black patterns at Outback Gems & Minerals",
     category: "Tumbles",
     keywords: "bumblebee jasper tumbles, yellow jasper, black jasper, volcanic stones, patterned stones"
@@ -1052,7 +1052,7 @@ const categoryMeta = {
   "tumbles|citrine": {
     title: "Citrine Tumbled Stones | Golden Yellow Crystal Tumbles | Outback Gems & Minerals",
     description: "Beautiful citrine tumbled stones in warm golden yellow tones. Abundance and prosperity crystals perfect for collecting and healing practices.",
-    image: "https://www.outbackgems.com.au/images/category-cards/other-tumbles.jpeg",
+    image: "https://outbackgems.com.au/images/main/tmb004.jpeg",
     altText: "Golden citrine tumbled stones - Yellow crystal tumbles at Outback Gems & Minerals",
     category: "Tumbles",
     keywords: "citrine tumbles, yellow crystals, golden citrine, abundance stones, prosperity crystals"
@@ -1060,7 +1060,7 @@ const categoryMeta = {
   "tumbles|clear quartz": {
     title: "Clear Quartz Tumbled Stones | Crystal Clear Tumbles | Outback Gems & Minerals",
     description: "Pure clear quartz tumbled stones with excellent clarity. Master healer crystals perfect for amplifying energy and crystal collections.",
-    image: "https://www.outbackgems.com.au/images/category-cards/other-tumbles.jpeg",
+    image: "https://outbackgems.com.au/images/main/tmb004.jpeg",
     altText: "Clear quartz tumbled stones - Crystal clear tumbles at Outback Gems & Minerals",
     category: "Tumbles",
     keywords: "clear quartz tumbles, crystal clear stones, master healer, amplifying crystals, pure quartz"
@@ -1068,7 +1068,7 @@ const categoryMeta = {
   "tumbles|crazy lace agate": {
     title: "Crazy Lace Agate Tumbled Stones | Patterned Crystal Tumbles | Outback Gems & Minerals",
     description: "Stunning crazy lace agate tumbled stones with intricate patterns and bands. Unique Mexican agate perfect for collectors and display.",
-    image: "https://www.outbackgems.com.au/images/category-cards/other-tumbles.jpeg",
+    image: "https://outbackgems.com.au/images/main/tmb004.jpeg",
     altText: "Crazy lace agate tumbled stones with intricate patterns at Outback Gems & Minerals",
     category: "Tumbles",
     keywords: "crazy lace agate tumbles, patterned agate, Mexican agate, banded stones, lace patterns"
@@ -1076,7 +1076,7 @@ const categoryMeta = {
   "tumbles|fire quartz": {
     title: "Fire Quartz Tumbled Stones | Hematite Included Crystal Tumbles | Outback Gems & Minerals",
     description: "Beautiful fire quartz tumbled stones with hematite inclusions creating fiery patterns. Unique grounding crystals perfect for collectors.",
-    image: "https://www.outbackgems.com.au/images/category-cards/other-tumbles.jpeg",
+    image: "https://outbackgems.com.au/images/main/tmb004.jpeg",
     altText: "Fire quartz tumbled stones with hematite inclusions at Outback Gems & Minerals",
     category: "Tumbles",
     keywords: "fire quartz tumbles, hematite inclusions, included quartz, grounding crystals, fiery patterns"
@@ -1084,7 +1084,7 @@ const categoryMeta = {
   "tumbles|jasper": {
     title: "Jasper Tumbled Stones | Earth Tone Crystal Tumbles | Outback Gems & Minerals",
     description: "Premium jasper tumbled stones in beautiful earth tones and patterns. Nurturing and protective stones perfect for collecting and grounding.",
-    image: "https://www.outbackgems.com.au/images/category-cards/other-tumbles.jpeg",
+    image: "https://outbackgems.com.au/images/main/tmb004.jpeg",
     altText: "Jasper tumbled stones in earth tones at Outback Gems & Minerals",
     category: "Tumbles",
     keywords: "jasper tumbles, earth tone stones, nurturing crystals, protective stones, patterned jasper"
@@ -1092,7 +1092,7 @@ const categoryMeta = {
   "tumbles|malachite": {
     title: "Malachite Tumbled Stones | Green Copper Crystal Tumbles | Outback Gems & Minerals",
     description: "Stunning malachite tumbled stones with vibrant green bands and swirls. Copper mineral crystals perfect for transformation and healing.",
-    image: "https://www.outbackgems.com.au/images/category-cards/other-tumbles.jpeg",
+    image: "https://outbackgems.com.au/images/main/tmb004.jpeg",
     altText: "Malachite tumbled stones with green bands and swirls at Outback Gems & Minerals",
     category: "Tumbles",
     keywords: "malachite tumbles, green copper stones, banded malachite, transformation crystals, swirled patterns"
@@ -1100,7 +1100,7 @@ const categoryMeta = {
   "tumbles|mookite": {
     title: "Mookite Tumbled Stones | Australian Jasper Crystal Tumbles | Outback Gems & Minerals",
     description: "Beautiful mookite tumbled stones in warm earth tones. Australian jasper with grounding energy perfect for collecting and healing practices.",
-    image: "https://www.outbackgems.com.au/images/category-cards/other-tumbles.jpeg",
+    image: "https://outbackgems.com.au/images/main/tmb004.jpeg",
     altText: "Mookite tumbled stones - Australian jasper in earth tones at Outback Gems & Minerals",
     category: "Tumbles",
     keywords: "mookite tumbles, Australian jasper, earth tone crystals, grounding stones, warm colors"
@@ -1108,7 +1108,7 @@ const categoryMeta = {
   "tumbles|moroccan agate": {
     title: "Moroccan Agate Tumbled Stones | Desert Crystal Tumbles | Outback Gems & Minerals",
     description: "Exotic Moroccan agate tumbled stones with unique desert patterns and colors. Premium stones perfect for collectors and decorative displays.",
-    image: "https://www.outbackgems.com.au/images/category-cards/other-tumbles.jpeg",
+    image: "https://outbackgems.com.au/images/main/tmb004.jpeg",
     altText: "Moroccan agate tumbled stones with desert patterns at Outback Gems & Minerals",
     category: "Tumbles",
     keywords: "Moroccan agate tumbles, desert agate, exotic patterns, collector stones, unique colors"
@@ -1116,7 +1116,7 @@ const categoryMeta = {
   "tumbles|moss agate": {
     title: "Moss Agate Tumbled Stones | Nature Pattern Crystal Tumbles | Outback Gems & Minerals",
     description: "Beautiful moss agate tumbled stones with natural moss-like inclusions. Nature's art in stone perfect for gardeners and nature lovers.",
-    image: "https://www.outbackgems.com.au/images/category-cards/other-tumbles.jpeg",
+    image: "https://outbackgems.com.au/images/main/tmb004.jpeg",
     altText: "Moss agate tumbled stones with natural moss patterns at Outback Gems & Minerals",
     category: "Tumbles",
     keywords: "moss agate tumbles, moss patterns, nature stones, garden crystals, included agate"
@@ -1124,7 +1124,7 @@ const categoryMeta = {
   "tumbles|obsidian": {
     title: "Obsidian Tumbled Stones | Volcanic Glass Crystal Tumbles | Outback Gems & Minerals",
     description: "Sleek obsidian tumbled stones formed from volcanic glass. Powerful protection and grounding stones perfect for spiritual practices.",
-    image: "https://www.outbackgems.com.au/images/category-cards/other-tumbles.jpeg",
+    image: "https://outbackgems.com.au/images/main/tmb004.jpeg",
     altText: "Black obsidian tumbled stones - Volcanic glass crystals at Outback Gems & Minerals",
     category: "Tumbles",
     keywords: "obsidian tumbles, volcanic glass, protection stones, grounding crystals, black stones"
@@ -1132,7 +1132,7 @@ const categoryMeta = {
   "tumbles|prehnite": {
     title: "Prehnite Tumbled Stones | Soft Green Crystal Tumbles | Outback Gems & Minerals",
     description: "Gentle prehnite tumbled stones in soft green hues. Peaceful healing crystals perfect for meditation and emotional balance.",
-    image: "https://www.outbackgems.com.au/images/category-cards/other-tumbles.jpeg",
+    image: "https://outbackgems.com.au/images/main/tmb004.jpeg",
     altText: "Soft green prehnite tumbled stones at Outback Gems & Minerals",
     category: "Tumbles",
     keywords: "prehnite tumbles, soft green crystals, peaceful stones, meditation crystals, emotional healing"
@@ -1140,7 +1140,7 @@ const categoryMeta = {
   "tumbles|rainforest jasper": {
     title: "Rainforest Jasper Tumbled Stones | Green Forest Crystal Tumbles | Outback Gems & Minerals",
     description: "Beautiful rainforest jasper tumbled stones with green forest-like patterns. Nature-inspired stones perfect for earth connection and healing.",
-    image: "https://www.outbackgems.com.au/images/category-cards/other-tumbles.jpeg",
+    image: "https://outbackgems.com.au/images/main/tmb004.jpeg",
     altText: "Rainforest jasper tumbled stones with green forest patterns at Outback Gems & Minerals",
     category: "Tumbles",
     keywords: "rainforest jasper tumbles, forest patterns, green jasper, nature connection, earth stones"
@@ -1148,7 +1148,7 @@ const categoryMeta = {
   "tumbles|tiger eye": {
     title: "Tiger Eye Tumbled Stones | Golden Brown Crystal Tumbles | Outback Gems & Minerals",
     description: "Stunning tiger eye tumbled stones with golden brown chatoyancy. Courage and confidence stones perfect for protection and grounding.",
-    image: "https://www.outbackgems.com.au/images/category-cards/other-tumbles.jpeg",
+    image: "https://outbackgems.com.au/images/main/tmb004.jpeg",
     altText: "Golden brown tiger eye tumbled stones with chatoyancy at Outback Gems & Minerals",
     category: "Tumbles",
     keywords: "tiger eye tumbles, golden brown stones, chatoyant crystals, courage stones, confidence crystals"
@@ -1297,35 +1297,35 @@ function generateSubcategoryFallback(mainCategory, subCategory) {
       title: `${formattedSub} Tumbled Stones | Polished Crystal Tumbles | Outback Gems & Minerals`,
       description: `Beautiful ${formattedSub.toLowerCase()} tumbled stones - premium polished crystals perfect for collecting, jewelry making and crystal healing practices.`,
       keywords: `${formattedSub.toLowerCase()} tumbles, ${formattedSub.toLowerCase()} stones, polished ${formattedSub.toLowerCase()}, tumbled crystals, healing stones`,
-      image: "https://www.outbackgems.com.au/images/category-cards/other-tumbles.jpeg",
+      image: "https://outbackgems.com.au/images/main/tmb004.jpeg",
       altText: `${formattedSub} tumbled stones at Outback Gems & Minerals`
     },
     'carvings & collectibles': {
       title: `${formattedSub} Crystal Carvings | Handcrafted Gemstone Art | Outback Gems & Minerals`,
       description: `Beautiful ${formattedSub.toLowerCase()} crystal carvings and collectible pieces. Handcrafted gemstone art perfect for display and collecting.`,
       keywords: `${formattedSub.toLowerCase()} carvings, crystal ${formattedSub.toLowerCase()}, gemstone art, collectible crystals, handcrafted stones`,
-      image: "https://www.outbackgems.com.au/images/category-cards/Other-Thunder-Egg.jpeg",
+      image: "https://outbackgems.com.au/images/main/btf001.jpeg",
       altText: `${formattedSub} crystal carvings at Outback Gems & Minerals`
     },
     'faceting rough': {
       title: `${formattedSub} Faceting Rough | Premium Cutting Material | Outback Gems & Minerals`,
       description: `Premium ${formattedSub.toLowerCase()} faceting rough material. High-quality stones perfect for lapidary work and gemstone cutting projects.`,
       keywords: `${formattedSub.toLowerCase()} rough, faceting material, ${formattedSub.toLowerCase()} cutting, lapidary stones, rough gemstones`,
-      image: "https://www.outbackgems.com.au/images/category-cards/Synthetic-Spinel.jpeg",
+      image: "https://outbackgems.com.au/images/main/s104.jpeg",
       altText: `${formattedSub} faceting rough at Outback Gems & Minerals`
     },
     'raw material & specimens': {
       title: `${formattedSub} Specimens | Natural Mineral Collection | Outback Gems & Minerals`,
       description: `Premium ${formattedSub.toLowerCase()} specimens and natural mineral pieces. Perfect for collectors, education and mineral enthusiasts.`,
       keywords: `${formattedSub.toLowerCase()} specimens, natural ${formattedSub.toLowerCase()}, mineral collection, collector stones, raw materials`,
-      image: "https://www.outbackgems.com.au/images/category-cards/other-herkimer-diamonds.jpeg",
+      image: "https://outbackgems.com.au/images/main/sw001.jpeg",
       altText: `${formattedSub} specimens at Outback Gems & Minerals`
     },
     'slabs': {
       title: `${formattedSub} Slabs | Natural Rough Slabs | Outback Gems & Minerals`,
       description: `Premium ${formattedSub.toLowerCase()} slabs perfect for lapidary work, cabochon cutting and decorative projects.`,
       keywords: `${formattedSub.toLowerCase()} slabs, natural rough slabs, lapidary material, cabochon material, stone slabs`,
-      image: "https://www.outbackgems.com.au/images/category-cards/Other-Agate-Slice.jpeg",
+      image: "https://outbackgems.com.au/images/main/bbj005.jpeg",
       altText: `${formattedSub} slabs at Outback Gems & Minerals`
     }
   };
@@ -1347,7 +1347,7 @@ function generateMainCategoryFallback(categoryKeyword) {
     title: `${formatted} Collection | Premium Quality | Outback Gems & Minerals`,
     description: `Browse our premium ${formatted.toLowerCase()} collection. Quality specimens and materials perfect for collectors and enthusiasts at Outback Gems & Minerals.`,
     keywords: `${formatted.toLowerCase()}, ${categoryKeyword.replace(/\s+/g, ' ')}, gemstones, minerals, crystals, quality specimens`,
-    image: "https://www.outbackgems.com.au/images/main/bbj005.jpeg",
+    image: "https://outbackgems.com.au/images/main/bbj005.jpeg",
     altText: `${formatted} collection at Outback Gems & Minerals`
   };
 }
