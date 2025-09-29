@@ -895,23 +895,31 @@ const categoryMeta = {
     category: "Slabs",
     keywords: "natural rough slabs, lapidary slabs, mineral slabs, cabochon material, rough slabs, decorative stone slabs"
   },
+  "slabs|bumblebee jasper": {
+    title: "Bumblebee Jasper Slab | Premium Yellow & Black Lapidary Material | Outback Gems & Minerals",
+    description: "Premium bumblebee jasper slab featuring striking yellow and black volcanic patterns. Ideal for lapidary work, cabochon cutting and collector displays. Unique Indonesian volcanic material perfect for specialty projects.",
+    image: ["https://www.outbackgems.com.au/images/main/bbj001.jpeg", "https://www.outbackgems.com.au/images/main/bbj002.jpeg"],
+    altText: "Bumblebee jasper slab with yellow and black volcanic patterns for lapidary work at Outback Gems & Minerals",
+    category: "Slabs",
+    keywords: "bumblebee jasper slab, yellow jasper slab, black jasper slab, volcanic slab, lapidary material, cabochon material, Indonesian jasper, bumblebee jasper cabochon"
+  },
   "tumbles": {
-    title: "Premium Tumbled Gemstones | Polished Crystal Collection | Outback Gems & Minerals",
-    description: "Beautiful collection of premium tumbled gemstones and polished crystals in various colors and materials. Perfect for collecting, jewelry making and crystal enthusiasts.",
+    title: "Buy Tumbled Gemstones | Premium Polished Crystal Collection | Outback Gems & Minerals",
+    description: "Shop premium tumbled gemstones including amethyst, quartz, agate, and jasper. High-quality polished crystal tumbles perfect for collectors, jewelry making, and crystal healing. 100g bags available.",
     image: ["https://www.outbackgems.com.au/images/main/other-amethyst-tumbles.jpeg", "https://www.outbackgems.com.au/images/main/other-quartz-tumbles.jpeg", "https://www.outbackgems.com.au/images/main/other-agate-tumbles.jpeg", "https://www.outbackgems.com.au/images/main/tmb004.jpeg"],
-    altText: "Premium tumbled gemstone collection including amethyst, quartz, agate and various crystal tumbles at Outback Gems & Minerals",
+    altText: "Premium tumbled gemstones collection including amethyst, quartz, agate and various crystal tumbles at Outback Gems & Minerals",
     category: "Tumbles",
-    keywords: "tumbled gemstones, polished crystals, crystal tumbles, smooth stones, pocket stones, healing crystals, crystal collection"
+    keywords: "buy tumbled gemstones, tumbled stones, polished crystals, crystal tumbles, tumbled gemstone collection, smooth gemstones, pocket stones, healing crystals, crystal collection Australia"
   },
   
   // Subcategory combinations (category|subcategory format)
   "faceting rough|synthetic spinel": {
-    title: "Premium Synthetic Spinel Faceting Rough | Gemstone Cutting Material | Outback Gems & Minerals",
-    description: "Shop our range of vivid synthetic spinel faceting rough. Perfect for collectors and cutters. High-quality, affordable, and available in a variety of colours.",
+    title: "Buy Synthetic Spinel Faceting Rough | Premium Blue & Multi-Color Synthetic Spinel | Outback Gems & Minerals",
+    description: "Shop premium synthetic spinel faceting rough in stunning blues, silver, and powder blue. High-quality synthetic spinel perfect for faceting, lapidary projects, and gemstone cutting. Available in multiple sizes from 20ct to 84ct.",
     image: ["https://www.outbackgems.com.au/images/main/s104.jpeg", "https://www.outbackgems.com.au/images/main/s105.jpeg"],
-    altText: "Synthetic spinel faceting rough - Premium cutting material at Outback Gems & Minerals",
+    altText: "Premium synthetic spinel faceting rough in blue colors - High-quality gemstone cutting material at Outback Gems & Minerals",
     category: "Faceting Rough",
-    keywords: "synthetic spinel, spinel faceting rough, faceting material, synthetic gems, spinel cutting material"
+    keywords: "buy synthetic spinel, synthetic spinel rough, blue synthetic spinel, faceting spinel, spinel cutting material, synthetic spinel gemstones, lapidary spinel, synthetic spinel Australia"
   },
   "faceting rough|synthetic cz": {
     title: "Premium Synthetic Cubic Zirconia Faceting Rough | CZ Cutting Material | Outback Gems & Minerals", 
@@ -986,12 +994,12 @@ const categoryMeta = {
     keywords: "sapphire wash bags, fossicking, Queensland gemfields, gem hunting, sapphire dirt, fossicking bags"
   },
   "raw material & specimens|yowah nuts": {
-    title: "Buy Unopened Yowah Nuts | Small, Medium, Large & 3-Packs | Direct from QLD Opal Fields | Outback Gems & Minerals",
-    description: "Shop genuine unopened Yowah Nuts from Queensland Opal Fields in various sizes - single, small, medium, large and 3-pack options. Each unopened nut may contain beautiful banded ironstone or hidden opal. Buy direct from Australia's premier opal region.",
+    title: "Yowah Nuts for Sale | Unopened Small, Medium, Large & 3-Packs | Direct from QLD Opal Fields | Outback Gems & Minerals",
+    description: "Yowah nuts for sale direct from Queensland Opal Fields! Shop genuine unopened Yowah Nuts in various sizes - single, small, medium, large and 3-pack options. Each unopened nut may contain beautiful banded ironstone or precious opal. Buy yowah nuts for sale from Australia's premier opal region.",
     image: ["https://www.outbackgems.com.au/images/main/yn001.jpeg", "https://www.outbackgems.com.au/images/main/yn002.jpeg"],
-    altText: "Unopened Yowah nuts in various sizes from Queensland Opal Fields at Outback Gems & Minerals",
+    altText: "Yowah nuts for sale - unopened nuts in various sizes from Queensland Opal Fields at Outback Gems & Minerals",
     category: "Raw Material & Specimens",
-    keywords: "buy yowah nuts, unopened yowah nuts, Queensland opal fields, yowah nuts small medium large, 3-pack yowah nuts, opal nuts Australia, buy opal nuts, shop yowah nuts"
+    keywords: "yowah nuts for sale, buy yowah nuts, unopened yowah nuts, Queensland opal fields, yowah nuts small medium large, 3-pack yowah nuts, opal nuts Australia, shop yowah nuts, yowah nuts for sale Australia"
   },
   "tumbles|amethyst": {
     title: "Amethyst Tumbled Stones | Purple Quartz Tumbles | Outback Gems & Minerals",
