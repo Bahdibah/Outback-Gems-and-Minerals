@@ -198,7 +198,7 @@ function displayResults(results) {
     const listItem = document.createElement("li");
 
     const img = document.createElement("img");
-    img.src = result["image url"].replace(/\\/g, '/'); // Convert backslashes to forward slashes for web
+    img.src = result["image url"];
     img.alt = result["product name"];
     img.style.width = "50px";
     img.style.height = "50px";
