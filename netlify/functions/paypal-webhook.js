@@ -4,13 +4,26 @@ const { Resend } = require('resend');
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 exports.handler = async (event) => {
+  console.log('🚀 PayPal webhook triggered');
+  console.log('📋 Headers:', JSON.stringify(event.headers, null, 2));
+  console.log('📋 Method:', event.httpMethod);
+  console.log('📋 Body length:', event.body ? event.body.length : 0);
+  
   // Only allow POST requests
   if (event.httpMethod !== 'POST') {
+    console.log('❌ Invalid method:', event.httpMethod);
     return {
       statusCode: 405,
       body: JSON.stringify({ error: 'Method not allowed' }),
     };
   }
+
+  // Check environment variables
+  console.log('🔧 Environment check:');
+  console.log('  - PAYPAL_WEBHOOK_ID:', !!process.env.PAYPAL_WEBHOOK_ID);
+  console.log('  - PAYPAL_WEBHOOK_CLIENT_ID:', !!process.env.PAYPAL_WEBHOOK_CLIENT_ID);
+  console.log('  - PAYPAL_WEBHOOK_CLIENT_SECRET:', !!process.env.PAYPAL_WEBHOOK_CLIENT_SECRET);
+  console.log('  - RESEND_API_KEY:', !!process.env.RESEND_API_KEY);
 
   // Verify PayPal webhook signature
   const webhookId = process.env.PAYPAL_WEBHOOK_ID;
@@ -193,9 +206,9 @@ async function sendShippingNotificationEmail(orderData) {
     const emailHtml = generateShippingEmailTemplate(orderData);
     
     const emailData = {
-      from: 'support@outbackgems.com.au',
-      to: 'outbackgemsandminerals@gmail.com',
-      subject: `New Order - ${orderData.paymentMethod || 'PayPal'} Payment`,
+      from: 'Outback Gems <support@outbackgems.com.au>',
+      to: 'support@outbackgems.com.au',
+      subject: `NEW PAYPAL ORDER - $${orderData.orderTotal} AUD - SHIP NOW`,
       html: emailHtml,
     };
 
