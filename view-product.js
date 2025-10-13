@@ -735,6 +735,7 @@ function updateProductDetails(selectedVariation) {
     // Main image from API
     const apiImage = selectedVariation["image url"] || "images/placeholder.png";
     const apiImage2 = selectedVariation["image 2 url"] || "";
+    const apiImage3 = selectedVariation["image 3 url"] || "";
     const mainImage = document.getElementById("view-product-image");
     const thumbnailsContainer = document.getElementById("view-product-thumbnails");
     const modalOverlay = document.getElementById("image-modal-overlay");
@@ -745,83 +746,41 @@ function updateProductDetails(selectedVariation) {
     if (apiImage2 && apiImage2.trim() !== "") {
       allImages.push(apiImage2);
     }
+    if (apiImage3 && apiImage3.trim() !== "") {
+      allImages.push(apiImage3);
+    }
     
-    // Fetch extra images from productid.json
-    fetch("productid.json")
-      .then(res => res.json())
-      .then(productImagesList => {
-        // Find the entry for this product id
-        const productImages = productImagesList.find(p => p.productid === productId);
-        
-        if (productImages && productImages.images) {
-          // Add images from productid.json, but limit total to 4
-          const extraImages = productImages.images;
-          const remainingSlots = 4 - allImages.length;
-          const imagesToAdd = extraImages.slice(0, remainingSlots);
-          allImages = [...allImages, ...imagesToAdd];
-        }
-        
-        // Set the main image to the first image
-        if (mainImage) {
-          mainImage.src = allImages[0];
-          mainImage.alt = generateDynamicAltTag(selectedVariation, true);
-          mainImage.setAttribute("loading", "lazy");
-        }
+    // Set the main image to the first image
+    if (mainImage) {
+      mainImage.src = allImages[0];
+      mainImage.alt = generateDynamicAltTag(selectedVariation, true);
+      mainImage.setAttribute("loading", "lazy");
+    }
 
-        // Render thumbnails for all images
-        thumbnailsContainer.innerHTML = "";
-        allImages.forEach((imgUrl, idx) => {
-          const thumb = document.createElement("img");
-          thumb.src = imgUrl;
-          thumb.alt = generateDynamicAltTag(selectedVariation, false);
-          thumb.className = "view-product-image-placeholder";
-          thumb.style.cursor = "pointer";
-          thumb.loading = "lazy";
-          // Highlight the selected thumbnail
-          if (idx === 0) thumb.style.border = "2px solid #cc5500";
-          thumb.addEventListener("click", function() {
-            if (mainImage) {
-              mainImage.src = imgUrl;
-              mainImage.alt = generateDynamicAltTag(selectedVariation, true);
-            }
-            // Optional: highlight the selected thumbnail
-            thumbnailsContainer.querySelectorAll("img").forEach(img => img.style.border = "1px solid #444");
-            this.style.border = "2px solid #cc5500";
-          });
-          thumbnailsContainer.appendChild(thumb);
+    // Render thumbnails for all images
+    if (thumbnailsContainer) {
+      thumbnailsContainer.innerHTML = "";
+      allImages.forEach((imgUrl, idx) => {
+        const thumb = document.createElement("img");
+        thumb.src = imgUrl;
+        thumb.alt = generateDynamicAltTag(selectedVariation, false);
+        thumb.className = "view-product-image-placeholder";
+        thumb.style.cursor = "pointer";
+        thumb.loading = "lazy";
+        // Highlight the selected thumbnail
+        if (idx === 0) thumb.style.border = "2px solid #cc5500";
+        thumb.addEventListener("click", function() {
+          if (mainImage) {
+            mainImage.src = imgUrl;
+            mainImage.alt = generateDynamicAltTag(selectedVariation, true);
+          }
+          // Optional: highlight the selected thumbnail
+          thumbnailsContainer.querySelectorAll("img").forEach(img => img.style.border = "1px solid #444");
+          this.style.border = "2px solid #cc5500";
         });
-      })
-      .catch(error => {
-        console.warn("Could not load productid.json, using fallback images:", error);
-        // Fallback: use only the API images (main + second if available)
-        if (mainImage) {
-          mainImage.src = allImages[0];
-          mainImage.alt = generateDynamicAltTag(selectedVariation, true);
-          mainImage.setAttribute("loading", "lazy");
-        }
-        // Create thumbnails for available API images
-        if (thumbnailsContainer) {
-          thumbnailsContainer.innerHTML = "";
-          allImages.forEach((imgUrl, idx) => {
-            const thumb = document.createElement("img");
-            thumb.src = imgUrl;
-            thumb.alt = generateDynamicAltTag(selectedVariation, false);
-            thumb.className = "view-product-image-placeholder";
-            thumb.style.cursor = "pointer";
-            thumb.loading = "lazy";
-            if (idx === 0) thumb.style.border = "2px solid #cc5500";
-            thumb.addEventListener("click", function() {
-              if (mainImage) {
-                mainImage.src = imgUrl;
-                mainImage.alt = generateDynamicAltTag(selectedVariation, true);
-              }
-              thumbnailsContainer.querySelectorAll("img").forEach(img => img.style.border = "1px solid #444");
-              this.style.border = "2px solid #cc5500";
-            });
-            thumbnailsContainer.appendChild(thumb);
-          });
-        }
+        thumbnailsContainer.appendChild(thumb);
       });
+    }
 
     quantityInputElement.setAttribute("max", availableStock);
     quantityInputElement.value = 1;
