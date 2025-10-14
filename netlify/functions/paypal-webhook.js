@@ -3,6 +3,20 @@ const { Resend } = require('resend');
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+// In-memory store for processed PayPal payments with timestamps (resets on function restart)
+// For production, consider using a database or external cache
+const processedPayments = new Map(); // Changed to Map to store timestamps
+
+// Clean up old entries every hour to prevent memory bloat
+setInterval(() => {
+  const oneHourAgo = Date.now() - (60 * 60 * 1000);
+  for (const [paymentId, timestamp] of processedPayments.entries()) {
+    if (timestamp < oneHourAgo) {
+      processedPayments.delete(paymentId);
+    }
+  }
+}, 60 * 60 * 1000);
+
 exports.handler = async (event) => {
   console.log('🚀 PayPal webhook triggered');
   console.log('📋 Headers:', JSON.stringify(event.headers, null, 2));
@@ -80,12 +94,42 @@ exports.handler = async (event) => {
 };
 
 async function handlePaymentCaptureCompleted(event) {
-  console.log('🎯 Processing PayPal payment capture:', event.id);
+  console.log('🚀 PAYPAL: Processing PayPal payment capture:', event.id);
+  console.log('🕐 PAYPAL: Current timestamp:', new Date().toISOString());
+  console.log('🔢 PAYPAL: Currently tracking', processedPayments.size, 'processed payments');
+
+  // Create unique identifier for this payment (use both event ID and capture ID for extra safety)
+  const capture = event.resource;
+  const orderId = capture.supplementary_data?.related_ids?.order_id;
+  const paymentId = `${event.id}-${capture.id}`;
+  
+  console.log('🔍 PAYPAL: Payment ID:', paymentId, '| Order ID:', orderId);
+  
+  // Check if we've already processed this payment
+  if (processedPayments.has(paymentId)) {
+    const processedTime = new Date(processedPayments.get(paymentId)).toISOString();
+    console.log(`❌ PAYPAL: Payment ${paymentId} already processed at ${processedTime} - skipping to prevent duplicates`);
+    return;
+  }
+
+  // Also check by order ID if available
+  if (orderId && processedPayments.has(orderId)) {
+    const processedTime = new Date(processedPayments.get(orderId)).toISOString();
+    console.log(`❌ PAYPAL: Order ${orderId} already processed at ${processedTime} - skipping to prevent duplicates`);
+    return;
+  }
+
+  // Mark this payment as being processed with timestamp (use both IDs)
+  const timestamp = Date.now();
+  processedPayments.set(paymentId, timestamp);
+  if (orderId) {
+    processedPayments.set(orderId, timestamp);
+  }
+  console.log(`✅ PAYPAL: Marked payment ${paymentId} and order ${orderId} as processing at ${new Date(timestamp).toISOString()}`);
+
   console.log('📦 Full event data:', JSON.stringify(event, null, 2));
 
   try {
-    const capture = event.resource;
-    const orderId = capture.supplementary_data?.related_ids?.order_id;
     
     console.log('🔍 Capture resource:', JSON.stringify(capture, null, 2));
     console.log('📋 Order ID extracted:', orderId);
@@ -189,10 +233,15 @@ async function handlePaymentCaptureCompleted(event) {
     const emailResult = await sendShippingNotificationEmail(orderData);
     console.log('📧 Email sending result:', emailResult);
 
-    console.log('Successfully processed PayPal order:', orderData.sessionId);
+    console.log('🎉 PAYPAL: Successfully processed PayPal order:', orderData.sessionId, '- Email sent');
 
   } catch (error) {
-    console.error('Error processing PayPal payment capture:', error);
+    console.error('💥 PAYPAL: Error processing PayPal payment capture:', error);
+    // Remove from processed maps so it can be retried if webhook is called again
+    processedPayments.delete(paymentId);
+    if (orderId) {
+      processedPayments.delete(orderId);
+    }
     throw error;
   }
 }

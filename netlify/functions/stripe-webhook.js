@@ -3,6 +3,20 @@ const { Resend } = require('resend');
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+// In-memory store for processed sessions with timestamps (resets on function restart)
+// For production, consider using a database or external cache
+const processedSessions = new Map(); // Changed to Map to store timestamps
+
+// Clean up old entries every hour to prevent memory bloat
+setInterval(() => {
+  const oneHourAgo = Date.now() - (60 * 60 * 1000);
+  for (const [sessionId, timestamp] of processedSessions.entries()) {
+    if (timestamp < oneHourAgo) {
+      processedSessions.delete(sessionId);
+    }
+  }
+}, 60 * 60 * 1000);
+
 exports.handler = async (event) => {
   // Only allow POST requests
   if (event.httpMethod !== 'POST') {
@@ -52,7 +66,21 @@ exports.handler = async (event) => {
 };
 
 async function handleCheckoutSessionCompleted(session) {
-  console.log('Processing completed checkout session:', session.id);
+  console.log('🚀 STRIPE: Processing completed checkout session:', session.id);
+  console.log('🕐 STRIPE: Current timestamp:', new Date().toISOString());
+  console.log('🔢 STRIPE: Currently tracking', processedSessions.size, 'processed sessions');
+
+  // Check if we've already processed this session
+  if (processedSessions.has(session.id)) {
+    const processedTime = new Date(processedSessions.get(session.id)).toISOString();
+    console.log(`❌ STRIPE: Session ${session.id} already processed at ${processedTime} - skipping to prevent duplicates`);
+    return;
+  }
+
+  // Mark this session as being processed with timestamp
+  const timestamp = Date.now();
+  processedSessions.set(session.id, timestamp);
+  console.log(`✅ STRIPE: Marked session ${session.id} as processing at ${new Date(timestamp).toISOString()}`);
 
   try {
     // Retrieve the session with line items
@@ -85,6 +113,9 @@ async function handleCheckoutSessionCompleted(session) {
       createdAt: new Date(session.created * 1000),
       lineItems: []
     };
+
+    // Collect all inventory updates for batch processing
+    const inventoryUpdates = [];
 
     // Process line items
     for (const item of sessionWithLineItems.line_items.data) {
@@ -141,13 +172,26 @@ async function handleCheckoutSessionCompleted(session) {
       
       orderData.lineItems.push(productData);
 
-      // Update inventory stock (skip shipping items)
+      // Collect inventory update (skip shipping items)
       if (productData.productId !== 'Unknown' && !productData.name.toLowerCase().includes('shipping')) {
-        console.log(`Updating inventory for product ${productData.productId}, weight ${productData.weight}, quantity ${productData.quantity}`);
-        await updateInventoryStock(productData.productId, productData.weight, productData.quantity);
+        inventoryUpdates.push({
+          productId: productData.productId,
+          weight: productData.weight,
+          quantityToReduce: productData.quantity
+        });
+        console.log(`Added to batch update: ${productData.productId}, weight ${productData.weight}, quantity ${productData.quantity}`);
       } else {
         console.log(`Skipping inventory update for: ${productData.name} (ID: ${productData.productId})`);
       }
+    }
+
+    // Process all inventory updates as a single batch (async, non-blocking)
+    if (inventoryUpdates.length > 0) {
+      console.log(`Sending batch inventory update for ${inventoryUpdates.length} items`);
+      // Don't await - make it non-blocking so email sends immediately
+      updateInventoryBatch(inventoryUpdates).catch(error => {
+        console.error('Batch inventory update failed (non-blocking):', error);
+      });
     }
 
     // Determine shipping method from line items
@@ -161,15 +205,17 @@ async function handleCheckoutSessionCompleted(session) {
     // Send shipping notification email
     await sendShippingNotificationEmail(orderData);
 
-    console.log('Successfully processed order:', orderData.sessionId);
+    console.log('🎉 STRIPE: Successfully processed order:', orderData.sessionId, '- Email sent, inventory updated');
 
   } catch (error) {
-    console.error('Error processing checkout session:', error);
+    console.error('💥 STRIPE: Error processing checkout session:', error);
+    // Remove from processed map so it can be retried if webhook is called again
+    processedSessions.delete(session.id);
     throw error;
   }
 }
 
-async function updateInventoryStock(productId, weight, quantityPurchased) {
+async function updateInventoryBatch(inventoryUpdates) {
   try {
     // Get the Google Sheets update URL from environment variables
     const googleSheetsUpdateUrl = process.env.GOOGLE_SHEETS_INVENTORY_UPDATE_URL;
@@ -179,30 +225,37 @@ async function updateInventoryStock(productId, weight, quantityPurchased) {
       return;
     }
 
-    // Call your Google Apps Script to update the inventory
-    const response = await fetch(googleSheetsUpdateUrl, {
+    console.log(`Sending batch inventory update with ${inventoryUpdates.length} items`);
+
+    // Add timeout to prevent hanging
+    const timeoutPromise = new Promise((_, reject) => 
+      setTimeout(() => reject(new Error('Google Sheets batch update timed out')), 30000)
+    );
+
+    const fetchPromise = fetch(googleSheetsUpdateUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        action: 'updateStock',
-        productId: productId,
-        weight: weight,
-        quantityToReduce: quantityPurchased
+        action: 'batchUpdateStock',
+        updates: inventoryUpdates
       })
     });
+
+    // Race between fetch and timeout
+    const response = await Promise.race([fetchPromise, timeoutPromise]);
 
     if (!response.ok) {
       throw new Error(`Failed to update Google Sheets inventory: ${response.status} ${response.statusText}`);
     }
 
     const result = await response.json();
-    console.log(`Google Sheets inventory updated for ${productId} (${weight}): reduced by ${quantityPurchased}`, result);
+    console.log(`Google Sheets batch inventory update completed:`, result);
 
   } catch (error) {
-    console.error(`Failed to update Google Sheets stock for product ${productId}:`, error);
-    // Don't throw error - we don't want to fail the entire webhook for inventory issues
+    console.error(`Failed to batch update Google Sheets inventory:`, error);
+    // Don't throw error - this is non-blocking, so webhook can continue
   }
 }
 
