@@ -186,75 +186,96 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-// Whats New carousel
+// Latest Arrivals Showcase
 document.addEventListener("DOMContentLoaded", function () {
-  const swiperWrapper = document.querySelector('.whats-new-swiper .swiper-wrapper');
+  const featuredContainer = document.querySelector('.featured-arrival');
+  const sidebarContainer = document.querySelector('.sidebar-arrivals');
 
   // Add loading message
   const loadingMsg = document.createElement("div");
-  loadingMsg.textContent = "Loading What's New...";
+  loadingMsg.textContent = "Loading Latest Arrivals...";
   loadingMsg.style.color = "#cc5500";
   loadingMsg.style.fontSize = "2rem";
   loadingMsg.style.textAlign = "center";
   loadingMsg.style.padding = "40px 0";
-  swiperWrapper.appendChild(loadingMsg);
+  loadingMsg.style.gridColumn = "1 / -1";
+  featuredContainer.appendChild(loadingMsg);
 
   getProductData()
     .then(data => {
-      swiperWrapper.innerHTML = ""; // Remove loading message
-      const newItems = data.filter(product => product.newitem && product.newitem.toLowerCase() === "y")
+      // Filter for items specifically marked as "new"
+      let newItems = data.filter(product => 
+        product.newitem && 
+        product.newitem.toLowerCase() === "y" && 
+        product["image url"] && 
+        product["product name"]
+      );
+      
+      // Fallback to all products if no new items found
+      if (newItems.length === 0) {
+        newItems = data.filter(product => product["image url"] && product["product name"]);
+        console.warn("No items marked as 'new' found, showing all products as fallback");
+      }
+      
+      // Shuffle and select from new items
+      const shuffled = newItems.sort(() => 0.5 - Math.random());
+      const featuredProduct = shuffled[0];
+      const sidebarProducts = shuffled.slice(1, 4);
 
-      // Shuffle and pick up to 6 random products for the carousel
-      const shuffled = newItems.sort(() => 0.5 - Math.random()).slice(0, 6);
+      // Clear loading message
+      featuredContainer.innerHTML = "";
+      sidebarContainer.innerHTML = "";
 
-      shuffled.forEach(product => {
-        const slide = document.createElement("div");
-        slide.className = "swiper-slide";
-        slide.innerHTML = `
-          <div class="whatsnew-product-card">
-            <div class="image-container">
-              <img src="${product["image url"]}" alt="${product["product name"] || "Product Image"}" loading="lazy">
+      // Create featured product
+      if (featuredProduct) {
+        featuredContainer.innerHTML = `
+          <div class="image-container">
+            <img src="${featuredProduct["image url"]}" alt="${featuredProduct["product name"] || "Featured Product"}" loading="lazy">
+            <div class="featured-badge">Featured</div>
+          </div>
+          <div class="card-content">
+            <div class="text-content">
+              <h3>${featuredProduct["product name"]}</h3>
+              <div class="price">${calculatePriceDisplay(data, featuredProduct["product id"])}</div>
+              <div class="description">${featuredProduct.description || "Premium quality specimen perfect for collectors and lapidary enthusiasts."}</div>
             </div>
-            <h3>${product["product name"]}</h3>
-            <p class="whatsnew-price">${calculatePriceDisplay(data, product["product id"])}</p>
-            <p>${product.description}</p>
-            <button class="whatsnew-product-button">View</button>
+            <button class="view-product-btn">View</button>
           </div>
         `;
-        swiperWrapper.appendChild(slide);
-        // Add event listener to the button
-        const btn = slide.querySelector(".whatsnew-product-button");
-        btn.addEventListener("click", function() {
-                window.location.href = `view-product.html?productid=${encodeURIComponent(product["product id"])}`;
+        
+        const featuredBtn = featuredContainer.querySelector(".view-product-btn");
+        featuredBtn.addEventListener("click", function() {
+          window.location.href = `view-product.html?productid=${encodeURIComponent(featuredProduct["product id"])}`;
         });
-      });
+      }
 
-      // Initialize Swiper after slides are added
-      new Swiper('.whats-new-swiper', {
-        slidesPerView: 3,
-        spaceBetween: 24,
-        loop: true,
-        navigation: {
-          nextEl: '.swiper-button-next',
-          prevEl: '.swiper-button-prev'
-        },
-        autoplay: {
-          delay: 7000,
-          disableOnInteraction: false
-        },
-        pagination: {
-          el: '.swiper-pagination',
-          clickable: true
-        },
-        breakpoints: {
-          0: {slidesPerView: 1},
-          768: {slidesPerView: 2},
-          900: {slidesPerView: 3}
-        }
+      // Create sidebar products
+      sidebarProducts.forEach(product => {
+        const sidebarCard = document.createElement("div");
+        sidebarCard.className = "sidebar-arrival";
+        sidebarCard.innerHTML = `
+          <div class="image-container">
+            <img src="${product["image url"]}" alt="${product["product name"] || "Product"}" loading="lazy">
+          </div>
+          <div class="content">
+            <h4>${product["product name"]}</h4>
+            <div class="price">${calculatePriceDisplay(data, product["product id"])}</div>
+            <button class="sidebar-btn">View</button>
+          </div>
+        `;
+        
+        const btn = sidebarCard.querySelector(".sidebar-btn");
+        btn.addEventListener("click", function(e) {
+          e.stopPropagation();
+          window.location.href = `view-product.html?productid=${encodeURIComponent(product["product id"])}`;
+        });
+        
+        sidebarContainer.appendChild(sidebarCard);
       });
     })
     .catch(error => {
-      swiperWrapper.innerHTML = "<p style='color:#cc5500; font-size:2rem; text-align:center; padding:40px 0;'>Failed to load products.</p>";
+      featuredContainer.innerHTML = "<p style='color:#cc5500; font-size:1.5rem; text-align:center; padding:40px 0;'>Failed to load featured product.</p>";
+      sidebarContainer.innerHTML = "<p style='color:#cc5500; font-size:1rem; text-align:center; padding:20px 0;'>Failed to load products.</p>";
       console.error(error);
     });
 });
