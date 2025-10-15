@@ -217,18 +217,21 @@
       <h1>Your Destination for Premium Faceting Rough &amp; Lapidary Materials</h1>
       <p>Explore our comprehensive range of high-quality lapidary supplies including faceting rough, slabs, washbags, carvings and premium minerals for collectors and enthusiasts.</p>
     </div>
-  </section>
-
-  <div class="banner-slider">
-    <div class="banner">
-      <div class="banner-item">
-        <p>Free Standard Shipping On Orders Over $100 (Australia Only)</p>
-      </div>
-      <div class="banner-item">
-        <p>Express Shipping From $14.45 (Australia Only)</p>
+    
+    <!-- Integrated Shipping Banner -->
+    <div class="hero-shipping-banner">
+      <div class="shipping-message-container">
+        <div class="shipping-message active">
+          <div class="main-message">🚚 Free Standard Shipping On Orders Over $100</div>
+          <div class="sub-message">Australia Only</div>
+        </div>
+        <div class="shipping-message">
+          <div class="main-message">🚀 Express Shipping From $14.45</div>
+          <div class="sub-message">Australia Only</div>
+        </div>
       </div>
     </div>
-  </div>
+  </section>
 
   <!-- Modern Value Propositions -->
   <section class="modern-values" aria-label="About us">
@@ -270,48 +273,38 @@
       </div>
       
       <div class="about-main-content">
-        <div class="about-text">
-          <p class="intro-paragraph">
-            Founded by passionate fossickers and lapidary enthusiasts, Outback Gems & Minerals has grown from weekend gemfield adventures to becoming a trusted source for quality lapidary materials across Australia.
-          </p>
-          
-          <p>
-            We understand the thrill of finding that perfect piece of rough, the satisfaction of cutting a beautiful cabochon, or the excitement of faceting a gem that catches the light just right. That's because we've been there ourselves - trudging through creek beds, sifting through washbags, and carefully selecting materials that have real potential.
-          </p>
-          
-          <p>
-            Every specimen in our collection is hand-picked with the same care we'd use for our own projects. Whether you're just starting your lapidary journey or you're a seasoned professional looking for that special piece, we source materials that meet the standards we'd want for ourselves.
-          </p>
-          
-          <div class="signature-section">
-            <p class="signature-text">
-              <em>"From our family of fossickers to yours - happy hunting and happy cutting!"</em>
-            </p>
-            <div class="signature-line">
-              — The Outback Gems Team
-            </div>
-          </div>
-        </div>
-        
-        <div class="about-images-container">
-          <div class="about-image large">
-            <img src="images/main/btf005.jpeg" alt="Lapidary rough specimens" loading="lazy">
-            <div class="image-caption">
-              Hand-selected specimens ready for cutting and polishing
+        <div class="about-content-grid">
+          <div class="about-text-section">
+            <p class="intro-paragraph">Welcome to Outback Gems and Minerals, where Australia's geological treasures come to life. For over two decades, we've been passionate collectors and dealers of authentic Australian gemstones and minerals.</p>
+            
+            <p>Our journey began with a simple fascination for the incredible diversity of minerals found across Australia's vast landscape. From the opal fields of Lightning Ridge to the sapphire mines of Queensland, we've traveled extensively to source only the finest specimens for our collection.</p>
+            
+            <p>What sets us apart is our commitment to authenticity and quality. Every piece in our collection is carefully selected and comes with detailed provenance information. We believe that each mineral tells a story of Australia's ancient geological history, and we're passionate about sharing these stories with collectors worldwide.</p>
+            
+            <p>Whether you're a seasoned collector looking for that perfect addition to your collection, or a newcomer to the world of minerals, we're here to help you discover the incredible diversity and beauty of Australian geological treasures.</p>
+
+            <!-- Quote Section -->
+            <div class="text-quote-section">
+              <p class="signature-text">"We believe every collector deserves access to exceptional materials. Our passion is helping you find the perfect specimens for your next project."</p>
+              <div class="signature-name">— The Outback Gems and Minerals Team</div>
             </div>
           </div>
           
-          <div class="about-images-small">
-            <div class="about-image small">
-              <img src="images/main/cz003.jpeg" alt="Premium faceting rough collection" loading="lazy">
-              <div class="image-caption">
-                Premium faceting rough
+          <div class="about-images">
+            <div class="about-image large">
+              <img src="images/main/btf001.jpeg" alt="Beautiful Blue Topaz specimen from our collection" loading="lazy">
+              <div class="image-caption">Beautiful Blue Topaz specimen from our collection</div>
+            </div>
+            
+            <div class="about-images-small">
+              <div class="about-image small">
+                <img src="images/main/bbj002.jpeg" alt="Rare mineral specimen" loading="lazy">
+                <div class="image-caption">Rare specimen from our collection</div>
               </div>
-            </div>
-            <div class="about-image small">
-              <img src="images/main/tmb003.jpeg" alt="Polished tumbled stones" loading="lazy">
-              <div class="image-caption">
-                Finished polished stones
+              
+              <div class="about-image small">
+                <img src="images/main/btf005.jpeg" alt="Premium quality minerals" loading="lazy">
+                <div class="image-caption">Premium quality minerals</div>
               </div>
             </div>
           </div>
@@ -323,7 +316,7 @@
   <!-- Modern Categories Showcase -->
   <section class="modern-categories">
     <div class="categories-container">
-      <div class="section-header">
+      <div class="categories-header">
         <h2>Discover Our Most Popular Selections</h2>
         <p>Explore our customer favorites - premium materials chosen by collectors and lapidary enthusiasts worldwide</p>
       </div>
@@ -335,7 +328,11 @@
             <div class="category-overlay">
               <h3>Faceting Rough</h3>
               <p>Premium cutting material for stunning gemstones</p>
-              <a href="products.html?category=Faceting Rough" class="category-btn">Explore Collection</a>
+              <div class="card-overlay">
+                <button class="quick-view-btn" onclick="window.location.href='products.html?category=Faceting Rough'">
+                  <span>VIEW OUR RANGE</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -346,8 +343,12 @@
             <div class="category-overlay">
               <h3>Lapidary Slabs</h3>
               <p>Beautiful natural patterns for cabochons</p>
-              <a href="products.html?category=Slabs" class="category-btn">View Slabs</a>
             </div>
+          </div>
+          <div class="card-overlay">
+            <button class="quick-view-btn" onclick="window.location.href='products.html?category=Slabs'">
+              <span>VIEW SLABS</span>
+            </button>
           </div>
         </div>
         
@@ -357,8 +358,12 @@
             <div class="category-overlay">
               <h3>Yowah Nuts</h3>
               <p>Mysterious opal-bearing concretions</p>
-              <a href="products.html?category=Raw Material %26 Specimens" class="category-btn">Discover Nuts</a>
             </div>
+          </div>
+          <div class="card-overlay">
+            <button class="quick-view-btn" onclick="event.stopPropagation(); window.location.href='products.html?category=Raw%20Material%20%26%20Specimens&subcategory=Yowah%20Nuts';">
+              <span>DISCOVER NUTS</span>
+            </button>
           </div>
         </div>
         
@@ -368,8 +373,12 @@
             <div class="category-overlay">
               <h3>Washbags</h3>
               <p>Concentrated sapphire-bearing gravel</p>
-              <a href="products.html?category=Raw Material %26 Specimens" class="category-btn">Try Your Luck</a>
             </div>
+          </div>
+          <div class="card-overlay">
+            <button class="quick-view-btn" onclick="event.stopPropagation(); window.location.href='products.html?category=Raw%20Material%20%26%20Specimens&subcategory=Washbags';">
+              <span>TRY YOUR LUCK</span>
+            </button>
           </div>
         </div>
         
@@ -379,8 +388,12 @@
             <div class="category-overlay">
               <h3>Tumbles</h3>
               <p>Polished stones perfect for collecting</p>
-              <a href="products.html?category=Tumbles" class="category-btn">Browse Tumbles</a>
             </div>
+          </div>
+          <div class="card-overlay">
+            <button class="quick-view-btn" onclick="window.location.href='products.html?category=Tumbles'">
+              <span>BROWSE TUMBLES</span>
+            </button>
           </div>
         </div>
       </div>
@@ -393,19 +406,54 @@
 
   <section class="latest-arrivals">
     <div class="latest-arrivals-container">
-      <div class="section-header">
+      <div class="arrivals-header">
         <h2>Latest Arrivals</h2>
         <p>Fresh additions to our collection - discover the newest specimens and materials we've recently sourced for discerning collectors</p>
       </div>
       
-      <div class="arrivals-showcase">
-        <div class="featured-arrival">
-          <!-- Featured product will be injected here by JS -->
+      <div class="arrivals-modern-layout">
+        <!-- Featured New Arrival -->
+        <div class="arrival-featured-card">
+          <div class="featured-arrival-content">
+            <!-- Featured product will be injected here by JS -->
+          </div>
         </div>
         
-        <div class="arrivals-sidebar">
-          <div class="sidebar-arrivals">
-            <!-- Sidebar products will be injected here by JS -->
+        <!-- Recent Arrivals Grid -->
+        <div class="arrivals-grid">
+          <div class="arrival-card tall">
+            <!-- First sidebar product will be injected here by JS -->
+          </div>
+          
+          <div class="arrival-card">
+            <!-- Second sidebar product will be injected here by JS -->
+          </div>
+          
+          <div class="arrival-card">
+            <!-- Third sidebar product will be injected here by JS -->
+          </div>
+          
+          <div class="arrival-card tall">
+            <!-- Fourth sidebar product will be injected here by JS -->
+          </div>
+        </div>
+        
+        <!-- Info Highlight Panel -->
+        <div class="arrivals-info-panel">
+          <div class="info-panel-content">
+            <h3>Always Sourcing</h3>
+            <p>We're always seeking quality products from trusted suppliers and field expeditions to bring you the finest materials.</p>
+            <div class="panel-features">
+              <div class="feature-box">
+                <span class="feature-label">Premium Materials</span>
+              </div>
+              <div class="feature-box">
+                <span class="feature-label">Regular Updates</span>
+              </div>
+              <div class="feature-box">
+                <span class="feature-label">Trusted Sources</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>

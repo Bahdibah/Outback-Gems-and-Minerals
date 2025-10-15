@@ -7,34 +7,25 @@ setInterval(() => {
   document.getElementById("home").style.backgroundImage = `url('${images[current]}')`;
 }, 15000); // Change image every 15 seconds
 
-// #region banner carousel script
-const itemTrack = document.querySelector('.banner');
-const items = document.querySelectorAll('.banner-item');
-const visibleMessages = 1;
-let itemIndex = 0;
+// #region shipping message rotation script
+document.addEventListener("DOMContentLoaded", function () {
+  const shippingMessages = document.querySelectorAll('.shipping-message');
+  let currentMessage = 0;
 
-// Clone first item(s) and append to end only if there are enough items
-if (items.length > visibleMessages) {
-  for (let i = 0; i < visibleMessages; i++) {
-    const clone = items[i].cloneNode(true);
-    itemTrack.appendChild(clone);
+  // Only run if shipping messages exist
+  if (shippingMessages.length > 1) {
+    setInterval(() => {
+      // Remove active class from current message
+      shippingMessages[currentMessage].classList.remove('active');
+      
+      // Move to next message
+      currentMessage = (currentMessage + 1) % shippingMessages.length;
+      
+      // Add active class to new message
+      shippingMessages[currentMessage].classList.add('active');
+    }, 6000); // Change message every 6 seconds (slower)
   }
-}
-
-const totalItems = document.querySelectorAll('.banner-item').length;
-setInterval(() => {
-  itemIndex++;
-  itemTrack.style.transition = 'transform 0.7s ease-in-out';
-  itemTrack.style.transform = `translateX(-${itemIndex * 100}%)`;
-
-  if (itemIndex === totalItems - visibleMessages) {
-    setTimeout(() => {
-      itemTrack.style.transition = 'none';
-      itemTrack.style.transform = `translateX(0%)`;
-      itemIndex = 0;
-    }, 700); // Match the transition duration
-  }
-}, 5000);
+});
 // #endregion
 
 // #region whats new carousel script
@@ -188,18 +179,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // Latest Arrivals Showcase
 document.addEventListener("DOMContentLoaded", function () {
-  const featuredContainer = document.querySelector('.featured-arrival');
-  const sidebarContainer = document.querySelector('.sidebar-arrivals');
+  const featuredContainer = document.querySelector('.arrival-featured-card');
+  const arrivalsGrid = document.querySelector('.arrivals-grid');
+  const arrivalCards = document.querySelectorAll('.arrival-card');
 
-  // Add loading message
-  const loadingMsg = document.createElement("div");
-  loadingMsg.textContent = "Loading Latest Arrivals...";
-  loadingMsg.style.color = "#cc5500";
-  loadingMsg.style.fontSize = "2rem";
-  loadingMsg.style.textAlign = "center";
-  loadingMsg.style.padding = "40px 0";
-  loadingMsg.style.gridColumn = "1 / -1";
-  featuredContainer.appendChild(loadingMsg);
+  // Add loading message to featured container
+  if (featuredContainer) {
+    const loadingMsg = document.createElement("div");
+    loadingMsg.textContent = "Loading Latest Arrivals...";
+    loadingMsg.style.color = "#cc5500";
+    loadingMsg.style.fontSize = "1.2rem";
+    loadingMsg.style.textAlign = "center";
+    loadingMsg.style.padding = "20px";
+    featuredContainer.appendChild(loadingMsg);
+  }
 
   getProductData()
     .then(data => {
@@ -219,63 +212,63 @@ document.addEventListener("DOMContentLoaded", function () {
       
       // Shuffle and select from new items
       const shuffled = newItems.sort(() => 0.5 - Math.random());
-      const featuredProduct = shuffled[0];
-      const sidebarProducts = shuffled.slice(1, 4);
-
-      // Clear loading message
-      featuredContainer.innerHTML = "";
-      sidebarContainer.innerHTML = "";
-
-      // Create featured product
-      if (featuredProduct) {
+      const selectedProducts = shuffled.slice(0, arrivalCards.length + 1); // +1 for featured
+      
+      // Clear loading message and populate featured card
+      if (featuredContainer && selectedProducts[0]) {
+        const featuredProduct = selectedProducts[0];
         featuredContainer.innerHTML = `
-          <div class="image-container">
-            <img src="${featuredProduct["image url"]}" alt="${featuredProduct["product name"] || "Featured Product"}" loading="lazy">
-            <div class="featured-badge">Featured</div>
+          <div class="featured-image">
+            <img src="${featuredProduct["image url"]}" alt="${featuredProduct["product name"]}" loading="lazy">
           </div>
-          <div class="card-content">
-            <div class="text-content">
-              <h3>${featuredProduct["product name"]}</h3>
-              <div class="price">${calculatePriceDisplay(data, featuredProduct["product id"])}</div>
-              <div class="description">${featuredProduct.description || "Premium quality specimen perfect for collectors and lapidary enthusiasts."}</div>
-            </div>
-            <button class="view-product-btn">View</button>
+          <div class="featured-content">
+            <h3>${featuredProduct["product name"]}</h3>
+            <div class="featured-price">${calculatePriceDisplay(data, featuredProduct["product id"])}</div>
+            <p class="featured-description">${featuredProduct.description || "Premium quality specimen perfect for collectors."}</p>
+            <button class="featured-cta">View Details</button>
           </div>
         `;
         
-        const featuredBtn = featuredContainer.querySelector(".view-product-btn");
+        const featuredBtn = featuredContainer.querySelector(".featured-cta");
         featuredBtn.addEventListener("click", function() {
           window.location.href = `view-product.html?productid=${encodeURIComponent(featuredProduct["product id"])}`;
         });
       }
 
-      // Create sidebar products
-      sidebarProducts.forEach(product => {
-        const sidebarCard = document.createElement("div");
-        sidebarCard.className = "sidebar-arrival";
-        sidebarCard.innerHTML = `
-          <div class="image-container">
-            <img src="${product["image url"]}" alt="${product["product name"] || "Product"}" loading="lazy">
-          </div>
-          <div class="content">
-            <h4>${product["product name"]}</h4>
-            <div class="price">${calculatePriceDisplay(data, product["product id"])}</div>
-            <button class="sidebar-btn">View</button>
-          </div>
-        `;
-        
-        const btn = sidebarCard.querySelector(".sidebar-btn");
-        btn.addEventListener("click", function(e) {
-          e.stopPropagation();
-          window.location.href = `view-product.html?productid=${encodeURIComponent(product["product id"])}`;
-        });
-        
-        sidebarContainer.appendChild(sidebarCard);
+      // Populate arrival cards
+      arrivalCards.forEach((card, index) => {
+        const product = selectedProducts[index + 1]; // +1 to skip featured product
+        if (product) {
+          card.innerHTML = `
+            <div class="card-image">
+              <img src="${product["image url"]}" alt="${product["product name"]}" loading="lazy">
+              <div class="card-overlay">
+                <button class="quick-view-btn">
+                  View
+                </button>
+              </div>
+            </div>
+            <div class="card-content">
+              <h4>${product["product name"]}</h4>
+              <div class="card-price">${calculatePriceDisplay(data, product["product id"])}</div>
+            </div>
+          `;
+          
+          const quickViewBtn = card.querySelector(".quick-view-btn");
+          quickViewBtn.addEventListener("click", function(e) {
+            e.stopPropagation();
+            window.location.href = `view-product.html?productid=${encodeURIComponent(product["product id"])}`;
+          });
+        }
       });
     })
     .catch(error => {
-      featuredContainer.innerHTML = "<p style='color:#cc5500; font-size:1.5rem; text-align:center; padding:40px 0;'>Failed to load featured product.</p>";
-      sidebarContainer.innerHTML = "<p style='color:#cc5500; font-size:1rem; text-align:center; padding:20px 0;'>Failed to load products.</p>";
+      if (featuredContainer) {
+        featuredContainer.innerHTML = "<p style='color:#cc5500; text-align:center; padding:20px;'>Failed to load featured product.</p>";
+      }
+      arrivalCards.forEach(card => {
+        card.innerHTML = "<p style='color:#cc5500; text-align:center; padding:20px;'>Failed to load</p>";
+      });
       console.error(error);
     });
 });
