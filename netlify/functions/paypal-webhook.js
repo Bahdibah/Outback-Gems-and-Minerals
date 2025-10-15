@@ -3,11 +3,27 @@ const { Resend } = require('resend');
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+// In-memory store for processed PayPal payments with timestamps (resets on function restart)
+// For production, consider using a database or external cache
+const processedPayments = new Map(); // Changed to Map to store timestamps
+
+// Clean up old entries every hour to prevent memory bloat
+setInterval(() => {
+  const oneHourAgo = Date.now() - (60 * 60 * 1000);
+  for (const [paymentId, timestamp] of processedPayments.entries()) {
+    if (timestamp < oneHourAgo) {
+      processedPayments.delete(paymentId);
+    }
+  }
+}, 60 * 60 * 1000);
+
 exports.handler = async (event) => {
   console.log('🚀 PayPal webhook triggered');
-  console.log('📋 Headers:', JSON.stringify(event.headers, null, 2));
+  console.log('� Timestamp:', new Date().toISOString());
+  console.log('�📋 Headers:', JSON.stringify(event.headers, null, 2));
   console.log('📋 Method:', event.httpMethod);
   console.log('📋 Body length:', event.body ? event.body.length : 0);
+  console.log('📋 Raw body preview:', event.body ? event.body.substring(0, 200) + '...' : 'No body');
   
   // Only allow POST requests
   if (event.httpMethod !== 'POST') {
@@ -55,15 +71,27 @@ exports.handler = async (event) => {
 
   // Handle the event
   try {
+    console.log(`🎯 PayPal Event Type Received: ${paypalEvent.event_type}`);
+    
     switch (paypalEvent.event_type) {
       case 'PAYMENT.CAPTURE.COMPLETED':
+        console.log('✅ Handling PAYMENT.CAPTURE.COMPLETED');
+        await handlePaymentCaptureCompleted(paypalEvent);
+        break;
+      case 'CHECKOUT.ORDER.COMPLETED':
+        console.log('✅ Handling CHECKOUT.ORDER.COMPLETED (redirecting to capture handler)');
+        await handlePaymentCaptureCompleted(paypalEvent);
+        break;
+      case 'PAYMENT.SALE.COMPLETED':
+        console.log('✅ Handling PAYMENT.SALE.COMPLETED (redirecting to capture handler)');
         await handlePaymentCaptureCompleted(paypalEvent);
         break;
       case 'CHECKOUT.ORDER.APPROVED':
-        console.log('Order approved, waiting for capture...');
+        console.log('⏳ Order approved, waiting for capture...');
         break;
       default:
-        console.log(`Unhandled PayPal event type: ${paypalEvent.event_type}`);
+        console.log(`❌ UNHANDLED PayPal event type: ${paypalEvent.event_type}`);
+        console.log('📋 Full event data for unhandled type:', JSON.stringify(paypalEvent, null, 2));
     }
 
     return {
@@ -80,12 +108,42 @@ exports.handler = async (event) => {
 };
 
 async function handlePaymentCaptureCompleted(event) {
-  console.log('🎯 Processing PayPal payment capture:', event.id);
+  console.log('🚀 PAYPAL: Processing PayPal payment capture:', event.id);
+  console.log('🕐 PAYPAL: Current timestamp:', new Date().toISOString());
+  console.log('🔢 PAYPAL: Currently tracking', processedPayments.size, 'processed payments');
+
+  // Create unique identifier for this payment (use both event ID and capture ID for extra safety)
+  const capture = event.resource;
+  const orderId = capture.supplementary_data?.related_ids?.order_id;
+  const paymentId = `${event.id}-${capture.id}`;
+  
+  console.log('🔍 PAYPAL: Payment ID:', paymentId, '| Order ID:', orderId);
+  
+  // Check if we've already processed this payment
+  if (processedPayments.has(paymentId)) {
+    const processedTime = new Date(processedPayments.get(paymentId)).toISOString();
+    console.log(`❌ PAYPAL: Payment ${paymentId} already processed at ${processedTime} - skipping to prevent duplicates`);
+    return;
+  }
+
+  // Also check by order ID if available
+  if (orderId && processedPayments.has(orderId)) {
+    const processedTime = new Date(processedPayments.get(orderId)).toISOString();
+    console.log(`❌ PAYPAL: Order ${orderId} already processed at ${processedTime} - skipping to prevent duplicates`);
+    return;
+  }
+
+  // Mark this payment as being processed with timestamp (use both IDs)
+  const timestamp = Date.now();
+  processedPayments.set(paymentId, timestamp);
+  if (orderId) {
+    processedPayments.set(orderId, timestamp);
+  }
+  console.log(`✅ PAYPAL: Marked payment ${paymentId} and order ${orderId} as processing at ${new Date(timestamp).toISOString()}`);
+
   console.log('📦 Full event data:', JSON.stringify(event, null, 2));
 
   try {
-    const capture = event.resource;
-    const orderId = capture.supplementary_data?.related_ids?.order_id;
     
     console.log('🔍 Capture resource:', JSON.stringify(capture, null, 2));
     console.log('📋 Order ID extracted:', orderId);
@@ -183,16 +241,23 @@ async function handlePaymentCaptureCompleted(event) {
     }
 
     // Send shipping notification email (reusing Stripe email function)
-    console.log('📋 About to send email with orderData keys:', Object.keys(orderData));
-    console.log('📋 OrderData lineItems length:', orderData.lineItems?.length);
+    console.log('� PAYPAL EMAIL: About to send email with orderData keys:', Object.keys(orderData));
+    console.log('� PAYPAL EMAIL: OrderData lineItems length:', orderData.lineItems?.length);
+    console.log('📧 PAYPAL EMAIL: Customer email:', orderData.customerEmail);
+    console.log('📧 PAYPAL EMAIL: Order total:', orderData.orderTotal);
     
     const emailResult = await sendShippingNotificationEmail(orderData);
-    console.log('📧 Email sending result:', emailResult);
+    console.log('📧 PAYPAL EMAIL: Email sending result:', emailResult);
 
-    console.log('Successfully processed PayPal order:', orderData.sessionId);
+    console.log('🎉 PAYPAL: Successfully processed PayPal order:', orderData.sessionId, '- Email sent');
 
   } catch (error) {
-    console.error('Error processing PayPal payment capture:', error);
+    console.error('💥 PAYPAL: Error processing PayPal payment capture:', error);
+    // Remove from processed maps so it can be retried if webhook is called again
+    processedPayments.delete(paymentId);
+    if (orderId) {
+      processedPayments.delete(orderId);
+    }
     throw error;
   }
 }
@@ -347,37 +412,48 @@ function generateShippingEmailTemplate(orderData) {
 
 // Reuse inventory update function
 async function updateInventoryStock(productId, weight, quantityPurchased) {
+  console.log(`🔄 PAYPAL INVENTORY: Attempting to update ${productId}, weight: ${weight}, quantity: ${quantityPurchased}`);
+  
   try {
     const googleSheetsUpdateUrl = process.env.GOOGLE_SHEETS_INVENTORY_UPDATE_URL;
     
     if (!googleSheetsUpdateUrl) {
-      console.log('Google Sheets update URL not configured, skipping inventory update');
+      console.log('❌ Google Sheets update URL not configured, skipping inventory update');
       return;
     }
+
+    console.log('📡 PAYPAL INVENTORY: Sending request to Apps Script...');
+    
+    const requestBody = {
+      action: 'updateStock',
+      productId: productId,
+      weight: weight,
+      quantityToReduce: quantityPurchased
+    };
+    
+    console.log('📋 PAYPAL INVENTORY: Request body:', JSON.stringify(requestBody, null, 2));
 
     const response = await fetch(googleSheetsUpdateUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        action: 'updateStock',
-        productId: productId,
-        weight: weight,
-        quantityToReduce: quantityPurchased
-      })
+      body: JSON.stringify(requestBody)
     });
 
+    console.log(`📊 PAYPAL INVENTORY: Apps Script response status: ${response.status}`);
+
     if (!response.ok) {
-      console.error('Failed to update inventory:', response.statusText);
+      const errorText = await response.text();
+      console.error('❌ PAYPAL INVENTORY: Failed to update inventory:', response.status, response.statusText, errorText);
       return;
     }
 
     const result = await response.json();
-    console.log('Inventory updated successfully:', result);
+    console.log('✅ PAYPAL INVENTORY: Updated successfully:', result);
 
   } catch (error) {
-    console.error('Error updating inventory:', error);
+    console.error('💥 PAYPAL INVENTORY: Error updating inventory:', error);
   }
 }
 
