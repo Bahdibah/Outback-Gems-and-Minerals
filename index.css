@@ -372,13 +372,6 @@ margin-bottom: 5px;
   margin: 40px 0% 60px 0%;
 }
 
-.newsletter-divider {
-  height: 1px;
-  background-color: #cc5500;
-  width: 80%;
-  margin: 80px auto 0 auto;
-}
-
 /* Modern What's New Section */
 /* ================================ */
 /* LATEST ARRIVALS SECTION STYLES */
@@ -1028,11 +1021,42 @@ form textarea {
   text-align: center;
 }
 
+/* Newsletter Header - matches other section headers */
+.newsletter-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.newsletter-header h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 15px;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.newsletter-header .header-accent {
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, #cc5500, #ff7f33);
+  margin: 0 auto 20px;
+  border-radius: 2px;
+}
+
+.newsletter-header p {
+  font-size: 1.2rem;
+  color: #d0d0d0;
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
 .newsletter-container h2 {
-  font-size: 3rem; /* 20% larger font size */
-  color: #cc5500;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 15px;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .newsletter-container p {
@@ -1264,6 +1288,7 @@ button {
   }
   .newsletter-container h2 {
     font-size: 2rem;
+    color: #fff;
   }
   .dynamic-product-header-title, .categories-header h2, .arrivals-header h2 {
     font-size: 2.2rem;
@@ -1336,6 +1361,7 @@ button {
   }
   .newsletter-container h2 {    
     font-size: 1.5rem;
+    color: #fff;
   }
   .newsletter-container p {
     font-size: 1rem;
