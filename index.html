@@ -329,7 +329,7 @@
               <h3>Faceting Rough</h3>
               <p>Premium cutting material for stunning gemstones</p>
               <div class="card-overlay">
-                <button class="quick-view-btn" onclick="window.location.href='products.html?category=Faceting Rough'">
+                <button class="quick-view-btn" data-category-link="Faceting Rough">
                   <span>VIEW OUR RANGE</span>
                 </button>
               </div>
@@ -346,7 +346,7 @@
             </div>
           </div>
           <div class="card-overlay">
-            <button class="quick-view-btn" onclick="window.location.href='products.html?category=Slabs'">
+            <button class="quick-view-btn" data-category-link="Slabs">
               <span>VIEW SLABS</span>
             </button>
           </div>
@@ -361,7 +361,7 @@
             </div>
           </div>
           <div class="card-overlay">
-            <button class="quick-view-btn" onclick="event.stopPropagation(); window.location.href='products.html?category=Raw%20Material%20%26%20Specimens%7Cyowah%20nuts';">
+            <button class="quick-view-btn" data-category-link="Raw%20Material%20%26%20Specimens%7Cyowah%20nuts">
               <span>DISCOVER NUTS</span>
             </button>
           </div>
@@ -376,7 +376,7 @@
             </div>
           </div>
           <div class="card-overlay">
-            <button class="quick-view-btn" onclick="event.stopPropagation(); window.location.href='view-product.html?productid=sw001';">
+            <button class="quick-view-btn" data-product-link="sw001">
               <span>TRY YOUR LUCK</span>
             </button>
           </div>
@@ -391,7 +391,7 @@
             </div>
           </div>
           <div class="card-overlay">
-            <button class="quick-view-btn" onclick="window.location.href='products.html?category=Tumbles'">
+            <button class="quick-view-btn" data-category-link="Tumbles">
               <span>BROWSE TUMBLES</span>
             </button>
           </div>
@@ -468,20 +468,22 @@
     <div class="newsletter-container">
       <div class="newsletter-header">
         <h2>Sign Up for Our Newsletter</h2>
-        <div class="header-accent"></div>
         <p>Sign up here to stay updated with the latest news and offers from Outback Gems & Minerals</p>
       </div>
-      <form action="https://script.google.com/macros/s/AKfycbxXCspp43Dd21cSB34eju-qTBLi01vVFrwzEuZzvDViB5QmKf7dqLlWPin2Ijr-B6X1IA/exec" method="post" name="newsletter-form">
-        <input type="email" name="email" autocomplete="email" placeholder="you@example.com" required />
+      
+      <div class="newsletter-content">
+        <form action="https://script.google.com/macros/s/AKfycbxXCspp43Dd21cSB34eju-qTBLi01vVFrwzEuZzvDViB5QmKf7dqLlWPin2Ijr-B6X1IA/exec" method="post" name="newsletter-form">
+          <input type="email" name="email" autocomplete="email" placeholder="you@example.com" required />
+          
+          <!-- Honeypot field - hidden from users but visible to bots -->
+          <div class="honeypot-field" aria-hidden="true">
+            <label for="newsletter-website">Website (leave blank):</label>
+            <input type="text" id="newsletter-website" name="website" tabindex="-1" autocomplete="off" />
+          </div>
         
-        <!-- Honeypot field - hidden from users but visible to bots -->
-        <div class="honeypot-field" aria-hidden="true">
-          <label for="newsletter-website">Website (leave blank):</label>
-          <input type="text" id="newsletter-website" name="website" tabindex="-1" autocomplete="off" />
-        </div>
-        
-        <button type="submit">Subscribe</button>
-      </form>
+          <button type="submit">Subscribe</button>
+        </form>
+      </div>
     </div>
   </section>
 

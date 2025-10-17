@@ -272,3 +272,27 @@ document.addEventListener("DOMContentLoaded", function () {
       console.error(error);
     });
 });
+
+// #region Category Quick View Button Handlers
+document.addEventListener("DOMContentLoaded", function () {
+  // Handle category navigation buttons
+  const categoryButtons = document.querySelectorAll('.quick-view-btn[data-category-link]');
+  categoryButtons.forEach(button => {
+    button.addEventListener('click', function(event) {
+      event.stopPropagation();
+      const category = this.getAttribute('data-category-link');
+      window.location.href = `products.html?category=${category}`;
+    });
+  });
+
+  // Handle product navigation buttons
+  const productButtons = document.querySelectorAll('.quick-view-btn[data-product-link]');
+  productButtons.forEach(button => {
+    button.addEventListener('click', function(event) {
+      event.stopPropagation();
+      const productId = this.getAttribute('data-product-link');
+      window.location.href = `view-product.html?productid=${productId}`;
+    });
+  });
+});
+// #endregion

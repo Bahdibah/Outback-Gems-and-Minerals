@@ -370,15 +370,6 @@ footer a:visited {
   margin-bottom: 5px;
 }
 
-.about-us ul {
-list-style-type: disc;
-padding-left: 20px;
-}
-
-.about-us ul li {
-margin-bottom: 5px;
-}
-
 .divider {
   height: 1px;
   background-color: #cc5500;
@@ -397,19 +388,23 @@ margin-bottom: 5px;
   background: #2e2e2e;
   margin: 0;
   position: relative;
+  overflow: hidden;
 }
 
 .latest-arrivals-container {
-  max-width: 1400px;
+  max-width: 1200px;
   margin: 0 auto;
   position: relative;
   z-index: 1;
+  padding: 40px 20px;
+  border-radius: 15px;
 }
 
 /* Latest Arrivals Header */
 .arrivals-header {
   text-align: center;
   margin-bottom: 40px;
+  grid-column: 1 / -1;
 }
 
 .arrivals-header h2 {
@@ -449,7 +444,7 @@ margin-bottom: 5px;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(3, minmax(200px, auto));
   gap: 25px;
-  margin-bottom: 80px;
+  margin-bottom: 50px;
 }
 
 /* Featured Arrival Card - Spans 2x2 */
@@ -993,15 +988,6 @@ margin-bottom: 5px;
   display: inline-block;
 }
 
-.product-button:hover {
-  background-color: #ff7f33;
-  transform: translateY(-2px);
-}
-
-.product-button:active {
-  background-color: #b34700;
-}
-
 form label {
   margin-top: 15px;
   font-weight: bold;
@@ -1038,7 +1024,7 @@ form textarea {
 /* Newsletter Header - matches other section headers */
 .newsletter-header {
   text-align: center;
-  margin-bottom: 60px;
+  margin-bottom: 40px;
 }
 
 .newsletter-header h2 {
@@ -1047,13 +1033,19 @@ form textarea {
   color: #fff;
   margin-bottom: 15px;
   text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  position: relative;
+  display: inline-block;
 }
 
-.newsletter-header .header-accent {
-  width: 80px;
-  height: 4px;
+.newsletter-header h2::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
   background: linear-gradient(90deg, #cc5500, #ff7f33);
-  margin: 0 auto 20px;
   border-radius: 2px;
 }
 
@@ -1065,53 +1057,68 @@ form textarea {
   margin: 0 auto;
 }
 
-.newsletter-container h2 {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: #fff;
-  margin-bottom: 15px;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.newsletter-container p {
-  color: #bfbfbfd2; /* Header color */
-  margin-top: -20px;
-  font-size: 1.2rem;
-  display: flex;
-  text-align: center;
+/* Newsletter Content - matches other section spacing */
+.newsletter-content {
+  margin-bottom: 50px;
 }
 
 .newsletter-container form {
-  width: 50%;
+  max-width: 1350px;
+  width: 100%;
   display: flex;
-  gap: 5%;  
-  padding: 10px;
+  gap: 20px;  
+  padding: 0;
   justify-content: center;
-  align-items: center;  
+  align-items: center;
+  margin: 0 auto;
 }
 
 .newsletter-container form input[type='email'] {
-  width: 80%;
-  padding: 14px;
-  font-size: 1.1rem;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  margin: auto;
+  flex: 1;
+  min-width: 675px;
+  padding: 16px 20px;
+  font-size: 1.2rem;
+  border: 2px solid #555;
+  border-radius: 8px;
+  background: #3a3a3a;
+  color: #fff;
+  outline: none;
+  transition: border-color 0.3s ease;
+  height: 56px;
+  box-sizing: border-box;
+}
+
+.newsletter-container form input[type='email']:focus {
+  border-color: #cc5500;
+}
+
+.newsletter-container form input[type='email']::placeholder {
+  color: #aaa;
 }
 
 .newsletter-container form button { 
-  background-color: #cc5500;
+  background: linear-gradient(135deg, #cc5500, #ff7f33);
   color: #fff;
-  font-weight: bold;
-  border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border stays */
-  padding: 14px 32px;
-  font-size: 1.25rem;
-  border-radius: 5px;
+  font-weight: 600;
+  border: none;
+  padding: 16px 24px;
+  font-size: 1.1rem;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
-  display: inline-block;
-  margin-top: 0px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(204, 85, 0, 0.3);
+  height: 56px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.newsletter-container form button:hover {
+  background: linear-gradient(135deg, #ff7f33, #ffaa66);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(204, 85, 0, 0.4);
 }
 
 /* Product name styling */
@@ -1974,14 +1981,17 @@ button {
 }
 
 .categories-container {
-  max-width: 1400px;
+  max-width: 1200px;
   margin: 0 auto;
+  padding: 40px 20px;
+  border-radius: 15px;
 }
 
 /* Categories Header - Section Specific */
 .categories-header {
   text-align: center;
   margin-bottom: 40px;
+  grid-column: 1 / -1;
 }
 
 .categories-header h2 {
@@ -2015,52 +2025,12 @@ button {
   line-height: 1.6;
 }
 
-.categories-container {
-  padding: 40px 20px;
-  border-radius: 15px;
-  margin: 40px auto;
-  max-width: 1200px;
-}
-
 .categories-grid {
   display: grid;
   grid-template-columns: 2fr 1fr 1fr;
   grid-template-rows: auto auto;
   gap: 25px;
-  margin-bottom: 0px;
-}
-
-.categories-header {
-  grid-column: 1 / -1;
-  text-align: center;
-  margin-bottom: 40px;
-}
-
-.latest-arrivals {
-  padding: 40px 0;
-  position: relative;
-  overflow: hidden;
-}
-
-.latest-arrivals-container {
-  padding: 40px 20px;
-  border-radius: 15px;
-  margin: 0 auto;
-  max-width: 1200px;
-}
-
-.arrivals-modern-layout {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(3, minmax(200px, auto));
-  gap: 25px;
   margin-bottom: 50px;
-}
-
-.arrivals-header {
-  grid-column: 1 / -1;
-  text-align: center;
-  margin-bottom: 40px;
 }
 
 .category-card.large {

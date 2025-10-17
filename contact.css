@@ -211,6 +211,7 @@ body {
 .faq-header {
   text-align: center;
   margin-bottom: 60px;
+  position: relative;
 }
 
 .faq-header h2 {
@@ -235,17 +236,6 @@ body {
   line-height: 1.6;
   max-width: 600px;
   margin: 0 auto;
-}
-
-.contact-form-header {
-  text-align: center;
-}
-
-.contact-form-header h2 {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: #fff;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .contact-form-header .header-accent {
@@ -394,12 +384,6 @@ footer >div{
   text-align: center;
 }
 
-.faq-header {
-  text-align: center;
-  margin-bottom: 60px;
-  position: relative;
-}
-
 .faq-header h2 {
   font-size: 2.5rem;
   color: #ffffff;
@@ -434,10 +418,6 @@ footer >div{
   font-weight: 400;
   margin: 60px auto 0;
   padding: 24px 32px;
-  background: rgba(204, 85, 0, 0.1);
-  border: 1px solid rgba(204, 85, 0, 0.3);
-  border-radius: 12px;
-  backdrop-filter: blur(10px);
   max-width: 600px;
 }
 
@@ -456,6 +436,10 @@ footer >div{
 .faq-box:nth-child(1) {
   grid-column: 1 / 4;
   grid-row: 1;
+  padding: 40px;
+  min-height: 160px;
+  background: linear-gradient(135deg, #3a3a3a 0%, #2a2a2a 100%);
+  border: 1px solid rgba(204, 85, 0, 0.3);
 }
 
 /* Second row - 3 boxes */
@@ -491,24 +475,15 @@ footer >div{
 }
 
 .faq-box {
-  background: rgba(255, 255, 255, 0.08);
+  background: linear-gradient(135deg, #3a3a3a 0%, #2a2a2a 100%);
   border: 1px solid rgba(204, 85, 0, 0.3);
-  border-radius: 20px;
+  border-radius: 8px;
   padding: 30px;
   position: relative;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  backdrop-filter: blur(10px);
   overflow: hidden;
   cursor: pointer;
   min-height: 140px;
-}
-
-/* Make the featured box larger and more prominent */
-.faq-box:nth-child(1) {
-  padding: 40px;
-  min-height: 160px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(204, 85, 0, 0.3);
 }
 
 /* Specific styling for the featured card title to match others */
@@ -528,19 +503,6 @@ footer >div{
   align-items: flex-start;
   gap: 12px;
   line-height: 1.3;
-}
-
-.faq-box::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(135deg, rgba(204, 85, 0, 0.05), rgba(255, 127, 51, 0.02));
-  opacity: 0.3;
-  transition: opacity 0.4s ease;
-  pointer-events: none;
 }
 
 .faq-box::after {
@@ -652,7 +614,7 @@ footer >div{
 /* Left Side - Header Section */
 .contact-form-header {
   flex: 1;
-  background: linear-gradient(135deg, #8a3a00 0%, #b8570f 100%);
+  background: linear-gradient(135deg, #cc5500, #ff7f33);
   padding: 50px 40px;
   display: flex;
   flex-direction: column;
@@ -688,7 +650,7 @@ footer >div{
 .contact-form-header .header-accent {
   width: 60px;
   height: 4px;
-  background: #ffffff;
+  background: linear-gradient(90deg, #cc5500, #ff7f33);
   margin: 0 auto 20px auto;
   border-radius: 2px;
   position: relative;
@@ -709,12 +671,13 @@ footer >div{
 /* Right Side - Form Section */
 form {
   flex: 1;
-  background: #2e2e2e;
+  background:linear-gradient(135deg, #3a3a3a 0%, #2a2a2a 100%);
+  border: 1px solid rgba(204, 85, 0, 0.3);
+  border-radius: 0 8px 8px 0;
   padding: 50px 40px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  border-radius: 0;
   box-shadow: none;
   position: relative;
   align-self: stretch;
@@ -782,7 +745,7 @@ form textarea {
 }
 
 form button {
-  background: #cc5500;
+  background: linear-gradient(135deg, #cc5500, #ff7f33);
   color: #ffffff;
   border: none;
   padding: 12px 24px;
@@ -798,7 +761,7 @@ form button {
 }
 
 form button:hover {
-  background: #ff7f33;
+  background: linear-gradient(135deg, #ff7f33, #cc5500);
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(204, 85, 0, 0.3);
 }
