@@ -2,6 +2,13 @@
   --navbar-height: 70px;
 }
 
+/* Prevent horizontal dragging and scrolling */
+html, body {
+  overflow-x: hidden;
+  touch-action: pan-y pinch-zoom;
+  overscroll-behavior-x: none;
+}
+
 /* Utility classes to replace inline styles */
 .hidden {
   display: none;

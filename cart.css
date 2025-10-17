@@ -1,3 +1,10 @@
+/* Prevent horizontal dragging and scrolling */
+html, body {
+  overflow-x: hidden;
+  touch-action: pan-y pinch-zoom;
+  overscroll-behavior-x: none;
+}
+
 /* General Styles */
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;

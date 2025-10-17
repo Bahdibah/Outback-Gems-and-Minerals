@@ -1,3 +1,10 @@
+/* Prevent horizontal dragging and scrolling */
+html, body {
+  overflow-x: hidden;
+  touch-action: pan-y pinch-zoom;
+  overscroll-behavior-x: none;
+}
+
 /* Sitemap specific styles */
 .sitemap-container {
   max-width: 1200px;

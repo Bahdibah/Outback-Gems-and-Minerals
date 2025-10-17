@@ -1,3 +1,10 @@
+/* Prevent horizontal dragging and scrolling */
+html, body {
+  overflow-x: hidden;
+  touch-action: pan-y pinch-zoom;
+  overscroll-behavior-x: none;
+}
+
 body {
   min-height: 100vh;
   display: flex;

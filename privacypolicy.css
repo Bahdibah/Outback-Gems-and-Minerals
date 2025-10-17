@@ -8,6 +8,13 @@
   --border-color: rgba(204, 85, 0, 0.3);
 }
 
+/* Prevent horizontal dragging and scrolling */
+html, body {
+  overflow-x: hidden;
+  touch-action: pan-y pinch-zoom;
+  overscroll-behavior-x: none;
+}
+
 body {
     background-color: var(--background-color);
     color: var(--text-color);
