@@ -49,121 +49,7 @@ body {
   letter-spacing: 1px;
 }
 
-/* Shipping Notice Styles */
-.shipping-notice-container {
-  margin: 20px auto;
-  max-width: 1200px;
-  padding: 0 20px;
-}
 
-.shipping-notice {
-  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-  border-radius: 12px;
-  padding: 20px;
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  box-shadow: 0 4px 15px rgba(30, 60, 114, 0.2);
-  border-left: 4px solid #cc5500;
-}
-
-.notice-icon {
-  flex-shrink: 0;
-}
-
-.notice-icon i {
-  font-size: 24px;
-  color: #ffd700;
-}
-
-.notice-content h3 {
-  margin: 0 0 8px 0;
-  color: #ffffff;
-  font-size: 18px;
-  font-weight: 600;
-}
-
-.notice-content p {
-  margin: 0;
-  color: #e0e6ed;
-  font-size: 14px;
-  line-height: 1.4;
-}
-
-@media (max-width: 768px) {
-  .shipping-notice {
-    padding: 15px;
-    flex-direction: column;
-    text-align: center;
-  }
-  
-  .shipping-notice-container {
-    margin: 15px auto;
-    padding: 0 15px;
-  }
-  
-  .notice-content h3 {
-    font-size: 16px;
-  }
-}
-
-/* Shipping Notice Styles */
-.shipping-notice-container {
-  margin: 20px auto;
-  max-width: 1200px;
-  padding: 0 20px;
-}
-
-.shipping-notice {
-  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-  border-radius: 12px;
-  padding: 20px;
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  box-shadow: 0 4px 15px rgba(30, 60, 114, 0.2);
-  border-left: 4px solid #cc5500;
-}
-
-.notice-icon {
-  flex-shrink: 0;
-}
-
-.notice-icon i {
-  font-size: 24px;
-  color: #ffd700;
-}
-
-.notice-content h3 {
-  margin: 0 0 8px 0;
-  color: #ffffff;
-  font-size: 18px;
-  font-weight: 600;
-}
-
-.notice-content p {
-  margin: 0;
-  color: #e0e6ed;
-  font-size: 14px;
-  line-height: 1.4;
-}
-
-@media (max-width: 768px) {
-  .shipping-notice {
-    padding: 15px;
-    flex-direction: column;
-    text-align: center;
-  }
-  
-  .shipping-notice-container {
-    margin: 15px auto;
-    padding: 0 15px;
-  }
-  
-  .notice-content h3 {
-    font-size: 16px;
-  }
-}
 
 .pre-cart-trust-section {
   width: 85%;
@@ -2300,6 +2186,61 @@ div.modal-content * {
   color: #4ade80;
 }
 
+/* Policy Links */
+.policy-links {
+  text-align: center;
+  margin: 25px 0 15px 0;
+  padding: 0;
+  background: transparent;
+  border: none;
+}
+
+.policy-links p {
+  margin: 0;
+  font-size: 18px;
+  color: #aaa;
+  line-height: 1.5;
+}
+
+.policy-links a {
+  color: #cc5500;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.policy-links a:hover {
+  color: #ff7f33;
+  text-decoration: underline;
+}
+
+/* Footer Policy Links */
+.footer-middle p:last-child a {
+  color: #888;
+  text-decoration: none;
+  font-size: 13px;
+  transition: color 0.3s ease;
+}
+
+.footer-middle p:last-child a:hover {
+  color: #cc5500;
+  text-decoration: underline;
+}
+
+/* Footer link styling - general */
+footer a {
+  color: #cc5500 !important;
+  text-decoration: none !important;
+}
+
+footer a:hover {
+  color: #ff7f33 !important;
+}
+
+footer a:visited {
+  color: #cc5500 !important;
+}
+
 /* Checkout Action Buttons - Override conflicting styles */
 .checkout-actions {
   display: grid;
@@ -2684,16 +2625,7 @@ div.modal-content * {
   #cart-table colgroup col:nth-child(1) { width: 57% !important; } /* Give product more space */
 }
 
-/* Shipping Notice Link Styles */
-.shipping-notice .notice-content a {
-  color: #ffd700 !important;
-  text-decoration: underline !important;
-}
 
-.shipping-notice .notice-content a:hover {
-  color: #ffed4a !important;
-  text-decoration: none !important;
-}
 
 /* International Shipping Payment Restrictions */
 .disabled-payment {

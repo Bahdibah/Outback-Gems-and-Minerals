@@ -67,7 +67,7 @@ button:active, .button:active {
 
 
 section {
-    padding: 60px 20px;
+    padding: 40px 20px;
 }
 
 header {
@@ -305,13 +305,27 @@ footer >div{
   align-items: center;
 }
 
+/* Footer link styling */
+footer a {
+  color: #cc5500 !important;
+  text-decoration: none !important;
+}
+
+footer a:hover {
+  color: #ff7f33 !important;
+}
+
+footer a:visited {
+  color: #cc5500 !important;
+}
+
 /* About Us Section */
 .about-us {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 24px;
-  padding: 60px 20px;
+  padding: 40px 20px;
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -379,7 +393,7 @@ margin-bottom: 5px;
 
 /* Latest Arrivals Container */
 .latest-arrivals {
-  padding: 80px 20px;
+  padding: 40px 20px;
   background: #2e2e2e;
   margin: 0;
   position: relative;
@@ -395,7 +409,7 @@ margin-bottom: 5px;
 /* Latest Arrivals Header */
 .arrivals-header {
   text-align: center;
-  margin-bottom: 60px;
+  margin-bottom: 40px;
 }
 
 .arrivals-header h2 {
@@ -435,7 +449,7 @@ margin-bottom: 5px;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(3, minmax(200px, auto));
   gap: 25px;
-  margin-bottom: 50px;
+  margin-bottom: 80px;
 }
 
 /* Featured Arrival Card - Spans 2x2 */
@@ -1432,7 +1446,7 @@ button {
 /* Modern Hero Stats Section */
 .modern-hero-stats {
   background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
-  padding: 60px 20px;
+  padding: 40px 20px;
   border-top: 3px solid #cc5500;
   position: relative;
 }
@@ -1678,7 +1692,7 @@ button {
 
 /* About Article Section */
 .about-article {
-  padding: 60px 20px;
+  padding: 40px 20px;
   background: #2e2e2e;
 }
 
@@ -1955,7 +1969,7 @@ button {
 
 /* Modern Categories Section */
 .modern-categories {
-  padding: 60px 20px 20px;
+  padding: 40px 20px 20px;
   background: #2e2e2e;
 }
 
@@ -1967,7 +1981,7 @@ button {
 /* Categories Header - Section Specific */
 .categories-header {
   text-align: center;
-  margin-bottom: 50px;
+  margin-bottom: 40px;
 }
 
 .categories-header h2 {
@@ -2002,9 +2016,9 @@ button {
 }
 
 .categories-container {
-  padding: 50px 20px;
+  padding: 40px 20px;
   border-radius: 15px;
-  margin: 50px auto;
+  margin: 40px auto;
   max-width: 1200px;
 }
 
@@ -2023,13 +2037,13 @@ button {
 }
 
 .latest-arrivals {
-  padding: 80px 0;
+  padding: 40px 0;
   position: relative;
   overflow: hidden;
 }
 
 .latest-arrivals-container {
-  padding: 50px 20px;
+  padding: 40px 20px;
   border-radius: 15px;
   margin: 0 auto;
   max-width: 1200px;

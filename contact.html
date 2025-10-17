@@ -13,7 +13,7 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://outbackgems.com.au/contact.html">
   <meta property="og:title" content="Contact Us | Outback Gems & Minerals">
-  <meta property="og:description" content="Have questions about our gemstones or minerals? Get in touch with our team for personalized assistance and expert advice.">
+  <meta property="og:description" content="Have questions about our gemstones or minerals? Get in touch with our team for personalised assistance and expert advice.">
   <meta property="og:image" content="https://outbackgems.com.au/images/general/Facebook%20Logo.jpg">
   <meta property="og:site_name" content="Outback Gems & Minerals">
   <meta property="og:locale" content="en_AU">
@@ -23,7 +23,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:url" content="https://outbackgems.com.au/contact.html">
   <meta name="twitter:title" content="Contact Us | Outback Gems & Minerals">
-  <meta name="twitter:description" content="Have questions about our gemstones or minerals? Get in touch with our team for personalized assistance and expert advice.">
+  <meta name="twitter:description" content="Have questions about our gemstones or minerals? Get in touch with our team for personalised assistance and expert advice.">
   <meta name="twitter:image" content="https://outbackgems.com.au/images/general/Twitter%20Logo.jpg">
 
   <!-- Additional SEO Tags -->
@@ -41,6 +41,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Allura&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Satisfy&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+  <!-- Google reCAPTCHA -->
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta name="referrer" content="strict-origin-when-cross-origin">
 </head>
@@ -53,7 +57,7 @@
     <section id="home">
     <div class="hero-overlay">
       <h1>Contact Us</h1>
-      <p>Have some questions? Need some advice? Fancy a friendly chat? Take a gander over our frequently asked questions to find your heart's desire, or contact us on the below form for a more personalised experience</p>
+      <p>Browse our frequently asked questions below for quick answers to common queries, or use our contact form below for personalised assistance from our team.</p>
     </div>
     
     <!-- Contact Banner -->
@@ -82,16 +86,16 @@
     <div class="faq-header">
       <h2>Frequently Asked Questions</h2>
       <div class="header-accent"></div>
-      <p>Find answers to common questions below, or contact us directly for personalized assistance.</p>
+      <p>Still have questions? Use the contact form below to get in touch directly.</p>
     </div>
     <div class="faq-grid">
       <div class="faq-box">
         <h2>Where Is My Order?</h2>
-        <p>All orders are shipped with Auspost standard postage as default, we also offer express shipping at checkout. Your tracking number can be found on your confirmation email - enter your code here to see the latest on your package: <a href="https://auspost.com.au/mypost/track/search">Auspost Tracking</a></p>
+        <p>All orders are shipped with Auspost standard postage as default, we also offer express shipping at checkout. Your tracking number can be found on your confirmation email - enter your code here to see the latest on your package: <a href="https://auspost.com.au/mypost/track/search">Auspost Tracking</a>. For more shipping information, see our <a href="termsofuse.html#shipping-policy">Shipping Policy</a>.</p>
       </div>
       <div class="faq-box">
         <h2>What Is Your Return Policy?</h2>
-        <p>If you have any issues with your purchase, please get in contact and we will arrange a return and refund with you. Returns and refunds are available in certain circumstances up to 30 days after purchase.</p>
+        <p>If you have any issues with your purchase, please get in contact and we will arrange a return and refund with you. Returns and refunds are available in certain circumstances up to 30 days after purchase. For complete details, please see our <a href="termsofuse.html#returns">Return Policy</a>.</p>
       </div>
       <div class="faq-box">
         <h2>Which Material Is Best For My Project?</h2>
@@ -101,52 +105,66 @@
         <h2>Can I Pick Up My Order Locally?</h2>
         <p>Local pickup is sometimes available by arrangement—just contact us before placing your order and we’ll work something out if it’s possible.</p>
       </div>  
+      <div class="faq-box">
+        <h2>Do You Offer International Shipping?</h2>
+        <p>Currently we focus on Australian customers only. All our shipping options and pricing are calculated for domestic delivery within Australia. For complete shipping details, please see our <a href="termsofuse.html#shipping-policy">Shipping Policy</a>.</p>
+      </div>
+      <div class="faq-box">
+        <h2>Are Your Gemstones Natural or Treated?</h2>
+        <p>We carry both natural and synthetic materials, clearly labeled in each product description. All treatments or enhancements are disclosed so you know exactly what you're purchasing.</p>
+      </div>
+      <div class="faq-box">
+        <h2>What Payment Methods Do You Accept?</h2>
+        <p>We accept major credit cards through our secure payment system, PayPal, and bank transfers. All transactions are processed securely to protect your information.</p>
+      </div>
     </div> 
-    <h4>Need more help or want to speak to us? Fill out the contact form below!</h4>
   </div>
 </section>
 
 <section id="contact">
   <div class="contact-container">
     <div class="contact-form-header">
-      <h2>Send Us a Message</h2>
+      <h2>Contact Us</h2>
       <div class="header-accent"></div>
+      <p>Have questions about our gemstones or minerals? Need advice for your project? Get in touch with our team for personalised assistance.</p>
     </div>
     <form action="form-to-email.php" method="post" name="contact-form" aria-label="Contact form" role="form">
-      <label for="name">Your Name:</label>
-      <input type="text" id="name" name="name" autocomplete="name" placeholder="e.g. Mick Dundee" required />
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" autocomplete="name" placeholder="Your Name" required />
 
-      <label for="email">Your Email:</label>
-      <input type="email" id="email" name="email" autocomplete="email" placeholder="you@example.com" required />
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" autocomplete="email" placeholder="you@email.com" required />
       
       <!-- Honeypot field - hidden from users but visible to bots -->
-      <div class="honeypot-field" aria-hidden="true">
+      <div class="honeypot-field" aria-hidden="true" style="display: none;">
         <label for="website">Website (leave blank):</label>
         <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" />
       </div>
       
-      <label for="message">Your Message:</label>
-      <textarea id="message" name="message" rows="4" placeholder="Let us know what you're looking for..." required></textarea>
+      <label for="message">Message</label>
+      <textarea id="message" name="message" placeholder="Tell us about your project or ask us anything..." required></textarea>
       
-      <button type="submit">Send Message</button>
+
+      
+      <div class="form-actions">
+        <button type="submit">Send</button>
+      </div>
     </form>
     
-    <!-- Math CAPTCHA Modal (hidden by default) -->
-    <div id="captcha-modal" class="captcha-modal" style="display: none;">
-      <div class="captcha-modal-content">
-        <h3>Security Check</h3>
-        <p>Please solve this simple math problem to verify you're human:</p>
-        <div class="math-problem">
-          <span id="math-question">3 + 4</span> = 
-          <input type="number" id="math-input" placeholder="?" min="0" max="20" />
+    <!-- reCAPTCHA Modal (hidden by default) -->
+    <div id="recaptcha-modal" class="recaptcha-modal" style="display: none;">
+      <div class="recaptcha-modal-content">
+        <h3>Security Verification</h3>
+        <p>Please complete the security check to verify you're human:</p>
+        <div class="recaptcha-container">
+          <div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY_HERE"></div>
         </div>
-        <div class="captcha-buttons">
-          <button type="button" id="captcha-submit">Verify & Send</button>
-          <button type="button" id="captcha-cancel">Cancel</button>
+        <div class="recaptcha-buttons">
+          <button type="button" id="recaptcha-submit">Verify & Send</button>
+          <button type="button" id="recaptcha-cancel">Cancel</button>
         </div>
       </div>
     </div>
-    </form>
   </div>
 </section>
 

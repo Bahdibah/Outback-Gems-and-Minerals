@@ -61,6 +61,20 @@ footer {
   width: 100%;
 }
 
+/* Footer link styling */
+footer a {
+  color: #cc5500 !important;
+  text-decoration: none !important;
+}
+
+footer a:hover {
+  color: #ff7f33 !important;
+}
+
+footer a:visited {
+  color: #cc5500 !important;
+}
+
 /* Subcategory styling */
 .sitemap-subcategory {
   margin-bottom: 20px;

@@ -19,8 +19,6 @@ document.addEventListener('DOMContentLoaded', function() {
   // Honeypot spam protection
   const contactForm = document.querySelector('form[name="contact-form"]');
   if (contactForm) {
-    let mathAnswer = 0;
-    let captchaPassed = false;
     
     contactForm.addEventListener('submit', function(e) {
       e.preventDefault(); // Always prevent initial submission
@@ -152,59 +150,44 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       }
       
-      // If CAPTCHA already passed, submit the form
-      if (captchaPassed) {
-        // Actually submit the form
-        contactForm.removeEventListener('submit', arguments.callee);
-        contactForm.submit();
-        return;
-      }
-      
-      // Show CAPTCHA modal
-      showCaptchaModal();
+      // Show reCAPTCHA modal for verification
+      showRecaptchaModal();
     });
     
-    // CAPTCHA Modal Functions
-    function showCaptchaModal() {
-      const modal = document.getElementById('captcha-modal');
-      const mathQuestion = document.getElementById('math-question');
-      const mathInput = document.getElementById('math-input');
-      
-      // Generate random math problem
-      const num1 = Math.floor(Math.random() * 10) + 1;
-      const num2 = Math.floor(Math.random() * 10) + 1;
-      mathAnswer = num1 + num2;
-      
-      mathQuestion.textContent = `${num1} + ${num2}`;
-      mathInput.value = '';
-      mathInput.focus();
-      
-      modal.style.display = 'flex';
+    // reCAPTCHA Modal Functions
+    function showRecaptchaModal() {
+      const modal = document.getElementById('recaptcha-modal');
+      if (modal) {
+        modal.style.display = 'flex';
+        // Reset reCAPTCHA if it was previously completed
+        if (typeof grecaptcha !== 'undefined') {
+          grecaptcha.reset();
+        }
+      }
     }
     
-    function hideCaptchaModal() {
-      const modal = document.getElementById('captcha-modal');
-      modal.style.display = 'none';
+    function hideRecaptchaModal() {
+      const modal = document.getElementById('recaptcha-modal');
+      if (modal) {
+        modal.style.display = 'none';
+      }
     }
     
-    // CAPTCHA Modal Event Listeners
-    const captchaSubmit = document.getElementById('captcha-submit');
-    const captchaCancel = document.getElementById('captcha-cancel');
-    const mathInput = document.getElementById('math-input');
+    // reCAPTCHA Modal Event Listeners
+    const recaptchaSubmit = document.getElementById('recaptcha-submit');
+    const recaptchaCancel = document.getElementById('recaptcha-cancel');
     
-    if (captchaSubmit) {
-      captchaSubmit.addEventListener('click', function() {
-        const userAnswer = parseInt(mathInput.value);
-        
-        if (isNaN(userAnswer) || userAnswer !== mathAnswer) {
-          alert('Incorrect answer. Please try again.');
-          showCaptchaModal(); // Show new question
+    if (recaptchaSubmit) {
+      recaptchaSubmit.addEventListener('click', function() {
+        // Check if reCAPTCHA is completed
+        const recaptchaResponse = grecaptcha.getResponse();
+        if (!recaptchaResponse) {
+          alert('Please complete the reCAPTCHA verification.');
           return;
         }
         
-        // CAPTCHA passed
-        captchaPassed = true;
-        hideCaptchaModal();
+        // reCAPTCHA completed, hide modal and submit form
+        hideRecaptchaModal();
         
         // Submit the form
         contactForm.removeEventListener('submit', arguments.callee);
@@ -212,27 +195,18 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     }
     
-    if (captchaCancel) {
-      captchaCancel.addEventListener('click', function() {
-        hideCaptchaModal();
-      });
-    }
-    
-    // Allow Enter key to submit CAPTCHA
-    if (mathInput) {
-      mathInput.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-          captchaSubmit.click();
-        }
+    if (recaptchaCancel) {
+      recaptchaCancel.addEventListener('click', function() {
+        hideRecaptchaModal();
       });
     }
     
     // Close modal when clicking outside
-    const modal = document.getElementById('captcha-modal');
-    if (modal) {
-      modal.addEventListener('click', function(e) {
-        if (e.target === modal) {
-          hideCaptchaModal();
+    const recaptchaModal = document.getElementById('recaptcha-modal');
+    if (recaptchaModal) {
+      recaptchaModal.addEventListener('click', function(e) {
+        if (e.target === recaptchaModal) {
+          hideRecaptchaModal();
         }
       });
     }

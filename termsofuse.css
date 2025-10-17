@@ -257,6 +257,20 @@ footer >div{
   width: 200px;
 }
 
+/* Footer link styling */
+footer a {
+  color: #cc5500 !important;
+  text-decoration: none !important;
+}
+
+footer a:hover {
+  color: #ff7f33 !important;
+}
+
+footer a:visited {
+  color: #cc5500 !important;
+}
+
 /* =========================
    Responsive Design for Terms of Use Page
    ========================= */
