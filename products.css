@@ -133,6 +133,20 @@ footer >div{
   align-items: center;
 }
 
+/* Footer link styling */
+footer a {
+  color: #cc5500 !important;
+  text-decoration: none !important;
+}
+
+footer a:hover {
+  color: #ff7f33 !important;
+}
+
+footer a:visited {
+  color: #cc5500 !important;
+}
+
 /* Container for the dynamic product cards */
 #dynamic-product-container {
   display: flex;
