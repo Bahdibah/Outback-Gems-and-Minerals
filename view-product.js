@@ -225,7 +225,7 @@ async function loadDisclaimer(product) {
     // Display the disclaimer
     if (matchedDisclaimer) {
       disclaimerContainer.innerHTML = `
-        <h3>${matchedDisclaimer['disclaimer-title']}</h3>
+        <h3>Disclaimer</h3>
         <p>${matchedDisclaimer['disclaimer-text']}</p>
       `;
     }
@@ -236,7 +236,7 @@ async function loadDisclaimer(product) {
     const disclaimerContainer = document.getElementById('disclaimer-text');
     if (disclaimerContainer) {
       disclaimerContainer.innerHTML = `
-        <h3>General Product Disclaimer</h3>
+        <h3>Disclaimer</h3>
         <p>Due to the natural origin and handcrafted nature of our products, expect some variations in colour, shape, size, and characteristics. Photos are taken under optimal lighting conditions to showcase features. Actual colours may vary depending on lighting and screen settings.</p>
       `;
     }
@@ -631,17 +631,20 @@ async function fetchProductDetails() {
     }
     
     //Escape to synthetic level if mix CZ & Spinel bag
-    if (category && continueLink && continueBtn) {
-      if (category == 'synthetic-spinel,synthetic-cubic-zirconia') {
+    if (continueLink && continueBtn) {
+      if (category && category == 'synthetic-spinel,synthetic-cubic-zirconia') {
         continueLink.href = `products.html?category=synthetic`;
       }
-      else {
+      else if (category) {
         // If there's a subcategory, include it in the URL using the format: mainCategory|subcategory
         if (subcategory) {
           continueLink.href = `products.html?category=${encodeURIComponent(category)}|${encodeURIComponent(subcategory.toLowerCase())}`;
         } else {
           continueLink.href = `products.html?category=${encodeURIComponent(category)}`;
         }
+      } else {
+        // No category - go to all products page
+        continueLink.href = `products.html`;
       }
       continueBtn.textContent = `Continue Shopping`;
     }

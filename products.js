@@ -412,9 +412,10 @@
 
       productContainer.innerHTML = "";
 
-      // Add top pagination first
+      // Add top pagination first (but hide it - we'll use inline)
       const topPagination = createPaginationControls(currentProducts, headerTitle, keyword, data, page, totalPages);
       topPagination.classList.add('top-pagination');
+      topPagination.style.display = 'none'; // Hide original pagination
       productContainer.appendChild(topPagination);
 
       // No longer adding header container here - it's at the top of the page
@@ -630,10 +631,17 @@
         return pagination;
       }
 
-      // Add bottom pagination at the end
+      // Add bottom pagination at the end (but hide it - we'll use inline)
       const bottomPagination = createPaginationControls(currentProducts, headerTitle, keyword, data, page, totalPages);
       bottomPagination.classList.add('bottom-pagination');
+      bottomPagination.style.display = 'none'; // Hide original pagination
       productContainer.appendChild(bottomPagination);
+      
+      // Update inline navigation in the category navigation bar
+      const startItem = startIdx + 1;
+      const endItem = Math.min(endIdx, products.length);
+      const totalItems = products.length;
+      updateInlineNavigation(currentProducts, headerTitle, keyword, data, page, totalPages, totalItems, startItem, endItem);
     }
 
     function suggestAdditionalProducts(currentCategory, displayedProducts, data) {
@@ -1445,4 +1453,111 @@ function createProductCatalogSchema(categoryKeyword, products) {
   script.type = 'application/ld+json';
   script.textContent = JSON.stringify(productListSchema, null, 2);
   document.head.appendChild(script);
+}
+
+// Function to update inline pagination and results info
+function updateInlineNavigation(currentProducts, headerTitle, keyword, data, page, totalPages, totalItems, startItem, endItem) {
+  const inlinePagination = document.getElementById('inline-pagination');
+  const resultsInfo = document.getElementById('results-info');
+  const resultsText = document.getElementById('results-text');
+  
+  if (!inlinePagination || !resultsText) return;
+  
+  // Update results info
+  if (totalItems > 0) {
+    resultsText.textContent = `Showing ${startItem}-${endItem} of ${totalItems}`;
+  } else {
+    resultsText.textContent = 'No products found';
+  }
+  
+  // Clear existing pagination
+  inlinePagination.innerHTML = '';
+  
+  if (totalPages <= 1) return;
+  
+  // Previous button
+  const prevItem = document.createElement("button");
+  prevItem.className = `pagination-item pagination-arrow ${page <= 1 ? 'disabled' : ''}`;
+  prevItem.innerHTML = '←';
+  prevItem.title = 'Previous page';
+  if (page > 1) {
+    prevItem.onclick = () => {
+      displayProducts(currentProducts, headerTitle, keyword, data, page - 1);
+      document.getElementById('dynamic-product-container').scrollIntoView({ behavior: 'smooth' });
+    };
+  }
+  inlinePagination.appendChild(prevItem);
+  
+  // Page numbers (simplified for inline display)
+  const maxVisiblePages = 3;
+  let startPage = Math.max(1, page - Math.floor(maxVisiblePages / 2));
+  let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+  
+  if (endPage - startPage + 1 < maxVisiblePages) {
+    startPage = Math.max(1, endPage - maxVisiblePages + 1);
+  }
+  
+  // Add ellipsis before if needed
+  if (startPage > 1) {
+    addInlinePageItem(1, false);
+    if (startPage > 2) {
+      addInlinePageEllipsis();
+    }
+  }
+  
+  // Add page numbers
+  for (let i = startPage; i <= endPage; i++) {
+    addInlinePageItem(i, i === page);
+  }
+  
+  // Add ellipsis after if needed
+  if (endPage < totalPages) {
+    if (endPage < totalPages - 1) {
+      addInlinePageEllipsis();
+    }
+    addInlinePageItem(totalPages, false);
+  }
+  
+  // Next button
+  const nextItem = document.createElement("button");
+  nextItem.className = `pagination-item pagination-arrow ${page >= totalPages ? 'disabled' : ''}`;
+  nextItem.innerHTML = '→';
+  nextItem.title = 'Next page';
+  if (page < totalPages) {
+    nextItem.onclick = () => {
+      displayProducts(currentProducts, headerTitle, keyword, data, page + 1);
+      document.getElementById('dynamic-product-container').scrollIntoView({ behavior: 'smooth' });
+    };
+  }
+  inlinePagination.appendChild(nextItem);
+  
+  function addInlinePageItem(pageNum, isActive = false) {
+    const item = document.createElement("button");
+    item.className = `pagination-item ${isActive ? 'active' : ''}`;
+    item.textContent = pageNum;
+    
+    if (!isActive) {
+      item.onclick = () => {
+        displayProducts(currentProducts, headerTitle, keyword, data, pageNum);
+        document.getElementById('dynamic-product-container').scrollIntoView({ behavior: 'smooth' });
+      };
+    }
+    
+    inlinePagination.appendChild(item);
+  }
+  
+  function addInlinePageEllipsis() {
+    const ellipsis = document.createElement("span");
+    ellipsis.className = 'pagination-ellipsis';
+    ellipsis.textContent = '…';
+    inlinePagination.appendChild(ellipsis);
+  }
+}
+
+// Function to hide original pagination controls
+function hideOriginalPagination() {
+  const paginationControls = document.querySelectorAll('.pagination-controls');
+  paginationControls.forEach(control => {
+    control.style.display = 'none';
+  });
 }

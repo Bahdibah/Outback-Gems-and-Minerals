@@ -25,8 +25,8 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  margin-top: 1%; /* Reduced from 2% to 1% */
-  padding-top: var(--navbar-height); /* This adds space at the top for the fixed navbar */
+  margin-top: 1%;
+  padding-top: var(--navbar-height);
 }
 
 /* page layout for main products page (body container)*/
@@ -40,38 +40,50 @@ body {
 }
 
 .dynamic-product-button {
-  background: linear-gradient(135deg, #cc5500 0%, #b84700 100%);
-  color: #fff;
+  background: linear-gradient(135deg, #cc5500, #ff7f33);
+  color: #ffffff;
   font-weight: 600;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   border: none;
-  padding: 14px 32px;
-  font-size: 1.1rem;
-  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 1rem;
+  border-radius: 6px;
   cursor: pointer;
   transition: all 0.3s ease;
   display: inline-block;
-  margin-top: auto; /* Push button to bottom */
-  margin-bottom: 0; /* Flush with bottom of card */
-  box-shadow: 0 4px 15px rgba(204, 85, 0, 0.3);
+  margin-top: auto;
+  margin-bottom: 0;
+  box-shadow: 0 4px 12px rgba(204, 85, 0, 0.3);
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 2px;
 }
 
-button:hover, .button:hover, .dynamic-product-button:hover {
+.dynamic-product-button:hover {
+  background: linear-gradient(135deg, #ff7f33, #cc5500);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(204, 85, 0, 0.3);
+}
+
+.dynamic-product-button:active {
+  background: linear-gradient(135deg, #cc5500, #ff7f33);
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(204, 85, 0, 0.3);
+}
+
+button:hover, .button:hover {
   background: linear-gradient(135deg, #ff7f33 0%, #cc5500 100%);
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(204, 85, 0, 0.4);
 }
 
-button:active, .button:active, .dynamic-product-button:active {
+button:active, .button:active {
   background: linear-gradient(135deg, #b34700 0%, #994000 100%);
   transform: translateY(0);
   box-shadow: 0 2px 8px rgba(204, 85, 0, 0.3);
 }
 
 .view-all-button {
-margin-top: 40px; /* More space above */
+margin-top: 40px;
 padding: 16px 40px;
 }
 
@@ -150,17 +162,17 @@ footer a:visited {
 /* Container for the dynamic product cards */
 #dynamic-product-container {
   display: flex;
-  flex-wrap: wrap; /* Enables wrapping into new rows */
-  gap: 30px; /* Increased gap from 20px to 30px for better spacing */
-  padding: 8px 40px 30px 40px;
-  width: 100% !important; /* Reverted back to 100% to maintain 4-card width */
-  max-width: 1400px; /* Maximum container width for very large screens */
-  margin: 0 auto !important; /* Center the container */
+  flex-wrap: wrap;
+  gap: 30px;
+  padding: 6px 40px 30px 40px;
+  width: 100% !important;
+  max-width: 1400px;
+  margin: 0 auto !important;
   box-sizing: border-box;
   align-items: flex-start;
   height: fit-content;
   min-height: 100vh;
-  justify-content: center; /* Center the cards horizontally */
+  justify-content: center;
   background-color: transparent !important;
   box-shadow: none !important;
   border-radius: 0 !important;
@@ -205,97 +217,164 @@ footer a:visited {
   border-radius: 2px;
 }
 
-/* Dynamic Product Card Styling */
-.dynamic-product-card {
-  flex: 1 1 calc(25% - 22.5px); /* 4 cards per row above 1280px */
-  min-width: 280px; /* Minimum width for proper display */
-  max-width: 340px; /* Increased max width to better utilize available space */
-  background-color: #3a3a3a;
-  border-radius: 12px;
-  padding: 18px; /* Equal padding all around */
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4), 0 2px 6px rgba(0, 0, 0, 0.2);
-  text-align: center;
-  border: 2px solid #555;
-  box-sizing: border-box;
-  margin-bottom: 0;     
-  height: 520px; /* Increased from 490px for even more space */
-  position: relative; /* Ensures proper positioning for absolute elements */
-  display: flex;
-  flex-direction: column;
-  gap: 0; /* Remove gap, use margins instead for precise control */
-  justify-content: flex-start; /* Start from top */
-  align-items: center;
-  position: relative;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-  overflow: hidden; /* Prevent content from overflowing */
+/* Keyframe animations for elegant effects */
+@keyframes cardFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 
+      0 8px 32px rgba(0, 0, 0, 0.5),
+      0 4px 16px rgba(0, 0, 0, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+  50% {
+    box-shadow: 
+      0 12px 40px rgba(0, 0, 0, 0.6),
+      0 6px 20px rgba(204, 85, 0, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  }
+}
+
+/* Dynamic Product Card Styling */
+.dynamic-product-card {
+  flex: 1 1 calc(25% - 22.5px);
+  min-width: 280px;
+  max-width: 340px;
+  background: linear-gradient(135deg, #404040 0%, #353535 50%, #2a2a2a 100%);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.5),
+    0 4px 16px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  text-align: center;
+  border: 1px solid rgba(204, 85, 0, 0.2);
+  box-sizing: border-box;
+  margin-bottom: 0;     
+  height: 520px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  justify-content: flex-start;
+  align-items: center;
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  animation: cardFadeIn 0.6s ease-out forwards;
+  animation-delay: calc(var(--card-index, 0) * 0.1s);
+  opacity: 0;
+}
+
+.dynamic-product-card:nth-child(1) { --card-index: 1; }
+.dynamic-product-card:nth-child(2) { --card-index: 2; }
+.dynamic-product-card:nth-child(3) { --card-index: 3; }
+.dynamic-product-card:nth-child(4) { --card-index: 4; }
+.dynamic-product-card:nth-child(5) { --card-index: 5; }
+.dynamic-product-card:nth-child(6) { --card-index: 6; }
+.dynamic-product-card:nth-child(7) { --card-index: 7; }
+.dynamic-product-card:nth-child(8) { --card-index: 8; }
+
 .dynamic-product-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), 0 4px 12px rgba(204, 85, 0, 0.3);
-  border-color: #cc5500;
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.6),
+    0 8px 24px rgba(204, 85, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  border-color: rgba(204, 85, 0, 0.6);
+  background: linear-gradient(135deg, #454545 0%, #3a3a3a 50%, #2f2f2f 100%);
 }
 
 /* Product Name Styling */
 .dynamic-product-card h3 {
-  font-size: 1.4rem; /* Increased from 1.25rem for larger text */
-  color: #cc5500;
-  margin: 0 0 8px 0; /* Consistent bottom margin */
-  font-weight: 700; /* Increased from 600 for bolder text */
+  font-size: 1.4rem;
+  color: #ffffff;
+  margin: 0 0 12px 0;
+  font-weight: 600;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  line-height: 1.3; /* Better line height for two-line titles */
-  flex-shrink: 0; /* Prevent title from shrinking */
-  height: 60px; /* Fixed height instead of min-height for consistent alignment */
+  line-height: 1.3;
+  letter-spacing: 0.3px;
+  flex-shrink: 0;
+  height: 65px;
   display: flex;
-  align-items: flex-start; /* Changed from center to flex-start for top alignment */
+  align-items: flex-start;
   justify-content: center;
+  text-align: center;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+  transition: color 0.3s ease;
 }
 
-/* Product Size Info Styling (for Yowah Nuts, etc.) - Legacy class for backwards compatibility */
+/* Product Size Info Styling */
 .dynamic-product-card .product-size-info {
   color: #ffb366 !important;
   font-size: 0.9rem !important;
   font-weight: 600 !important;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  margin: 0 0 8px 0 !important; /* Consistent bottom margin */
+  margin: 6px 0 12px 0 !important;
   text-align: center !important;
   background: rgba(204, 85, 0, 0.1);
   padding: 4px 12px;
   border-radius: 12px;
   border: 1px solid rgba(204, 85, 0, 0.3);
-  flex-shrink: 0; /* Prevent from shrinking */
+  flex-shrink: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Unified Product Size/Range Info - Lighter styling for all products */
+/* Product Size/Range Info */
 .dynamic-product-card .product-range-info {
-  color: #bfbfbf;
-  font-size: 1.0rem; /* Increased from 0.85rem for better visibility */
-  font-weight: 600; /* Increased from 500 for better prominence */
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.05rem;
+  font-weight: 600;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  margin: 0 0 10px 0; /* Increased margin for more spacing */
+  margin: 0 0 14px 0;
   text-align: center;
-  background: rgba(255, 255, 255, 0.05);
-  padding: 6px 14px; /* Increased padding for larger appearance */
-  border-radius: 12px; /* Increased border radius to match larger size */
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
+  padding: 8px 16px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
   flex-shrink: 0;
+  letter-spacing: 0.3px;
+  backdrop-filter: blur(5px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 /* Product Price Styling */
 .dynamic-product-card .product-price {
-  font-size: 1.4rem;
-  font-weight: bold;
+  font-size: 1.5rem;
+  font-weight: 800;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  color: #ffb366;
-  margin: 15px 0 8px 0; /* Increased top margin from 0 to 15px for more space from size info */
-  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
-  flex-shrink: 0; /* Prevent price from shrinking */
+  background: linear-gradient(135deg, #ffb366 0%, #ff7f33 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 18px 0 6px 0;
+  text-shadow: 0 2px 8px rgba(255, 179, 102, 0.3);
+  flex-shrink: 0;
+  letter-spacing: 0.3px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -303,17 +382,40 @@ footer a:visited {
 /* Image container and styling */
 .dynamic-product-card .image-container {
   width: 100%;
-  height: 240px; /* Reduced to make more room for other elements */
-  overflow: visible; /* Changed from hidden to visible */
-  border-radius: 8px;
-  margin-bottom: 12px; /* Consistent margin */
+  height: 220px;
+  overflow: hidden;
+  border-radius: 12px;
+  margin-bottom: 14px;
   flex-shrink: 0;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  box-shadow: 
+    0 8px 24px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.03);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   position: relative;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(5px);
+}
+
+.dynamic-product-card .image-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(204, 85, 0, 0.1) 0%, transparent 50%, rgba(255, 127, 51, 0.05) 100%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  border-radius: 11px;
+}
+
+.dynamic-product-card:hover .image-container::before {
+  opacity: 1;
 }
 
 .dynamic-product-card img {
@@ -323,30 +425,83 @@ footer a:visited {
   height: auto;
   object-fit: contain;
   object-position: center;
-  transition: transform 0.3s ease;
-  border-radius: 6px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 8px;
   display: block;
+  filter: brightness(1.05) contrast(1.1);
 }
 
 .dynamic-product-card:hover img {
-  transform: scale(1.08);
+  transform: scale(1.1);
+  filter: brightness(1.1) contrast(1.15);
 }
 
-/* Button styling - position at bottom */
+/* Button styling */
 .dynamic-product-card .dynamic-product-button {
-  margin-top: auto; /* This pushes the button to the bottom */
-  margin-bottom: 0; /* No bottom margin - button sits at card bottom */
-  margin-left: 0; /* Reset any left margin */
-  margin-right: 0; /* Reset any right margin */
-  width: 100%; /* Full width within the card padding */
-  padding: 12px 20px; /* Consistent padding */
-  font-size: 1rem;
-  font-weight: 600;
-  border-radius: 8px;
-  transition: all 0.3s ease;
-  align-self: center; /* Center the button horizontally */
-  flex-shrink: 0; /* Prevent button from shrinking */
+  margin-top: auto;
+  margin-bottom: 0;
+  margin-left: 0;
+  margin-right: 0;
+  width: 100%;
+  padding: 14px 24px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #cc5500 0%, #ff7f33 50%, #ff9966 100%);
+  border: 1px solid rgba(204, 85, 0, 0.5);
+  color: #ffffff;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  align-self: center;
+  flex-shrink: 0;
+  text-transform: uppercase;
+  box-shadow: 
+    0 6px 16px rgba(204, 85, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(5px);
   position: relative;
+  overflow: hidden;
+}
+
+.dynamic-product-card .product-price {
+  font-size: 1.5rem;
+  font-weight: 800;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background: linear-gradient(135deg, #ffb366 0%, #ff7f33 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 18px 0 6px 0;
+  text-shadow: 0 2px 8px rgba(255, 179, 102, 0.3);
+  flex-shrink: 0;
+  letter-spacing: 0.3px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.dynamic-product-card .dynamic-product-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.6s ease;
+}
+
+.dynamic-product-card .dynamic-product-button:hover::before {
+  left: 100%;
+}
+
+.dynamic-product-card .dynamic-product-button:hover {
+  background: linear-gradient(135deg, #ff7f33 0%, #ff9966 50%, #ffb399 100%);
+  transform: translateY(-2px);
+  box-shadow: 
+    0 8px 24px rgba(204, 85, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 127, 51, 0.8);
 }
 
 /* Buttons styling */
@@ -378,20 +533,21 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 8px;
-  margin: 5px 0 20px 0;
+  gap: 12px;
+  margin: 30px 0 40px 0;
   width: 100%;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  padding: 0 20px;
 }
 
 /* Top pagination - less bottom margin */
 .pagination-controls.top-pagination {
-  margin: 3px 0 15px 0;
+  margin: 25px 0 35px 0;
 }
 
 /* Bottom pagination - more top margin */
 .pagination-controls.bottom-pagination {
-  margin: 15px 0 20px 0;
+  margin: 40px 0 50px 0;
 }
 
 /* Pagination items */
@@ -399,93 +555,105 @@ button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 40px;
-  height: 40px;
-  padding: 0 12px;
-  margin: 0 2px;
-  border: 1px solid #444;
-  border-radius: 8px;
-  background: linear-gradient(135deg, #3a3a3a 0%, #2e2e2e 100%);
+  min-width: 44px;
+  height: 44px;
+  padding: 0 14px;
+  margin: 0;
+  border: 1px solid rgba(204, 85, 0, 0.2);
+  border-radius: 10px;
+  background: linear-gradient(135deg, #3a3a3a 0%, #2a2a2a 100%);
   color: #ffffff;
-  font-size: 14px;
-  font-weight: 500;
+  font-size: 15px;
+  font-weight: 600;
   text-decoration: none;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
   user-select: none;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: hidden;
 }
 
 /* Hover state */
 .pagination-item:hover:not(.active):not(.disabled) {
-  background: linear-gradient(135deg, #cc5500 0%, #b84700 100%);
-  border-color: #cc5500;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(204, 85, 0, 0.3);
+  background: linear-gradient(135deg, #4a4a4a 0%, #3a3a3a 100%);
+  border-color: rgba(204, 85, 0, 0.4);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3), 0 0 8px rgba(204, 85, 0, 0.2);
 }
 
 /* Active (current page) state */
 .pagination-item.active {
   background: linear-gradient(135deg, #cc5500 0%, #ff7f33 100%);
-  border-color: #ff7f33;
+  border-color: rgba(255, 127, 51, 0.8);
   color: #ffffff;
-  font-weight: 600;
-  box-shadow: 0 4px 12px rgba(204, 85, 0, 0.4);
+  font-weight: 700;
+  transform: translateY(-1px);
+  box-shadow: 0 5px 15px rgba(204, 85, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 /* Disabled state */
 .pagination-item.disabled {
-  background: #1a1a1a;
+  background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
   border-color: #333;
   color: #666;
   cursor: not-allowed;
-  opacity: 0.5;
+  opacity: 0.4;
+  transform: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 /* Arrow buttons */
 .pagination-arrow {
-  min-width: 44px;
-  font-size: 16px;
-  font-weight: 600;
-  background: linear-gradient(135deg, #cc5500 0%, #b84700 100%) !important;
-  border-color: #cc5500 !important;
+  min-width: 48px;
+  font-size: 17px;
+  font-weight: 700;
+  background: linear-gradient(135deg, #cc5500 0%, #ff7f33 100%) !important;
+  border-color: rgba(204, 85, 0, 0.6) !important;
   color: #ffffff !important;
+  box-shadow: 0 4px 12px rgba(204, 85, 0, 0.3);
+  letter-spacing: 0.5px;
 }
 
 .pagination-arrow:hover:not(.disabled) {
-  background: linear-gradient(135deg, #ff7f33 0%, #cc5500 100%) !important;
-  border-color: #ff7f33 !important;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(204, 85, 0, 0.4);
+  background: linear-gradient(135deg, #ff7f33 0%, #ff9966 100%) !important;
+  border-color: rgba(255, 127, 51, 0.8) !important;
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 8px 20px rgba(204, 85, 0, 0.4), 0 0 12px rgba(255, 127, 51, 0.3);
 }
 
 .pagination-arrow.disabled {
-  background: linear-gradient(135deg, #8a3600 0%, #6b2a00 100%) !important;
-  border-color: #8a3600 !important;
-  color: #cccccc !important;
+  background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%) !important;
+  border-color: #333 !important;
+  color: #666 !important;
   cursor: not-allowed;
-  opacity: 0.6;
+  opacity: 0.3;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
 }
 
 .pagination-arrow.disabled:hover {
   transform: none !important;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
 }
 
 /* Ellipsis */
 .pagination-ellipsis {
   background: transparent;
   border: none;
-  color: #888;
+  color: rgba(255, 255, 255, 0.4);
   cursor: default;
   box-shadow: none;
-  min-width: 20px;
+  min-width: 24px;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 2px;
 }
 
 .pagination-ellipsis:hover {
   background: transparent;
   transform: none;
   box-shadow: none;
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .ghost-card {
@@ -516,17 +684,19 @@ button {
   
   /* Pagination adjustments for 1280px */
   .pagination-controls {
-    gap: 6px;
-    margin: 10px 0 18px 0;
+    gap: 10px;
+    margin: 8px 0 20px 0;
+    padding: 0 15px;
   }
   .pagination-item {
-    min-width: 38px;
-    height: 38px;
-    padding: 0 10px;
-    font-size: 13px;
+    min-width: 40px;
+    height: 40px;
+    padding: 0 12px;
+    font-size: 14px;
   }
   .pagination-arrow {
-    min-width: 42px;
+    min-width: 44px;
+    font-size: 16px;
   }
 }
 
@@ -562,17 +732,19 @@ button {
   
   /* Pagination adjustments for 1024px */
   .pagination-controls {
-    gap: 6px;
-    margin: 10px 0 16px 0;
+    gap: 8px;
+    margin: 8px 0 18px 0;
+    padding: 0 10px;
   }
   .pagination-item {
-    min-width: 36px;
-    height: 36px;
-    padding: 0 9px;
+    min-width: 38px;
+    height: 38px;
+    padding: 0 10px;
     font-size: 13px;
   }
   .pagination-arrow {
-    min-width: 40px;
+    min-width: 42px;
+    font-size: 15px;
   }
 }
 
@@ -633,7 +805,7 @@ button {
     min-width: 250px;
     max-width: 400px; /* Prevent cards from being too wide on small tablets */
     height: auto;
-    min-height: 420px; /* Increased from 320px to ensure button visibility */
+    min-height: 440px; /* Reduced from 460px due to tighter price-button spacing */
     padding-bottom: 20px; /* Extra bottom padding to ensure button space */
   }
   .dynamic-product-card .image-container {
@@ -689,7 +861,7 @@ button {
     flex: 1 1 100%;
     min-width: 200px;
     height: auto;
-    min-height: 280px; /* Reduced min-height */
+    min-height: 360px; /* Reduced from 380px due to tighter spacing */
     padding: 15px;
   }
   .dynamic-product-card .image-container {

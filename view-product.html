@@ -161,56 +161,6 @@
             </a>
           </div>
         </div>
-        <!-- Related Products Section (Generic) -->
-        <section id="related-products-section" class="related-products-section hidden" aria-labelledby="related-products-title">
-          <div class="divider" role="separator"></div>
-          <div id="related-products-header">
-            <h2 class="related-products-title" id="related-products-title">Other Products Available</h2>
-          </div>
-
-          <div class="related-products-container">
-            <div class="related-products-grid" id="related-products-wrapper" role="list">
-              <!-- Related product cards will be inserted here for desktop -->
-            </div>
-
-            <!-- Swiper for mobile layout -->
-            <div class="related-products-swiper" id="related-products-swiper" aria-label="Related products carousel">
-              <div class="swiper-wrapper" id="related-products-swiper-wrapper" role="list">
-                <!-- Related product slides will be inserted here for mobile -->
-              </div>
-              <!-- Navigation arrows -->
-              <div class="swiper-button-next" aria-label="Next product" role="button" tabindex="0"></div>
-              <div class="swiper-button-prev" aria-label="Previous product" role="button" tabindex="0"></div>
-              <!-- Pagination dots -->
-              <div class="swiper-pagination" role="tablist" aria-label="Product slides pagination"></div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Related Yowah Nuts Section (Keep existing for Yowah Nuts) -->
-        <section id="related-yowah-nuts-section" class="related-products-section hidden" aria-labelledby="related-yowah-nuts-title">
-          <div class="divider" role="separator"></div>
-          <h2 class="related-products-title" id="related-yowah-nuts-title">Other Yowah Nuts Available</h2>
-          
-          <!-- Desktop Grid Layout -->
-          <div class="related-yowah-nuts-container">
-            <div class="related-yowah-nuts-grid" id="related-yowah-nuts-wrapper" role="list">
-              <!-- Dynamic grid content will be inserted here -->
-            </div>
-            
-            <!-- Mobile Swiper Layout -->
-            <div class="related-yowah-nuts-swiper" id="related-yowah-nuts-swiper" aria-label="Related Yowah nuts carousel">
-              <div class="swiper-wrapper" id="related-yowah-nuts-swiper-wrapper" role="list">
-                <!-- Dynamic swiper slides will be inserted here -->
-              </div>
-              <!-- Navigation buttons -->
-              <div class="swiper-button-next" aria-label="Next Yowah nut" role="button" tabindex="0"></div>
-              <div class="swiper-button-prev" aria-label="Previous Yowah nut" role="button" tabindex="0"></div>
-              <!-- Pagination dots -->
-              <div class="swiper-pagination" role="tablist" aria-label="Yowah nuts slides pagination"></div>
-            </div>
-          </div>
-        </section>
         </section>
         
         <!-- JavaScript Files - Optimized Loading -->
@@ -222,6 +172,57 @@
         <script src="view-product.js" defer></script>
 
       </article> <!-- End of view-product-detail -->
+      
+      <!-- Related Products Section (Generic) - Completely Separate -->
+      <section id="related-products-section" class="related-products-section hidden" aria-labelledby="related-products-title">
+        <div id="related-products-header">
+          <h2 class="related-products-title" id="related-products-title">Other Products Available</h2>
+        </div>
+
+        <div class="related-products-container">
+          <div class="related-products-grid" id="related-products-wrapper" role="list">
+            <!-- Related product cards will be inserted here for desktop -->
+          </div>
+
+          <!-- Swiper for mobile layout -->
+          <div class="related-products-swiper" id="related-products-swiper" aria-label="Related products carousel">
+            <div class="swiper-wrapper" id="related-products-swiper-wrapper" role="list">
+              <!-- Related product slides will be inserted here for mobile -->
+            </div>
+            <!-- Navigation arrows -->
+            <div class="swiper-button-next" aria-label="Next product" role="button" tabindex="0"></div>
+            <div class="swiper-button-prev" aria-label="Previous product" role="button" tabindex="0"></div>
+            <!-- Pagination dots -->
+            <div class="swiper-pagination" role="tablist" aria-label="Product slides pagination"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Related Yowah Nuts Section (Keep existing for Yowah Nuts) - Completely Separate -->
+      <section id="related-yowah-nuts-section" class="related-products-section hidden" aria-labelledby="related-yowah-nuts-title">
+        <div class="divider" role="separator"></div>
+        <h2 class="related-products-title" id="related-yowah-nuts-title">Other Yowah Nuts Available</h2>
+        
+        <!-- Desktop Grid Layout -->
+        <div class="related-yowah-nuts-container">
+          <div class="related-yowah-nuts-grid" id="related-yowah-nuts-wrapper" role="list">
+            <!-- Dynamic grid content will be inserted here -->
+          </div>
+          
+          <!-- Mobile Swiper Layout -->
+          <div class="related-yowah-nuts-swiper" id="related-yowah-nuts-swiper" aria-label="Related Yowah nuts carousel">
+            <div class="swiper-wrapper" id="related-yowah-nuts-swiper-wrapper" role="list">
+              <!-- Dynamic swiper slides will be inserted here -->
+            </div>
+            <!-- Navigation buttons -->
+            <div class="swiper-button-next" aria-label="Next Yowah nut" role="button" tabindex="0"></div>
+            <div class="swiper-button-prev" aria-label="Previous Yowah nut" role="button" tabindex="0"></div>
+            <!-- Pagination dots -->
+            <div class="swiper-pagination" role="tablist" aria-label="Yowah nuts slides pagination"></div>
+          </div>
+        </div>
+      </section>
+      
     </main> <!-- End of view-product-container -->
     
     <!-- Footer -->

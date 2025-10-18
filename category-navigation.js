@@ -23,10 +23,12 @@ class CategoryNavigation {
       } else if (window.productData) {
         products = window.productData;
       } else {
-        console.warn('Product data not available for category discovery');
         return;
       }
 
+      // Store products for counting
+      this.products = products;
+      
       const mainCategories = new Set();
       
       // Find all main categories using the new category field
@@ -101,16 +103,31 @@ class CategoryNavigation {
         <div id="main-categories" class="main-categories">
           ${this.categories.map(category => `
             <button class="category-nav-btn${(activeCategory === category.key || mainCategoryForSubcategories === category.key) ? ' active' : ''}" data-category="${category.key}">
-              ${category.label}
+              <span class="category-label">${category.label}</span>
+              <span class="item-count">${this.getItemCount(category.key)} products</span>
             </button>
           `).join('')}
           <button class="category-nav-btn${!activeCategory ? ' active' : ''}" data-category="">
-            All Products
+            <span class="category-label">All Products</span>
+            <span class="item-count">${this.getTotalItemCount()} products</span>
           </button>
         </div>
+        ${!window.location.pathname.includes('view-product.html') ? `
         <div id="subcategory-navigation" class="subcategory-navigation">
-          <!-- Subcategories will be inserted here -->
+          <div class="filter-section">
+            <label class="subcategory-label">Filter Products:</label>
+            <select id="subcategory-dropdown" class="subcategory-dropdown">
+              <option value="">Show All</option>
+            </select>
+          </div>
+          <div class="results-info" id="results-info">
+            <span id="results-text">Showing all products</span>
+          </div>
+          <div class="inline-pagination" id="inline-pagination">
+            <!-- Pagination will be inserted here -->
+          </div>
         </div>
+        ` : ''}
       </div>
     `;
 
@@ -158,11 +175,70 @@ class CategoryNavigation {
 
     // Add click event listeners to navigation buttons
     this.addCategoryEventListeners();
+    
+    // Ensure active states are properly set after DOM insertion (fix for Continue Shopping navigation)
+    // Use multiple attempts with increasing delays to ensure DOM is fully ready
+    setTimeout(() => this.setActiveStatesForCategory(activeCategory), 100);
+    setTimeout(() => this.setActiveStatesForCategory(activeCategory), 250);
+  }
+
+  // Comprehensive function to set active states for a given category
+  setActiveStatesForCategory(activeCategory) {
+    // Main category highlighting
+    this.updateMainCategoryActiveStates(activeCategory);
+    
+    // Handle subcategory cases
+    if (activeCategory && activeCategory.includes('|')) {
+      const [mainCategory, subcategory] = activeCategory.split('|');
+      
+      // Ensure subcategory dropdown exists and is set
+      const subcategoryDropdown = document.getElementById('subcategory-dropdown');
+      if (subcategoryDropdown) {
+        subcategoryDropdown.value = activeCategory;
+        
+        // Trigger change event to ensure any listeners are notified
+        subcategoryDropdown.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+      
+      // Update subcategory active states
+      this.updateSubcategoryActiveStates(activeCategory);
+    }
+    
+    // Handle "All Products" case
+    if (!activeCategory || activeCategory === '') {
+      const allProductsBtn = document.querySelector('.category-nav-btn[data-category=""]');
+      if (allProductsBtn) {
+        document.querySelectorAll('.category-nav-btn').forEach(btn => btn.classList.remove('active'));
+        allProductsBtn.classList.add('active');
+      }
+      
+      // Disable and grey out the subcategory dropdown for "All Products"
+      const subcategoryContainer = document.getElementById('subcategory-navigation');
+      if (subcategoryContainer) {
+        subcategoryContainer.style.display = 'flex'; // Keep container visible for pagination
+        const dropdown = document.getElementById('subcategory-dropdown');
+        if (dropdown) {
+          dropdown.disabled = true; // Disable interaction
+          dropdown.innerHTML = '<option value="">No subcategories available</option>';
+          dropdown.value = '';
+          dropdown.classList.remove('active'); // Remove any active styling
+        }
+      }
+    }
   }
 
   // Create subcategory buttons for the given main category
   async createSubcategoryButtons(categoryKey) {
     try {
+      // Skip creating subcategory navigation on view-product pages
+      if (window.location.pathname.includes('view-product.html')) {
+        const subcategoryContainer = document.getElementById('subcategory-navigation');
+        if (subcategoryContainer) {
+          subcategoryContainer.style.display = 'none';
+        }
+        return;
+      }
+      
       // Get product data - assuming getProductData is available globally
       let products = [];
       if (typeof getProductData === 'function') {
@@ -170,7 +246,6 @@ class CategoryNavigation {
       } else if (window.productData) {
         products = window.productData;
       } else {
-        console.warn('Product data not available for subcategory creation');
         return;
       }
 
@@ -196,31 +271,63 @@ class CategoryNavigation {
       });
 
       const subcategoryContainer = document.getElementById('subcategory-navigation');
+      const subcategoryDropdown = document.getElementById('subcategory-dropdown');
       
-      if (!subcategoryContainer) return;
+      if (!subcategoryContainer || !subcategoryDropdown) return;
 
       if (subcategories.size > 0) {
         subcategoryContainer.style.display = 'flex';
+        
+        // Make sure the dropdown and filter section are visible and enabled
+        subcategoryDropdown.disabled = false; // Re-enable interaction
+        const filterSection = subcategoryContainer.querySelector('.filter-section');
+        if (filterSection) {
+          filterSection.style.display = 'flex';
+        }
         
         // Get current active subcategory from URL
         const urlParams = new URLSearchParams(window.location.search);
         const currentCategory = urlParams.get('category') || '';
         
-        // Convert to sorted array and create buttons
+        // Convert to sorted array and create dropdown options
         const sortedSubcategories = Array.from(subcategories).sort();
         
-        subcategoryContainer.innerHTML = sortedSubcategories.map(subcat => {
+        // Clear existing options except "Show All"
+        subcategoryDropdown.innerHTML = '<option value="">Show All</option>';
+        
+        // Add subcategory options
+        sortedSubcategories.forEach(subcat => {
           const displayName = this.formatSubcategoryName(subcat);
           const subcategoryKey = `${categoryKey}|${subcat.toLowerCase()}`;
-          const isActive = currentCategory === subcategoryKey;
-          return `<button class="subcategory-nav-btn${isActive ? ' active' : ''}" data-category="${subcategoryKey}">${displayName}</button>`;
-        }).join('');
+          const isSelected = currentCategory === subcategoryKey;
+          
+          const option = document.createElement('option');
+          option.value = subcategoryKey;
+          option.textContent = displayName;
+          option.selected = isSelected;
+          
+          subcategoryDropdown.appendChild(option);
+        });
 
-        // Add event listeners to subcategory buttons
-        this.addSubcategoryEventListeners();
+        // Ensure the dropdown value is set correctly (force update after DOM changes)
+        setTimeout(() => {
+          if (currentCategory && currentCategory.includes('|')) {
+            subcategoryDropdown.value = currentCategory;
+          } else {
+            // If we're in a main category (no subcategory), show "Show All" selected
+            subcategoryDropdown.value = '';
+          }
+          // Don't trigger change event here - it interferes with main category selection
+          // subcategoryDropdown.dispatchEvent(new Event('change', { bubbles: true }));
+        }, 50);
+
+        // Add event listener to dropdown
+        this.addSubcategoryDropdownListener();
+        
+        // Update active states after creating dropdown
+        this.updateSubcategoryActiveStates(currentCategory);
       } else {
         subcategoryContainer.style.display = 'none';
-        subcategoryContainer.innerHTML = '';
       }
 
     } catch (error) {
@@ -248,7 +355,6 @@ class CategoryNavigation {
       } else if (window.productData) {
         products = window.productData;
       } else {
-        console.warn('Product data not available for subcategory dropdown');
         return;
       }
 
@@ -300,7 +406,8 @@ class CategoryNavigation {
     // Desktop/tablet button event listeners
     document.querySelectorAll('.category-nav-btn').forEach(btn => {
       btn.addEventListener('click', (e) => {
-        const categoryKeyword = e.target.getAttribute('data-category');
+        // Use currentTarget to get the button, not the clicked element (which might be a span)
+        const categoryKeyword = e.currentTarget.getAttribute('data-category');
         this.handleCategoryClick(categoryKeyword);
       });
     });
@@ -332,45 +439,100 @@ class CategoryNavigation {
     }
   }
 
-  // Add event listeners to subcategory buttons
-  addSubcategoryEventListeners() {
-    document.querySelectorAll('.subcategory-nav-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        const categoryKeyword = e.target.getAttribute('data-category');
-        
-        // For view-product page, navigate to products page
-        if (window.location.pathname.includes('view-product.html')) {
-          const newUrl = `products.html?category=${encodeURIComponent(categoryKeyword)}`;
-          window.location.href = newUrl;
-          return;
+  // Add event listener to subcategory dropdown
+  addSubcategoryDropdownListener() {
+    const dropdown = document.getElementById('subcategory-dropdown');
+    if (!dropdown) return;
+
+    // Remove existing listener if any to prevent duplicates
+    if (this.subcategoryChangeHandler) {
+      dropdown.removeEventListener('change', this.subcategoryChangeHandler);
+    }
+    
+    // Create bound handler for proper removal later
+    this.subcategoryChangeHandler = (e) => {
+      const categoryKeyword = e.target.value;
+      
+      // For view-product page, navigate to products page
+      if (window.location.pathname.includes('view-product.html')) {
+        let newUrl;
+        if (categoryKeyword) {
+          newUrl = `products.html?category=${encodeURIComponent(categoryKeyword)}`;
+        } else {
+          // When "Show All" is selected, get current main category
+          const urlParams = new URLSearchParams(window.location.search);
+          const currentCategory = urlParams.get('category') || '';
+          const mainCategory = currentCategory.includes('|') ? currentCategory.split('|')[0] : currentCategory;
+          newUrl = mainCategory ? `products.html?category=${encodeURIComponent(mainCategory)}` : 'products.html';
         }
-        
-        // For products page, handle subcategory selection
-        const newUrl = `${window.location.pathname}?category=${encodeURIComponent(categoryKeyword)}`;
-        history.pushState({ category: categoryKeyword }, "", newUrl);
-        
-        // Update active states - pass the full subcategory for proper highlighting
-        this.updateMainCategoryActiveStates(categoryKeyword);
-        this.updateSubcategoryActiveStates(categoryKeyword);
-        
-        // Trigger products page functions
-        if (typeof loadProductsByCategory === 'function') {
-          loadProductsByCategory(categoryKeyword);
-        }
-      });
-    });
+        window.location.href = newUrl;
+        return;
+      }
+      
+      // For products page, handle subcategory selection
+      let finalCategoryKeyword = categoryKeyword;
+      
+      // If "Show All" is selected (empty value), determine the main category to show
+      if (!categoryKeyword) {
+        const urlParams = new URLSearchParams(window.location.search);
+        const currentCategory = urlParams.get('category') || '';
+        // Extract main category from current URL (if we're in a subcategory)
+        finalCategoryKeyword = currentCategory.includes('|') ? currentCategory.split('|')[0] : '';
+      }
+      
+      const newUrl = finalCategoryKeyword ? 
+        `${window.location.pathname}?category=${encodeURIComponent(finalCategoryKeyword)}` : 
+        window.location.pathname;
+      history.pushState({ category: finalCategoryKeyword }, "", newUrl);
+      
+      // Update active states - pass the final category for proper highlighting
+      this.updateMainCategoryActiveStates(finalCategoryKeyword);
+      
+      // Use setTimeout to ensure URL is updated before checking state
+      setTimeout(() => {
+        this.updateSubcategoryActiveStates(finalCategoryKeyword);
+      }, 10);
+      
+      // Trigger products page functions
+      if (typeof loadProductsByCategory === 'function') {
+        loadProductsByCategory(finalCategoryKeyword);
+      } else {
+        console.error('loadProductsByCategory function not found');
+      }
+    };
+    
+    dropdown.addEventListener('change', this.subcategoryChangeHandler);
   }
 
   // Update subcategory active states
   updateSubcategoryActiveStates(activeSubcategory) {
-    document.querySelectorAll('.subcategory-nav-btn').forEach(btn => {
-      const btnCategory = btn.getAttribute('data-category');
-      if (btnCategory === activeSubcategory) {
-        btn.classList.add('active');
-      } else {
-        btn.classList.remove('active');
-      }
-    });
+    const dropdown = document.getElementById('subcategory-dropdown');
+    if (!dropdown) {
+      // Subcategory dropdown doesn't exist (e.g., on view-product pages)
+      return;
+    }
+    
+    // Set dropdown value based on the current state
+    const urlParams = new URLSearchParams(window.location.search);
+    const currentCategory = urlParams.get('category') || '';
+    
+    if (currentCategory && currentCategory.includes('|')) {
+      // We're in a specific subcategory - show that subcategory selected
+      dropdown.value = currentCategory;
+      dropdown.disabled = false;
+      dropdown.classList.add('active');
+    } else if (currentCategory && !currentCategory.includes('|')) {
+      // We're in a main category - show "Show All" selected
+      dropdown.value = '';
+      dropdown.disabled = false;
+      dropdown.classList.add('active');
+    } else {
+      // We're in "All Products" - disable the dropdown
+      dropdown.value = '';
+      dropdown.disabled = true;
+      dropdown.innerHTML = '<option value="">No subcategories available</option>';
+      dropdown.classList.remove('active');
+    }
   }
 
   // Handle category button clicks
@@ -392,11 +554,24 @@ class CategoryNavigation {
     history.pushState({ category: categoryKeyword }, "", newUrl);
     
     if (categoryKeyword) {
+      // Extract main category from keyword (handle subcategories like "faceting rough|ruby")
+      const mainCategory = categoryKeyword.includes('|') ? 
+        categoryKeyword.split('|')[0] : categoryKeyword;
+      
       // Update main category active states
       this.updateMainCategoryActiveStates(categoryKeyword);
       
-      // Create/update subcategory buttons for the selected category
-      this.createSubcategoryButtons(categoryKeyword);
+      // Create/update subcategory buttons for the main category
+      this.createSubcategoryButtons(mainCategory);
+      
+      // Update mobile subcategory dropdown as well
+      this.updateMobileSubcategoryDropdown(mainCategory);
+      
+      // Show mobile subcategory dropdown if needed
+      const mobileSubcategorySelect = document.getElementById('mobile-subcategory-select');
+      if (mobileSubcategorySelect) {
+        mobileSubcategorySelect.style.display = 'block';
+      }
       
       // Trigger category change event for products page
       if (window.filterProductsByCategory) {
@@ -414,11 +589,29 @@ class CategoryNavigation {
       // Show all products
       this.updateMainCategoryActiveStates('');
       
-      // Hide subcategories
+      // Keep subcategory container visible but disable the dropdown
       const subcategoryContainer = document.getElementById('subcategory-navigation');
       if (subcategoryContainer) {
-        subcategoryContainer.style.display = 'none';
-        subcategoryContainer.innerHTML = '';
+        subcategoryContainer.style.display = 'flex'; // Keep container visible for pagination
+        // Disable and grey out the subcategory dropdown
+        const dropdown = document.getElementById('subcategory-dropdown');
+        if (dropdown) {
+          dropdown.disabled = true; // Disable interaction
+          dropdown.innerHTML = '<option value="">No subcategories available</option>';
+          dropdown.value = '';
+        }
+        // Keep the filter section visible but show it's disabled
+        const filterSection = subcategoryContainer.querySelector('.filter-section');
+        if (filterSection) {
+          filterSection.style.display = 'flex';
+        }
+      }
+      
+      // Hide mobile subcategory dropdown
+      const mobileSubcategorySelect = document.getElementById('mobile-subcategory-select');
+      if (mobileSubcategorySelect) {
+        mobileSubcategorySelect.style.display = 'none';
+        mobileSubcategorySelect.innerHTML = '<option value="">All Subcategories</option>';
       }
       
       // Trigger show all products for products page
@@ -433,28 +626,46 @@ class CategoryNavigation {
     }
   }
 
+  // Get item count for a specific category
+  // Get total item count across all categories
+  getTotalItemCount() {
+    return this.products ? this.products.length : 0;
+  }
+
   // Update active states for main category buttons
   updateMainCategoryActiveStates(activeCategory) {
-    document.querySelectorAll('.category-nav-btn').forEach(btn => {
+    const buttons = document.querySelectorAll('.category-nav-btn');
+    
+    buttons.forEach(btn => {
       const btnCategory = btn.getAttribute('data-category');
       
       // Handle subcategory format (e.g., "slabs|tiger eye")
       let categoryToCheck = activeCategory;
-      let isSubcategory = false;
       
       if (activeCategory && activeCategory.includes('|')) {
         // Extract main category from subcategory
         categoryToCheck = activeCategory.split('|')[0];
-        isSubcategory = true;
       }
       
-      if (btnCategory === categoryToCheck || 
-          (activeCategory && activeCategory.startsWith(btnCategory + '-') && btnCategory !== '')) {
+      // Remove active class first
+      btn.classList.remove('active');
+      
+      // Add active class based on matching logic (CASE INSENSITIVE)
+      let shouldBeActive = false;
+      
+      // Normalize both strings to lowercase for comparison
+      const normalizedBtnCategory = (btnCategory || '').toLowerCase().trim();
+      const normalizedCategoryToCheck = (categoryToCheck || '').toLowerCase().trim();
+      
+      if (normalizedBtnCategory === normalizedCategoryToCheck || 
+          (activeCategory && activeCategory.toLowerCase().startsWith(normalizedBtnCategory + '-') && normalizedBtnCategory !== '')) {
+        shouldBeActive = true;
+      } else if (normalizedBtnCategory === '' && (!activeCategory || activeCategory === '')) {
+        shouldBeActive = true;
+      }
+      
+      if (shouldBeActive) {
         btn.classList.add('active');
-      } else if (btnCategory === '' && !activeCategory) {
-        btn.classList.add('active');
-      } else {
-        btn.classList.remove('active');
       }
     });
 
@@ -469,6 +680,78 @@ class CategoryNavigation {
     });
   }
 
+  // Get item count for a specific category
+  getItemCount(categoryKey) {
+    if (!this.products) return 0;
+    
+    if (!categoryKey) {
+      // For "All Products", count unique product IDs across all categories
+      const uniqueProductIds = new Set();
+      this.products.forEach(product => {
+        if (product["product id"]) {
+          uniqueProductIds.add(product["product id"]);
+        }
+      });
+      return uniqueProductIds.size;
+    }
+    
+    const category = this.categories.find(cat => cat.key === categoryKey);
+    if (!category) return 0;
+    
+    // Get unique product IDs for this category
+    const uniqueProductIds = new Set();
+    this.products.forEach(product => {
+      const productCategory = product.category ? product.category.trim().toLowerCase() : '';
+      if (productCategory === categoryKey && product["product id"]) {
+        uniqueProductIds.add(product["product id"]);
+      }
+    });
+    
+    return uniqueProductIds.size;
+  }
+
+  // Get total item count
+  getTotalItemCount() {
+    if (!this.products) return 0;
+    
+    // Count unique product IDs across all products
+    const uniqueProductIds = new Set();
+    this.products.forEach(product => {
+      if (product["product id"]) {
+        uniqueProductIds.add(product["product id"]);
+      }
+    });
+    
+    return uniqueProductIds.size;
+  }
+
+  // Set active category based on product ID (for view-product pages)
+  async setActiveCategoryFromProduct(productId) {
+    try {
+      // Get product data
+      let products = [];
+      if (typeof getProductData === 'function') {
+        products = await getProductData();
+      } else if (window.productData) {
+        products = window.productData;
+      } else {
+        return;
+      }
+
+      // Find the product
+      const product = products.find(p => p['product id'] === productId);
+      if (product && product.category) {
+        const mainCategory = product.category.trim().toLowerCase();
+        // Wait a bit for DOM to be ready, then set active state
+        setTimeout(() => {
+          this.updateMainCategoryActiveStates(mainCategory);
+        }, 100);
+      }
+    } catch (error) {
+      console.error("Error setting active category from product:", error);
+    }
+  }
+
   // Initialize navigation based on current URL
   async initializeFromURL() {
     const urlParams = new URLSearchParams(window.location.search);
@@ -477,6 +760,13 @@ class CategoryNavigation {
     // For view-product page, don't set active category initially - wait for product to load
     if (window.location.pathname.includes('view-product.html')) {
       category = ''; // Start with no active category on view-product page
+      // Note: subcategory navigation won't be created at all on view-product pages
+      
+      // Try to get the product category from URL and set active category
+      const productId = urlParams.get('productid');
+      if (productId) {
+        this.setActiveCategoryFromProduct(productId);
+      }
     }
     
     await this.createNavigationButtons(category);
