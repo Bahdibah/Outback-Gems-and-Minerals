@@ -45,7 +45,11 @@ body:has([data-page="view-product"]) .category-navigation,
 }
 
 .footer-icon {
-  color: white;
+  color: #cc5500;
+}
+
+.footer-icon:hover {
+  color: #ff7f33;
 }
 
 /* Hidden Breadcrumb Navigation - Keep for SEO but hide visually */
@@ -455,11 +459,11 @@ footer a:visited {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 32px;
+  gap: 0px;
   flex: 0 0 auto;
   max-width: 520px;
   min-width: 432px;
-  margin-bottom: 24px;
+  margin-bottom: 0px;
 }
 
 .view-product-images-row {
@@ -521,8 +525,8 @@ footer a:visited {
 /* Desktop disclaimer section */
 .view-product-disclaimer-desktop {
   width: 100%;
-  margin-top: 5px;
-  margin-bottom: 20px;
+  margin-top: 0px;
+  margin-bottom: 15px;
   display: block;
 }
 
@@ -533,9 +537,7 @@ footer a:visited {
   border-radius: 0;
   box-shadow: none;
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
+  display: block;
   text-align: center;
 }
 
@@ -567,7 +569,7 @@ footer a:visited {
 
 .disclaimer-content p {
   color: #e0e0e0;
-  font-size: 1rem;
+  font-size: 1.1rem;
   line-height: 1.6;
   margin: 0 0 12px 0;
   text-align: left;
@@ -1508,21 +1510,21 @@ h1 {
 .related-products-grid:has(.product-card:nth-child(1):nth-last-child(1)) {
   grid-template-columns: 1fr;
   justify-content: center;
-  max-width: 200px;
+  max-width: 250px;
   margin: 20px auto;
 }
 
 .related-products-grid:has(.product-card:nth-child(2):nth-last-child(1)) {
   grid-template-columns: repeat(2, 1fr);
   justify-content: center;
-  max-width: 432px;
+  max-width: 520px;
   margin: 20px auto;
 }
 
 .related-products-grid:has(.product-card:nth-child(3):nth-last-child(1)) {
   grid-template-columns: repeat(3, 1fr);
   justify-content: center;
-  max-width: 648px;
+  max-width: 790px;
   margin: 20px auto;
 }
 
@@ -1530,21 +1532,21 @@ h1 {
 .related-products-grid.center-one {
   grid-template-columns: 1fr;
   justify-content: center;
-  max-width: 200px;
+  max-width: 250px;
   margin: 20px auto;
 }
 
 .related-products-grid.center-two {
   grid-template-columns: repeat(2, 1fr);
   justify-content: center;
-  max-width: 432px;
+  max-width: 520px;
   margin: 20px auto;
 }
 
 .related-products-grid.center-three {
   grid-template-columns: repeat(3, 1fr);
   justify-content: center;
-  max-width: 648px;
+  max-width: 790px;
   margin: 20px auto;
 }
 
@@ -1568,7 +1570,7 @@ h1 {
 .related-products-grid .product-card,
 .related-products-swiper .product-card {
   background: linear-gradient(145deg, #2a2a2a, #333333);
-  border: 1px solid rgba(204, 85, 0, 0.2);
+  border: 2px solid rgba(204, 85, 0, 0.4);
   border-radius: 12px;
   padding: 16px 12px 12px 12px;
   text-align: center;
@@ -1584,15 +1586,15 @@ h1 {
   width: 100%;
   box-sizing: border-box;
   min-width: 0;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5), 0 0 10px rgba(204, 85, 0, 0.2);
 }
 
 .related-products-grid .product-card:hover,
 .related-products-swiper .product-card:hover {
-  border-color: rgba(204, 85, 0, 0.6);
+  border-color: rgba(204, 85, 0, 0.8);
   background: linear-gradient(145deg, #333333, #3a3a3a);
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(204, 85, 0, 0.4), 0 0 15px rgba(204, 85, 0, 0.1);
+  box-shadow: 0 8px 25px rgba(204, 85, 0, 0.5), 0 0 20px rgba(204, 85, 0, 0.3);
   z-index: 10;
 }
 
@@ -1686,29 +1688,33 @@ h1 {
 }
 
 .related-products-title {
-  color: #cc5500;
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin: 5px 0 15px 0;
-  text-align: center;
+  font-size: 2.5rem;
+  color: #ffffff;
+  margin-bottom: 15px;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 2px;
+  position: relative;
+  display: inline-block;
+  text-align: center;
+}
+
+.related-products-title::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, #cc5500, #ff7f33);
+  border-radius: 2px;
 }
 
 /* Related Products Section - Using Swiper.js */
 .related-products-section {
   margin: 20px 0;
   padding: 0;
-}
-
-.related-products-title {
-  color: #cc5500;
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin: 5px 0 15px 0;
-  text-align: center;
-  text-transform: uppercase;
-  letter-spacing: 1px;
 }
 
 /* Related Yowah Nuts Grid Styles */

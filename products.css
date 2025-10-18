@@ -159,6 +159,25 @@ footer a:visited {
   color: #cc5500 !important;
 }
 
+/* Footer icon styling */
+.footer-icon {
+  color: #cc5500 !important;
+}
+
+.footer-icon:hover {
+  color: #ff7f33 !important;
+}
+
+.footer-right .fa-envelope,
+.footer-right .fa-facebook-square {
+  color: #cc5500;
+}
+
+.footer-right .fa-envelope:hover,
+.footer-right .fa-facebook-square:hover {
+  color: #ff7f33;
+}
+
 /* Container for the dynamic product cards */
 #dynamic-product-container {
   display: flex;
@@ -306,10 +325,10 @@ footer a:visited {
 
 /* Product Name Styling */
 .dynamic-product-card h3 {
-  font-size: 1.4rem;
-  color: #ffffff;
+  font-size: 1.5rem;
+  color: #cc5500;
   margin: 0 0 12px 0;
-  font-weight: 600;
+  font-weight: 1000;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   line-height: 1.3;
   letter-spacing: 0.3px;
@@ -321,8 +340,6 @@ footer a:visited {
   text-align: center;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
-  transition: color 0.3s ease;
 }
 
 /* Product Size Info Styling */
@@ -364,15 +381,12 @@ footer a:visited {
 
 /* Product Price Styling */
 .dynamic-product-card .product-price {
-  font-size: 1.5rem;
-  font-weight: 800;
+  font-size: 1.4rem;
+  font-weight: 400;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  background: linear-gradient(135deg, #ffb366 0%, #ff7f33 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin: 18px 0 6px 0;
-  text-shadow: 0 2px 8px rgba(255, 179, 102, 0.3);
+  color: #ffffff;
+  margin: 8px 0 12px 0;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
   flex-shrink: 0;
   letter-spacing: 0.3px;
   -webkit-font-smoothing: antialiased;
@@ -462,22 +476,6 @@ footer a:visited {
   backdrop-filter: blur(5px);
   position: relative;
   overflow: hidden;
-}
-
-.dynamic-product-card .product-price {
-  font-size: 1.5rem;
-  font-weight: 800;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  background: linear-gradient(135deg, #ffb366 0%, #ff7f33 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin: 18px 0 6px 0;
-  text-shadow: 0 2px 8px rgba(255, 179, 102, 0.3);
-  flex-shrink: 0;
-  letter-spacing: 0.3px;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 .dynamic-product-card .dynamic-product-button::before {

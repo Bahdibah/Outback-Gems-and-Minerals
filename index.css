@@ -319,6 +319,34 @@ footer a:visited {
   color: #cc5500 !important;
 }
 
+/* Footer icon styling */
+.footer-icon {
+  color: #cc5500 !important;
+}
+
+.footer-icon:hover {
+  color: #ff7f33 !important;
+}
+
+.footer-right .fa-envelope,
+.footer-right .fa-facebook-square {
+  color: #cc5500 !important;
+}
+
+.footer-right .fa-envelope:hover,
+.footer-right .fa-facebook-square:hover {
+  color: #ff7f33 !important;
+}
+
+/* Override white-icon class for footer icons */
+footer .white-icon {
+  color: #cc5500 !important;
+}
+
+footer .white-icon:hover {
+  color: #ff7f33 !important;
+}
+
 /* About Us Section */
 .about-us {
   display: flex;

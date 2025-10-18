@@ -260,6 +260,25 @@ footer a:visited {
   color: #cc5500 !important;
 }
 
+/* Footer icon styling */
+.footer-icon {
+  color: #cc5500 !important;
+}
+
+.footer-icon:hover {
+  color: #ff7f33 !important;
+}
+
+.footer-right .fa-envelope,
+.footer-right .fa-facebook-square {
+  color: #cc5500;
+}
+
+.footer-right .fa-envelope:hover,
+.footer-right .fa-facebook-square:hover {
+  color: #ff7f33;
+}
+
 .policy-container ul {
   text-align: left;
   list-style-position: outside; /* Bullets outside for better alignment */

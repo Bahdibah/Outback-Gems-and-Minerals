@@ -2463,7 +2463,12 @@ footer a:visited {
 /* Footer icon colors */
 .footer-right .fa-envelope,
 .footer-right .fa-facebook-square {
-  color: white;
+  color: #cc5500;
+}
+
+.footer-right .fa-envelope:hover,
+.footer-right .fa-facebook-square:hover {
+  color: #ff7f33;
 }
 
 /* Mobile responsive: Hide plus/minus buttons below 1024px */

@@ -1160,7 +1160,11 @@ form button[type="button"]:hover {
 
 /* Footer icon styling */
 .footer-icon {
-  color: white !important;
+  color: #cc5500 !important;
+}
+
+.footer-icon:hover {
+  color: #ff7f33 !important;
 }
 
 /* Footer link styling */
