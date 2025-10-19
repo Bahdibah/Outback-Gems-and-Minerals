@@ -466,15 +466,6 @@ class CategoryNavigation {
       // Create/update subcategory buttons for the main category
       this.createSubcategoryButtons(mainCategory);
       
-      // Update mobile subcategory dropdown as well
-      this.updateMobileSubcategoryDropdown(mainCategory);
-      
-      // Show mobile subcategory dropdown if needed
-      const mobileSubcategorySelect = document.getElementById('mobile-subcategory-select');
-      if (mobileSubcategorySelect) {
-        mobileSubcategorySelect.style.display = 'block';
-      }
-      
       // Trigger category change event for products page
       if (window.filterProductsByCategory) {
         window.filterProductsByCategory(categoryKeyword);

@@ -107,6 +107,12 @@ document.querySelector('.newsletter-container form').addEventListener('submit', 
 // Bestsellers section
 document.addEventListener("DOMContentLoaded", function () {
   const bestsellerGrid = document.querySelector('.bestseller-product-cards');
+  
+  // Check if element exists before proceeding
+  if (!bestsellerGrid) {
+    console.log('Bestseller grid not found - skipping bestseller section');
+    return;
+  }
 
   // Add loading message
   const loadingMsg = document.createElement("div");

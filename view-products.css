@@ -585,6 +585,66 @@ footer a:visited {
   font-weight: 600;
 }
 
+/* Laptop screen adjustments */
+@media (max-width: 1280px) {
+  .view-product-images {
+    max-width: 380px;
+    min-width: 320px;
+  }
+  
+  .view-product-main-image {
+    width: 320px;
+    height: 320px;
+  }
+  
+  .view-product-thumbnails {
+    height: 320px;
+  }
+  
+  .view-product-thumbnails img {
+    height: calc((320px - (3 * 8px)) / 4);
+  }
+  
+  .view-product-image-placeholder {
+    height: calc((320px - (3 * 8px)) / 4);
+    max-width: 75px;
+  }
+  
+  .view-product-main {
+    gap: 28px;
+  }
+}
+
+/* Tablet screen adjustments */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .view-product-images {
+    max-width: 320px;
+    min-width: 280px;
+  }
+  
+  .view-product-main-image {
+    width: 280px;
+    height: 280px;
+  }
+  
+  .view-product-thumbnails {
+    height: 280px;
+  }
+  
+  .view-product-thumbnails img {
+    height: calc((280px - (3 * 8px)) / 4);
+  }
+  
+  .view-product-image-placeholder {
+    height: calc((280px - (3 * 8px)) / 4);
+    max-width: 70px;
+  }
+  
+  .view-product-main {
+    gap: 24px;
+  }
+}
+
 /* Hide disclaimer on mobile/tablet */
 @media (max-width: 1024px) {
   .view-product-disclaimer-desktop {
