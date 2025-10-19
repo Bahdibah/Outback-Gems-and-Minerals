@@ -735,13 +735,10 @@ nav ul.burger-nav-links.open {
     .welcome-message {
       font-size: 1.25rem;
     }
-    .navbar-search {
-      width: 100px;
-    }
    }
 
-/* Intermediate breakpoint to collapse search to icon only */
-@media (max-width: 1100px) {
+/* Collapse search to icon at 1350px and below to prevent overlap */
+@media (max-width: 1350px) {
   .navbar-search {
     display: flex;
     align-items: center;
