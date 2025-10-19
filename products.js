@@ -1463,9 +1463,15 @@ function updateInlineNavigation(currentProducts, headerTitle, keyword, data, pag
   
   if (!inlinePagination || !resultsText) return;
   
-  // Update results info
+  // Update results info with responsive text
   if (totalItems > 0) {
-    resultsText.textContent = `Showing ${startItem}-${endItem} of ${totalItems}`;
+    // Check screen width for mobile
+    const isMobile = window.innerWidth <= 600;
+    if (isMobile) {
+      resultsText.textContent = `${startItem}-${endItem} of ${totalItems}`;
+    } else {
+      resultsText.textContent = `Showing ${startItem}-${endItem} of ${totalItems}`;
+    }
   } else {
     resultsText.textContent = 'No products found';
   }

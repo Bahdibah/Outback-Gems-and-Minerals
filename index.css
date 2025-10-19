@@ -2001,16 +2001,16 @@ button {
   font-size: 1.5rem;
   font-weight: 600;
   color: #f5f5f5;
-  line-height: 1.6;
-  margin-bottom: 15px;
+  line-height: 1.5;
+  margin-bottom: 8px;
 }
 
 .about-text-section p {
   font-size: 1.3rem;
   color: #d0d0d0;
-  line-height: 1.5;
+  line-height: 1.35;
   text-align: justify;
-  margin-bottom: 12px;
+  margin-bottom: 5px;
 }
 
 .about-image.featured {
