@@ -5,6 +5,19 @@
   box-sizing: border-box;
 }
 
+/* Android Browser Gradient Fallbacks - Ensure visibility when gradients fail */
+@supports not (background: linear-gradient(#000, #fff)) {
+  /* All elements with gradient backgrounds get solid color fallbacks */
+  [style*="linear-gradient"],
+  *[class*="card"],
+  *[class*="btn"],
+  *[class*="button"],
+  *[class*="badge"],
+  *[class*="content"] {
+    background-image: none !important;
+  }
+}
+
 :root {
   --navbar-height: 70px;
 }
@@ -544,6 +557,7 @@ footer .white-icon:hover {
 }
 
 .arrival-card {
+  background: rgba(68, 68, 68, 0.9); /* Fallback for older browsers */
   background: linear-gradient(135deg, rgba(68, 68, 68, 0.9), rgba(85, 85, 85, 0.7));
   border-radius: 15px;
   overflow: hidden;
@@ -580,6 +594,7 @@ footer .white-icon:hover {
   position: absolute;
   top: 15px;
   right: 15px;
+  background: #cc5500; /* Fallback for older browsers */
   background: linear-gradient(135deg, #cc5500, #ff7f33);
   color: white;
   padding: 8px 15px;
@@ -598,6 +613,7 @@ footer .white-icon:hover {
   bottom: 0;
   left: 0;
   right: 0;
+  background: rgba(0, 0, 0, 0.85); /* Fallback for older browsers */
   background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.7) 50%, transparent 100%);
   padding: 25px 20px 20px;
   z-index: 2;
@@ -629,6 +645,7 @@ footer .white-icon:hover {
 }
 
 .featured-cta {
+  background: #cc5500; /* Fallback for older browsers */
   background: linear-gradient(135deg, #cc5500, #ff7f33);
   color: white;
   border: none;
@@ -644,6 +661,7 @@ footer .white-icon:hover {
 }
 
 .featured-cta:hover {
+  background: #ff7f33; /* Fallback for older browsers */
   background: linear-gradient(135deg, #ff7f33, #ffaa66);
   transform: translateY(-2px);
   box-shadow: 0 8px 20px rgba(204, 85, 0, 0.4);
@@ -691,6 +709,7 @@ footer .white-icon:hover {
 }
 
 .quick-view-btn {
+  background: #cc5500; /* Fallback for older browsers */
   background: linear-gradient(135deg, #cc5500, #ff7f33);
   color: white;
   border: none;
@@ -709,6 +728,7 @@ footer .white-icon:hover {
 }
 
 .quick-view-btn:hover {
+  background: #ff7f33; /* Fallback for older browsers */
   background: linear-gradient(135deg, #ff7f33, #ffaa66);
   transform: translateY(-2px);
 }
@@ -718,6 +738,7 @@ footer .white-icon:hover {
   bottom: 0;
   left: 0;
   right: 0;
+  background: rgba(0, 0, 0, 0.8); /* Fallback for older browsers */
   background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.4) 70%, transparent 100%);
   padding: 15px;
   z-index: 2;
@@ -840,6 +861,20 @@ footer .white-icon:hover {
   .arrivals-info-panel {
     grid-column: 1;
     grid-row: 3;
+    text-align: center;
+  }
+  
+  .arrivals-info-panel .info-panel-content {
+    align-items: center;
+  }
+  
+  .arrivals-info-panel .info-panel-content h3,
+  .arrivals-info-panel .info-panel-content p {
+    text-align: center;
+  }
+  
+  .arrivals-info-panel .panel-features {
+    justify-content: center;
   }
   
   .arrival-card {

@@ -1,3 +1,14 @@
+/* Browser Compatibility - Gradient fallbacks for Android */
+@supports not (background: linear-gradient(#000, #fff)) {
+  [style*="linear-gradient"],
+  *[class*="card"],
+  *[class*="btn"],
+  *[class*="button"],
+  *[class*="badge"] {
+    background-image: none !important;
+  }
+}
+
 :root {
   --navbar-height: 70px;
 }
@@ -179,6 +190,7 @@ body:has([data-page="view-product"]) .category-navigation,
 
 /* Enhanced Add to Cart Button */
 .add-to-cart-button {
+  background: #cc5500; /* Fallback for older browsers */
   background: linear-gradient(135deg, #cc5500 0%, #ff7f33 100%);
   border: none;
   border-radius: 6px;
@@ -196,6 +208,7 @@ body:has([data-page="view-product"]) .category-navigation,
 .add-to-cart-button:hover {
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(204, 85, 0, 0.3);
+  background: #ff7f33; /* Fallback for older browsers */
   background: linear-gradient(135deg, #ff7f33 0%, #ff9966 100%);
 }
 

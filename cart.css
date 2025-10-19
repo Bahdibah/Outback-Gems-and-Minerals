@@ -1,3 +1,14 @@
+/* Browser Compatibility - Gradient fallbacks for Android */
+@supports not (background: linear-gradient(#000, #fff)) {
+  [style*="linear-gradient"],
+  *[class*="card"],
+  *[class*="btn"],
+  *[class*="button"],
+  *[class*="badge"] {
+    background-image: none !important;
+  }
+}
+
 /* Prevent horizontal dragging and scrolling */
 html, body {
   overflow-x: hidden;
