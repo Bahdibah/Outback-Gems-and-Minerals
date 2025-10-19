@@ -67,51 +67,16 @@ RewriteCond %{HTTPS} off
 RewriteCond %{HTTP_HOST} ^outbackgems\.com\.au [NC]
 RewriteRule ^(.*)$ https://outbackgems.com.au/$1 [L,R=301]
 
-# --- File Access Security ---
-
-# Block access to backup and config files
-<FilesMatch "(\.htaccess|\.htpasswd|\.env|\.git|\.svn|\.DS_Store|Thumbs\.db|\.bak|\.backup|\.old|\.orig|\.save|\.swp|\.tmp|~)$">
-    Require all denied
-</FilesMatch>
-
-# JSON files - allow from your domain with caching, block direct access
-<Files ~ "\.(json)$">
-    RewriteEngine On
-    # Allow access only if referrer is from your domain
-    RewriteCond %{HTTP_REFERER} ^https://outbackgems\.com\.au/ [NC]
-    RewriteRule .* - [E=ALLOWED:1,L]
-    
-    # Block all other access (including direct access with no referrer)
-    RewriteRule .* - [F,L]
-    
-    # Set cache headers for allowed access
-    Header always set Cache-Control "public, max-age=300" env=ALLOWED
-</Files>
-
-# Only allow POST requests to PHP files
-<Files ~ "\.php$">
-    RewriteEngine On
-    RewriteCond %{REQUEST_METHOD} !^POST$ [NC]
-    RewriteRule .* - [F,L]
-</Files>
-
-# Block problematic bots and scrapers (but allow legitimate browsers)
-RewriteCond %{HTTP_USER_AGENT} ^(httrack|wget|curl.*bot|libwww|python.*requests|ruby.*net|java.*bot) [NC]
-RewriteRule .* - [F,L]
-
-# --- Caching Rules ---
-
-# Cache navbar for 24 hours
-<Files "navbar.html">
-    Header set Cache-Control "public, max-age=86400"
-</Files>
+# Only apply Prerender to bot user agents, not regular users
+RewriteCond %{HTTP_USER_AGENT} (googlebot|bingbot|yahoo|baiduspider|facebookexternalhit|twitterbot) [NC]
+RequestHeader set X-Prerender-Token "jB2NVBnrYbku2t67YS1V"
+RewriteRule ^(.*)$ https://service.prerender.io/https://outbackgems.com.au/$1 [P,L]
 
 
 # --- Security Headers ---
 
-# Temporary simplified CSP for debugging
-Header set Content-Security-Policy "default-src 'self'; img-src 'self' data: https:; script-src 'self' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline' https:; font-src 'self' data: https:; connect-src 'self' https:; worker-src 'self' blob: https:; frame-src 'self' https:;"
-Header set Permissions-Policy "geolocation=(), microphone=(), camera=(), fullscreen=(self), payment=*"
+Header set Content-Security-Policy "default-src 'self'; img-src 'self' data: https: *.paypal.com *.paypalobjects.com www.facebook.com www.gstatic.com *.synchronycredit.com; script-src 'self' https://cdnjs.cloudflare.com https://fonts.googleapis.com https://cdn.jsdelivr.net https://js.stripe.com https://www.paypal.com https://www.paypalobjects.com https://www.sandbox.paypal.com https://checkout.paypal.com https://*.paypal.cn https://objects.paypal.cn https://www.gstatic.com https://*.synchronycredit.com https://synchronycredit.com https://www.datadoghq-browser-agent.com https://static.novacredit.com https://script.googleusercontent.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://www.paypalobjects.com; font-src 'self' data: https://fonts.gstatic.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; connect-src 'self' https://script.googleusercontent.com https://script.google.com https://cdn.jsdelivr.net https://js.stripe.com https://www.paypal.com https://www.paypalobjects.com https://www.sandbox.paypal.com https://checkout.paypal.com https://cors-anywhere.herokuapp.com https://www.datadoghq-browser-agent.com https://outbackgems.netlify.app; worker-src 'self' blob: https://*.paypal.com; frame-src 'self' https://*.paypal.com https://*.paypalobjects.com https://www.sandbox.paypal.com https://js.stripe.com;"
+Header set Permissions-Policy "geolocation=(), microphone=(), camera=(), fullscreen=(self), payment=(self)"
 
 
 
