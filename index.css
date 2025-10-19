@@ -2450,6 +2450,7 @@ button {
 
 /* Tablet Responsive Design (426px - 768px) */
 @media (max-width: 768px) and (min-width: 426px) {
+
   .modern-categories .categories-grid {
     display: grid !important;
     grid-template-columns: 1fr 1fr !important;
@@ -2555,7 +2556,11 @@ button {
   }
   
   .modern-values {
-    padding: 60px 20px;
+    padding: 0px 20px;
+  }
+
+  .latest-arrivals {
+    padding: 0px 20px;
   }
   
   .categories-header h2, .arrivals-header h2 {
@@ -2580,7 +2585,7 @@ button {
   }
   
   .modern-categories {
-    padding: 60px 20px;
+    padding: 0px 20px;
   }
   
   .modern-categories .categories-grid {
