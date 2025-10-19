@@ -84,3 +84,70 @@ Header set X-Content-Type-Options "nosniff"
 Header always set Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
 Header set Referrer-Policy "strict-origin-when-cross-origin"
 Header always append X-Frame-Options SAMEORIGIN
+
+# --- AGGRESSIVE SHORT-TERM CACHING FOR NEW SITE LAUNCH ---
+# This section forces browsers to fetch fresh content during site redesign
+# ⚠️ SWITCH TO LONG-TERM CACHING AFTER 2-3 WEEKS (see instructions below)
+
+<IfModule mod_expires.c>
+    ExpiresActive On
+    
+    # HTML/JSON - SHORT CACHE (30 minutes - fresh content without disrupting sessions)
+    ExpiresByType text/html "access plus 1800 seconds"
+    ExpiresByType application/json "access plus 1800 seconds"
+    
+    # CSS/JS - SHORT CACHE (30 minutes - forces updates without session disruption)
+    ExpiresByType text/css "access plus 1800 seconds"
+    ExpiresByType application/javascript "access plus 1800 seconds"
+    ExpiresByType text/javascript "access plus 1800 seconds"
+    
+    # Images - SHORT CACHE (1 hour - balance between performance and freshness)
+    ExpiresByType image/jpeg "access plus 1 hour"
+    ExpiresByType image/jpg "access plus 1 hour"
+    ExpiresByType image/png "access plus 1 hour"
+    ExpiresByType image/gif "access plus 1 hour"
+    ExpiresByType image/webp "access plus 1 hour"
+    ExpiresByType image/svg+xml "access plus 1 hour"
+    ExpiresByType image/x-icon "access plus 1 hour"
+    
+    # Fonts - MODERATE CACHE (1 day)
+    ExpiresByType font/ttf "access plus 1 day"
+    ExpiresByType font/woff "access plus 1 day"
+    ExpiresByType font/woff2 "access plus 1 day"
+    ExpiresByType application/font-woff "access plus 1 day"
+    ExpiresByType application/font-woff2 "access plus 1 day"
+</IfModule>
+
+# Force revalidation for HTML/JSON (30 min cache with revalidation)
+<FilesMatch "\.(html|json)$">
+    Header set Cache-Control "public, max-age=1800, must-revalidate"
+</FilesMatch>
+
+# Short cache for CSS/JS with must-revalidate (30 minutes)
+<FilesMatch "\.(css|js)$">
+    Header set Cache-Control "public, max-age=1800, must-revalidate"
+</FilesMatch>
+
+# --- INSTRUCTIONS FOR SWITCHING TO LONG-TERM CACHING ---
+# After 2-3 weeks when site is stable, replace the above section with:
+#
+# <IfModule mod_expires.c>
+#     ExpiresActive On
+#     ExpiresByType text/html "access plus 1 hour"
+#     ExpiresByType application/json "access plus 1 hour"
+#     ExpiresByType text/css "access plus 1 year"
+#     ExpiresByType application/javascript "access plus 1 year"
+#     ExpiresByType text/javascript "access plus 1 year"
+#     ExpiresByType image/jpeg "access plus 1 year"
+#     ExpiresByType image/jpg "access plus 1 year"
+#     ExpiresByType image/png "access plus 1 year"
+#     ExpiresByType image/gif "access plus 1 year"
+#     ExpiresByType image/webp "access plus 1 year"
+#     ExpiresByType font/ttf "access plus 1 year"
+#     ExpiresByType font/woff "access plus 1 year"
+#     ExpiresByType font/woff2 "access plus 1 year"
+# </IfModule>
+#
+# <FilesMatch "\.(css|js|jpg|jpeg|png|gif|webp|woff|woff2|ttf)$">
+#     Header set Cache-Control "public, max-age=31536000, immutable"
+# </FilesMatch>
