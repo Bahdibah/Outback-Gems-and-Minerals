@@ -198,11 +198,28 @@ document.addEventListener('DOMContentLoaded', function() {
           return;
         }
         
+        // Add reCAPTCHA response to form
+        let recaptchaInput = contactForm.querySelector('input[name="g-recaptcha-response"]');
+        if (!recaptchaInput) {
+          recaptchaInput = document.createElement('input');
+          recaptchaInput.type = 'hidden';
+          recaptchaInput.name = 'g-recaptcha-response';
+          contactForm.appendChild(recaptchaInput);
+        }
+        recaptchaInput.value = recaptchaResponse;
+        
         // reCAPTCHA completed, hide modal and submit form
         hideRecaptchaModal();
         
-        // Submit the form
-        contactForm.removeEventListener('submit', arguments.callee);
+        // Create a new FormData object and submit via the original form element
+        // This bypasses the event listener we set up
+        const submitEvent = new Event('submit', { cancelable: true, bubbles: true });
+        
+        // Temporarily remove our custom submit handler
+        const originalHandler = contactForm.onsubmit;
+        contactForm.onsubmit = null;
+        
+        // Submit the form (this will use the browser's default form submission)
         contactForm.submit();
       });
     }

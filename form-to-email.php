@@ -1,4 +1,11 @@
 <?php
+// Load configuration file (contains secret keys - NOT in GitHub)
+if (file_exists('config.php')) {
+    require_once 'config.php';
+} else {
+    die('Configuration file missing. Please create config.php with your secret keys.');
+}
+
 $errors = [];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -13,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     // reCAPTCHA verification
     if (isset($_POST['g-recaptcha-response'])) {
-        $recaptcha_secret = '6Lc0lO8rAAAAACFdzgeeR2qgFuW91628Wi6bhsec';
+        $recaptcha_secret = RECAPTCHA_SECRET_KEY; // Now using constant from config.php
         $recaptcha_response = $_POST['g-recaptcha-response'];
         
         // Verify with Google
@@ -186,8 +193,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // If no errors, send email
     if (empty($errors)) {
-        // Recipient email address 
-        $recipient = "support@outbackgems.com.au";
+        // Recipient email address from config
+        $recipient = CONTACT_EMAIL;
 
         // Additional headers
         $headers = "From: $name <$email>\r\n";

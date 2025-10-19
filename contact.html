@@ -146,22 +146,22 @@
       <div class="form-actions">
         <button type="submit">Send</button>
       </div>
-    </form>
-    
-    <!-- reCAPTCHA Modal (hidden by default) -->
-    <div id="recaptcha-modal" class="recaptcha-modal" style="display: none;">
-      <div class="recaptcha-modal-content">
-        <h3>Security Verification</h3>
-        <p>Please complete the security check to verify you're human:</p>
-        <div class="recaptcha-container">
-          <div class="g-recaptcha" data-sitekey="6Lc0lO8rAAAAAOejSNLmgJw8MiRfKhjrUI4msZij"></div>
-        </div>
-        <div class="recaptcha-buttons">
-          <button type="button" id="recaptcha-submit">Verify & Send</button>
-          <button type="button" id="recaptcha-cancel">Cancel</button>
+      
+      <!-- reCAPTCHA Modal (hidden by default) - Must be inside form to include response -->
+      <div id="recaptcha-modal" class="recaptcha-modal" style="display: none;">
+        <div class="recaptcha-modal-content">
+          <h3>Security Verification</h3>
+          <p>Please complete the security check to verify you're human:</p>
+          <div class="recaptcha-container">
+            <div class="g-recaptcha" data-sitekey="6Lcyl-8rAAAAAN_o4WWVhbDozQDEXEon-JCibQF9"></div>
+          </div>
+          <div class="recaptcha-buttons">
+            <button type="button" id="recaptcha-submit">Verify & Send</button>
+            <button type="button" id="recaptcha-cancel">Cancel</button>
+          </div>
         </div>
       </div>
-    </div>
+    </form>
   </div>
 </section>
 
