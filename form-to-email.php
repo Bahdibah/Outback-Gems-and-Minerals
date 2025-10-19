@@ -65,7 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         '/test@|admin@.*\.tk$/i',
         '/\.tk$|\.ml$|\.ga$|\.cf$/i',  // suspicious TLDs only
         '/^[a-z]+\d{6,}@/i',  // Only flag if 6+ consecutive numbers
-        '/@.*\d{3,}\./'  // Numbers in domain part
+        '/@\d{3,}/'  // Numbers in domain part
     ];
     
     foreach ($suspiciousEmailPatterns as $pattern) {

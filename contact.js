@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function() {
           /test@|admin@.*\.tk$/i,
           /\.tk$|\.ml$|\.ga$|\.cf$/i,  // suspicious TLDs only
           /^[a-z]+\d{6,}@/i,  // Only flag if 6+ consecutive numbers (like spam123456@)
-          /@.*\d{3,}\./  // Numbers in domain part (like @123spam.com)
+          /@\d{3,}/  // Numbers in domain part (like @123spam.com)
         ];
         
         const isSuspicious = suspiciousEmailPatterns.some(pattern => 
