@@ -982,8 +982,8 @@ form button[type="button"]:hover {
         }
       }
 
-/* Phones (max-width: 480px) */
-@media (max-width: 480px) {
+/* Mobile (max-width: 425px) */
+@media (max-width: 425px) {
   .faq-container {
     padding: 0 10px;
   }
@@ -993,12 +993,32 @@ form button[type="button"]:hover {
   }
   
   .faq-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr !important;
+    grid-template-rows: auto !important;
     gap: 15px;
+    max-width: 100%;
   }
   
   .faq-box {
     padding: 20px;
+    grid-column: auto !important;
+    grid-row: auto !important;
+  }
+  
+  /* Reset all specific positioning for mobile */
+  .faq-box:nth-child(1) {
+    grid-column: auto !important;
+    grid-row: auto !important;
+  }
+  
+  .faq-box:nth-child(2),
+  .faq-box:nth-child(3),
+  .faq-box:nth-child(4),
+  .faq-box:nth-child(5),
+  .faq-box:nth-child(6),
+  .faq-box:nth-child(7) {
+    grid-column: auto !important;
+    grid-row: auto !important;
   }
   
   .faq-box h2 {
