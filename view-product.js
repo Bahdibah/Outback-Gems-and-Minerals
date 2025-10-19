@@ -758,6 +758,21 @@ function updateProductDetails(selectedVariation) {
       mainImage.src = allImages[0];
       mainImage.alt = generateDynamicAltTag(selectedVariation, true);
       mainImage.setAttribute("loading", "lazy");
+      
+      // Gracefully handle missing main image
+      mainImage.onerror = function() {
+        // Hide the image container if main image fails to load
+        const imageContainer = this.parentElement;
+        if (imageContainer) {
+          imageContainer.style.display = "none";
+        }
+      };
+      
+      // Show image container in case it was hidden before
+      const imageContainer = mainImage.parentElement;
+      if (imageContainer) {
+        imageContainer.style.display = "";
+      }
     }
 
     // Render thumbnails for all images
@@ -772,6 +787,12 @@ function updateProductDetails(selectedVariation) {
         thumb.loading = "lazy";
         // Highlight the selected thumbnail
         if (idx === 0) thumb.style.border = "2px solid #cc5500";
+        
+        // Gracefully handle missing images - remove thumbnail if image fails to load
+        thumb.onerror = function() {
+          this.remove();
+        };
+        
         thumb.addEventListener("click", function() {
           if (mainImage) {
             mainImage.src = imgUrl;
