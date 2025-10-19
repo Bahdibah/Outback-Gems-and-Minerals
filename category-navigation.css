@@ -546,6 +546,32 @@ body[data-page="view-product"] .category-navigation,
   font-weight: 500;
 }
 
+/* Laptop and below - hide text in disabled subcategory filter */
+@media (max-width: 1280px) {
+  /* When subcategory dropdown is disabled, hide the text */
+  #subcategory-dropdown:disabled {
+    color: transparent !important;
+    text-shadow: none !important;
+    opacity: 0.5;
+    cursor: not-allowed;
+    background-image: none !important; /* Remove dropdown arrow */
+    min-width: 80px !important; /* Shrink to minimal width */
+    max-width: 100px !important;
+    width: 100px !important;
+    padding: 12px 16px !important;
+  }
+  
+  #subcategory-dropdown:disabled option {
+    color: transparent !important;
+  }
+  
+  /* Adjust filter section when dropdown is disabled */
+  .filter-section:has(#subcategory-dropdown:disabled) {
+    flex-shrink: 1;
+    min-width: auto !important;
+  }
+}
+
 @media (max-width: 768px) {
   /* Hide regular navigation buttons on tablet and below */
   .main-categories {

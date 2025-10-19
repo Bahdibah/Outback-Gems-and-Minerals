@@ -588,34 +588,34 @@ footer a:visited {
 /* Laptop screen adjustments */
 @media (max-width: 1280px) {
   .view-product-images {
-    max-width: 380px;
-    min-width: 320px;
+    max-width: 360px;
+    min-width: 300px;
   }
   
   .view-product-images-row {
-    gap: 20px;
+    gap: 12px;
   }
   
   .view-product-main-image {
-    width: 300px;
-    height: 300px;
+    width: 280px;
+    height: 280px;
   }
   
   .view-product-thumbnails {
-    height: 300px;
-    width: 70px;
+    height: 280px;
+    width: 65px;
   }
   
   .view-product-thumbnails img {
-    height: calc((300px - (3 * 8px)) / 4);
-    width: 70px;
-    max-width: 70px;
+    height: calc((280px - (3 * 8px)) / 4);
+    width: 65px;
+    max-width: 65px;
   }
   
   .view-product-image-placeholder {
-    height: calc((300px - (3 * 8px)) / 4);
-    width: 70px;
-    max-width: 70px;
+    height: calc((280px - (3 * 8px)) / 4);
+    width: 65px;
+    max-width: 65px;
   }
   
   .view-product-main {
@@ -626,38 +626,38 @@ footer a:visited {
 /* Tablet screen adjustments */
 @media (max-width: 1024px) and (min-width: 769px) {
   .view-product-images {
-    max-width: 330px;
-    min-width: 300px;
+    max-width: 320px;
+    min-width: 280px;
   }
   
   .view-product-images-row {
-    gap: 14px;
+    gap: 10px;
   }
   
   .view-product-main-image {
-    width: 260px;
-    height: 260px;
+    width: 250px;
+    height: 250px;
   }
   
   .view-product-thumbnails {
-    height: 260px;
-    width: 60px;
+    height: 250px;
+    width: 58px;
   }
   
   .view-product-thumbnails img {
-    height: calc((260px - (3 * 8px)) / 4);
-    width: 60px;
-    max-width: 60px;
+    height: calc((250px - (3 * 8px)) / 4);
+    width: 58px;
+    max-width: 58px;
   }
   
   .view-product-image-placeholder {
-    height: calc((260px - (3 * 8px)) / 4);
-    width: 60px;
-    max-width: 60px;
+    height: calc((250px - (3 * 8px)) / 4);
+    width: 58px;
+    max-width: 58px;
   }
   
   .view-product-main {
-    gap: 18px;
+    gap: 20px;
   }
 }
 
@@ -1156,8 +1156,8 @@ h1 {
   .view-product-container {
     margin: 0 auto !important;
     padding: 10px;
-    max-width: 90%;
-    width: 90%;
+    max-width: 60%;
+    width: 60%;
   }
   
   .view-product-main {
