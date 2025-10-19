@@ -980,6 +980,10 @@ form button[type="button"]:hover {
             display: flex;
             flex-direction: column;
         }
+        #contact {
+          padding-top: 0px;
+          padding-bottom: 0px;
+        }
       }
 
 /* Mobile (max-width: 425px) */
