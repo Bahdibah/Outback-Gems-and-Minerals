@@ -592,56 +592,72 @@ footer a:visited {
     min-width: 320px;
   }
   
+  .view-product-images-row {
+    gap: 20px;
+  }
+  
   .view-product-main-image {
-    width: 320px;
-    height: 320px;
+    width: 300px;
+    height: 300px;
   }
   
   .view-product-thumbnails {
-    height: 320px;
+    height: 300px;
+    width: 70px;
   }
   
   .view-product-thumbnails img {
-    height: calc((320px - (3 * 8px)) / 4);
+    height: calc((300px - (3 * 8px)) / 4);
+    width: 70px;
+    max-width: 70px;
   }
   
   .view-product-image-placeholder {
-    height: calc((320px - (3 * 8px)) / 4);
-    max-width: 75px;
+    height: calc((300px - (3 * 8px)) / 4);
+    width: 70px;
+    max-width: 70px;
   }
   
   .view-product-main {
-    gap: 28px;
+    gap: 24px;
   }
 }
 
 /* Tablet screen adjustments */
 @media (max-width: 1024px) and (min-width: 769px) {
   .view-product-images {
-    max-width: 320px;
-    min-width: 280px;
+    max-width: 330px;
+    min-width: 300px;
+  }
+  
+  .view-product-images-row {
+    gap: 14px;
   }
   
   .view-product-main-image {
-    width: 280px;
-    height: 280px;
+    width: 260px;
+    height: 260px;
   }
   
   .view-product-thumbnails {
-    height: 280px;
+    height: 260px;
+    width: 60px;
   }
   
   .view-product-thumbnails img {
-    height: calc((280px - (3 * 8px)) / 4);
+    height: calc((260px - (3 * 8px)) / 4);
+    width: 60px;
+    max-width: 60px;
   }
   
   .view-product-image-placeholder {
-    height: calc((280px - (3 * 8px)) / 4);
-    max-width: 70px;
+    height: calc((260px - (3 * 8px)) / 4);
+    width: 60px;
+    max-width: 60px;
   }
   
   .view-product-main {
-    gap: 24px;
+    gap: 18px;
   }
 }
 
@@ -1108,13 +1124,14 @@ h1 {
     margin: 0 auto;
   }
   
-  /* Ensure main image is centered */
+  /* Ensure main image is centered but not too large */
   .view-product-main-image {
     display: block;
     margin: 0 auto;
-    max-width: 100%;
-    width: auto;
-    height: auto;
+    max-width: 350px;
+    width: 350px;
+    height: 350px;
+    object-fit: contain;
   }
   
   .view-product-info {
@@ -1222,10 +1239,9 @@ h1 {
   }
 
   .view-product-main-image {
-    width: 100%;
-    height: auto;
+    width: 320px;
+    height: 320px;
     max-width: 100%;
-    max-height: none;
     order: 0;
     object-fit: contain;
   }
@@ -1283,10 +1299,9 @@ h1 {
   }
   
   .view-product-main-image {
-    width: 100%;
-    height: auto;
+    width: 280px;
+    height: 280px;
     max-width: 100%;
-    max-height: none;
     order: 0;
     object-fit: contain;
   }
