@@ -1,3 +1,10 @@
+/* Browser Compatibility - Ensure CSS parses correctly on older browsers */
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
 :root {
   --navbar-height: 70px;
 }
@@ -165,10 +172,18 @@ header {
   right: 0;
   z-index: 3;
   width: 100%;
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.4); /* Fallback for browsers without backdrop-filter */
+  -webkit-backdrop-filter: blur(5px); /* Safari/iOS support */
   backdrop-filter: blur(5px);
   border-top: 1px solid rgba(204, 85, 0, 0.2);
   padding: 12px 0;
+}
+
+/* Fallback for browsers that don't support backdrop-filter */
+@supports not (backdrop-filter: blur(5px)) {
+  .hero-shipping-banner {
+    background: rgba(0, 0, 0, 0.65); /* Darker background when blur isn't available */
+  }
 }
 
 .shipping-message-container {
