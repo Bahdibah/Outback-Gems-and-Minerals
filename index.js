@@ -109,11 +109,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const featuredContainer = document.querySelector('.arrival-featured-card');
   const arrivalsGrid = document.querySelector('.arrivals-grid');
   const arrivalCards = document.querySelectorAll('.arrival-card');
-  
-  // Mobile slider elements
-  const mobileSlider = document.querySelector('.arrivals-swiper');
-  const mobileFeaturedCard = document.querySelector('.mobile-arrival-card.featured .mobile-featured-content');
-  const mobileCards = document.querySelectorAll('.mobile-arrival-card:not(.featured)');
 
   // Add loading message to featured container
   if (featuredContainer) {

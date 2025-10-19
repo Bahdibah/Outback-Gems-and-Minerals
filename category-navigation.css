@@ -1,22 +1,16 @@
-/* Category Navigation Styles - Shared between products.html and view-product.html */
-
-/* Hide subcategory navigation on view-product pages */
 body[data-page="view-product"] .subcategory-navigation,
 .view-product-page .subcategory-navigation {
   display: none !important;
 }
 
-/* Adjust spacing for view-product pages to move content up */
 body[data-page="view-product"] .category-navigation,
 .view-product-page .category-navigation {
   margin-bottom: 10px !important;
 }
 
-/* Also hide via URL detection for view-product.html */
 @media screen {
-  /* This targets when the page URL contains view-product.html */
   .subcategory-navigation {
-    /* Will be hidden by JavaScript based on URL */
+    display: block;
   }
 }
 
