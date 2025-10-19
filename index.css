@@ -842,12 +842,25 @@ footer .white-icon:hover {
   
   .arrival-card {
     height: 250px;
+    width: 100% !important;
+    grid-column: auto !important;
+    grid-row: auto !important;
   }
   
   /* Reset desktop positioning */
   .arrival-card.tall {
-    grid-column: auto;
-    grid-row: auto;
+    grid-column: auto !important;
+    grid-row: auto !important;
+    height: 250px;
+  }
+  
+  /* Reset all nth-of-type positioning for tablet */
+  .arrival-card:nth-of-type(2),
+  .arrival-card:nth-of-type(3),
+  .arrival-card:nth-of-type(4),
+  .arrival-card:nth-of-type(5) {
+    grid-column: auto !important;
+    grid-row: auto !important;
   }
 }
 
@@ -880,12 +893,25 @@ footer .white-icon:hover {
   
   .arrival-card {
     height: 220px;
+    width: 100% !important;
+    grid-column: auto !important;
+    grid-row: auto !important;
   }
   
   /* Reset desktop positioning */
   .arrival-card.tall {
-    grid-column: auto;
-    grid-row: auto;
+    grid-column: auto !important;
+    grid-row: auto !important;
+    height: 220px;
+  }
+  
+  /* Reset all nth-of-type positioning for mobile */
+  .arrival-card:nth-of-type(2),
+  .arrival-card:nth-of-type(3),
+  .arrival-card:nth-of-type(4),
+  .arrival-card:nth-of-type(5) {
+    grid-column: auto !important;
+    grid-row: auto !important;
   }
   
   .panel-features {
