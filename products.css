@@ -70,24 +70,6 @@ body {
   box-shadow: 0 2px 8px rgba(204, 85, 0, 0.3);
 }
 
-button:hover, .button:hover {
-  background: linear-gradient(135deg, #ff7f33 0%, #cc5500 100%);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(204, 85, 0, 0.4);
-}
-
-button:active, .button:active {
-  background: linear-gradient(135deg, #b34700 0%, #994000 100%);
-  transform: translateY(0);
-  box-shadow: 0 2px 8px rgba(204, 85, 0, 0.3);
-}
-
-.view-all-button {
-margin-top: 40px;
-padding: 16px 40px;
-}
-
-
 section {
     padding: 60px 20px;
 }
@@ -168,14 +150,13 @@ footer a:visited {
   color: #ff7f33 !important;
 }
 
-.footer-right .fa-envelope,
-.footer-right .fa-facebook-square {
-  color: #cc5500;
+/* Add white-icon class for products page footer */
+.white-icon {
+  color: #cc5500 !important;
 }
 
-.footer-right .fa-envelope:hover,
-.footer-right .fa-facebook-square:hover {
-  color: #ff7f33;
+.white-icon:hover {
+  color: #ff7f33 !important;
 }
 
 /* Container for the dynamic product cards */
@@ -989,4 +970,10 @@ button {
   background: linear-gradient(135deg, #ff7f33 0%, #e86b00 100%) !important;
   transform: scale(1.04) translateY(-1px) !important;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.35), 0 0 8px rgba(255, 127, 51, 0.5) !important;
+}
+
+/* Hidden class for noscript content */
+.hidden {
+  display: none !important;
+  visibility: hidden !important;
 }
