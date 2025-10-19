@@ -1836,18 +1836,19 @@ button {
 }
 
 .intro-paragraph {
-  font-size: 1.3rem;
+  font-size: 1.5rem;
   font-weight: 600;
   color: #f5f5f5;
   line-height: 1.6;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 .about-text-section p {
-  font-size: 1.1rem;
+  font-size: 1.3rem;
   color: #d0d0d0;
-  line-height: 1.7;
+  line-height: 1.5;
   text-align: justify;
+  margin-bottom: 12px;
 }
 
 .about-image.featured {
@@ -1873,11 +1874,11 @@ button {
 
 .image-caption {
   margin-top: 15px;
-  font-size: 0.9rem;
-  color: #cc5500;
+  font-size: 0.8rem;
+  color: #888888;
   text-align: center;
   font-style: italic;
-  font-weight: 500;
+  font-weight: 400;
 }
 
 /* Text Quote Section */
