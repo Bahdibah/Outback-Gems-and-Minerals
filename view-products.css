@@ -1653,7 +1653,7 @@ h1 {
   cursor: pointer;
   position: relative;
   overflow: hidden;
-  height: 240px;
+  height: 250px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -1996,6 +1996,15 @@ h1 {
   .related-yowah-nuts-grid .related-product-name {
     font-size: 0.9rem;
     margin: 6px 0 4px 0;
+  }
+  
+  .related-products-container  {
+    overflow: visible;
+  }
+
+  .related-products-grid .product-card {
+    height: 280px;
+    width: 150px;
   }
 }
 
