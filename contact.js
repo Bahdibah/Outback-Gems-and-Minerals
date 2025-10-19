@@ -81,14 +81,14 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       }
       
-      // 4. Suspicious email patterns
+      // 4. Suspicious email patterns (more targeted)
       if (emailField) {
         const suspiciousEmailPatterns = [
-          /^[a-zA-Z]+\d+@/,  // name followed by numbers
-          /@\d+/,            // numbers after @
           /noreply|no-reply/i,
-          /test@|admin@|info@.*\.tk$/i,
-          /\.tk$|\.ml$|\.ga$/i  // suspicious TLDs
+          /test@|admin@.*\.tk$/i,
+          /\.tk$|\.ml$|\.ga$|\.cf$/i,  // suspicious TLDs only
+          /^[a-z]+\d{6,}@/i,  // Only flag if 6+ consecutive numbers (like spam123456@)
+          /@.*\d{3,}\./  // Numbers in domain part (like @123spam.com)
         ];
         
         const isSuspicious = suspiciousEmailPatterns.some(pattern => 

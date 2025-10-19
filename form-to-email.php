@@ -59,13 +59,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit;
     }
     
-    // 3. Suspicious email patterns
+    // 3. Suspicious email patterns (more targeted)
     $suspiciousEmailPatterns = [
-        '/^[a-zA-Z]+\d+@/',  // name followed by numbers
-        '/@\d+/',            // numbers after @
         '/noreply|no-reply/i',
-        '/test@|admin@|info@.*\.tk$/i',
-        '/\.tk$|\.ml$|\.ga$/i'  // suspicious TLDs
+        '/test@|admin@.*\.tk$/i',
+        '/\.tk$|\.ml$|\.ga$|\.cf$/i',  // suspicious TLDs only
+        '/^[a-z]+\d{6,}@/i',  // Only flag if 6+ consecutive numbers
+        '/@.*\d{3,}\./'  // Numbers in domain part
     ];
     
     foreach ($suspiciousEmailPatterns as $pattern) {
