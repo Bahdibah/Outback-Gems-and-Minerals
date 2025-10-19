@@ -1,0 +1,52 @@
+====================================
+GOOGLE reCAPTCHA QUICK SETUP GUIDE
+====================================
+
+STEP 1: Get Your reCAPTCHA Keys
+--------------------------------
+1. Visit: https://www.google.com/recaptcha/admin/create
+2. Sign in with your Google account
+3. Fill out the form:
+   - Label: "Outback Gems Contact Form"
+   - reCAPTCHA type: Select "reCAPTCHA v2" → "I'm not a robot" Checkbox
+   - Domains: Add these domains:
+     * outbackgems.com.au
+     * www.outbackgems.com.au
+     * localhost (if testing locally)
+4. Accept Terms of Service
+5. Click "Submit"
+6. You'll get TWO keys:
+   - Site Key (public) - for the website
+   - Secret Key (private) - for the server
+
+STEP 2: Update contact.html
+----------------------------
+1. Open contact.html
+2. Find this line (around line 156):
+   <div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY_HERE"></div>
+3. Replace "YOUR_SITE_KEY_HERE" with your SITE KEY (the public one)
+4. Save the file
+
+STEP 3: Update form-to-email.php (Backend Verification)
+--------------------------------------------------------
+You'll need to add reCAPTCHA verification to your PHP backend.
+See RECAPTCHA_SETUP.md for the complete PHP code.
+
+IMPORTANT NOTES:
+----------------
+- The "ERROR for site owner: Invalid site key" means you need to complete Step 2 above
+- The Site Key is safe to put in your HTML (it's public)
+- The Secret Key should ONLY go in your PHP file (server-side)
+- reCAPTCHA won't work on file:// protocol - needs to be on a web server
+- Make sure to add both your live domain AND localhost to the allowed domains
+
+TESTING:
+--------
+After setup, test by:
+1. Fill out the contact form
+2. Click "Send"
+3. Complete the reCAPTCHA challenge
+4. Click "Verify & Send"
+5. Form should submit successfully
+
+Need help? See the detailed guide: RECAPTCHA_SETUP.md

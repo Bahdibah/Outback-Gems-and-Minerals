@@ -11,6 +11,43 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit;
     }
     
+    // reCAPTCHA verification
+    if (isset($_POST['g-recaptcha-response'])) {
+        $recaptcha_secret = '6Lc0lO8rAAAAACFdzgeeR2qgFuW91628Wi6bhsec';
+        $recaptcha_response = $_POST['g-recaptcha-response'];
+        
+        // Verify with Google
+        $verify_url = 'https://www.google.com/recaptcha/api/siteverify';
+        $verify_data = array(
+            'secret' => $recaptcha_secret,
+            'response' => $recaptcha_response,
+            'remoteip' => $_SERVER['REMOTE_ADDR']
+        );
+        
+        $options = array(
+            'http' => array(
+                'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+                'method'  => 'POST',
+                'content' => http_build_query($verify_data)
+            )
+        );
+        $context = stream_context_create($options);
+        $verify_response = file_get_contents($verify_url, false, $context);
+        $verify_result = json_decode($verify_response, true);
+        
+        if (!$verify_result['success']) {
+            // reCAPTCHA failed
+            http_response_code(400);
+            echo "reCAPTCHA verification failed. Please try again.";
+            exit;
+        }
+    } else {
+        // No reCAPTCHA response provided
+        http_response_code(400);
+        echo "Please complete the reCAPTCHA verification.";
+        exit;
+    }
+    
     // Get POST data
     $name = isset($_POST['name']) ? strip_tags(trim($_POST['name'])) : '';
     $email = isset($_POST['email']) ? trim($_POST['email']) : '';
@@ -161,9 +198,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Send email
         if (mail($recipient, $subject, $body, $headers)) {
-            echo "Email sent successfully!";
+            // Redirect back to contact page with success message
+            header("Location: contact.html?success=1");
+            exit;
         } else {
-            echo "Failed to send email. Please try again later.";
+            // Redirect back to contact page with error message
+            header("Location: contact.html?error=1");
+            exit;
         }
     } else {
         // Display errors

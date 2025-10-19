@@ -1,6 +1,18 @@
 // Background image rotation for contact.html
 // This script must be loaded after the DOM is ready.
 document.addEventListener('DOMContentLoaded', function() {
+  // Check for success/error messages in URL
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('success') === '1') {
+    alert('Thank you! Your message has been sent successfully. We\'ll get back to you soon!');
+    // Remove the query parameter from URL
+    window.history.replaceState({}, document.title, window.location.pathname);
+  } else if (urlParams.get('error') === '1') {
+    alert('Sorry, there was an error sending your message. Please try again or email us directly at support@outbackgems.com.au');
+    // Remove the query parameter from URL
+    window.history.replaceState({}, document.title, window.location.pathname);
+  }
+  
   const images = [
     "images/banners/Contact Banner 1.jpeg",
     "images/banners/Contact Banner 2.jpeg",
