@@ -141,40 +141,42 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       }
       
-      // 8. Timing check
-      const formLoadTime = sessionStorage.getItem('formLoadTime');
-      const currentTime = Date.now();
+      // 8. Timing check - TEMPORARILY DISABLED FOR TESTING
+      // const formLoadTime = sessionStorage.getItem('formLoadTime');
+      // const currentTime = Date.now();
       
-      if (formLoadTime) {
-        const timeDiff = currentTime - parseInt(formLoadTime);
-        // If form submitted in less than 3 seconds, likely a bot
-        if (timeDiff < 3000) {
-          console.log('Spam submission blocked by timing');
-          alert('Thank you for your message!');
-          return false;
-        }
-        
-        // If form submitted too quickly after page load (less than 1 second)
-        if (timeDiff < 1000) {
-          console.log('Spam submission blocked by instant submission');
-          alert('Thank you for your message!');
-          return false;
-        }
-      }
+      // if (formLoadTime) {
+      //   const timeDiff = currentTime - parseInt(formLoadTime);
+      //   // If form submitted in less than 3 seconds, likely a bot
+      //   if (timeDiff < 3000) {
+      //     console.log('Spam submission blocked by timing');
+      //     alert('Thank you for your message!');
+      //     return false;
+      //   }
+      // }
       
-      // Show reCAPTCHA modal for verification
+      // All checks passed - Show reCAPTCHA modal for verification
+      console.log('All spam checks passed - showing reCAPTCHA modal');
       showRecaptchaModal();
     });
     
     // reCAPTCHA Modal Functions
     function showRecaptchaModal() {
+      console.log('showRecaptchaModal called');
       const modal = document.getElementById('recaptcha-modal');
+      console.log('Modal element:', modal);
       if (modal) {
+        console.log('Setting modal display to flex');
         modal.style.display = 'flex';
         // Reset reCAPTCHA if it was previously completed
         if (typeof grecaptcha !== 'undefined') {
+          console.log('Resetting reCAPTCHA');
           grecaptcha.reset();
+        } else {
+          console.warn('grecaptcha is not defined - reCAPTCHA API may not have loaded');
         }
+      } else {
+        console.error('Modal element not found!');
       }
     }
     
