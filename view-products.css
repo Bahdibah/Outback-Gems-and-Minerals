@@ -55,14 +55,6 @@ body:has([data-page="view-product"]) .category-navigation,
   border: 0;
 }
 
-.footer-icon {
-  color: #cc5500;
-}
-
-.footer-icon:hover {
-  color: #ff7f33;
-}
-
 /* Hidden Breadcrumb Navigation - Keep for SEO but hide visually */
 .breadcrumb-container {
   display: none; /* Hide the breadcrumb from visual display */
@@ -365,60 +357,6 @@ header {
 
 }
 
-footer {
-    background-color: #1e1e1e;
-    color: #888;
-    display: flex;
-    flex-direction: row;
-    gap: 5%;
-    width: 100%;
-}
-
-footer >div{
-  width: 33%;
-  display: flex;
-  flex-direction: row;
-}
-
-.footer-left {
-  gap: 5%;
-  padding-left: 1%;
-  align-items: center;
-}
-
-.footer-middle {
-  justify-content: center;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-}
-
-.footer-middle p {
-  margin: 0.5%;
-}
-
-.footer-right {
-  justify-content: right;
-  gap: 4%;
-  padding-right: 1%;
-  font-size: 1.5rem;  
-  align-items: center;
-}
-
-/* Footer link styling */
-footer a {
-  color: #cc5500 !important;
-  text-decoration: none !important;
-}
-
-footer a:hover {
-  color: #ff7f33 !important;
-}
-
-footer a:visited {
-  color: #cc5500 !important;
-}
-
 .view-product-title {
   text-align: center;
   font-size: 2.4rem;
@@ -483,7 +421,7 @@ footer a:visited {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  gap: 32px;
+  gap: 16px; /* Tightened from 32px */
   width: 100%;
 }
 
@@ -500,12 +438,12 @@ footer a:visited {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  gap: 8px;
+  gap: 6px; /* Tightened from 8px */
   height: 400px;
 }
 
 .view-product-thumbnails img{
-  height: calc((400px - (3 * 8px)) / 4); 
+  height: calc((400px - (3 * 6px)) / 4); /* Updated for 6px gap */
 }
 
 .view-product-main-image {
@@ -518,7 +456,7 @@ footer a:visited {
 }
 
 .view-product-image-placeholder {
-  height: calc((400px - (3 * 8px)) / 4); 
+  height: calc((400px - (3 * 6px)) / 4); /* Updated for 6px gap */ 
   width: auto; 
   max-width: 90px; 
   object-fit: cover;
@@ -538,54 +476,58 @@ footer a:visited {
 /* Desktop disclaimer section */
 .view-product-disclaimer-desktop {
   width: 100%;
-  margin-top: 0px;
+  margin-top: 16px;
   margin-bottom: 15px;
   display: block;
+  overflow: visible; /* Ensure content can expand */
 }
 
 .disclaimer-content {
-  background: transparent;
+  /* No background or border on desktop - clean look */
+  background: none;
   border: none;
   padding: 0;
   border-radius: 0;
   box-shadow: none;
   width: 100%;
   display: block;
-  text-align: center;
+  text-align: left;
+  overflow: visible; /* Ensure content can expand */
+  min-height: fit-content;
 }
 
 .disclaimer-content h3 {
-  color: #ffffff;
-  font-size: 1.8rem;
+  color: #ff7f33;
+  font-size: 1.8rem; /* Original larger size for desktop */
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 2px;
-  margin: 0 0 30px 0;
+  letter-spacing: 1px;
+  margin: 0 0 12px 0;
   position: relative;
-  display: inline-block;
-  text-align: center;
-  width: 100%;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+  display: block;
+  text-align: left; /* Left-aligned on desktop */
+  padding-bottom: 10px;
 }
 
 .disclaimer-content h3::after {
   content: '';
   position: absolute;
-  bottom: -15px;
-  left: 50%;
-  transform: translateX(-50%);
+  bottom: -6px;
+  left: 0; /* Left-aligned on desktop */
+  transform: none; /* No centering transform on desktop */
   width: 60px;
-  height: 3px;
+  height: 2px;
+  background: #cc5500;
   background: linear-gradient(90deg, #cc5500, #ff7f33);
   border-radius: 2px;
 }
 
 .disclaimer-content p {
-  color: #e0e0e0;
-  font-size: 1.1rem;
-  line-height: 1.6;
-  margin: 0 0 12px 0;
-  text-align: left;
+  color: #d0d0d0;
+  font-size: 1.1rem; /* Original larger size for desktop */
+  line-height: 1.5;
+  margin: 0 0 8px 0;
+  text-align: left; /* Left-aligned on desktop */
   max-width: 100%;
 }
 
@@ -674,10 +616,236 @@ footer a:visited {
   }
 }
 
-/* Hide disclaimer on mobile/tablet */
+/* Show disclaimer on all screen sizes - mobile optimized */
 @media (max-width: 1024px) {
   .view-product-disclaimer-desktop {
-    display: none;
+    display: flex; /* Use flex instead of block */
+    flex-direction: column;
+    flex-shrink: 0; /* Don't allow it to shrink */
+    margin-top: 12px !important; /* Space above */
+    margin-bottom: 24px !important; /* Increase space below to push next section */
+    width: 100%; /* Ensure full width */
+    box-sizing: border-box; /* Include padding in width */
+
+    clear: both; /* Ensure it doesn't float under anything */
+    position: relative; /* Ensure it's in the normal flow */
+    min-height: fit-content;
+  }
+  
+  /* Mobile gets compact container design */
+  .disclaimer-content {
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0; /* Don't allow it to shrink */
+    padding: 16px;
+    background: transparent; /* Fully transparent - no background color */
+    border: none; /* No border */
+    border-radius: 0;
+    width: 100%; /* Full width of parent */
+    box-sizing: border-box; /* Include padding in width */
+    margin-bottom: 20px !important; /* Extra margin below the content box */
+    min-height: fit-content; /* Ensure it fits all content */
+  }
+  
+  .disclaimer-content h3 {
+    font-size: 1.2rem; /* Slightly bigger for mobile */
+    margin-bottom: 12px;
+    text-align: center; /* Centered on mobile */
+  }
+  
+  .disclaimer-content h3::after {
+    left: 50%; /* Centered on mobile */
+    transform: translateX(-50%); /* Centered on mobile */
+  }
+  
+  .disclaimer-content p {
+    font-size: 0.95rem; /* Slightly bigger for mobile */
+    line-height: 1.4;
+    text-align: center; /* Centered on mobile */
+  }
+}
+
+/* Tablet-specific spacing adjustments */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .view-product-images {
+    padding-bottom: 16px !important; /* Less padding on tablet */
+    margin-bottom: 12px !important; /* Less margin on tablet */
+  }
+  
+  .view-product-disclaimer-desktop {
+    margin-bottom: 16px !important; /* Less space on tablet */
+  }
+  
+  .view-product-main {
+    gap: 20px !important; /* Tighter gap on tablet */
+  }
+}
+
+/* Small mobile screens - fix overlap issue */
+@media (max-width: 576px) {
+  .view-product-images {
+    padding-bottom: 8px !important; /* Minimal padding on small mobile */
+    margin-bottom: 0 !important; /* Remove margin, let disclaimer handle spacing */
+  }
+  
+  .view-product-disclaimer-desktop {
+    margin-top: 8px !important;
+    margin-bottom: 16px !important; /* Reduced for small screens */
+  }
+  
+  .disclaimer-content {
+    padding: 12px !important; /* Less padding on small screens */
+    margin-bottom: 12px !important; /* Less margin on small screens */
+  }
+  
+  .view-product-main {
+    gap: 16px !important; /* Tighter gap for small mobile */
+  }
+  
+  /* Compact quantity selector on mobile - hide buttons, use native picker */
+  .quantity-selector-container {
+    width: auto !important;
+    max-width: 90px !important; /* Bit wider for comfort */
+    gap: 0 !important;
+    padding: 6px 10px !important; /* More padding */
+    background: linear-gradient(135deg, #2a2a2a, #2d2d2d);
+  }
+  
+  .quantity-btn {
+    display: none !important; /* Hide +/- buttons on mobile */
+  }
+  
+  #view-product-quantity {
+    width: 60px !important; /* Full width of container */
+    font-size: 1rem !important;
+    padding: 8px 4px !important;
+    -webkit-appearance: auto !important; /* Enable native mobile picker */
+    -moz-appearance: auto !important;
+    appearance: auto !important;
+  }
+  
+  /* Change label text to "Qty:" on mobile */
+  #view-product-quantity-label {
+    font-size: 0 !important; /* Hide original text */
+    white-space: nowrap !important;
+    margin-right: 4px !important; /* Small gap after label */
+  }
+  
+  #view-product-quantity-label::after {
+    content: "Qty:";
+    font-size: 0.9rem; /* Show shortened text */
+  }
+}
+
+/* Extra small screens (320px) - aggressive spacing reduction */
+@media (max-width: 375px) {
+  .view-product-images {
+    padding-bottom: 0 !important; /* No padding on tiny screens */
+    margin-bottom: 0 !important;
+  }
+  
+  .view-product-disclaimer-desktop {
+    margin-top: 8px !important;
+    margin-bottom: 20px !important; /* More space below for 320px */
+  }
+  
+  .disclaimer-content {
+    padding: 10px !important; /* Compact padding */
+    margin-bottom: 16px !important; /* More margin for spacing */
+  }
+  
+  .disclaimer-content h3 {
+    font-size: 1rem !important; /* Even smaller on tiny screens */
+    margin-bottom: 8px !important;
+    padding-bottom: 0 !important; /* Remove padding for underline */
+  }
+  
+  /* Remove the underline on 320px screens */
+  .disclaimer-content h3::after {
+    display: none !important;
+  }
+  
+  .disclaimer-content p {
+    font-size: 0.85rem !important;
+    line-height: 1.3 !important;
+  }
+  
+  .view-product-main {
+    gap: 12px !important; /* Very tight gap for tiny screens */
+  }
+  
+  /* Extra compact quantity selector for very small screens */
+  .quantity-selector-container {
+    max-width: 70px !important;
+    padding: 3px 6px !important;
+  }
+  
+  .quantity-btn {
+    display: none !important; /* Hide buttons on tiny screens too */
+  }
+  
+  #view-product-quantity {
+    width: 55px !important;
+    font-size: 0.95rem !important;
+  }
+  
+  /* Label - fits content snugly */
+  #view-product-quantity-label {
+    display: inline-block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    font-size: 0 !important; /* Keep original text hidden */
+  }
+  
+  #view-product-quantity-label::after {
+    font-size: 0.85rem !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    white-space: nowrap !important;
+  }
+  
+  /* Make quantity row work properly on 320px */
+  .view-product-row:has(#view-product-quantity) {
+    display: flex !important;
+    flex-wrap: nowrap !important; /* Don't wrap */
+    gap: 4px !important; /* Tight gap between elements */
+    justify-content: flex-start !important;
+    align-items: center !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+  }
+  
+  /* Selector container - compact */
+  .quantity-selector-container {
+    display: inline-flex !important;
+    flex-shrink: 0 !important; /* Don't shrink */
+    width: auto !important;
+    padding: 3px 4px !important; /* Minimal padding */
+    margin: 0 !important;
+  }
+  
+  /* Input - compact */
+  #view-product-quantity {
+    width: 45px !important; /* Smaller width */
+    font-size: 0.85rem !important; /* Smaller text */
+    padding: 3px 2px !important; /* Tight padding */
+    text-align: center !important;
+  }
+  
+  /* Stock - fits content, can shrink if needed */
+  #view-product-stock {
+    display: inline-block !important;
+    font-size: 0.75rem !important; /* Smaller */
+    margin: 0 !important;
+    padding: 0 !important;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important; /* Don't shrink */
+  }
+  
+  #view-product-quantity-label {
+    padding-left: 0 !important; /* No left padding */
   }
 }
 
@@ -1206,24 +1374,35 @@ h1 {
     .view-product-main {
     display: flex;
     flex-direction: column; 
-    gap: 24px;
+    gap: 32px; /* Increase gap to prevent overlap */
+    min-height: auto; /* Remove fixed height on mobile */
+    align-items: flex-start; /* Don't stretch children */
   }
 
   .view-product-images {
     flex-direction: column;
     align-items: center;
-    gap: 16px;
+    gap: 0px !important; /* Remove gap - disclaimer has its own margin */
     max-width: 100%;
     min-width: auto;
     width: 100%;
     padding: 0;
+    padding-bottom: 32px; /* Increased padding to ensure disclaimer doesn't overlap */
+    margin-bottom: 24px !important; /* Strong space below entire images section */
+    height: auto; /* Let it grow to fit content */
+    min-height: auto; /* Remove any min-height constraint */
+    flex-shrink: 0; /* Don't let it shrink */
   }
 
   .view-product-images-row {
-    flex-direction: column;
-    gap: 16px;
-    width: 95%;
-    max-width: 100%;
+    flex-direction: column !important;
+    gap: 8px !important; /* Force the 8px gap */
+    width: 100% !important;
+    max-width: 100% !important;
+    align-items: center !important; /* Center children horizontally */
+    padding: 0 !important;
+    margin: 0 !important;
+
   }
   
   .view-product-image-container {
@@ -1236,11 +1415,13 @@ h1 {
     height: auto;
     width: 100%;
     justify-content: center;
-    gap: 8px;
+    gap: 6px; /* Tightened from 8px */
     order: 1; 
-    padding: 10px 0;
+    padding: 0 !important; /* Remove padding that was adding to gap */
     overflow-x: auto;
     flex-wrap: nowrap;
+    margin: 0 !important; /* Remove any margin */
+
   }
 
   .view-product-thumbnails img {
@@ -1262,9 +1443,13 @@ h1 {
     width: 90%;
     max-width: 500px;
     height: auto;
-    aspect-ratio: 1;
+    aspect-ratio: unset; /* Let image use its natural aspect ratio on mobile */
     order: 0;
     object-fit: contain;
+    margin: 0 auto !important; /* Center the image */
+    padding: 0 !important;
+    display: block;
+
   }
   .view-product-title {
     font-size: 1.8rem;
@@ -1281,18 +1466,23 @@ h1 {
   .view-product-images {
     flex-direction: column;
     align-items: center;
-    gap: 16px;
+    gap: 0px !important; /* Remove gap - disclaimer has its own margin */
     max-width: 100%;
     min-width: auto;
     width: 100%;
     padding: 0;
+
   }
   
   .view-product-images-row {
-    flex-direction: column;
-    gap: 16px;
-    width: 95%;
-    max-width: 100%;
+    flex-direction: column !important;
+    gap: 8px !important; /* Force the 8px gap */
+    width: 100% !important;
+    max-width: 100% !important;
+    align-items: center !important; /* Center children horizontally */
+    padding: 0 !important;
+    margin: 0 !important;
+
   }
   
   .view-product-image-container {
@@ -1305,11 +1495,13 @@ h1 {
     height: auto;
     width: 100%;
     justify-content: center;
-    gap: 8px;
+    gap: 6px; /* Tightened from 8px */
     order: 1;
-    padding: 10px 0;
+    padding: 0 !important; /* Remove padding that was adding to gap */
     overflow-x: auto;
     flex-wrap: nowrap;
+    margin: 0 !important; /* Remove any margin */
+
   }
   
   .view-product-thumbnails img {
@@ -1331,22 +1523,19 @@ h1 {
     width: 90%;
     max-width: 500px;
     height: auto;
-    aspect-ratio: 1;
+    aspect-ratio: unset; /* Let image use its natural aspect ratio on mobile */
     order: 0;
     object-fit: contain;
+    margin: 0 auto !important; /* Center the image */
+    padding: 0 !important;
+    display: block;
+
   }
   
   .technical-info-grid {
     gap: 20px;
   }
 }
-
-@media (max-width: 700px) {
-        .footer-left {
-            display: flex;
-            flex-direction: column;
-        }
-      }
 
 @media (max-width: 425px) {
   .view-product-row:nth-child(3) {
@@ -1401,10 +1590,26 @@ h1 {
     gap: 12px;
   }
   
+  /* Keep quantity/stock row horizontal on mobile */
+  .view-product-row:has(#view-product-quantity) {
+    flex-direction: row !important;
+    flex-wrap: wrap;
+    justify-content: space-between; /* Qty left, stock right */
+    align-items: center;
+    gap: 8px; /* More breathing room now that label is shorter */
+  }
+  
   /* Center quantity selector and stock when stacking */
   .quantity-selector-container {
     align-self: center;
     justify-content: center;
+  }
+  
+  /* Make quantity label more compact on mobile */
+  #view-product-quantity-label {
+    font-size: 0.9rem;
+    white-space: nowrap;
+    margin-right: 0 !important; /* No gap after label */
   }
   
   #view-product-price {
@@ -1417,9 +1622,11 @@ h1 {
   
   #view-product-stock {
     margin-top: 0;
-    margin-left: 0;
+    margin-left: auto; /* Push to the right */
     align-self: center;
-    text-align: center;
+    text-align: right;
+    font-size: 0.85rem; /* Back to normal size */
+    white-space: nowrap;
   }
   
   .view-product-description-title {
@@ -1512,7 +1719,8 @@ h1 {
   
   .view-product-thumbnails {
     gap: 4px;
-    padding: 6px 0;
+    padding: 0 !important; /* Remove padding that was adding to gap */
+    margin: 0 !important;
   }
   
   .view-product-thumbnails img {
@@ -1786,6 +1994,32 @@ h1 {
   .related-products-swiper {
     display: block;
   }
+  
+  /* Hide navigation arrows on mobile - swipe instead */
+  .related-products-swiper .swiper-button-next,
+  .related-products-swiper .swiper-button-prev {
+    display: none !important;
+  }
+  
+  /* Make pagination dots more prominent for swipe indication */
+  .related-products-swiper .swiper-pagination {
+    position: relative !important;
+    margin-top: 16px !important;
+    bottom: auto !important;
+  }
+  
+  .related-products-swiper .swiper-pagination-bullet {
+    width: 10px !important;
+    height: 10px !important;
+    background: rgba(204, 85, 0, 0.5) !important;
+    opacity: 1 !important;
+  }
+  
+  .related-products-swiper .swiper-pagination-bullet-active {
+    background: #cc5500 !important;
+    width: 12px !important;
+    height: 12px !important;
+  }
 }
 
 /* Related Products Section - Specifically for Yowah Nuts */
@@ -2053,16 +2287,30 @@ h1 {
     font-size: 1.3rem;
   }
   
+  /* Hide navigation arrows on mobile - swipe instead */
   .related-yowah-nuts-swiper .swiper-button-next,
   .related-yowah-nuts-swiper .swiper-button-prev {
-    width: 35px;
-    height: 35px;
-    margin-top: -17px;
+    display: none !important;
   }
   
-  .related-yowah-nuts-swiper .swiper-button-next::after,
-  .related-yowah-nuts-swiper .swiper-button-prev::after {
-    font-size: 14px;
+  /* Make pagination dots more prominent for swipe indication */
+  .related-yowah-nuts-swiper .swiper-pagination {
+    position: relative !important;
+    margin-top: 16px !important;
+    bottom: auto !important;
+  }
+  
+  .related-yowah-nuts-swiper .swiper-pagination-bullet {
+    width: 10px !important;
+    height: 10px !important;
+    background: rgba(204, 85, 0, 0.5) !important;
+    opacity: 1 !important;
+  }
+  
+  .related-yowah-nuts-swiper .swiper-pagination-bullet-active {
+    background: #cc5500 !important;
+    width: 12px !important;
+    height: 12px !important;
   }
 }
 

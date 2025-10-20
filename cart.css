@@ -1532,47 +1532,6 @@ body {
   text-align: center;
 }
 
-/* Footer Styling */
-footer {
-    background-color: #1e1e1e;
-    color: #888;
-    display: flex;
-    flex-direction: row;
-    gap: 5%;
-    width: 100%;
-}
-
-footer >div{
-  width: 33%;
-  display: flex;
-  flex-direction: row;
-}
-
-.footer-left {
-  gap: 5%;
-  padding-left: 1%;
-  align-items: center;
-}
-
-.footer-middle {
-  justify-content: center;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-}
-
-.footer-middle p {
-  margin: 0.5%;
-}
-
-.footer-right {
-  justify-content: right;
-  gap: 4%;
-  padding-right: 1%;
-  font-size: 1.5rem;  
-  align-items: center;
-}
-
 .cart-product-id {
   font-size: 0.85em;
   color: #888;
@@ -1819,12 +1778,6 @@ footer >div{
     box-sizing: border-box !important;
   }
 }
-@media (max-width: 700px) {
-        .footer-left {
-            display: flex;
-            flex-direction: column;
-        }
-      }
 
 @media (max-width: 600px) {
   .cart-buttons button {
@@ -2225,33 +2178,6 @@ div.modal-content * {
   text-decoration: underline;
 }
 
-/* Footer Policy Links */
-.footer-middle p:last-child a {
-  color: #888;
-  text-decoration: none;
-  font-size: 13px;
-  transition: color 0.3s ease;
-}
-
-.footer-middle p:last-child a:hover {
-  color: #cc5500;
-  text-decoration: underline;
-}
-
-/* Footer link styling - general */
-footer a {
-  color: #cc5500 !important;
-  text-decoration: none !important;
-}
-
-footer a:hover {
-  color: #ff7f33 !important;
-}
-
-footer a:visited {
-  color: #cc5500 !important;
-}
-
 /* Checkout Action Buttons - Override conflicting styles */
 .checkout-actions {
   display: grid;
@@ -2470,17 +2396,6 @@ footer a:visited {
 #cart-table colgroup col:nth-child(4) { width: 11%; }
 #cart-table colgroup col:nth-child(5) { width: 11%; }
 #cart-table colgroup col:nth-child(6) { width: 11%; }
-
-/* Footer icon colors */
-.footer-right .fa-envelope,
-.footer-right .fa-facebook-square {
-  color: #cc5500;
-}
-
-.footer-right .fa-envelope:hover,
-.footer-right .fa-facebook-square:hover {
-  color: #ff7f33;
-}
 
 /* Mobile responsive: Hide plus/minus buttons below 1024px */
 @media (max-width: 1023px) {

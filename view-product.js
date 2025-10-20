@@ -261,10 +261,10 @@ function matchDisclaimerHeight() {
     disclaimerContent.style.minHeight = naturalHeight + 'px';
     
     // Optimize spacing for better visual balance
-    disclaimerSection.style.marginBottom = '15px';
-    disclaimerSection.style.paddingBottom = '8px';
-    disclaimerSection.style.marginTop = '8px';
-    disclaimerSection.style.paddingTop = '4px';
+    disclaimerSection.style.marginBottom = '20px';
+    disclaimerSection.style.paddingBottom = '0px';
+    disclaimerSection.style.marginTop = '8px'; // Only 8px margin, no padding
+    disclaimerSection.style.paddingTop = '0px';
     
     // Add subtle visual enhancement
     disclaimerContent.style.borderRadius = '4px';
@@ -556,6 +556,22 @@ async function fetchProductDetails() {
       const totalPrice = parseFloat(currentVariation["total price"]) * quantity;
       productPriceElement.textContent = `Subtotal: $${totalPrice.toFixed(2)}`;
     });
+
+    // Enable native mobile picker on small screens
+    if (window.innerWidth <= 576) {
+      if (quantityInputElement) {
+        quantityInputElement.removeAttribute('readonly');
+        // Add direct input event listener for mobile
+        quantityInputElement.addEventListener('input', () => {
+          if (currentVariation) {
+            let currentQty = parseInt(quantityInputElement.value, 10) || 1;
+            const totalPrice = parseFloat(currentVariation["total price"]) * currentQty;
+            productPriceElement.textContent = `Subtotal: $${totalPrice.toFixed(2)}`;
+            updateQuantityButtons();
+          }
+        });
+      }
+    }
 
     // Set up quantity selector buttons
     const quantityDecrease = document.getElementById("quantity-decrease");

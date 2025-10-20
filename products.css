@@ -100,79 +100,6 @@ header {
   justify-content: space-between;
 }
 
-/* Footer Styling */
-footer {
-    background-color: #1e1e1e;
-    color: #888;
-    display: flex;
-    flex-direction: row;
-    gap: 5%;
-    width: 100%;
-}
-
-footer >div{
-  width: 33%;
-  display: flex;
-  flex-direction: row;
-}
-
-.footer-left {
-  gap: 5%;
-  padding-left: 1%;
-  align-items: center;
-}
-
-.footer-middle {
-  justify-content: center;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-}
-
-.footer-middle p {
-  margin: 0.5%;
-}
-
-.footer-right {
-  justify-content: right;
-  gap: 4%;
-  padding-right: 1%;
-  font-size: 1.5rem;  
-  align-items: center;
-}
-
-/* Footer link styling */
-footer a {
-  color: #cc5500 !important;
-  text-decoration: none !important;
-}
-
-footer a:hover {
-  color: #ff7f33 !important;
-}
-
-footer a:visited {
-  color: #cc5500 !important;
-}
-
-/* Footer icon styling */
-.footer-icon {
-  color: #cc5500 !important;
-}
-
-.footer-icon:hover {
-  color: #ff7f33 !important;
-}
-
-/* Add white-icon class for products page footer */
-.white-icon {
-  color: #cc5500 !important;
-}
-
-.white-icon:hover {
-  color: #ff7f33 !important;
-}
-
 /* Container for the dynamic product cards */
 #dynamic-product-container {
   display: flex;
@@ -836,13 +763,6 @@ button {
   }
   .breadcrumb-container {
     padding: 8px 15px !important;
-  }
-}
-
-@media (max-width: 700px) {
-  .footer-left {
-    display: flex;
-    flex-direction: column;
   }
 }
 

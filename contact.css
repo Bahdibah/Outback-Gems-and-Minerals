@@ -300,47 +300,6 @@ header {
     justify-content: space-between;
 }
 
-/* Footer Styling */
-footer {
-    background-color: #1e1e1e !important;
-    color: #888;
-    display: flex;
-    flex-direction: row;
-    gap: 5%;
-    width: 100%;
-}
-
-footer >div{
-  width: 33%;
-  display: flex;
-  flex-direction: row;
-}
-
-.footer-left {
-  gap: 5%;
-  padding-left: 1%;
-  align-items: center;
-}
-
-.footer-middle {
-  justify-content: center;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-}
-
-.footer-middle p {
-  margin: 0.5%;
-}
-
-.footer-right {
-  justify-content: right;
-  gap: 4%;
-  padding-right: 1%;
-  font-size: 1.5rem;  
-  align-items: center;
-}
-
 .faq-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -931,17 +890,12 @@ form button[type="button"]:hover {
   .hero-overlay p {
     display: none;
   }
+  
+  #contact {
+    padding-top: 0px;
+    padding-bottom: 20px;
+  }
 }
-@media (max-width: 700px) {
-        .footer-left {
-            display: flex;
-            flex-direction: column;
-        }
-        #contact {
-          padding-top: 0px;
-          padding-bottom: 20px;
-        }
-      }
 
 /* Mobile (max-width: 425px) */
 @media (max-width: 425px) {
@@ -1026,27 +980,4 @@ form button[type="button"]:hover {
   left: -9999px !important;
   opacity: 0 !important;
   pointer-events: none !important;
-}
-
-/* Footer icon styling */
-.footer-icon {
-  color: #cc5500 !important;
-}
-
-.footer-icon:hover {
-  color: #ff7f33 !important;
-}
-
-/* Footer link styling */
-footer a {
-  color: #cc5500 !important;
-  text-decoration: none !important;
-}
-
-footer a:hover {
-  color: #ff7f33 !important;
-}
-
-footer a:visited {
-  color: #cc5500 !important;
 }
