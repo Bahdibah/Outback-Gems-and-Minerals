@@ -1,6 +1,6 @@
 [
   {
-    "product name": "Silver Blue Spinel",
+    "product name": "Spinel s104",
     "product id": "s104",
     "category": "Faceting Rough",
     "sub category": "Synthetic Spinel",
@@ -18,7 +18,7 @@
     "image 3 url": "images\\main\\s104-3.jpeg"
   },
   {
-    "product name": "Powder Blue Spinel",
+    "product name": "Spinel s105",
     "product id": "s105",
     "category": "Faceting Rough",
     "sub category": "Synthetic Spinel",
@@ -36,7 +36,7 @@
     "image 3 url": "images\\main\\s105-3.jpeg"
   },
   {
-    "product name": "Powder Blue Spinel",
+    "product name": "Spinel s105",
     "product id": "s105",
     "category": "Faceting Rough",
     "sub category": "Synthetic Spinel",
@@ -54,7 +54,7 @@
     "image 3 url": "images\\main\\s105-3.jpeg"
   },
   {
-    "product name": "Ice Blue Spinel",
+    "product name": "Spinel s106",
     "product id": "s106",
     "category": "Faceting Rough",
     "sub category": "Synthetic Spinel",
@@ -72,7 +72,7 @@
     "image 3 url": "images\\main\\s106-3.jpeg"
   },
   {
-    "product name": "Ice Blue Spinel",
+    "product name": "Spinel s106",
     "product id": "s106",
     "category": "Faceting Rough",
     "sub category": "Synthetic Spinel",
@@ -90,7 +90,7 @@
     "image 3 url": "images\\main\\s106-3.jpeg"
   },
   {
-    "product name": "Sky Blue Spinel",
+    "product name": "Spinel s107",
     "product id": "s107",
     "category": "Faceting Rough",
     "sub category": "Synthetic Spinel",
@@ -108,7 +108,7 @@
     "image 3 url": "images\\main\\s107-3.jpeg"
   },
   {
-    "product name": "Sky Blue Spinel",
+    "product name": "Spinel s107",
     "product id": "s107",
     "category": "Faceting Rough",
     "sub category": "Synthetic Spinel",
@@ -126,7 +126,7 @@
     "image 3 url": "images\\main\\s107-3.jpeg"
   },
   {
-    "product name": "Royal Blue Spinel",
+    "product name": "Spinel s112",
     "product id": "s112",
     "category": "Faceting Rough",
     "sub category": "Synthetic Spinel",
@@ -144,7 +144,7 @@
     "image 3 url": "images\\main\\s112-3.jpeg"
   },
   {
-    "product name": "Sapphire Blue Spinel",
+    "product name": "Spinel s113",
     "product id": "s113",
     "category": "Faceting Rough",
     "sub category": "Synthetic Spinel",
@@ -162,7 +162,7 @@
     "image 3 url": "images\\main\\s113-3.jpeg"
   },
   {
-    "product name": "Midnight Blue Spinel",
+    "product name": "Spinel s114",
     "product id": "s114",
     "category": "Faceting Rough",
     "sub category": "Synthetic Spinel",
@@ -180,7 +180,7 @@
     "image 3 url": "images\\main\\s114-3.jpeg"
   },
   {
-    "product name": "Ocean Blue Spinel",
+    "product name": "Spinel s119",
     "product id": "s119",
     "category": "Faceting Rough",
     "sub category": "Synthetic Spinel",
@@ -198,7 +198,7 @@
     "image 3 url": "images\\main\\s119-3.jpeg"
   },
   {
-    "product name": "Slate Blue Spinel",
+    "product name": "Spinel s120",
     "product id": "s120",
     "category": "Faceting Rough",
     "sub category": "Synthetic Spinel",
@@ -216,7 +216,7 @@
     "image 3 url": "images\\main\\s120-3.jpeg"
   },
   {
-    "product name": "Slate Blue Spinel",
+    "product name": "Spinel s120",
     "product id": "s120",
     "category": "Faceting Rough",
     "sub category": "Synthetic Spinel",
@@ -3600,7 +3600,7 @@
     "image 3 url": "images\\main\\pwd011-3.jpeg"
   },
   {
-    "product name": "Cubic Zirconia - Champagne",
+    "product name": "CZ cz001 Champagne (Light)",
     "product id": "cz001",
     "category": "Faceting Rough",
     "sub category": "Synthetic CZ",
@@ -3618,7 +3618,7 @@
     "image 3 url": "images\\main\\cz001-3.jpeg"
   },
   {
-    "product name": "Cubic Zirconia - Champagne",
+    "product name": "CZ cz001 Champagne (Light)",
     "product id": "cz001",
     "category": "Faceting Rough",
     "sub category": "Synthetic CZ",
@@ -3636,8 +3636,8 @@
     "image 3 url": "images\\main\\cz001-3.jpeg"
   },
   {
-    "product name": "Cubic Zirconia - Orange",
-    "product id": "cz004",
+    "product name": "CZ cz025 Orange (Medium)",
+    "product id": "cz025",
     "category": "Faceting Rough",
     "sub category": "Synthetic CZ",
     "Dimensions": "",
@@ -3646,16 +3646,16 @@
     "weight": 115,
     "price per unit": 0.06,
     "stock": 1,
-    "image url": "images\\main\\cz004.jpeg",
-    "image 2 url": "images\\main\\cz004-2.jpeg",
+    "image url": "images\\main\\cz025.jpeg",
+    "image 2 url": "images\\main\\cz025-2.jpeg",
     "total price": 6.9,
     "bestseller": "",
     "newitem": "",
-    "image 3 url": "images\\main\\cz004-3.jpeg"
+    "image 3 url": "images\\main\\cz025-3.jpeg"
   },
   {
-    "product name": "Cubic Zirconia - Orange",
-    "product id": "cz004",
+    "product name": "CZ cz025 Orange (Medium)",
+    "product id": "cz025",
     "category": "Faceting Rough",
     "sub category": "Synthetic CZ",
     "Dimensions": "",
@@ -3664,16 +3664,16 @@
     "weight": 65,
     "price per unit": 0.06,
     "stock": 1,
-    "image url": "images\\main\\cz004.jpeg",
-    "image 2 url": "images\\main\\cz004-2.jpeg",
+    "image url": "images\\main\\cz025.jpeg",
+    "image 2 url": "images\\main\\cz025-2.jpeg",
     "total price": 3.9,
     "bestseller": "",
     "newitem": "",
-    "image 3 url": "images\\main\\cz004-3.jpeg"
+    "image 3 url": "images\\main\\cz025-3.jpeg"
   },
   {
-    "product name": "Cubic Zirconia - Orange",
-    "product id": "cz004",
+    "product name": "CZ cz025 Orange (Medium)",
+    "product id": "cz025",
     "category": "Faceting Rough",
     "sub category": "Synthetic CZ",
     "Dimensions": "",
@@ -3682,16 +3682,16 @@
     "weight": 84,
     "price per unit": 0.06,
     "stock": 1,
-    "image url": "images\\main\\cz004.jpeg",
-    "image 2 url": "images\\main\\cz004-2.jpeg",
+    "image url": "images\\main\\cz025.jpeg",
+    "image 2 url": "images\\main\\cz025-2.jpeg",
     "total price": 5.04,
     "bestseller": "",
     "newitem": "",
-    "image 3 url": "images\\main\\cz004-3.jpeg"
+    "image 3 url": "images\\main\\cz025-3.jpeg"
   },
   {
-    "product name": "Cubic Zirconia - Orange",
-    "product id": "cz004",
+    "product name": "CZ cz025 Orange (Medium)",
+    "product id": "cz025",
     "category": "Faceting Rough",
     "sub category": "Synthetic CZ",
     "Dimensions": "",
@@ -3700,16 +3700,16 @@
     "weight": 485,
     "price per unit": 0.06,
     "stock": 1,
-    "image url": "images\\main\\cz004.jpeg",
-    "image 2 url": "images\\main\\cz004-2.jpeg",
+    "image url": "images\\main\\cz025.jpeg",
+    "image 2 url": "images\\main\\cz025-2.jpeg",
     "total price": 29.1,
     "bestseller": "",
     "newitem": "",
-    "image 3 url": "images\\main\\cz004-3.jpeg"
+    "image 3 url": "images\\main\\cz025-3.jpeg"
   },
   {
-    "product name": "Cubic Zirconia - Orange",
-    "product id": "cz004",
+    "product name": "CZ cz025 Orange (Medium)",
+    "product id": "cz025",
     "category": "Faceting Rough",
     "sub category": "Synthetic CZ",
     "Dimensions": "",
@@ -3718,16 +3718,16 @@
     "weight": 180,
     "price per unit": 0.06,
     "stock": 1,
-    "image url": "images\\main\\cz004.jpeg",
-    "image 2 url": "images\\main\\cz004-2.jpeg",
+    "image url": "images\\main\\cz025.jpeg",
+    "image 2 url": "images\\main\\cz025-2.jpeg",
     "total price": 10.8,
     "bestseller": "",
     "newitem": "",
-    "image 3 url": "images\\main\\cz004-3.jpeg"
+    "image 3 url": "images\\main\\cz025-3.jpeg"
   },
   {
-    "product name": "Cubic Zirconia - Orange",
-    "product id": "cz004",
+    "product name": "CZ cz025 Orange (Medium)",
+    "product id": "cz025",
     "category": "Faceting Rough",
     "sub category": "Synthetic CZ",
     "Dimensions": "",
@@ -3736,16 +3736,16 @@
     "weight": 62,
     "price per unit": 0.06,
     "stock": 1,
-    "image url": "images\\main\\cz004.jpeg",
-    "image 2 url": "images\\main\\cz004-2.jpeg",
+    "image url": "images\\main\\cz025.jpeg",
+    "image 2 url": "images\\main\\cz025-2.jpeg",
     "total price": 3.72,
     "bestseller": "",
     "newitem": "",
-    "image 3 url": "images\\main\\cz004-3.jpeg"
+    "image 3 url": "images\\main\\cz025-3.jpeg"
   },
   {
-    "product name": "Cubic Zirconia - Orange",
-    "product id": "cz004",
+    "product name": "CZ cz025 Orange (Medium)",
+    "product id": "cz025",
     "category": "Faceting Rough",
     "sub category": "Synthetic CZ",
     "Dimensions": "",
@@ -3754,16 +3754,16 @@
     "weight": 42,
     "price per unit": 0.06,
     "stock": 1,
-    "image url": "images\\main\\cz004.jpeg",
-    "image 2 url": "images\\main\\cz004-2.jpeg",
+    "image url": "images\\main\\cz025.jpeg",
+    "image 2 url": "images\\main\\cz025-2.jpeg",
     "total price": 2.52,
     "bestseller": "",
     "newitem": "",
-    "image 3 url": "images\\main\\cz004-3.jpeg"
+    "image 3 url": "images\\main\\cz025-3.jpeg"
   },
   {
-    "product name": "Cubic Zirconia - Orange",
-    "product id": "cz004",
+    "product name": "CZ cz025 Orange (Medium)",
+    "product id": "cz025",
     "category": "Faceting Rough",
     "sub category": "Synthetic CZ",
     "Dimensions": "",
@@ -3772,16 +3772,16 @@
     "weight": 55,
     "price per unit": 0.06,
     "stock": 1,
-    "image url": "images\\main\\cz004.jpeg",
-    "image 2 url": "images\\main\\cz004-2.jpeg",
+    "image url": "images\\main\\cz025.jpeg",
+    "image 2 url": "images\\main\\cz025-2.jpeg",
     "total price": 3.3,
     "bestseller": "",
     "newitem": "",
-    "image 3 url": "images\\main\\cz004-3.jpeg"
+    "image 3 url": "images\\main\\cz025-3.jpeg"
   },
   {
-    "product name": "Cubic Zirconia - Orange",
-    "product id": "cz004",
+    "product name": "CZ cz025 Orange (Medium)",
+    "product id": "cz025",
     "category": "Faceting Rough",
     "sub category": "Synthetic CZ",
     "Dimensions": "",
@@ -3790,16 +3790,16 @@
     "weight": 69,
     "price per unit": 0.06,
     "stock": 1,
-    "image url": "images\\main\\cz004.jpeg",
-    "image 2 url": "images\\main\\cz004-2.jpeg",
+    "image url": "images\\main\\cz025.jpeg",
+    "image 2 url": "images\\main\\cz025-2.jpeg",
     "total price": 4.14,
     "bestseller": "",
     "newitem": "",
-    "image 3 url": "images\\main\\cz004-3.jpeg"
+    "image 3 url": "images\\main\\cz025-3.jpeg"
   },
   {
-    "product name": "Cubic Zirconia - Orange",
-    "product id": "cz004",
+    "product name": "CZ cz025 Orange (Medium)",
+    "product id": "cz025",
     "category": "Faceting Rough",
     "sub category": "Synthetic CZ",
     "Dimensions": "",
@@ -3808,16 +3808,16 @@
     "weight": 67,
     "price per unit": 0.06,
     "stock": 1,
-    "image url": "images\\main\\cz004.jpeg",
-    "image 2 url": "images\\main\\cz004-2.jpeg",
+    "image url": "images\\main\\cz025.jpeg",
+    "image 2 url": "images\\main\\cz025-2.jpeg",
     "total price": 4.02,
     "bestseller": "",
     "newitem": "",
-    "image 3 url": "images\\main\\cz004-3.jpeg"
+    "image 3 url": "images\\main\\cz025-3.jpeg"
   },
   {
-    "product name": "Cubic Zirconia - Golden Yellow",
-    "product id": "cz003",
+    "product name": "CZ cz014 Golden (Medium)",
+    "product id": "cz014",
     "category": "Faceting Rough",
     "sub category": "Synthetic CZ",
     "Dimensions": "",
@@ -3826,16 +3826,16 @@
     "weight": 174,
     "price per unit": 0.06,
     "stock": 1,
-    "image url": "images\\main\\cz003.jpeg",
-    "image 2 url": "images\\main\\cz003-2.jpeg",
+    "image url": "images\\main\\cz014.jpeg",
+    "image 2 url": "images\\main\\cz014-2.jpeg",
     "total price": 10.44,
     "bestseller": "",
     "newitem": "",
-    "image 3 url": "images\\main\\cz003-3.jpeg"
+    "image 3 url": "images\\main\\cz014-3.jpeg"
   },
   {
-    "product name": "Cubic Zirconia - Golden Yellow",
-    "product id": "cz003",
+    "product name": "CZ cz014 Golden (Medium)",
+    "product id": "cz014",
     "category": "Faceting Rough",
     "sub category": "Synthetic CZ",
     "Dimensions": "",
@@ -3844,16 +3844,16 @@
     "weight": 128,
     "price per unit": 0.06,
     "stock": 1,
-    "image url": "images\\main\\cz003.jpeg",
-    "image 2 url": "images\\main\\cz003-2.jpeg",
+    "image url": "images\\main\\cz014.jpeg",
+    "image 2 url": "images\\main\\cz014-2.jpeg",
     "total price": 7.68,
     "bestseller": "",
     "newitem": "",
-    "image 3 url": "images\\main\\cz003-3.jpeg"
+    "image 3 url": "images\\main\\cz014-3.jpeg"
   },
   {
-    "product name": "Cubic Zirconia - Golden Yellow",
-    "product id": "cz003",
+    "product name": "CZ cz014 Golden (Medium)",
+    "product id": "cz014",
     "category": "Faceting Rough",
     "sub category": "Synthetic CZ",
     "Dimensions": "",
@@ -3862,16 +3862,16 @@
     "weight": 112,
     "price per unit": 0.06,
     "stock": 1,
-    "image url": "images\\main\\cz003.jpeg",
-    "image 2 url": "images\\main\\cz003-2.jpeg",
+    "image url": "images\\main\\cz014.jpeg",
+    "image 2 url": "images\\main\\cz014-2.jpeg",
     "total price": 6.72,
     "bestseller": "",
     "newitem": "",
-    "image 3 url": "images\\main\\cz003-3.jpeg"
+    "image 3 url": "images\\main\\cz014-3.jpeg"
   },
   {
-    "product name": "Cubic Zirconia - Golden Yellow",
-    "product id": "cz003",
+    "product name": "CZ cz014 Golden (Medium)",
+    "product id": "cz014",
     "category": "Faceting Rough",
     "sub category": "Synthetic CZ",
     "Dimensions": "",
@@ -3880,16 +3880,16 @@
     "weight": 78,
     "price per unit": 0.06,
     "stock": 1,
-    "image url": "images\\main\\cz003.jpeg",
-    "image 2 url": "images\\main\\cz003-2.jpeg",
+    "image url": "images\\main\\cz014.jpeg",
+    "image 2 url": "images\\main\\cz014-2.jpeg",
     "total price": 4.68,
     "bestseller": "",
     "newitem": "",
-    "image 3 url": "images\\main\\cz003-3.jpeg"
+    "image 3 url": "images\\main\\cz014-3.jpeg"
   },
   {
-    "product name": "Cubic Zirconia  - Lavender",
-    "product id": "cz002",
+    "product name": "CZ  cz019 Lavender (Light)]",
+    "product id": "cz019",
     "category": "Faceting Rough",
     "sub category": "Synthetic CZ",
     "Dimensions": "",
@@ -3898,16 +3898,16 @@
     "weight": 47,
     "price per unit": 0.06,
     "stock": 1,
-    "image url": "images\\main\\cz002.jpeg",
-    "image 2 url": "images\\main\\cz002-2.jpeg",
+    "image url": "images\\main\\cz019.jpeg",
+    "image 2 url": "images\\main\\cz019-2.jpeg",
     "total price": 2.82,
     "bestseller": "",
     "newitem": "",
-    "image 3 url": "images\\main\\cz002-3.jpeg"
+    "image 3 url": "images\\main\\cz019-3.jpeg"
   },
   {
-    "product name": "Cubic Zirconia  - Lavender",
-    "product id": "cz002",
+    "product name": "CZ  cz019 Lavender (Light)]",
+    "product id": "cz019",
     "category": "Faceting Rough",
     "sub category": "Synthetic CZ",
     "Dimensions": "",
@@ -3916,16 +3916,16 @@
     "weight": 76,
     "price per unit": 0.06,
     "stock": 1,
-    "image url": "images\\main\\cz002.jpeg",
-    "image 2 url": "images\\main\\cz002-2.jpeg",
+    "image url": "images\\main\\cz019.jpeg",
+    "image 2 url": "images\\main\\cz019-2.jpeg",
     "total price": 4.56,
     "bestseller": "",
     "newitem": "",
-    "image 3 url": "images\\main\\cz002-3.jpeg"
+    "image 3 url": "images\\main\\cz019-3.jpeg"
   },
   {
-    "product name": "Cubic Zirconia  - Lavender",
-    "product id": "cz002",
+    "product name": "CZ  cz019 Lavender (Light)]",
+    "product id": "cz019",
     "category": "Faceting Rough",
     "sub category": "Synthetic CZ",
     "Dimensions": "",
@@ -3934,12 +3934,12 @@
     "weight": 73,
     "price per unit": 0.06,
     "stock": 1,
-    "image url": "images\\main\\cz002.jpeg",
-    "image 2 url": "images\\main\\cz002-2.jpeg",
+    "image url": "images\\main\\cz019.jpeg",
+    "image 2 url": "images\\main\\cz019-2.jpeg",
     "total price": 4.38,
     "bestseller": "",
     "newitem": "",
-    "image 3 url": "images\\main\\cz002-3.jpeg"
+    "image 3 url": "images\\main\\cz019-3.jpeg"
   },
   {
     "product name": "Amethyst Mixed Crystals",
