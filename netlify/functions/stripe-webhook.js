@@ -185,12 +185,43 @@ async function handleCheckoutSessionCompleted(session) {
       }
     }
 
+    // 📝 TESTING: Record this purchase for potential restoration
+    if (inventoryUpdates.length > 0) {
+      try {
+        await fetch('https://your-netlify-url.netlify.app/.netlify/functions/test-recorder', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            sessionId: sessionId,
+            items: inventoryUpdates.map(item => ({
+              productId: item.productId,
+              weight: item.weight,
+              quantityToRestore: item.quantityToReduce
+            }))
+          })
+        });
+        console.log('📝 TEST PURCHASE RECORDED for potential restoration');
+      } catch (recordError) {
+        console.log('⚠️ Failed to record test purchase (not critical):', recordError.message);
+      }
+    }
+
     // Process all inventory updates as a single batch (async, non-blocking)
     if (inventoryUpdates.length > 0) {
-      console.log(`Sending batch inventory update for ${inventoryUpdates.length} items`);
+      console.log(`📦 STRIPE INVENTORY: Sending batch inventory update for ${inventoryUpdates.length} items`);
       // Don't await - make it non-blocking so email sends immediately
-      updateInventoryBatch(inventoryUpdates).catch(error => {
-        console.error('Batch inventory update failed (non-blocking):', error);
+      updateInventoryBatch(inventoryUpdates).catch(async (error) => {
+        console.error('❌ STRIPE INVENTORY: Batch inventory update failed, trying individual updates:', error);
+        
+        // Fallback: Try individual updates (like PayPal does)
+        for (const update of inventoryUpdates) {
+          try {
+            await updateInventorySingle(update.productId, update.weight, update.quantityToReduce);
+            console.log(`✅ STRIPE INVENTORY: Individual update successful for ${update.productId}`);
+          } catch (singleError) {
+            console.error(`❌ STRIPE INVENTORY: Individual update failed for ${update.productId}:`, singleError);
+          }
+        }
       });
     }
 
@@ -221,11 +252,20 @@ async function updateInventoryBatch(inventoryUpdates) {
     const googleSheetsUpdateUrl = process.env.GOOGLE_SHEETS_INVENTORY_UPDATE_URL;
     
     if (!googleSheetsUpdateUrl) {
-      console.log('Google Sheets update URL not configured, skipping inventory update');
+      console.log('❌ STRIPE INVENTORY: Google Sheets update URL not configured, skipping inventory update');
+      console.log('💡 STRIPE INVENTORY: Set GOOGLE_SHEETS_INVENTORY_UPDATE_URL environment variable');
       return;
     }
 
-    console.log(`Sending batch inventory update with ${inventoryUpdates.length} items`);
+    console.log(`📡 STRIPE INVENTORY: Sending batch inventory update with ${inventoryUpdates.length} items`);
+    console.log('📋 STRIPE INVENTORY: Updates to send:', JSON.stringify(inventoryUpdates, null, 2));
+
+    const requestBody = {
+      action: 'batchUpdateStock',
+      updates: inventoryUpdates
+    };
+
+    console.log('📋 STRIPE INVENTORY: Full request body:', JSON.stringify(requestBody, null, 2));
 
     // Add timeout to prevent hanging
     const timeoutPromise = new Promise((_, reject) => 
@@ -237,25 +277,72 @@ async function updateInventoryBatch(inventoryUpdates) {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        action: 'batchUpdateStock',
-        updates: inventoryUpdates
-      })
+      body: JSON.stringify(requestBody)
     });
 
     // Race between fetch and timeout
     const response = await Promise.race([fetchPromise, timeoutPromise]);
 
+    console.log(`📊 STRIPE INVENTORY: Apps Script response status: ${response.status}`);
+
     if (!response.ok) {
+      const errorText = await response.text();
+      console.error('❌ STRIPE INVENTORY: Failed to update inventory:', response.status, response.statusText, errorText);
       throw new Error(`Failed to update Google Sheets inventory: ${response.status} ${response.statusText}`);
     }
 
     const result = await response.json();
-    console.log(`Google Sheets batch inventory update completed:`, result);
+    console.log(`✅ STRIPE INVENTORY: Batch inventory update completed:`, result);
 
   } catch (error) {
-    console.error(`Failed to batch update Google Sheets inventory:`, error);
+    console.error(`💥 STRIPE INVENTORY: Failed to batch update Google Sheets inventory:`, error);
     // Don't throw error - this is non-blocking, so webhook can continue
+  }
+}
+
+// Fallback function for individual inventory updates (same logic as PayPal webhook)
+async function updateInventorySingle(productId, weight, quantityToReduce) {
+  console.log(`🔄 STRIPE INVENTORY (SINGLE): Attempting to update ${productId}, weight: ${weight}, quantity: ${quantityToReduce}`);
+  
+  try {
+    const googleSheetsUpdateUrl = process.env.GOOGLE_SHEETS_INVENTORY_UPDATE_URL;
+    
+    if (!googleSheetsUpdateUrl) {
+      console.log('❌ STRIPE INVENTORY (SINGLE): Google Sheets update URL not configured');
+      return;
+    }
+
+    const requestBody = {
+      action: 'updateStock',
+      productId: productId,
+      weight: weight,
+      quantityToReduce: quantityToReduce
+    };
+    
+    console.log('📋 STRIPE INVENTORY (SINGLE): Request body:', JSON.stringify(requestBody, null, 2));
+
+    const response = await fetch(googleSheetsUpdateUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(requestBody)
+    });
+
+    console.log(`📊 STRIPE INVENTORY (SINGLE): Apps Script response status: ${response.status}`);
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('❌ STRIPE INVENTORY (SINGLE): Failed to update inventory:', response.status, response.statusText, errorText);
+      return;
+    }
+
+    const result = await response.json();
+    console.log('✅ STRIPE INVENTORY (SINGLE): Updated successfully:', result);
+
+  } catch (error) {
+    console.error('💥 STRIPE INVENTORY (SINGLE): Error updating inventory:', error);
+    throw error;
   }
 }
 
