@@ -349,6 +349,13 @@ async function fetchProductDetails() {
       return true;
     });
 
+    // Sort variations by weight (size) in ascending order
+    variations.sort((a, b) => {
+      const weightA = parseFloat(a.weight);
+      const weightB = parseFloat(b.weight);
+      return weightA - weightB;
+    });
+
     if (variations.length === 0) {
       productNameElement.textContent = "No variations available";
       productDescriptionElement.textContent = "No variations found for this product.";
