@@ -554,7 +554,7 @@
     "image 2 url": "images\\main\\ccb007-2.jpeg",
     "total price": 5,
     "bestseller": "",
-    "newitem": "Y",
+    "newitem": "",
     "image 3 url": "images\\main\\ccb007-3.jpeg"
   },
   {
@@ -680,7 +680,7 @@
     "image 2 url": "images\\main\\ccb014-2.jpeg",
     "total price": 5,
     "bestseller": "",
-    "newitem": "",
+    "newitem": "Y",
     "image 3 url": "images\\main\\ccb014-3.jpeg"
   },
   {
@@ -950,7 +950,7 @@
     "image 2 url": "images\\main\\btf013-2.jpeg",
     "total price": 7.5,
     "bestseller": "",
-    "newitem": "Y",
+    "newitem": "",
     "image 3 url": "images\\main\\btf013-3.jpeg"
   },
   {
@@ -1184,7 +1184,7 @@
     "image 2 url": "images\\main\\hrt012-2.jpeg",
     "total price": 2.5,
     "bestseller": "",
-    "newitem": "",
+    "newitem": "Y",
     "image 3 url": "images\\main\\hrt012-3.jpeg"
   },
   {
@@ -1598,7 +1598,7 @@
     "image 2 url": "images\\main\\mtr016-2.jpeg",
     "total price": 3.5,
     "bestseller": "",
-    "newitem": "",
+    "newitem": "Y",
     "image 3 url": "images\\main\\mtr016-3.jpeg"
   },
   {
@@ -1796,7 +1796,7 @@
     "image 2 url": "images\\main\\mgt008-2.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": "",
+    "newitem": "Y",
     "image 3 url": "images\\main\\mgt008-3.jpeg"
   },
   {
@@ -2534,7 +2534,7 @@
     "image 2 url": "images\\main\\tbs017-2.jpeg",
     "total price": 3,
     "bestseller": "",
-    "newitem": "",
+    "newitem": "Y",
     "image 3 url": "images\\main\\tbs017-3.jpeg"
   },
   {
@@ -2642,7 +2642,7 @@
     "image 2 url": "images\\main\\rfj005-2.jpeg",
     "total price": 12.5,
     "bestseller": "",
-    "newitem": "",
+    "newitem": "Y",
     "image 3 url": "images\\main\\rfj005-3.jpeg"
   },
   {
@@ -2696,7 +2696,7 @@
     "image 2 url": "images\\main\\bbj004-2.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": "Y",
+    "newitem": "",
     "image 3 url": "images\\main\\bbj004-3.jpeg"
   },
   {
@@ -2912,7 +2912,7 @@
     "image 2 url": "images\\main\\cla006-2.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": "Y",
+    "newitem": "",
     "image 3 url": "images\\main\\cla006-3.jpeg"
   },
   {
@@ -2930,7 +2930,7 @@
     "image 2 url": "images\\main\\msa001-2.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": "",
+    "newitem": "Y",
     "image 3 url": "images\\main\\msa001-3.jpeg"
   },
   {
@@ -3254,7 +3254,7 @@
     "image 2 url": "images\\main\\mag004-2.jpeg",
     "total price": 7.5,
     "bestseller": "",
-    "newitem": "Y",
+    "newitem": "",
     "image 3 url": "images\\main\\mag004-3.jpeg"
   },
   {
@@ -3344,7 +3344,7 @@
     "image 2 url": "images\\main\\rfj007-2.jpeg",
     "total price": 7.5,
     "bestseller": "",
-    "newitem": "",
+    "newitem": "Y",
     "image 3 url": "images\\main\\rfj007-3.jpeg"
   },
   {
@@ -4226,7 +4226,7 @@
     "image 2 url": "images\\main\\gjp003-2.jpeg",
     "total price": 10,
     "bestseller": "",
-    "newitem": "",
+    "newitem": "Y",
     "image 3 url": "images\\main\\gjp003-3.jpeg"
   },
   {
@@ -4280,7 +4280,7 @@
     "image 2 url": "images\\main\\ssp002-2.jpeg",
     "total price": 56.1,
     "bestseller": "",
-    "newitem": "",
+    "newitem": "Y",
     "image 3 url": "images\\main\\ssp002-3.jpeg"
   },
   {
@@ -4478,7 +4478,7 @@
     "image 2 url": "images\\main\\ssp004-2.jpeg",
     "total price": 30.25,
     "bestseller": "",
-    "newitem": "",
+    "newitem": "Y",
     "image 3 url": "images\\main\\ssp004-3.jpeg"
   },
   {
@@ -4622,7 +4622,7 @@
     "image 2 url": "images\\main\\ssp033-2.jpeg",
     "total price": 50,
     "bestseller": "",
-    "newitem": "",
+    "newitem": "Y",
     "image 3 url": "images\\main\\ssp033-3.jpeg"
   },
   {
@@ -4712,7 +4712,7 @@
     "image 2 url": "images\\main\\ssp055-2.jpeg",
     "total price": 84,
     "bestseller": "",
-    "newitem": "",
+    "newitem": "Y",
     "image 3 url": "images\\main\\ssp055-3.jpeg"
   },
   {
