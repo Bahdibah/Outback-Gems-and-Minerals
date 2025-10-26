@@ -185,27 +185,6 @@ async function handleCheckoutSessionCompleted(session) {
       }
     }
 
-    // 📝 TESTING: Record this purchase for potential restoration
-    if (inventoryUpdates.length > 0) {
-      try {
-        await fetch('https://your-netlify-url.netlify.app/.netlify/functions/test-recorder', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            sessionId: sessionId,
-            items: inventoryUpdates.map(item => ({
-              productId: item.productId,
-              weight: item.weight,
-              quantityToRestore: item.quantityToReduce
-            }))
-          })
-        });
-        console.log('📝 TEST PURCHASE RECORDED for potential restoration');
-      } catch (recordError) {
-        console.log('⚠️ Failed to record test purchase (not critical):', recordError.message);
-      }
-    }
-
     // Process all inventory updates as a single batch (async, non-blocking)
     if (inventoryUpdates.length > 0) {
       console.log(`📦 STRIPE INVENTORY: Sending batch inventory update for ${inventoryUpdates.length} items`);

@@ -111,12 +111,27 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://outbackgems.com.au/products.html?category=faceting%20rough%7Csynthetic%20sapphire%20boule</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://outbackgems.com.au/products.html?category=raw%20material%20%26%20specimens%7Capatite</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://outbackgems.com.au/products.html?category=raw%20material%20%26%20specimens%7Camethyst</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://outbackgems.com.au/products.html?category=raw%20material%20%26%20specimens%7Cherkimer%20diamonds</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://outbackgems.com.au/products.html?category=raw%20material%20%26%20specimens%7Cgarnet</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -142,6 +157,11 @@
   </url>
   <url>
     <loc>https://outbackgems.com.au/products.html?category=raw%20material%20%26%20specimens%7Cyowah%20nuts</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://outbackgems.com.au/products.html?category=raw%20material%20%26%20specimens%7Czircon</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -299,6 +319,41 @@
   </url>
   <url>
     <loc>https://outbackgems.com.au/view-product.html?productid=s120</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://outbackgems.com.au/view-product.html?productid=ssp002</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://outbackgems.com.au/view-product.html?productid=ssp004</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://outbackgems.com.au/view-product.html?productid=ssp007</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://outbackgems.com.au/view-product.html?productid=ssp012</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://outbackgems.com.au/view-product.html?productid=ssp033</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://outbackgems.com.au/view-product.html?productid=ssp045</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://outbackgems.com.au/view-product.html?productid=ssp055</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
