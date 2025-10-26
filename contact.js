@@ -1,6 +1,18 @@
 // Background image rotation for contact.html
 // This script must be loaded after the DOM is ready.
 document.addEventListener('DOMContentLoaded', function() {
+  // Check for success/error messages in URL
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('success') === '1') {
+    alert('Thank you! Your message has been sent successfully. We\'ll get back to you soon!');
+    // Remove the query parameter from URL
+    window.history.replaceState({}, document.title, window.location.pathname);
+  } else if (urlParams.get('error') === '1') {
+    alert('Sorry, there was an error sending your message. Please try again or email us directly at support@outbackgems.com.au');
+    // Remove the query parameter from URL
+    window.history.replaceState({}, document.title, window.location.pathname);
+  }
+  
   const images = [
     "images/banners/Contact Banner 1.jpeg",
     "images/banners/Contact Banner 2.jpeg",
@@ -129,40 +141,42 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       }
       
-      // 8. Timing check
-      const formLoadTime = sessionStorage.getItem('formLoadTime');
-      const currentTime = Date.now();
+      // 8. Timing check - TEMPORARILY DISABLED FOR TESTING
+      // const formLoadTime = sessionStorage.getItem('formLoadTime');
+      // const currentTime = Date.now();
       
-      if (formLoadTime) {
-        const timeDiff = currentTime - parseInt(formLoadTime);
-        // If form submitted in less than 3 seconds, likely a bot
-        if (timeDiff < 3000) {
-          console.log('Spam submission blocked by timing');
-          alert('Thank you for your message!');
-          return false;
-        }
-        
-        // If form submitted too quickly after page load (less than 1 second)
-        if (timeDiff < 1000) {
-          console.log('Spam submission blocked by instant submission');
-          alert('Thank you for your message!');
-          return false;
-        }
-      }
+      // if (formLoadTime) {
+      //   const timeDiff = currentTime - parseInt(formLoadTime);
+      //   // If form submitted in less than 3 seconds, likely a bot
+      //   if (timeDiff < 3000) {
+      //     console.log('Spam submission blocked by timing');
+      //     alert('Thank you for your message!');
+      //     return false;
+      //   }
+      // }
       
-      // Show reCAPTCHA modal for verification
+      // All checks passed - Show reCAPTCHA modal for verification
+      console.log('All spam checks passed - showing reCAPTCHA modal');
       showRecaptchaModal();
     });
     
     // reCAPTCHA Modal Functions
     function showRecaptchaModal() {
+      console.log('showRecaptchaModal called');
       const modal = document.getElementById('recaptcha-modal');
+      console.log('Modal element:', modal);
       if (modal) {
+        console.log('Setting modal display to flex');
         modal.style.display = 'flex';
         // Reset reCAPTCHA if it was previously completed
         if (typeof grecaptcha !== 'undefined') {
+          console.log('Resetting reCAPTCHA');
           grecaptcha.reset();
+        } else {
+          console.warn('grecaptcha is not defined - reCAPTCHA API may not have loaded');
         }
+      } else {
+        console.error('Modal element not found!');
       }
     }
     
@@ -186,11 +200,28 @@ document.addEventListener('DOMContentLoaded', function() {
           return;
         }
         
+        // Add reCAPTCHA response to form
+        let recaptchaInput = contactForm.querySelector('input[name="g-recaptcha-response"]');
+        if (!recaptchaInput) {
+          recaptchaInput = document.createElement('input');
+          recaptchaInput.type = 'hidden';
+          recaptchaInput.name = 'g-recaptcha-response';
+          contactForm.appendChild(recaptchaInput);
+        }
+        recaptchaInput.value = recaptchaResponse;
+        
         // reCAPTCHA completed, hide modal and submit form
         hideRecaptchaModal();
         
-        // Submit the form
-        contactForm.removeEventListener('submit', arguments.callee);
+        // Create a new FormData object and submit via the original form element
+        // This bypasses the event listener we set up
+        const submitEvent = new Event('submit', { cancelable: true, bubbles: true });
+        
+        // Temporarily remove our custom submit handler
+        const originalHandler = contactForm.onsubmit;
+        contactForm.onsubmit = null;
+        
+        // Submit the form (this will use the browser's default form submission)
         contactForm.submit();
       });
     }

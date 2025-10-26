@@ -33,8 +33,9 @@
   <link rel="icon" type="image/png" href="/images/favicon.png">
   <link rel="apple-touch-icon" href="/images/favicon.png">
   <title>Contact Us | Outback Gems & Minerals</title>
-  <link rel="stylesheet" href="contact.css" />
-  <link rel="stylesheet" href="navbar.css" />
+  <link rel="stylesheet" href="contact.css?v=2.0" />
+  <link rel="stylesheet" href="navbar.css?v=2.0" />
+  <link rel="stylesheet" href="footer.css?v=2.0" />
   <!-- Dancing Script font for navbar business name -->
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -48,8 +49,8 @@
 <body class="contact-page">
 
   <header id="navbar-container"></header>
-<script src="productCache.js"></script>
-<script src="navbar.js"></script>
+<script src="productCache.js?v=2.0"></script>
+<script src="navbar.js?v=2.0"></script>
 
     <section id="home">
     <div class="hero-overlay">
@@ -146,42 +147,29 @@
       <div class="form-actions">
         <button type="submit">Send</button>
       </div>
-    </form>
-    
-    <!-- reCAPTCHA Modal (hidden by default) -->
-    <div id="recaptcha-modal" class="recaptcha-modal" style="display: none;">
-      <div class="recaptcha-modal-content">
-        <h3>Security Verification</h3>
-        <p>Please complete the security check to verify you're human:</p>
-        <div class="recaptcha-container">
-          <div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY_HERE"></div>
-        </div>
-        <div class="recaptcha-buttons">
-          <button type="button" id="recaptcha-submit">Verify & Send</button>
-          <button type="button" id="recaptcha-cancel">Cancel</button>
+      
+      <!-- reCAPTCHA Modal (hidden by default) - Must be inside form to include response -->
+      <div id="recaptcha-modal" class="recaptcha-modal" style="display: none;">
+        <div class="recaptcha-modal-content">
+          <h3>Security Verification</h3>
+          <p>Please complete the security check to verify you're human:</p>
+          <div class="recaptcha-container">
+            <div class="g-recaptcha" data-sitekey="6Lcyl-8rAAAAAN_o4WWVhbDozQDEXEon-JCibQF9"></div>
+          </div>
+          <div class="recaptcha-buttons">
+            <button type="button" id="recaptcha-submit">Verify & Send</button>
+            <button type="button" id="recaptcha-cancel">Cancel</button>
+          </div>
         </div>
       </div>
-    </div>
+    </form>
   </div>
 </section>
 
- <footer>
-    <div class="footer-left">
-      <p><a href="privacypolicy.html">Privacy Policy</a></p>
-      <p><a href="termsofuse.html">Terms Of Use</a></p>
-      <p><a href="sitemap.html">Site Map</a></p>
-    </div>
-    <div class="footer-middle">
-      <p>&copy; 2025 Outback Gems &amp; Minerals. All rights reserved.</p>
-      <p>ABN: 53 418 745 121</p>
-    </div>
-    <div class="footer-right">
-      <p><a href="mailto:support@outbackgems.com.au"><i class="fa fa-envelope footer-icon" aria-hidden="true"></i></a></p>
-      <p><a href="https://www.facebook.com/profile.php?id=61576738875731"><i class="fa fa-facebook-square footer-icon" aria-hidden="true"></i></a></p>
-    </div>
-  </footer>
+  <div id="footer-container"></div>
 
-<script src="contact.js"></script>
+<script src="contact.js?v=2.0"></script>
+<script src="footer.js?v=2.0"></script>
 
 
 </body>

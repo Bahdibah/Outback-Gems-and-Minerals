@@ -1,3 +1,14 @@
+/* Browser Compatibility - Gradient fallbacks for Android */
+@supports not (background: linear-gradient(#000, #fff)) {
+  [style*="linear-gradient"],
+  *[class*="card"],
+  *[class*="btn"],
+  *[class*="button"],
+  *[class*="badge"] {
+    background-image: none !important;
+  }
+}
+
 :root {
   --navbar-height: 70px;
 }
@@ -107,10 +118,18 @@ body {
   right: 0;
   z-index: 3;
   width: 100%;
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.4); /* Fallback for browsers without backdrop-filter */
+  -webkit-backdrop-filter: blur(5px); /* Safari/iOS support */
   backdrop-filter: blur(5px);
   border-top: 1px solid rgba(204, 85, 0, 0.2);
   padding: 12px 0;
+}
+
+/* Fallback for browsers that don't support backdrop-filter */
+@supports not (backdrop-filter: blur(5px)) {
+  .hero-contact-banner {
+    background: rgba(0, 0, 0, 0.65); /* Darker background when blur isn't available */
+  }
 }
 
 .contact-message-container {
@@ -279,47 +298,6 @@ header {
     align-items: center;
     position: relative;
     justify-content: space-between;
-}
-
-/* Footer Styling */
-footer {
-    background-color: #1e1e1e !important;
-    color: #888;
-    display: flex;
-    flex-direction: row;
-    gap: 5%;
-    width: 100%;
-}
-
-footer >div{
-  width: 33%;
-  display: flex;
-  flex-direction: row;
-}
-
-.footer-left {
-  gap: 5%;
-  padding-left: 1%;
-  align-items: center;
-}
-
-.footer-middle {
-  justify-content: center;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-}
-
-.footer-middle p {
-  margin: 0.5%;
-}
-
-.footer-right {
-  justify-content: right;
-  gap: 4%;
-  padding-right: 1%;
-  font-size: 1.5rem;  
-  align-items: center;
 }
 
 .faq-container {
@@ -620,13 +598,28 @@ form textarea {
   border: none;
   border-bottom: 2px solid #777;
   border-radius: 4px 4px 0 0;
-  color: #ffffff;
+  color: #ffffff !important;
   font-size: 1.1rem;
   transition: all 0.3s ease;
   box-sizing: border-box;
   font-family: inherit;
   padding-left: 15px;
   padding-right: 15px;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+/* Override browser autofill styles */
+form input:-webkit-autofill,
+form input:-webkit-autofill:hover,
+form input:-webkit-autofill:focus,
+form textarea:-webkit-autofill,
+form textarea:-webkit-autofill:hover,
+form textarea:-webkit-autofill:focus {
+  -webkit-text-fill-color: #ffffff !important;
+  -webkit-box-shadow: 0 0 0 1000px rgba(255, 255, 255, 0.05) inset !important;
+  box-shadow: 0 0 0 1000px rgba(255, 255, 255, 0.05) inset !important;
+  border-bottom: 2px solid #777;
+  transition: background-color 5000s ease-in-out 0s;
 }
 
 form input:focus,
@@ -639,8 +632,9 @@ form textarea:focus {
 
 form input::placeholder,
 form textarea::placeholder {
-  color: #666;
+  color: #999;
   font-size: 1.1rem;
+  opacity: 1;
 }
 
 form textarea {
@@ -896,17 +890,12 @@ form button[type="button"]:hover {
   .hero-overlay p {
     display: none;
   }
+  
+  #contact {
+    padding-top: 0px;
+    padding-bottom: 20px;
+  }
 }
-@media (max-width: 700px) {
-        .footer-left {
-            display: flex;
-            flex-direction: column;
-        }
-        #contact {
-          padding-top: 0px;
-          padding-bottom: 20px;
-        }
-      }
 
 /* Mobile (max-width: 425px) */
 @media (max-width: 425px) {
@@ -991,27 +980,4 @@ form button[type="button"]:hover {
   left: -9999px !important;
   opacity: 0 !important;
   pointer-events: none !important;
-}
-
-/* Footer icon styling */
-.footer-icon {
-  color: #cc5500 !important;
-}
-
-.footer-icon:hover {
-  color: #ff7f33 !important;
-}
-
-/* Footer link styling */
-footer a {
-  color: #cc5500 !important;
-  text-decoration: none !important;
-}
-
-footer a:hover {
-  color: #ff7f33 !important;
-}
-
-footer a:visited {
-  color: #cc5500 !important;
 }

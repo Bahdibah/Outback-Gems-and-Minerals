@@ -8,6 +8,8 @@ images/main/mtr013.jpeg~RF2ef2939d.TMP
 .env
 .env.*
 *.env
+config.php
+recaptcha-config.php
 
 # Node modules
 node_modules/

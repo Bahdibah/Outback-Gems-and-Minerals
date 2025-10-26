@@ -1,3 +1,14 @@
+/* Browser Compatibility - Gradient fallbacks for Android */
+@supports not (background: linear-gradient(#000, #fff)) {
+  [style*="linear-gradient"],
+  *[class*="card"],
+  *[class*="btn"],
+  *[class*="button"],
+  *[class*="badge"] {
+    background-image: none !important;
+  }
+}
+
   :root {
     --navbar-height: 70px;
   }
@@ -20,6 +31,7 @@ body:not(.navbar-loaded) #navbar-container + * {
 }
 
 nav {
+    background: #2e2e2e; /* Fallback for older browsers */
     background: linear-gradient(to left, #2e2e2e 0%, #cc5500 10%, #1c1c1c 40%, #444444 100%);
     border-top: 2px solid #cc5500;
     justify-content: space-between;
@@ -735,13 +747,10 @@ nav ul.burger-nav-links.open {
     .welcome-message {
       font-size: 1.25rem;
     }
-    .navbar-search {
-      width: 100px;
-    }
    }
 
-/* Intermediate breakpoint to collapse search to icon only */
-@media (max-width: 1100px) {
+/* Collapse search to icon at 1350px and below to prevent overlap */
+@media (max-width: 1350px) {
   .navbar-search {
     display: flex;
     align-items: center;
@@ -832,10 +841,11 @@ nav ul.burger-nav-links.open {
     max-width: 32px;
   }
   .welcome-message {
-    font-size: 1.1rem;
-    max-width: 90px;
+    font-size: 1rem;
+    max-width: 140px;
     white-space: normal;
-    word-break: break-word;
+    word-break: normal;
+    line-height: 1.1;
     text-align: left;
   }
   .navbar-middle {
@@ -1093,8 +1103,9 @@ nav ul.burger-nav-links.open {
   }
   
   .welcome-message {
-    font-size: 1rem !important;
-    max-width: 80px !important;
+    font-size: 0.9rem !important;
+    max-width: 120px !important;
+    line-height: 1.1 !important;
   }
   
   .logo {

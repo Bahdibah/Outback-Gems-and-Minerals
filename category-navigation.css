@@ -1,3 +1,14 @@
+/* Browser Compatibility - Gradient fallbacks for Android */
+@supports not (background: linear-gradient(#000, #fff)) {
+  [style*="linear-gradient"],
+  *[class*="card"],
+  *[class*="btn"],
+  *[class*="button"],
+  *[class*="badge"] {
+    background-image: none !important;
+  }
+}
+
 body[data-page="view-product"] .subcategory-navigation,
 .view-product-page .subcategory-navigation {
   display: none !important;

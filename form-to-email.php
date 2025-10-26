@@ -1,4 +1,11 @@
 <?php
+// Load configuration file (contains secret keys - NOT in GitHub)
+if (file_exists('config.php')) {
+    require_once 'config.php';
+} else {
+    die('Configuration file missing. Please create config.php with your secret keys.');
+}
+
 $errors = [];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -8,6 +15,43 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // This is likely spam - honeypot field was filled
         http_response_code(200); // Return success to confuse bots
         echo "Thank you for your message!";
+        exit;
+    }
+    
+    // reCAPTCHA verification
+    if (isset($_POST['g-recaptcha-response'])) {
+        $recaptcha_secret = RECAPTCHA_SECRET_KEY; // Now using constant from config.php
+        $recaptcha_response = $_POST['g-recaptcha-response'];
+        
+        // Verify with Google
+        $verify_url = 'https://www.google.com/recaptcha/api/siteverify';
+        $verify_data = array(
+            'secret' => $recaptcha_secret,
+            'response' => $recaptcha_response,
+            'remoteip' => $_SERVER['REMOTE_ADDR']
+        );
+        
+        $options = array(
+            'http' => array(
+                'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+                'method'  => 'POST',
+                'content' => http_build_query($verify_data)
+            )
+        );
+        $context = stream_context_create($options);
+        $verify_response = file_get_contents($verify_url, false, $context);
+        $verify_result = json_decode($verify_response, true);
+        
+        if (!$verify_result['success']) {
+            // reCAPTCHA failed
+            http_response_code(400);
+            echo "reCAPTCHA verification failed. Please try again.";
+            exit;
+        }
+    } else {
+        // No reCAPTCHA response provided
+        http_response_code(400);
+        echo "Please complete the reCAPTCHA verification.";
         exit;
     }
     
@@ -149,8 +193,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // If no errors, send email
     if (empty($errors)) {
-        // Recipient email address 
-        $recipient = "support@outbackgems.com.au";
+        // Recipient email address from config
+        $recipient = CONTACT_EMAIL;
 
         // Additional headers
         $headers = "From: $name <$email>\r\n";
@@ -161,9 +205,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Send email
         if (mail($recipient, $subject, $body, $headers)) {
-            echo "Email sent successfully!";
+            // Redirect back to contact page with success message
+            header("Location: contact.html?success=1");
+            exit;
         } else {
-            echo "Failed to send email. Please try again later.";
+            // Redirect back to contact page with error message
+            header("Location: contact.html?error=1");
+            exit;
         }
     } else {
         // Display errors
