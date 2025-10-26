@@ -1093,40 +1093,132 @@ const productSEOMeta = {
     categoryImage: "https://outbackgems.com.au/images/main/ssp002.jpeg",
     categoryAltText: "Premium Sapphire Material Boules - Half boules in varying colours for faceting and lapidary projects at Outback Gems & Minerals"
   },
+
+  // Synthetic Spinel Boule Products
+  "sb104": {
+    titleTemplate: "Buy {name} {weight}{unit} Synthetic Spinel Boule - ${price} | Bulk Purchase Savings | Outback Gems & Minerals",
+    description: "Silver-blue synthetic spinel boule with bulk purchase savings. {weight}{unit} cost-effective faceting material at ${price}. Save more with larger quantities - perfect for commercial gem cutting and lapidary projects.",
+    keywords: "synthetic spinel boule, bulk purchase savings, silver blue spinel, cost effective faceting, wholesale spinel rough, cheaper per carat, bulk discount gemstones, commercial gem cutting, lapidary supplies",
+    image: "https://outbackgems.com.au/images/main/sb104.jpeg",
+    altText: "Silver Blue Synthetic Spinel Boule - Bulk purchase savings on cost-effective faceting material at Outback Gems & Minerals",
+    categoryImage: "https://outbackgems.com.au/images/main/sb104.jpeg",
+    categoryAltText: "Synthetic Spinel Boule Collection - Bulk savings on premium faceting material at Outback Gems & Minerals"
+  },
+  "sb105": {
+    titleTemplate: "Buy {name} {weight}{unit} Synthetic Spinel Boule - ${price} | Bulk Purchase Savings | Outback Gems & Minerals",
+    description: "Silver-blue synthetic spinel boule with bulk purchase savings. {weight}{unit} cost-effective faceting material at ${price}. Save more with larger quantities - perfect for commercial gem cutting and lapidary projects.",
+    keywords: "synthetic spinel boule, bulk purchase savings, silver blue spinel, cost effective faceting, wholesale spinel rough, cheaper per carat, bulk discount gemstones, commercial gem cutting, lapidary supplies",
+    image: "https://outbackgems.com.au/images/main/sb105.jpeg",
+    altText: "Silver Blue Synthetic Spinel Boule - Bulk purchase savings on cost-effective faceting material at Outback Gems & Minerals",
+    categoryImage: "https://outbackgems.com.au/images/main/sb104.jpeg",
+    categoryAltText: "Synthetic Spinel Boule Collection - Bulk savings on premium faceting material at Outback Gems & Minerals"
+  },
+  "sb106": {
+    titleTemplate: "Buy {name} {weight}{unit} Synthetic Spinel Boule - ${price} | Bulk Purchase Savings | Outback Gems & Minerals",
+    description: "Silver-blue synthetic spinel boule with bulk purchase savings. {weight}{unit} cost-effective faceting material at ${price}. Save more with larger quantities - perfect for commercial gem cutting and lapidary projects.",
+    keywords: "synthetic spinel boule, bulk purchase savings, silver blue spinel, cost effective faceting, wholesale spinel rough, cheaper per carat, bulk discount gemstones, commercial gem cutting, lapidary supplies",
+    image: "https://outbackgems.com.au/images/main/sb106.jpeg",
+    altText: "Silver Blue Synthetic Spinel Boule - Bulk purchase savings on cost-effective faceting material at Outback Gems & Minerals",
+    categoryImage: "https://outbackgems.com.au/images/main/sb104.jpeg",
+    categoryAltText: "Synthetic Spinel Boule Collection - Bulk savings on premium faceting material at Outback Gems & Minerals"
+  },
+  "sb107": {
+    titleTemplate: "Buy {name} {weight}{unit} Synthetic Spinel Boule - ${price} | Bulk Purchase Savings | Outback Gems & Minerals",
+    description: "Silver-blue synthetic spinel boule with bulk purchase savings. {weight}{unit} cost-effective faceting material at ${price}. Save more with larger quantities - perfect for commercial gem cutting and lapidary projects.",
+    keywords: "synthetic spinel boule, bulk purchase savings, silver blue spinel, cost effective faceting, wholesale spinel rough, cheaper per carat, bulk discount gemstones, commercial gem cutting, lapidary supplies",
+    image: "https://outbackgems.com.au/images/main/sb107.jpeg",
+    altText: "Silver Blue Synthetic Spinel Boule - Bulk purchase savings on cost-effective faceting material at Outback Gems & Minerals",
+    categoryImage: "https://outbackgems.com.au/images/main/sb104.jpeg",
+    categoryAltText: "Synthetic Spinel Boule Collection - Bulk savings on premium faceting material at Outback Gems & Minerals"
+  },
+  "sb108": {
+    titleTemplate: "Buy {name} {weight}{unit} Synthetic Spinel Boule - ${price} | Bulk Purchase Savings | Outback Gems & Minerals",
+    description: "Silver-blue synthetic spinel boule with bulk purchase savings. {weight}{unit} cost-effective faceting material at ${price}. Save more with larger quantities - perfect for commercial gem cutting and lapidary projects.",
+    keywords: "synthetic spinel boule, bulk purchase savings, silver blue spinel, cost effective faceting, wholesale spinel rough, cheaper per carat, bulk discount gemstones, commercial gem cutting, lapidary supplies",
+    image: "https://outbackgems.com.au/images/main/sb108.jpeg",
+    altText: "Silver Blue Synthetic Spinel Boule - Bulk purchase savings on cost-effective faceting material at Outback Gems & Minerals",
+    categoryImage: "https://outbackgems.com.au/images/main/sb104.jpeg",
+    categoryAltText: "Synthetic Spinel Boule Collection - Bulk savings on premium faceting material at Outback Gems & Minerals"
+  },
+  "sb113": {
+    titleTemplate: "Buy {name} {weight}{unit} Synthetic Spinel Boule - ${price} | Bulk Purchase Savings | Outback Gems & Minerals",
+    description: "Silver-blue synthetic spinel boule with bulk purchase savings. {weight}{unit} cost-effective faceting material at ${price}. Save more with larger quantities - perfect for commercial gem cutting and lapidary projects.",
+    keywords: "synthetic spinel boule, bulk purchase savings, silver blue spinel, cost effective faceting, wholesale spinel rough, cheaper per carat, bulk discount gemstones, commercial gem cutting, lapidary supplies",
+    image: "https://outbackgems.com.au/images/main/sb113.jpeg",
+    altText: "Silver Blue Synthetic Spinel Boule - Bulk purchase savings on cost-effective faceting material at Outback Gems & Minerals",
+    categoryImage: "https://outbackgems.com.au/images/main/sb104.jpeg",
+    categoryAltText: "Synthetic Spinel Boule Collection - Bulk savings on premium faceting material at Outback Gems & Minerals"
+  },
+  "sb114": {
+    titleTemplate: "Buy {name} {weight}{unit} Synthetic Spinel Boule - ${price} | Bulk Purchase Savings | Outback Gems & Minerals",
+    description: "Silver-blue synthetic spinel boule with bulk purchase savings. {weight}{unit} cost-effective faceting material at ${price}. Save more with larger quantities - perfect for commercial gem cutting and lapidary projects.",
+    keywords: "synthetic spinel boule, bulk purchase savings, silver blue spinel, cost effective faceting, wholesale spinel rough, cheaper per carat, bulk discount gemstones, commercial gem cutting, lapidary supplies",
+    image: "https://outbackgems.com.au/images/main/sb114.jpeg",
+    altText: "Silver Blue Synthetic Spinel Boule - Bulk purchase savings on cost-effective faceting material at Outback Gems & Minerals",
+    categoryImage: "https://outbackgems.com.au/images/main/sb104.jpeg",
+    categoryAltText: "Synthetic Spinel Boule Collection - Bulk savings on premium faceting material at Outback Gems & Minerals"
+  },
+  "sb119": {
+    titleTemplate: "Buy {name} {weight}{unit} Synthetic Spinel Boule - ${price} | Bulk Purchase Savings | Outback Gems & Minerals",
+    description: "Silver-blue synthetic spinel boule with bulk purchase savings. {weight}{unit} cost-effective faceting material at ${price}. Save more with larger quantities - perfect for commercial gem cutting and lapidary projects.",
+    keywords: "synthetic spinel boule, bulk purchase savings, silver blue spinel, cost effective faceting, wholesale spinel rough, cheaper per carat, bulk discount gemstones, commercial gem cutting, lapidary supplies",
+    image: "https://outbackgems.com.au/images/main/sb119.jpeg",
+    altText: "Silver Blue Synthetic Spinel Boule - Bulk purchase savings on cost-effective faceting material at Outback Gems & Minerals",
+    categoryImage: "https://outbackgems.com.au/images/main/sb104.jpeg",
+    categoryAltText: "Synthetic Spinel Boule Collection - Bulk savings on premium faceting material at Outback Gems & Minerals"
+  },
+  "sb149": {
+    titleTemplate: "Buy {name} {weight}{unit} Synthetic Spinel Boule - ${price} | Bulk Purchase Savings | Outback Gems & Minerals",
+    description: "Silver-blue synthetic spinel boule with bulk purchase savings. {weight}{unit} cost-effective faceting material at ${price}. Save more with larger quantities - perfect for commercial gem cutting and lapidary projects.",
+    keywords: "synthetic spinel boule, bulk purchase savings, silver blue spinel, cost effective faceting, wholesale spinel rough, cheaper per carat, bulk discount gemstones, commercial gem cutting, lapidary supplies",
+    image: "https://outbackgems.com.au/images/main/sb149.jpeg",
+    altText: "Silver Blue Synthetic Spinel Boule - Bulk purchase savings on cost-effective faceting material at Outback Gems & Minerals",
+    categoryImage: "https://outbackgems.com.au/images/main/sb104.jpeg",
+    categoryAltText: "Synthetic Spinel Boule Collection - Bulk savings on premium faceting material at Outback Gems & Minerals"
+  },
+  "sb152": {
+    titleTemplate: "Buy {name} {weight}{unit} Synthetic Spinel Boule - ${price} | Bulk Purchase Savings | Outback Gems & Minerals",
+    description: "Silver-blue synthetic spinel boule with bulk purchase savings. {weight}{unit} cost-effective faceting material at ${price}. Save more with larger quantities - perfect for commercial gem cutting and lapidary projects.",
+    keywords: "synthetic spinel boule, bulk purchase savings, silver blue spinel, cost effective faceting, wholesale spinel rough, cheaper per carat, bulk discount gemstones, commercial gem cutting, lapidary supplies",
+    image: "https://outbackgems.com.au/images/main/sb152.jpeg",
+    altText: "Silver Blue Synthetic Spinel Boule - Bulk purchase savings on cost-effective faceting material at Outback Gems & Minerals",
+    categoryImage: "https://outbackgems.com.au/images/main/sb104.jpeg",
+    categoryAltText: "Synthetic Spinel Boule Collection - Bulk savings on premium faceting material at Outback Gems & Minerals"
+  },
   
   // Cubic Zirconia Products
   "cz001": {
     titleTemplate: "Buy {name} {weight}{unit} Faceting Rough - ${price} | Premium Cubic Zirconia | Outback Gems & Minerals",
-    description: "Premium {color} cubic zirconia faceting rough. Warm golden color with excellent clarity. {weight}{unit} at ${price}. Perfect for faceting projects.",
-    keywords: "cubic zirconia, champagne CZ, faceting rough, lapidary, gemstone cutting",
-    image: "https://outbackgems.com.au/images/main/CZ-Champagne.jpeg",
+    description: "Premium champagne cubic zirconia faceting rough. Warm, light golden color with excellent clarity. {weight}{unit} at ${price}. Perfect for faceting projects.",
+    keywords: "cubic zirconia, champagne CZ, faceting rough, lapidary, gemstone cutting, light golden CZ",
+    image: "https://outbackgems.com.au/images/main/cz001.jpeg",
     altText: "Champagne Cubic Zirconia faceting rough - Premium gemstone for lapidary projects at Outback Gems & Minerals",
     categoryImage: "https://outbackgems.com.au/images/main/Synthetic-CZ.jpeg",
     categoryAltText: "Synthetic cubic zirconia rough material specimens - Premium faceting gemstones at Outback Gems & Minerals"
   },
-  "cz002": {
+  "cz014": {
     titleTemplate: "Buy {name} {weight}{unit} Faceting Rough - ${price} | Premium Cubic Zirconia | Outback Gems & Minerals",
-    description: "Premium {color} cubic zirconia faceting rough. Delicate lavender hue with brilliant clarity. {weight}{unit} at ${price}. Ideal for faceting.",
-    keywords: "cubic zirconia, lavender CZ, faceting rough, lapidary, gemstone cutting",
-    image: "https://outbackgems.com.au/images/main/CZ-Lavender.jpeg",
+    description: "Premium golden cubic zirconia faceting rough. Vibrant golden color with excellent clarity. {weight}{unit} at ${price}. Ideal for faceting.",
+    keywords: "cubic zirconia, golden CZ, faceting rough, lapidary, gemstone cutting, golden yellow CZ",
+    image: "https://outbackgems.com.au/images/main/cz014.jpeg",
+    altText: "Golden Cubic Zirconia faceting rough - Premium gemstone for lapidary projects at Outback Gems & Minerals",
+    categoryImage: "https://outbackgems.com.au/images/main/Synthetic-CZ.jpeg",
+    categoryAltText: "Synthetic cubic zirconia rough material specimens - Premium faceting gemstones at Outback Gems & Minerals"
+  },
+  "cz019": {
+    titleTemplate: "Buy {name} {weight}{unit} Faceting Rough - ${price} | Premium Cubic Zirconia | Outback Gems & Minerals",
+    description: "Premium lavender cubic zirconia faceting rough. Delicate lavender hue with brilliant clarity. {weight}{unit} at ${price}. Perfect for lapidary.",
+    keywords: "cubic zirconia, lavender CZ, faceting rough, lapidary, gemstone cutting, light lavender CZ",
+    image: "https://outbackgems.com.au/images/main/cz019.jpeg",
     altText: "Lavender Cubic Zirconia faceting rough - Premium gemstone for lapidary projects at Outback Gems & Minerals",
     categoryImage: "https://outbackgems.com.au/images/main/Synthetic-CZ.jpeg",
     categoryAltText: "Synthetic cubic zirconia rough material specimens - Premium faceting gemstones at Outback Gems & Minerals"
   },
-  "cz003": {
+  "cz025": {
     titleTemplate: "Buy {name} {weight}{unit} Faceting Rough - ${price} | Premium Cubic Zirconia | Outback Gems & Minerals",
-    description: "Premium {color} cubic zirconia faceting rough. Vibrant golden yellow with high clarity. {weight}{unit} at ${price}. Perfect for lapidary.",
-    keywords: "cubic zirconia, golden yellow CZ, faceting rough, lapidary, gemstone cutting",
-    image: "https://outbackgems.com.au/images/main/CZ-Golden.jpeg",
-    altText: "Golden Yellow Cubic Zirconia faceting rough - Premium gemstone for lapidary projects at Outback Gems & Minerals",
-    categoryImage: "https://outbackgems.com.au/images/main/Synthetic-CZ.jpeg",
-    categoryAltText: "Synthetic cubic zirconia rough material specimens - Premium faceting gemstones at Outback Gems & Minerals"
-  },
-  "cz004": {
-    titleTemplate: "Buy {name} {weight}{unit} Faceting Rough - ${price} | Premium Cubic Zirconia | Outback Gems & Minerals",
-    description: "Premium {color} cubic zirconia faceting rough. Bright orange color with excellent clarity. {weight}{unit} at ${price}. Ideal for faceting.",
-    keywords: "cubic zirconia, orange CZ, faceting rough, lapidary, gemstone cutting",
-    image: "https://outbackgems.com.au/images/main/CZ-Orange.jpeg",
+    description: "Premium orange cubic zirconia faceting rough. Bright orange color with excellent clarity. {weight}{unit} at ${price}. Ideal for faceting.",
+    keywords: "cubic zirconia, orange CZ, faceting rough, lapidary, gemstone cutting, bright orange CZ",
+    image: "https://outbackgems.com.au/images/main/cz025.jpeg",
     altText: "Orange Cubic Zirconia faceting rough - Premium gemstone for lapidary projects at Outback Gems & Minerals",
     categoryImage: "https://outbackgems.com.au/images/main/Synthetic-CZ.jpeg",
     categoryAltText: "Synthetic cubic zirconia rough material specimens - Premium faceting gemstones at Outback Gems & Minerals"
@@ -1332,6 +1424,15 @@ const subCategorySEOMeta = {
     altText: "Premium Synthetic Sapphire Boules in Varying Colours - Half boules for faceting and lapidary projects at Outback Gems & Minerals",
     categoryImage: "https://outbackgems.com.au/images/main/ssp002.jpeg",
     categoryAltText: "Premium Sapphire Material Boules - Half boules in varying colours for faceting and lapidary projects at Outback Gems & Minerals"
+  },
+  "Synthetic Spinel Boule": {
+    titleTemplate: "Buy Synthetic Spinel Boules - Bulk Purchase Savings | Cost-Effective Faceting Material | Outback Gems & Minerals",
+    description: "Premium synthetic spinel boules with bulk purchase savings. Cost-effective faceting material for lapidary projects. High-quality silver-blue synthetic spinel rough at wholesale prices. Save more with larger quantities - perfect for commercial gem cutting.",
+    keywords: "synthetic spinel boules, bulk purchase savings, cost effective faceting, wholesale spinel rough, silver blue spinel, synthetic faceting material, lapidary supplies, commercial gem cutting, bulk discount gemstones, cheaper per carat spinel, faceting rough wholesale",
+    image: "https://outbackgems.com.au/images/main/sb104.jpeg",
+    altText: "Bulk Purchase Synthetic Spinel Boules - Cost-effective faceting material with wholesale savings at Outback Gems & Minerals",
+    categoryImage: "https://outbackgems.com.au/images/main/sb104.jpeg",
+    categoryAltText: "Synthetic Spinel Boule Collection - Bulk savings on premium faceting material at Outback Gems & Minerals"
   }
 };
 
