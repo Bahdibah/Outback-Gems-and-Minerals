@@ -1029,6 +1029,71 @@ const productSEOMeta = {
     categoryAltText: "Synthetic spinel rough material specimens - Premium faceting gemstones at Outback Gems & Minerals"
   },
   
+  // Synthetic Sapphire Boule Products
+  "ssp002": {
+    titleTemplate: "Buy {name} {weight}{unit} Half Boule - ${price} | Premium Sapphire Material Pink | Outback Gems & Minerals",
+    description: "Premium sapphire material half boule in bright pink colour. {weight}{unit} synthetic corundum boule perfect for faceting and lapidary projects at ${price}. High quality crystal structure ideal for gemstone cutting.",
+    keywords: "premium sapphire material, synthetic sapphire boule, pink sapphire, half boule, faceting rough, synthetic corundum, lapidary, gemstone cutting, crystal boule",
+    image: "https://outbackgems.com.au/images/main/ssp002.jpeg",
+    altText: "Bright Pink Premium Sapphire Material Half Boule - Premium faceting rough for lapidary projects at Outback Gems & Minerals",
+    categoryImage: "https://outbackgems.com.au/images/main/ssp002.jpeg",
+    categoryAltText: "Premium Sapphire Material Boules - Half boules in varying colours for faceting and lapidary projects at Outback Gems & Minerals"
+  },
+  "ssp004": {
+    titleTemplate: "Buy {name} {weight}{unit} Half Boule - ${price} | Premium Sapphire Material Vibrant Pink | Outback Gems & Minerals",
+    description: "Premium sapphire material half boule in vibrant pink colour. {weight}{unit} synthetic corundum boule ideal for faceting and lapidary projects at ${price}. Exceptional clarity and colour saturation.",
+    keywords: "premium sapphire material, synthetic sapphire boule, vibrant pink sapphire, half boule, faceting rough, synthetic corundum, lapidary, gemstone cutting",
+    image: "https://outbackgems.com.au/images/main/ssp004.jpeg",
+    altText: "Vibrant Pink Premium Sapphire Material Half Boule - Premium faceting rough for lapidary projects at Outback Gems & Minerals",
+    categoryImage: "https://outbackgems.com.au/images/main/ssp002.jpeg",
+    categoryAltText: "Premium Sapphire Material Boules - Half boules in varying colours for faceting and lapidary projects at Outback Gems & Minerals"
+  },
+  "ssp007": {
+    titleTemplate: "Buy {name} {weight}{unit} Half Boule - ${price} | Premium Sapphire Material Deep Pink | Outback Gems & Minerals",
+    description: "Premium sapphire material half boule in deep pink colour. {weight}{unit} synthetic corundum boule perfect for advanced faceting and lapidary projects at ${price}. Rich colour depth and clarity.",
+    keywords: "premium sapphire material, synthetic sapphire boule, deep pink sapphire, half boule, faceting rough, synthetic corundum, lapidary, gemstone cutting",
+    image: "https://outbackgems.com.au/images/main/ssp007.jpeg",
+    altText: "Deep Pink Premium Sapphire Material Half Boule - Premium faceting rough for lapidary projects at Outback Gems & Minerals",
+    categoryImage: "https://outbackgems.com.au/images/main/ssp002.jpeg",
+    categoryAltText: "Premium Sapphire Material Boules - Half boules in varying colours for faceting and lapidary projects at Outback Gems & Minerals"
+  },
+  "ssp012": {
+    titleTemplate: "Buy {name} {weight}{unit} Half Boule - ${price} | Premium Sapphire Material Clear White | Outback Gems & Minerals",
+    description: "Premium sapphire material half boule in clear white colour. {weight}{unit} synthetic corundum boule ideal for faceting and lapidary projects at ${price}. Crystal clear transparency perfect for precision cutting.",
+    keywords: "premium sapphire material, synthetic sapphire boule, clear white sapphire, half boule, faceting rough, synthetic corundum, lapidary, gemstone cutting, clear crystal",
+    image: "https://outbackgems.com.au/images/main/ssp012.jpeg",
+    altText: "Clear White Premium Sapphire Material Half Boule - Premium faceting rough for lapidary projects at Outback Gems & Minerals",
+    categoryImage: "https://outbackgems.com.au/images/main/ssp002.jpeg",
+    categoryAltText: "Premium Sapphire Material Boules - Half boules in varying colours for faceting and lapidary projects at Outback Gems & Minerals"
+  },
+  "ssp033": {
+    titleTemplate: "Buy {name} {weight}{unit} Half Boule - ${price} | Premium Sapphire Material Beautiful Blue | Outback Gems & Minerals",
+    description: "Premium sapphire material half boule in beautiful sapphire blue colour. {weight}{unit} synthetic corundum boule perfect for faceting and lapidary projects at ${price}. Classic sapphire blue with exceptional clarity.",
+    keywords: "premium sapphire material, synthetic sapphire boule, sapphire blue, half boule, faceting rough, synthetic corundum, lapidary, gemstone cutting, blue sapphire",
+    image: "https://outbackgems.com.au/images/main/ssp033.jpeg",
+    altText: "Beautiful Blue Premium Sapphire Material Half Boule - Premium faceting rough for lapidary projects at Outback Gems & Minerals",
+    categoryImage: "https://outbackgems.com.au/images/main/ssp002.jpeg",
+    categoryAltText: "Premium Sapphire Material Boules - Half boules in varying colours for faceting and lapidary projects at Outback Gems & Minerals"
+  },
+  "ssp045": {
+    titleTemplate: "Buy {name} {weight}{unit} Half Boule - ${price} | Premium Sapphire Material Blue Purple | Outback Gems & Minerals",
+    description: "Premium sapphire material half boule displaying hints of blue and purple. {weight}{unit} synthetic corundum boule ideal for faceting and lapidary projects at ${price}. Unique colour combination with excellent clarity.",
+    keywords: "premium sapphire material, synthetic sapphire boule, blue purple sapphire, half boule, faceting rough, synthetic corundum, lapidary, gemstone cutting, bi-colour",
+    image: "https://outbackgems.com.au/images/main/ssp045.jpeg",
+    altText: "Blue Purple Premium Sapphire Material Half Boule - Premium faceting rough for lapidary projects at Outback Gems & Minerals",
+    categoryImage: "https://outbackgems.com.au/images/main/ssp002.jpeg",
+    categoryAltText: "Premium Sapphire Material Boules - Half boules in varying colours for faceting and lapidary projects at Outback Gems & Minerals"
+  },
+  "ssp055": {
+    titleTemplate: "Buy {name} {weight}{unit} Half Boule - ${price} | Premium Sapphire Material Caramel Orange | Outback Gems & Minerals",
+    description: "Premium sapphire material half boule in exotic caramel orange colour. {weight}{unit} synthetic corundum boule perfect for faceting and lapidary projects at ${price}. Rare orange hue with outstanding clarity.",
+    keywords: "premium sapphire material, synthetic sapphire boule, caramel orange sapphire, half boule, faceting rough, synthetic corundum, lapidary, gemstone cutting, orange sapphire",
+    image: "https://outbackgems.com.au/images/main/ssp055.jpeg",
+    altText: "Caramel Orange Premium Sapphire Material Half Boule - Premium faceting rough for lapidary projects at Outback Gems & Minerals",
+    categoryImage: "https://outbackgems.com.au/images/main/ssp002.jpeg",
+    categoryAltText: "Premium Sapphire Material Boules - Half boules in varying colours for faceting and lapidary projects at Outback Gems & Minerals"
+  },
+  
   // Cubic Zirconia Products
   "cz001": {
     titleTemplate: "Buy {name} {weight}{unit} Faceting Rough - ${price} | Premium Cubic Zirconia | Outback Gems & Minerals",
@@ -1254,6 +1319,19 @@ const productSEOMeta = {
     altText: "Natural Herkimer Diamond Quartz Crystals - Premium double-terminated specimens at Outback Gems & Minerals",
     categoryImage: "https://outbackgems.com.au/images/main/hd001.jpeg",
     categoryAltText: "Herkimer diamond specimens - Premium quartz crystals at Outback Gems & Minerals"
+  }
+};
+
+// Subcategory SEO metadata mapping
+const subCategorySEOMeta = {
+  "Synthetic Sapphire Boule": {
+    titleTemplate: "Buy Synthetic Sapphire Boules - Half Boules in Varying Colours | Premium Sapphire Material | Outback Gems & Minerals",
+    description: "Premium synthetic sapphire boules and half boules in varying colours. High-quality synthetic corundum perfect for faceting and lapidary projects. Pink, blue, white, and orange sapphire material available. Professional gemstone cutting supplies.",
+    keywords: "synthetic sapphire boules, premium sapphire material, half boules, varying colours, synthetic corundum, faceting rough, lapidary supplies, gemstone cutting, crystal boules, pink sapphire, blue sapphire, white sapphire, orange sapphire",
+    image: "https://outbackgems.com.au/images/main/ssp002.jpeg",
+    altText: "Premium Synthetic Sapphire Boules in Varying Colours - Half boules for faceting and lapidary projects at Outback Gems & Minerals",
+    categoryImage: "https://outbackgems.com.au/images/main/ssp002.jpeg",
+    categoryAltText: "Premium Sapphire Material Boules - Half boules in varying colours for faceting and lapidary projects at Outback Gems & Minerals"
   }
 };
 
