@@ -1,7 +1,7 @@
 const CACHE_KEY = 'productDataCache';
 const CACHE_TIME_KEY = 'productDataCacheTime';
 const CACHE_DURATION = 1000 * 60 * 30;
-const INVENTORY_VERSION = '2.1'; // Increment this when you update inventory
+const INVENTORY_VERSION = '3.0'; // Increment this when you update inventory
 const VERSION_KEY = 'inventoryVersion';
 
 async function getProductData() {
