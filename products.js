@@ -1,5 +1,20 @@
 // Product functionality for products page
 
+    // Function to scroll to products with navbar offset
+    function scrollToProducts() {
+      const container = document.getElementById('dynamic-product-container');
+      if (container) {
+        const navbarHeight = 70; // Fixed navbar height
+        const containerTop = container.getBoundingClientRect().top + window.scrollY;
+        const scrollPosition = Math.max(0, containerTop - navbarHeight - 20); // 20px additional buffer
+        
+        window.scrollTo({
+          top: scrollPosition,
+          behavior: 'smooth'
+        });
+      }
+    }
+
     // Function to show description tooltip expansion
     function showDescriptionExpansion(fullText, productTitle, descriptionElement) {
       // Create tooltip overlay
@@ -560,7 +575,7 @@
         if (page > 1) {
           prevItem.onclick = () => {
             displayProducts(currentProducts, headerTitle, keyword, data, page - 1);
-            document.getElementById('dynamic-product-container').scrollIntoView({ behavior: 'smooth' });
+            scrollToProducts();
           };
         }
         pagination.appendChild(prevItem);
@@ -574,7 +589,7 @@
           if (!isEllipsis && !isActive) {
             item.onclick = () => {
               displayProducts(currentProducts, headerTitle, keyword, data, pageNum);
-              document.getElementById('dynamic-product-container').scrollIntoView({ behavior: 'smooth' });
+              scrollToProducts();
             };
           }
           
@@ -623,7 +638,7 @@
         if (page < totalPages) {
           nextItem.onclick = () => {
             displayProducts(currentProducts, headerTitle, keyword, data, page + 1);
-            document.getElementById('dynamic-product-container').scrollIntoView({ behavior: 'smooth' });
+            scrollToProducts();
           };
         }
         pagination.appendChild(nextItem);
@@ -631,10 +646,10 @@
         return pagination;
       }
 
-      // Add bottom pagination at the end (but hide it - we'll use inline)
+      // Add bottom pagination at the end - show on all devices for better UX
       const bottomPagination = createPaginationControls(currentProducts, headerTitle, keyword, data, page, totalPages);
       bottomPagination.classList.add('bottom-pagination');
-      bottomPagination.style.display = 'none'; // Hide original pagination
+      bottomPagination.style.display = 'flex'; // Always show bottom pagination
       productContainer.appendChild(bottomPagination);
       
       // Update inline navigation in the category navigation bar
@@ -1489,7 +1504,7 @@ function updateInlineNavigation(currentProducts, headerTitle, keyword, data, pag
   if (page > 1) {
     prevItem.onclick = () => {
       displayProducts(currentProducts, headerTitle, keyword, data, page - 1);
-      document.getElementById('dynamic-product-container').scrollIntoView({ behavior: 'smooth' });
+      scrollToProducts();
     };
   }
   inlinePagination.appendChild(prevItem);
@@ -1532,7 +1547,7 @@ function updateInlineNavigation(currentProducts, headerTitle, keyword, data, pag
   if (page < totalPages) {
     nextItem.onclick = () => {
       displayProducts(currentProducts, headerTitle, keyword, data, page + 1);
-      document.getElementById('dynamic-product-container').scrollIntoView({ behavior: 'smooth' });
+      scrollToProducts();
     };
   }
   inlinePagination.appendChild(nextItem);
@@ -1545,7 +1560,7 @@ function updateInlineNavigation(currentProducts, headerTitle, keyword, data, pag
     if (!isActive) {
       item.onclick = () => {
         displayProducts(currentProducts, headerTitle, keyword, data, pageNum);
-        document.getElementById('dynamic-product-container').scrollIntoView({ behavior: 'smooth' });
+        scrollToProducts();
       };
     }
     
