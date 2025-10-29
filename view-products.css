@@ -443,7 +443,8 @@ header {
 }
 
 .view-product-thumbnails img{
-  height: calc((400px - (3 * 6px)) / 4); /* Updated for 6px gap */
+  height: calc((400px - (3 * 6px)) / 4); /* Updated for 6px gap - desktop only */
+  width: auto;
 }
 
 .view-product-main-image {
@@ -1233,6 +1234,7 @@ h1 {
   align-items: flex-start;
   justify-content: center;
   flex-direction: column;
+  pointer-events: none; /* Allow touch events to pass through to image */
 }
 
 #image-modal-img {
@@ -1241,6 +1243,12 @@ h1 {
   border-radius: 8px;
   box-shadow: 0 0 24px #000;
   display: block;
+  touch-action: pinch-zoom; /* Enable pinch-to-zoom */
+  user-select: none; /* Prevent text selection */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  pointer-events: auto; /* Ensure image receives touch events */
 }
 
 .image-modal-close {
@@ -1253,8 +1261,14 @@ h1 {
   z-index: 10;
   background: rgba(0,0,0,0.5);
   border-radius: 50%;
-  padding: 4px 10px 4px 10px;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
   transition: background 0.2s;
+  pointer-events: auto; /* Ensure close button receives touch events */
 }
 
 .image-modal-close:hover {
@@ -1415,27 +1429,28 @@ h1 {
     height: auto;
     width: 100%;
     justify-content: center;
-    gap: 6px; /* Tightened from 8px */
+    gap: 4px; /* Reduced gap for tighter spacing */
     order: 1; 
     padding: 0 !important; /* Remove padding that was adding to gap */
     overflow-x: auto;
     flex-wrap: nowrap;
     margin: 0 !important; /* Remove any margin */
+    align-items: center; /* Ensure vertical centering */
 
   }
 
   .view-product-thumbnails img {
-    height: 70px;
-    width: 70px;
-    min-width: 70px;
+    height: 88px !important;
+    width: 88px !important;
+    min-width: 88px !important;
     flex-shrink: 0;
   }
 
   .view-product-image-placeholder {
-    height: 70px !important;
-    width: 70px !important;
-    min-width: 70px;
-    max-width: 70px;
+    height: 88px !important;
+    width: 88px !important;
+    min-width: 88px !important;
+    max-width: 88px !important;
     flex-shrink: 0;
   }
 
@@ -1493,29 +1508,29 @@ h1 {
   .view-product-thumbnails {
     flex-direction: row;
     height: auto;
-    width: 100%;
+    width: auto; /* Let it size to content */
     justify-content: center;
-    gap: 6px; /* Tightened from 8px */
+    gap: 4px; /* Reduced gap for tighter spacing */
     order: 1;
     padding: 0 !important; /* Remove padding that was adding to gap */
     overflow-x: auto;
     flex-wrap: nowrap;
-    margin: 0 !important; /* Remove any margin */
-
+    margin: 0 auto !important; /* Center the container */
+    align-items: center; /* Ensure vertical centering */
   }
   
   .view-product-thumbnails img {
-    height: 65px;
-    width: 65px;
-    min-width: 65px;
+    height: 88px !important;
+    width: 88px !important;
+    min-width: 88px !important;
     flex-shrink: 0;
   }
   
   .view-product-image-placeholder {
-    height: 65px !important;
-    width: 65px !important;
-    min-width: 65px;
-    max-width: 65px;
+    height: 88px !important;
+    width: 88px !important;
+    min-width: 88px !important;
+    max-width: 88px !important;
     flex-shrink: 0;
   }
   
@@ -1669,22 +1684,18 @@ h1 {
   .view-product-thumbnails {
     overflow-x: auto;
     padding: 8px 0;
-    justify-content: flex-start; 
-    gap: 6px;
+    justify-content: flex-start; /* Group thumbnails together */
+    gap: 4px; /* Reduced gap for tighter spacing */
+    margin: 0 auto; /* Center the container */
+    width: fit-content; /* Container only as wide as needed */
   }
   
-  .view-product-thumbnails img {
-    height: 60px;
-    width: 60px;
-    min-width: 60px;
-    flex-shrink: 0;
-  }
-  
-  .view-product-image-placeholder {
-    height: 60px !important;
-    width: 60px !important;
-    min-width: 60px;
-    max-width: 60px;
+  .view-product-thumbnails img,
+  .view-product-thumbnails .view-product-image-placeholder {
+    height: 83px !important;
+    width: 83px !important;
+    min-width: 83px !important;
+    max-width: 83px !important;
     flex-shrink: 0;
   }
   
@@ -1720,20 +1731,18 @@ h1 {
   .view-product-thumbnails {
     gap: 4px;
     padding: 0 !important; /* Remove padding that was adding to gap */
-    margin: 0 !important;
+    margin: 0 auto !important; /* Center the container */
+    align-items: center; /* Center thumbnails horizontally */
+    justify-content: flex-start; /* Keep thumbnails grouped together */
+    width: fit-content; /* Container only as wide as needed */
   }
   
-  .view-product-thumbnails img {
-    height: 55px;
-    width: 55px;
-    min-width: 55px;
-  }
-  
-  .view-product-image-placeholder {
-    height: 55px !important;
-    width: 55px !important;
-    min-width: 55px;
-    max-width: 55px;
+  .view-product-thumbnails img,
+  .view-product-thumbnails .view-product-image-placeholder {
+    height: 78px !important;
+    width: 78px !important;
+    min-width: 78px !important;
+    max-width: 78px !important;
   }
   
   .view-product-main-image {

@@ -1650,7 +1650,8 @@ document.addEventListener("DOMContentLoaded", async function() {
     });
 
     modalOverlay.addEventListener("click", function(e) {
-      if (e.target === modalOverlay) {
+      // Only close if clicking on the overlay itself, not the image
+      if (e.target === modalOverlay || e.target === document.querySelector('.image-modal-content')) {
         modalOverlay.classList.remove("active");
         modalImg.src = "";
       }
