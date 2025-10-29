@@ -48,125 +48,7 @@ RewriteRule .* - [L]
 RewriteCond %{REQUEST_URI} ^/.netlify/functions/ [NC]
 RewriteRule .* - [L]
 
-# --- Enhanced India Blocking ---
-# Block by Accept-Language header indicating major Indian languages (safer list - removed ur/pa)
-RewriteCond %{HTTP:Accept-Language} (hi|bn|te|mr|ta|gu|kn|ml|or) [NC]
-RewriteCond %{REQUEST_URI} !^/robots\.txt$ [NC]
-RewriteCond %{REQUEST_URI} !^/sitemap\.xml$ [NC]
-RewriteCond %{REQUEST_URI} !^/.netlify/functions/ [NC]
-RewriteCond %{HTTP_USER_AGENT} !(PayPal|Stripe|paypal|googlebot|bingbot|yahoo|baiduspider|facebookexternalhit|twitterbot) [NC]
-RewriteRule .* - [F,L]
-
-# Block known Indian mobile carriers user agents
-RewriteCond %{HTTP_USER_AGENT} (Jio|Airtel|BSNL|Vodafone.*IN|Idea|Vi.*IN) [NC]
-RewriteCond %{HTTP_USER_AGENT} !(PayPal|Stripe|paypal|googlebot|bingbot|yahoo|baiduspider|facebookexternalhit|twitterbot) [NC]
-RewriteCond %{REQUEST_URI} !^/robots\.txt$ [NC]
-RewriteCond %{REQUEST_URI} !^/sitemap\.xml$ [NC]
-RewriteCond %{REQUEST_URI} !^/.netlify/functions/ [NC]
-RewriteRule .* - [F,L]
-
-# Block requests with Indian rupee currency indicators
-RewriteCond %{QUERY_STRING} (inr|rupee|₹) [NC]
-RewriteCond %{HTTP_USER_AGENT} !(PayPal|Stripe|paypal|googlebot|bingbot|yahoo|baiduspider|facebookexternalhit|twitterbot) [NC]
-RewriteRule .* - [F,L]
-
-# Block suspicious patterns common to Indian traffic (more specific)
-RewriteCond %{HTTP_USER_AGENT} (\.in\b|India\sISP|Mumbai\sISP|Delhi\sISP|Indian\sNetwork) [NC]
-RewriteCond %{REQUEST_URI} !^/robots\.txt$ [NC]
-RewriteCond %{REQUEST_URI} !^/sitemap\.xml$ [NC]
-RewriteCond %{REQUEST_URI} !^/.netlify/functions/ [NC]
-RewriteCond %{HTTP_USER_AGENT} !(PayPal|Stripe|paypal|googlebot|bingbot|yahoo|baiduspider|facebookexternalhit|twitterbot) [NC]
-RewriteRule .* - [F,L]
-
-# --- Block India by IP Ranges ---
-<RequireAll>
-    Require all granted
-    # Reliance Jio
-    Require not ip 49.37.0.0/16
-    Require not ip 49.45.0.0/16
-    Require not ip 49.46.0.0/16
-    Require not ip 49.47.0.0/16
-    Require not ip 106.192.0.0/16
-    Require not ip 106.193.0.0/16
-    Require not ip 106.194.0.0/16
-    Require not ip 106.195.0.0/16
-    Require not ip 171.48.0.0/16
-    Require not ip 171.49.0.0/16
-    Require not ip 171.50.0.0/16
-    
-    # Bharti Airtel
-    Require not ip 49.205.0.0/16
-    Require not ip 106.206.0.0/16
-    Require not ip 106.207.0.0/16
-    Require not ip 117.192.0.0/16
-    Require not ip 117.193.0.0/16
-    Require not ip 125.16.0.0/16
-    Require not ip 125.17.0.0/16
-    Require not ip 125.18.0.0/16
-    
-    # BSNL
-    Require not ip 49.248.0.0/16
-    Require not ip 49.249.0.0/16
-    Require not ip 49.250.0.0/16
-    Require not ip 49.251.0.0/16
-    Require not ip 59.88.0.0/16
-    Require not ip 59.89.0.0/16
-    Require not ip 59.90.0.0/16
-    Require not ip 59.91.0.0/16
-    Require not ip 117.239.0.0/16
-    
-    # Vodafone Idea
-    Require not ip 106.208.0.0/16
-    Require not ip 106.209.0.0/16
-    Require not ip 106.210.0.0/16
-    Require not ip 106.211.0.0/16
-    Require not ip 110.224.0.0/16
-    Require not ip 110.225.0.0/16
-    Require not ip 110.226.0.0/16
-    Require not ip 110.227.0.0/16
-    
-    # Tata Communications
-    Require not ip 121.240.0.0/16
-    Require not ip 121.241.0.0/16
-    Require not ip 121.242.0.0/16
-    Require not ip 121.243.0.0/16
-    Require not ip 115.110.0.0/16
-    Require not ip 115.111.0.0/16
-    
-    # ACT Fibernet
-    Require not ip 49.207.0.0/16
-    
-    # Hathway
-    Require not ip 117.196.0.0/16
-    Require not ip 117.197.0.0/16
-    Require not ip 117.198.0.0/16
-    Require not ip 117.199.0.0/16
-    
-    # Additional Indian ISPs
-    # MTNL Mumbai
-    Require not ip 202.54.0.0/16
-    Require not ip 203.94.0.0/16
-    
-    # Railtel
-    Require not ip 49.206.0.0/16
-    Require not ip 182.71.0.0/16
-    
-    # Sify Technologies
-    Require not ip 202.83.16.0/20
-    Require not ip 203.197.0.0/16
-    
-    # NIC India
-    Require not ip 164.100.0.0/16
-    Require not ip 210.212.0.0/16
-    
-    # ERNET India
-    Require not ip 202.141.0.0/16
-    
-    # Dishnet Wireless
-    Require not ip 117.211.0.0/16
-    Require not ip 49.14.0.0/16
-    Require not ip 49.15.0.0/16
-</RequireAll>
+# --- Indian traffic blocking now handled at VentraIP ISP level for better performance ---
 
 # --- Protection Against Sensitive File Access ---
 # Block access to sensitive files and directories
@@ -240,10 +122,10 @@ RewriteCond %{HTTPS} off
 RewriteCond %{HTTP_HOST} ^outbackgems\.com\.au [NC]
 RewriteRule ^(.*)$ https://outbackgems.com.au/$1 [L,R=301]
 
-# Only apply Prerender to bot user agents, not regular users
-RewriteCond %{HTTP_USER_AGENT} (googlebot|bingbot|yahoo|baiduspider|facebookexternalhit|twitterbot) [NC]
-RequestHeader set X-Prerender-Token "jB2NVBnrYbku2t67YS1V"
-RewriteRule ^(.*)$ https://service.prerender.io/https://outbackgems.com.au/$1 [P,L]
+# Prerender.io configuration disabled - site now loads from local JSON
+# RewriteCond %{HTTP_USER_AGENT} (googlebot|bingbot|yahoo|baiduspider|facebookexternalhit|twitterbot) [NC]
+# RequestHeader set X-Prerender-Token "jB2NVBnrYbku2t67YS1V"
+# RewriteRule ^(.*)$ https://service.prerender.io/https://outbackgems.com.au/$1 [P,L]
 
 
 # --- Security Headers ---
