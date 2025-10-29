@@ -206,11 +206,29 @@ async function handlePaymentCaptureCompleted(event) {
           };
         });
 
+        // Collect all inventory updates for batch processing
+        const inventoryUpdates = [];
+        
         // Update inventory for each item
         for (const item of orderData.lineItems) {
           if (item.productId !== 'PAYPAL_ITEM' && !item.name.toLowerCase().includes('shipping')) {
-            await updateInventoryStock(item.productId, item.weight, item.quantity);
+            inventoryUpdates.push({
+              productId: item.productId,
+              weight: item.weight,
+              quantityToReduce: item.quantity
+            });
+            console.log(`Added to batch update: ${item.productId}, weight ${item.weight}, quantity ${item.quantity}`);
+          } else {
+            console.log(`Skipping inventory update for: ${item.name} (ID: ${item.productId})`);
           }
+        }
+
+        // Process all inventory updates as a single batch (async, non-blocking)
+        if (inventoryUpdates.length > 0) {
+          console.log(`📦 PAYPAL INVENTORY: Sending batch inventory update for ${inventoryUpdates.length} items`);
+          // Don't await - make it non-blocking so email sends immediately
+          // Use the same robust updateInventoryBatch function as Stripe
+          updateInventoryBatch(inventoryUpdates);
         }
       } else {
         // Fallback to generic item
@@ -411,6 +429,161 @@ function generateShippingEmailTemplate(orderData) {
 }
 
 // Reuse inventory update function
+// Robust batch inventory update function with retry logic (same as Stripe)
+async function updateInventoryBatch(inventoryUpdates) {
+  const maxRetries = 3;
+  let lastError = null;
+
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    try {
+      // Get the Google Sheets update URL from environment variables
+      const googleSheetsUpdateUrl = process.env.GOOGLE_SHEETS_INVENTORY_UPDATE_URL;
+      
+      if (!googleSheetsUpdateUrl) {
+        console.log('❌ PAYPAL INVENTORY: Google Sheets update URL not configured, skipping inventory update');
+        console.log('💡 PAYPAL INVENTORY: Set GOOGLE_SHEETS_INVENTORY_UPDATE_URL environment variable');
+        return;
+      }
+
+      console.log(`📡 PAYPAL INVENTORY: Attempt ${attempt}/${maxRetries} - Sending batch inventory update with ${inventoryUpdates.length} items`);
+      if (attempt === 1) {
+        console.log('📋 PAYPAL INVENTORY: Updates to send:', JSON.stringify(inventoryUpdates, null, 2));
+      }
+
+      const requestBody = {
+        action: 'batchUpdateStock',
+        updates: inventoryUpdates
+      };
+
+      if (attempt === 1) {
+        console.log('📋 PAYPAL INVENTORY: Full request body:', JSON.stringify(requestBody, null, 2));
+      }
+
+      // Extended timeout with retry logic - 45 seconds per attempt
+      const timeoutPromise = new Promise((_, reject) => 
+        setTimeout(() => reject(new Error(`Google Sheets batch update timed out after 45 seconds (attempt ${attempt})`)), 45000)
+      );
+
+      const fetchPromise = fetch(googleSheetsUpdateUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestBody)
+      });
+
+      // Race between fetch and timeout
+      const response = await Promise.race([fetchPromise, timeoutPromise]);
+
+      console.log(`📊 PAYPAL INVENTORY: Attempt ${attempt} - Apps Script response status: ${response.status}`);
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`HTTP ${response.status}: ${response.statusText} - ${errorText}`);
+      }
+
+      const result = await response.json();
+      console.log(`✅ PAYPAL INVENTORY: Batch inventory update completed on attempt ${attempt}:`, result);
+      
+      // Success! Exit retry loop
+      return result;
+
+    } catch (error) {
+      lastError = error;
+      console.error(`❌ PAYPAL INVENTORY: Attempt ${attempt}/${maxRetries} failed:`, error.message);
+      
+      if (attempt < maxRetries) {
+        const delayMs = attempt * 2000; // Progressive delay: 2s, 4s
+        console.log(`⏳ PAYPAL INVENTORY: Retrying in ${delayMs/1000} seconds...`);
+        await new Promise(resolve => setTimeout(resolve, delayMs));
+      }
+    }
+  }
+
+  // All retries failed
+  console.error(`💥 PAYPAL INVENTORY: All ${maxRetries} attempts failed. Last error:`, lastError.message);
+  
+  // Critical: If batch update completely fails, try individual updates as final fallback
+  console.log('🔄 PAYPAL INVENTORY: Attempting individual updates as final fallback...');
+  for (const update of inventoryUpdates) {
+    try {
+      await updateInventorySingle(update.productId, update.weight, update.quantityToReduce);
+      console.log(`✅ PAYPAL INVENTORY: Individual fallback update successful for ${update.productId}`);
+    } catch (singleError) {
+      console.error(`❌ PAYPAL INVENTORY: Individual fallback update failed for ${update.productId}:`, singleError.message);
+    }
+  }
+}
+
+// Fallback function for individual inventory updates with retry logic (same as Stripe)
+async function updateInventorySingle(productId, weight, quantityToReduce) {
+  const maxRetries = 2;
+  let lastError = null;
+
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    try {
+      console.log(`🔄 PAYPAL INVENTORY (SINGLE): Attempt ${attempt}/${maxRetries} - Updating ${productId}, weight: ${weight}, quantity: ${quantityToReduce}`);
+      
+      const googleSheetsUpdateUrl = process.env.GOOGLE_SHEETS_INVENTORY_UPDATE_URL;
+      
+      if (!googleSheetsUpdateUrl) {
+        console.log('❌ PAYPAL INVENTORY (SINGLE): Google Sheets update URL not configured');
+        return;
+      }
+
+      const requestBody = {
+        action: 'updateStock',
+        productId: productId,
+        weight: weight,
+        quantityToReduce: quantityToReduce
+      };
+      
+      console.log('📋 PAYPAL INVENTORY (SINGLE): Request body:', JSON.stringify(requestBody, null, 2));
+
+      // 30 second timeout for individual updates
+      const timeoutPromise = new Promise((_, reject) => 
+        setTimeout(() => reject(new Error(`Individual update timed out after 30 seconds (attempt ${attempt})`)), 30000)
+      );
+
+      const fetchPromise = fetch(googleSheetsUpdateUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestBody)
+      });
+
+      const response = await Promise.race([fetchPromise, timeoutPromise]);
+
+      console.log(`📊 PAYPAL INVENTORY (SINGLE): Attempt ${attempt} - Apps Script response status: ${response.status}`);
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`HTTP ${response.status}: ${response.statusText} - ${errorText}`);
+      }
+
+      const result = await response.json();
+      console.log(`✅ PAYPAL INVENTORY (SINGLE): Updated successfully on attempt ${attempt}:`, result);
+      return result;
+
+    } catch (error) {
+      lastError = error;
+      console.error(`❌ PAYPAL INVENTORY (SINGLE): Attempt ${attempt}/${maxRetries} failed for ${productId}:`, error.message);
+      
+      if (attempt < maxRetries) {
+        const delayMs = 3000; // 3 second delay between retries
+        console.log(`⏳ PAYPAL INVENTORY (SINGLE): Retrying ${productId} in ${delayMs/1000} seconds...`);
+        await new Promise(resolve => setTimeout(resolve, delayMs));
+      }
+    }
+  }
+
+  // All retries failed for this item
+  console.error(`💥 PAYPAL INVENTORY (SINGLE): All ${maxRetries} attempts failed for ${productId}. Last error:`, lastError.message);
+  throw lastError;
+}
+
+// Legacy function - kept for backward compatibility but no longer used
 async function updateInventoryStock(productId, weight, quantityPurchased) {
   console.log(`🔄 PAYPAL INVENTORY: Attempting to update ${productId}, weight: ${weight}, quantity: ${quantityPurchased}`);
   

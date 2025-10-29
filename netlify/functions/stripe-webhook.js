@@ -189,19 +189,8 @@ async function handleCheckoutSessionCompleted(session) {
     if (inventoryUpdates.length > 0) {
       console.log(`📦 STRIPE INVENTORY: Sending batch inventory update for ${inventoryUpdates.length} items`);
       // Don't await - make it non-blocking so email sends immediately
-      updateInventoryBatch(inventoryUpdates).catch(async (error) => {
-        console.error('❌ STRIPE INVENTORY: Batch inventory update failed, trying individual updates:', error);
-        
-        // Fallback: Try individual updates (like PayPal does)
-        for (const update of inventoryUpdates) {
-          try {
-            await updateInventorySingle(update.productId, update.weight, update.quantityToReduce);
-            console.log(`✅ STRIPE INVENTORY: Individual update successful for ${update.productId}`);
-          } catch (singleError) {
-            console.error(`❌ STRIPE INVENTORY: Individual update failed for ${update.productId}:`, singleError);
-          }
-        }
-      });
+      // The new updateInventoryBatch function handles all retries and fallbacks internally
+      updateInventoryBatch(inventoryUpdates);
     }
 
     // Determine shipping method from line items
@@ -226,103 +215,156 @@ async function handleCheckoutSessionCompleted(session) {
 }
 
 async function updateInventoryBatch(inventoryUpdates) {
-  try {
-    // Get the Google Sheets update URL from environment variables
-    const googleSheetsUpdateUrl = process.env.GOOGLE_SHEETS_INVENTORY_UPDATE_URL;
-    
-    if (!googleSheetsUpdateUrl) {
-      console.log('❌ STRIPE INVENTORY: Google Sheets update URL not configured, skipping inventory update');
-      console.log('💡 STRIPE INVENTORY: Set GOOGLE_SHEETS_INVENTORY_UPDATE_URL environment variable');
-      return;
+  const maxRetries = 3;
+  let lastError = null;
+
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    try {
+      // Get the Google Sheets update URL from environment variables
+      const googleSheetsUpdateUrl = process.env.GOOGLE_SHEETS_INVENTORY_UPDATE_URL;
+      
+      if (!googleSheetsUpdateUrl) {
+        console.log('❌ STRIPE INVENTORY: Google Sheets update URL not configured, skipping inventory update');
+        console.log('💡 STRIPE INVENTORY: Set GOOGLE_SHEETS_INVENTORY_UPDATE_URL environment variable');
+        return;
+      }
+
+      console.log(`📡 STRIPE INVENTORY: Attempt ${attempt}/${maxRetries} - Sending batch inventory update with ${inventoryUpdates.length} items`);
+      if (attempt === 1) {
+        console.log('📋 STRIPE INVENTORY: Updates to send:', JSON.stringify(inventoryUpdates, null, 2));
+      }
+
+      const requestBody = {
+        action: 'batchUpdateStock',
+        updates: inventoryUpdates
+      };
+
+      if (attempt === 1) {
+        console.log('📋 STRIPE INVENTORY: Full request body:', JSON.stringify(requestBody, null, 2));
+      }
+
+      // Extended timeout with retry logic - 45 seconds per attempt
+      const timeoutPromise = new Promise((_, reject) => 
+        setTimeout(() => reject(new Error(`Google Sheets batch update timed out after 45 seconds (attempt ${attempt})`)), 45000)
+      );
+
+      const fetchPromise = fetch(googleSheetsUpdateUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestBody)
+      });
+
+      // Race between fetch and timeout
+      const response = await Promise.race([fetchPromise, timeoutPromise]);
+
+      console.log(`📊 STRIPE INVENTORY: Attempt ${attempt} - Apps Script response status: ${response.status}`);
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`HTTP ${response.status}: ${response.statusText} - ${errorText}`);
+      }
+
+      const result = await response.json();
+      console.log(`✅ STRIPE INVENTORY: Batch inventory update completed on attempt ${attempt}:`, result);
+      
+      // Success! Exit retry loop
+      return result;
+
+    } catch (error) {
+      lastError = error;
+      console.error(`❌ STRIPE INVENTORY: Attempt ${attempt}/${maxRetries} failed:`, error.message);
+      
+      if (attempt < maxRetries) {
+        const delayMs = attempt * 2000; // Progressive delay: 2s, 4s
+        console.log(`⏳ STRIPE INVENTORY: Retrying in ${delayMs/1000} seconds...`);
+        await new Promise(resolve => setTimeout(resolve, delayMs));
+      }
     }
+  }
 
-    console.log(`📡 STRIPE INVENTORY: Sending batch inventory update with ${inventoryUpdates.length} items`);
-    console.log('📋 STRIPE INVENTORY: Updates to send:', JSON.stringify(inventoryUpdates, null, 2));
-
-    const requestBody = {
-      action: 'batchUpdateStock',
-      updates: inventoryUpdates
-    };
-
-    console.log('📋 STRIPE INVENTORY: Full request body:', JSON.stringify(requestBody, null, 2));
-
-    // Add timeout to prevent hanging
-    const timeoutPromise = new Promise((_, reject) => 
-      setTimeout(() => reject(new Error('Google Sheets batch update timed out')), 30000)
-    );
-
-    const fetchPromise = fetch(googleSheetsUpdateUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(requestBody)
-    });
-
-    // Race between fetch and timeout
-    const response = await Promise.race([fetchPromise, timeoutPromise]);
-
-    console.log(`📊 STRIPE INVENTORY: Apps Script response status: ${response.status}`);
-
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error('❌ STRIPE INVENTORY: Failed to update inventory:', response.status, response.statusText, errorText);
-      throw new Error(`Failed to update Google Sheets inventory: ${response.status} ${response.statusText}`);
+  // All retries failed
+  console.error(`💥 STRIPE INVENTORY: All ${maxRetries} attempts failed. Last error:`, lastError.message);
+  
+  // Critical: If batch update completely fails, try individual updates as final fallback
+  console.log('🔄 STRIPE INVENTORY: Attempting individual updates as final fallback...');
+  for (const update of inventoryUpdates) {
+    try {
+      await updateInventorySingle(update.productId, update.weight, update.quantityToReduce);
+      console.log(`✅ STRIPE INVENTORY: Individual fallback update successful for ${update.productId}`);
+    } catch (singleError) {
+      console.error(`❌ STRIPE INVENTORY: Individual fallback update failed for ${update.productId}:`, singleError.message);
     }
-
-    const result = await response.json();
-    console.log(`✅ STRIPE INVENTORY: Batch inventory update completed:`, result);
-
-  } catch (error) {
-    console.error(`💥 STRIPE INVENTORY: Failed to batch update Google Sheets inventory:`, error);
-    // Don't throw error - this is non-blocking, so webhook can continue
   }
 }
 
-// Fallback function for individual inventory updates (same logic as PayPal webhook)
+// Fallback function for individual inventory updates with retry logic
 async function updateInventorySingle(productId, weight, quantityToReduce) {
-  console.log(`🔄 STRIPE INVENTORY (SINGLE): Attempting to update ${productId}, weight: ${weight}, quantity: ${quantityToReduce}`);
-  
-  try {
-    const googleSheetsUpdateUrl = process.env.GOOGLE_SHEETS_INVENTORY_UPDATE_URL;
-    
-    if (!googleSheetsUpdateUrl) {
-      console.log('❌ STRIPE INVENTORY (SINGLE): Google Sheets update URL not configured');
-      return;
+  const maxRetries = 2;
+  let lastError = null;
+
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    try {
+      console.log(`🔄 STRIPE INVENTORY (SINGLE): Attempt ${attempt}/${maxRetries} - Updating ${productId}, weight: ${weight}, quantity: ${quantityToReduce}`);
+      
+      const googleSheetsUpdateUrl = process.env.GOOGLE_SHEETS_INVENTORY_UPDATE_URL;
+      
+      if (!googleSheetsUpdateUrl) {
+        console.log('❌ STRIPE INVENTORY (SINGLE): Google Sheets update URL not configured');
+        return;
+      }
+
+      const requestBody = {
+        action: 'updateStock',
+        productId: productId,
+        weight: weight,
+        quantityToReduce: quantityToReduce
+      };
+      
+      console.log('📋 STRIPE INVENTORY (SINGLE): Request body:', JSON.stringify(requestBody, null, 2));
+
+      // 30 second timeout for individual updates
+      const timeoutPromise = new Promise((_, reject) => 
+        setTimeout(() => reject(new Error(`Individual update timed out after 30 seconds (attempt ${attempt})`)), 30000)
+      );
+
+      const fetchPromise = fetch(googleSheetsUpdateUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestBody)
+      });
+
+      const response = await Promise.race([fetchPromise, timeoutPromise]);
+
+      console.log(`📊 STRIPE INVENTORY (SINGLE): Attempt ${attempt} - Apps Script response status: ${response.status}`);
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`HTTP ${response.status}: ${response.statusText} - ${errorText}`);
+      }
+
+      const result = await response.json();
+      console.log(`✅ STRIPE INVENTORY (SINGLE): Updated successfully on attempt ${attempt}:`, result);
+      return result;
+
+    } catch (error) {
+      lastError = error;
+      console.error(`❌ STRIPE INVENTORY (SINGLE): Attempt ${attempt}/${maxRetries} failed for ${productId}:`, error.message);
+      
+      if (attempt < maxRetries) {
+        const delayMs = 3000; // 3 second delay between retries
+        console.log(`⏳ STRIPE INVENTORY (SINGLE): Retrying ${productId} in ${delayMs/1000} seconds...`);
+        await new Promise(resolve => setTimeout(resolve, delayMs));
+      }
     }
-
-    const requestBody = {
-      action: 'updateStock',
-      productId: productId,
-      weight: weight,
-      quantityToReduce: quantityToReduce
-    };
-    
-    console.log('📋 STRIPE INVENTORY (SINGLE): Request body:', JSON.stringify(requestBody, null, 2));
-
-    const response = await fetch(googleSheetsUpdateUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(requestBody)
-    });
-
-    console.log(`📊 STRIPE INVENTORY (SINGLE): Apps Script response status: ${response.status}`);
-
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error('❌ STRIPE INVENTORY (SINGLE): Failed to update inventory:', response.status, response.statusText, errorText);
-      return;
-    }
-
-    const result = await response.json();
-    console.log('✅ STRIPE INVENTORY (SINGLE): Updated successfully:', result);
-
-  } catch (error) {
-    console.error('💥 STRIPE INVENTORY (SINGLE): Error updating inventory:', error);
-    throw error;
   }
+
+  // All retries failed for this item
+  console.error(`💥 STRIPE INVENTORY (SINGLE): All ${maxRetries} attempts failed for ${productId}. Last error:`, lastError.message);
+  throw lastError;
 }
 
 async function sendShippingNotificationEmail(orderData) {
