@@ -465,9 +465,28 @@ button {
   margin: 25px 0 35px 0;
 }
 
-/* Bottom pagination - more top margin */
+/* Bottom pagination - more top margin, visible on all devices */
 .pagination-controls.bottom-pagination {
   margin: 40px 0 50px 0;
+}
+
+/* Bottom pagination responsive adjustments */
+@media (max-width: 1280px) {
+  .pagination-controls.bottom-pagination {
+    margin: 35px 0 45px 0; /* Slightly reduced margins */
+  }
+}
+
+@media (max-width: 900px) {
+  .pagination-controls.bottom-pagination {
+    margin: 30px 0 40px 0; /* Reduced margins on tablets */
+  }
+}
+
+@media (max-width: 500px) {
+  .pagination-controls.bottom-pagination {
+    margin: 20px 0 30px 0; /* Further reduced margins on mobile */
+  }
 }
 
 /* Pagination items */
