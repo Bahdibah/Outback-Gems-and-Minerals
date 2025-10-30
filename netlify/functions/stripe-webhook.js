@@ -544,20 +544,9 @@ function generateCustomerConfirmationHTML(orderData) {
     <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 20px; background-color: #f9f9f9;">
       <div style="max-width: 600px; margin: 0 auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
         
-        <div style="text-align: center; margin-bottom: 20px; border-bottom: 2px solid #2c5530; padding-bottom: 15px;">
-          <table style="margin: 0 auto; border-collapse: collapse;">
-            <tr>
-              <td style="vertical-align: middle; padding-right: 12px;">
-                <img src="https://outbackgems.com.au/images/favicon.png" alt="Outback Gems Logo" style="height: 48px; width: 48px; border-radius: 8px;">
-              </td>
-              <td style="vertical-align: middle;">
-                <h1 style="color: #2c5530; margin: 0; font-family: 'Parisienne', 'Dancing Script', 'Sacramento', 'Allura', 'Satisfy', cursive; font-size: 2em;">
-                  Outback Gems & Minerals
-                </h1>
-              </td>
-            </tr>
-          </table>
-        </div>
+        <h1 style="color: #2c5530; margin-bottom: 20px; text-align: center; border-bottom: 2px solid #2c5530; padding-bottom: 15px; font-family: 'Parisienne', 'Dancing Script', 'Sacramento', 'Allura', 'Satisfy', cursive; font-size: 2em;">
+          Outback Gems & Minerals
+        </h1>
         
         <h2 style="color: #555; margin-bottom: 20px;">Thank you for your order!</h2>
         
