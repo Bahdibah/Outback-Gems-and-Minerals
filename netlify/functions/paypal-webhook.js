@@ -301,7 +301,7 @@ async function sendShippingNotificationEmail(orderData) {
     const emailData = {
       from: 'Outback Gems <support@outbackgems.com.au>',
       to: 'support@outbackgems.com.au',
-      subject: `NEW PAYPAL ORDER ${orderData.orderNumber} - $${orderData.orderTotal} AUD - SHIP NOW`,
+      subject: `NEW PAYPAL ORDER - $${orderData.orderTotal} AUD - SHIP NOW`,
       html: emailHtml,
     };
 
@@ -795,15 +795,26 @@ function generateCustomerConfirmationHTML(orderData) {
 <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 20px; background-color: #f9f9f9;">
   <div style="max-width: 600px; margin: 0 auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
     
-    <h1 style="color: #2c5530; margin-bottom: 20px; text-align: center; border-bottom: 2px solid #2c5530; padding-bottom: 15px;">
-      Outback Gems & Minerals
-    </h1>
+    <div style="text-align: center; margin-bottom: 20px; border-bottom: 2px solid #2c5530; padding-bottom: 15px;">
+      <table style="margin: 0 auto; border-collapse: collapse;">
+        <tr>
+          <td style="vertical-align: middle; padding-right: 12px;">
+            <img src="https://outbackgems.com.au/images/favicon.png" alt="Outback Gems Logo" style="height: 48px; width: 48px; border-radius: 8px;">
+          </td>
+          <td style="vertical-align: middle;">
+            <h1 style="color: #2c5530; margin: 0; font-family: 'Parisienne', 'Dancing Script', 'Sacramento', 'Allura', 'Satisfy', cursive; font-size: 2em;">
+              Outback Gems & Minerals
+            </h1>
+          </td>
+        </tr>
+      </table>
+    </div>
     
     <h2 style="color: #555; margin-bottom: 20px;">Thank you for your order!</h2>
     
     <p>Hi ${firstName},</p>
     
-    <p>We have received your order and payment has been successfully processed. Your order will be carefully packed and shipped on the next business day.</p>
+    <p>We have received your order and payment has been successfully processed. Your order will be packed and shipped on the next business day.</p>
     
     <div style="background-color: #f8f9fa; padding: 20px; border-radius: 5px; margin: 20px 0; border-left: 4px solid #2c5530;">
       <h3 style="margin-top: 0; color: #2c5530;">Order Summary</h3>
@@ -841,11 +852,22 @@ function generateCustomerConfirmationHTML(orderData) {
       <p><strong>Questions?</strong> Contact us at support@outbackgems.com.au</p>
     </div>
     
-    <div style="border-top: 2px solid #2c5530; padding-top: 20px; text-align: center; color: #666; margin-top: 30px;">
-      <p><strong>Outback Gems & Minerals</strong></p>
-      <p>Email: support@outbackgems.com.au</p>
-      <p>Website: outbackgems.com.au</p>
-      <p style="font-size: 12px; margin-top: 15px;">This email was automatically generated to confirm your order.</p>
+    <div style="border-top: 2px solid #2c5530; padding-top: 20px; margin-top: 30px;">
+      <table style="margin:0 auto;">
+        <tr>
+          <td style="vertical-align:middle;padding-right:12px;">
+            <img src="https://outbackgems.com.au/images/favicon.png" alt="Outback Gems Logo" style="height:48px;width:48px;border-radius:8px;">
+          </td>
+          <td style="vertical-align:top;">
+            <div style="font-size:1.1em;color:#cc5500;font-weight:bold;">Customer Support</div>
+            <div style="font-size:1em;color:#333;">support@outbackgems.com.au</div>
+            <div style="font-family:'Parisienne', 'Dancing Script', 'Sacramento', 'Allura', 'Satisfy', cursive; font-size:1.5em; color:#cc5500; margin-top:6px;">
+              Outback Gems &amp; Minerals
+            </div>
+          </td>
+        </tr>
+      </table>
+      <p style="font-size: 12px; margin-top: 15px; text-align: center; color: #666;">This email was automatically generated to confirm your order.</p>
     </div>
     
   </div>
