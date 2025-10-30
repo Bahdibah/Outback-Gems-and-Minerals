@@ -781,9 +781,18 @@ function generateCustomerConfirmationHTML(orderData) {
   // Extract first name from customer name
   const firstName = orderData.customerName ? orderData.customerName.split(' ')[0] : 'there';
 
-  const orderItems = orderData.lineItems.map(item => `• ${item.name} - ${(item.productId !== 'Unknown' && item.productId !== 'PAYPAL_ORDER') ? item.productId : 'N/A'}
+  const orderItems = orderData.lineItems.map(item => {
+    // For shipping items without product ID, show nothing after the dash
+    if (item.name.toLowerCase().includes('shipping') && (item.productId === 'Unknown' || item.productId === 'PAYPAL_ORDER')) {
+      return `• ${item.name}
     QTY: ${item.quantity}
-    $${item.totalPrice} AUD`).join('\n\n');
+    $${item.totalPrice} AUD`;
+    }
+    // For other items, show N/A if no product ID
+    return `• ${item.name} - ${(item.productId !== 'Unknown' && item.productId !== 'PAYPAL_ORDER') ? item.productId : 'N/A'}
+    QTY: ${item.quantity}
+    $${item.totalPrice} AUD`;
+  }).join('\n\n');
 
   return `
 <!DOCTYPE html>
