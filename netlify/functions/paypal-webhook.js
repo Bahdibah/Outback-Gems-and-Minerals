@@ -368,6 +368,17 @@ async function sendCustomerConfirmationEmail(orderData) {
 // Reuse the same email template from Stripe webhook
 function generateShippingEmailTemplate(orderData) {
   const formatDate = (date) => {
+    // Handle null or invalid dates
+    if (!date) {
+      return new Intl.DateTimeFormat('en-AU', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        timeZone: 'Australia/Sydney'
+      }).format(new Date());
+    }
     return new Intl.DateTimeFormat('en-AU', {
       year: 'numeric',
       month: 'long',
@@ -746,6 +757,17 @@ function generateCustomerConfirmationHTML(orderData) {
   const { shippingAddress } = orderData;
   
   const formatDate = (date) => {
+    // Handle null or invalid dates
+    if (!date) {
+      return new Intl.DateTimeFormat('en-AU', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        timeZone: 'Australia/Sydney'
+      }).format(new Date());
+    }
     return new Intl.DateTimeFormat('en-AU', {
       year: 'numeric',
       month: 'long',
