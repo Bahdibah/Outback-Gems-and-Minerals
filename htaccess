@@ -1,10 +1,6 @@
-# Disable directory listing
 Options -Indexes
-
-# Disable server signature
 ServerSignature Off
 
-# --- MIME Types for Images ---
 AddType image/jpeg .jpeg .jpg
 AddType image/png .png
 AddType image/gif .gif
@@ -12,7 +8,6 @@ AddType image/webp .webp
 AddType image/bmp .bmp
 AddType image/tiff .tif .tiff
 
-# Force correct MIME types for images (especially in directories with spaces)
 <Files ~ "\.(jpe?g)$">
     ForceType image/jpeg
 </Files>
@@ -37,38 +32,27 @@ AddType image/tiff .tif .tiff
     ForceType image/tiff
 </Files>
 
-# --- Existing Redirect Rules ---
 RewriteEngine On
 
-# --- Allow PayPal and Stripe First ---
 RewriteCond %{HTTP_USER_AGENT} (PayPal|Stripe|paypal) [NC]
 RewriteRule .* - [L]
 
-# --- Allow Netlify Functions (Webhooks) ---
 RewriteCond %{REQUEST_URI} ^/.netlify/functions/ [NC]
 RewriteRule .* - [L]
-
-# --- Indian traffic blocking now handled at VentraIP ISP level for better performance ---
-
-# --- Protection Against Sensitive File Access ---
-# Block access to sensitive files and directories
 <FilesMatch "(\.(bak|config|sql|fla|psd|ini|log|sh|inc|swp|dist)|~)$">
     Order allow,deny
     Deny from all
 </FilesMatch>
 
-# Protect .git directory
 <IfModule mod_rewrite.c>
     RewriteRule ^\.git - [F,L]
 </IfModule>
 
-# Block access to package files
 <FilesMatch "(package\.json|package-lock\.json|composer\.json|composer\.lock)$">
     Order allow,deny
     Deny from all
 </FilesMatch>
 
-# --- Block Suspicious User Agents ---
 <IfModule mod_rewrite.c>
     RewriteCond %{HTTP_USER_AGENT} (libwww|nikto|masscan|nmap|zgrab|shodan|censys) [NC,OR]
     RewriteCond %{HTTP_USER_AGENT} (sqlmap|havij|acunetix|netsparker|burpsuite) [NC,OR]
@@ -76,7 +60,6 @@ RewriteRule .* - [L]
     RewriteRule .* - [F,L]
 </IfModule>
 
-# --- Block Common Exploit Attempts ---
 <IfModule mod_rewrite.c>
     RewriteCond %{QUERY_STRING} (\<|%3C).*script.*(\>|%3E) [NC,OR]
     RewriteCond %{QUERY_STRING} GLOBALS(=|\[|\%[0-9A-Z]{0,2}) [OR]
@@ -85,79 +68,59 @@ RewriteRule .* - [L]
     RewriteCond %{QUERY_STRING} (concat.*\(|cast.*\(|declare.*@|exec.*\() [NC]
     RewriteRule .* - [F,L]
     
-    # Block PHP injection attempts
     RewriteCond %{QUERY_STRING} (\.\.\/|\.\.\\|php:\/\/|file:\/\/|proc\/self\/environ) [NC,OR]
     RewriteCond %{QUERY_STRING} (base64_encode.*\(|base64_decode.*\(|eval.*\(|exec.*\() [NC]
     RewriteRule .* - [F,L]
 </IfModule>
 
-# Exclude critical static files from Prerender.io
-RewriteCond %{REQUEST_URI} ^/robots\.txt([/?].*)?$ [NC]
-RewriteRule .* - [L]
-
-RewriteCond %{REQUEST_URI} ^/sitemap\.xml([/?].*)?$ [NC]
-RewriteRule .* - [L]
-
-RewriteCond %{REQUEST_URI} ^/favicon\.ico$ [NC]
-RewriteRule .* - [L]
-
-# Exclude images directory from Prerender
-RewriteCond %{REQUEST_URI} ^/images/ [NC]
-RewriteRule .* - [L]
-
-# Exclude other static files from Prerender
-RewriteCond %{REQUEST_URI} \.(js|css|xml|gif|jpg|jpeg|png|svg|webp|woff|woff2|ttf|eot|ico|bmp|tiff)$ [NC]
-RewriteRule .* - [L]
-
-# Redirect sitemap.txt to sitemap.xml
 RewriteCond %{REQUEST_URI} ^/sitemap\.txt$ [NC]
 RewriteRule ^sitemap\.txt$ https://outbackgems.com.au/sitemap.xml [R=301,L]
 
-# Redirect www to non-www (and force HTTPS)
 RewriteCond %{HTTP_HOST} ^www\.outbackgems\.com\.au [NC]
 RewriteRule ^(.*)$ https://outbackgems.com.au/$1 [L,R=301]
 
-# Redirect HTTP to HTTPS (for non-www)
 RewriteCond %{HTTPS} off
 RewriteCond %{HTTP_HOST} ^outbackgems\.com\.au [NC]
 RewriteRule ^(.*)$ https://outbackgems.com.au/$1 [L,R=301]
 
-# Prerender.io configuration disabled - site now loads from local JSON
-# RewriteCond %{HTTP_USER_AGENT} (googlebot|bingbot|yahoo|baiduspider|facebookexternalhit|twitterbot) [NC]
-# RequestHeader set X-Prerender-Token "jB2NVBnrYbku2t67YS1V"
-# RewriteRule ^(.*)$ https://service.prerender.io/https://outbackgems.com.au/$1 [P,L]
+RewriteCond %{QUERY_STRING} ^category=([^|]+)\+&\+([^|]+)\|([^=]+)=?$ [NC]
+RewriteRule ^products\.html$ /products.html?category=%1%20%26%20%2%7C%3 [R=301,L]
 
+RewriteCond %{QUERY_STRING} ^category=([A-Z][^|]*\|.*)$ [NC]
+RewriteRule ^products\.html$ /products.html?category=%{qsa_lower:%1} [R=301,L]
 
-# --- Security Headers ---
+RewriteCond %{QUERY_STRING} ^category=([^&]*)\s+([^&]*)$ [NC]
+RewriteRule ^products\.html$ /products.html?category=%1%20%2 [R=301,L]
 
-# Prevent clickjacking and other attacks
+RewriteCond %{QUERY_STRING} ^category=\{[^}]+\}$ [NC]
+RewriteRule ^products\.html$ /products.html [R=301,L]
+
+RewriteCond %{QUERY_STRING} ^category=([^=]+)=+$ [NC]
+RewriteRule ^products\.html$ /products.html?category=%1 [R=301,L]
+
+RewriteCond %{QUERY_STRING} ^category=carvings$ [NC]
+RewriteRule ^products\.html$ /products.html?category=carvings%20%26%20collectibles [R=301,L]
+
+RewriteCond %{QUERY_STRING} ^category=Raw\+Material$ [NC]
+RewriteRule ^products\.html$ /products.html?category=raw%20material%20%26%20specimens [R=301,L]
 Header set Content-Security-Policy "default-src 'self'; img-src 'self' data: https: *.paypal.com *.paypalobjects.com www.facebook.com www.gstatic.com *.synchronycredit.com; script-src 'self' https://cdnjs.cloudflare.com https://fonts.googleapis.com https://cdn.jsdelivr.net https://js.stripe.com https://www.paypal.com https://www.paypalobjects.com https://www.sandbox.paypal.com https://checkout.paypal.com https://*.paypal.cn https://objects.paypal.cn https://www.gstatic.com https://*.synchronycredit.com https://synchronycredit.com https://www.datadoghq-browser-agent.com https://static.novacredit.com https://script.googleusercontent.com https://www.google.com https://www.gstatic.com/recaptcha/ https://www.recaptcha.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://www.paypalobjects.com; font-src 'self' data: https://fonts.gstatic.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; connect-src 'self' https://script.googleusercontent.com https://script.google.com https://cdn.jsdelivr.net https://js.stripe.com https://www.paypal.com https://www.paypalobjects.com https://www.sandbox.paypal.com https://checkout.paypal.com https://cors-anywhere.herokuapp.com https://www.datadoghq-browser-agent.com https://outbackgems.netlify.app https://www.google.com/recaptcha/; worker-src 'self' blob: https://*.paypal.com; frame-src 'self' https://*.paypal.com https://*.paypalobjects.com https://www.sandbox.paypal.com https://js.stripe.com https://www.google.com/recaptcha/ https://www.recaptcha.net/recaptcha/;"
 Header set Permissions-Policy "geolocation=(), microphone=(), camera=(), fullscreen=(self), payment=(self)"
 Header set X-Content-Type-Options "nosniff"
 Header always set Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
 Header set Referrer-Policy "strict-origin-when-cross-origin"
 Header always append X-Frame-Options SAMEORIGIN
-
-# Additional security headers
 Header set X-XSS-Protection "1; mode=block"
 Header set X-Permitted-Cross-Domain-Policies "none"
 Header always unset X-Powered-By
 Header unset Server
 
-# --- Short-term Caching ---
 <IfModule mod_expires.c>
     ExpiresActive On
-    
-    # HTML/JSON - 30 minutes
     ExpiresByType text/html "access plus 1800 seconds"
     ExpiresByType application/json "access plus 1800 seconds"
-    
-    # CSS/JS - 30 minutes
     ExpiresByType text/css "access plus 1800 seconds"
     ExpiresByType application/javascript "access plus 1800 seconds"
     ExpiresByType text/javascript "access plus 1800 seconds"
-    
-    # Images - 1 hour
     ExpiresByType image/jpeg "access plus 1 hour"
     ExpiresByType image/jpg "access plus 1 hour"
     ExpiresByType image/png "access plus 1 hour"
@@ -165,8 +128,6 @@ Header unset Server
     ExpiresByType image/webp "access plus 1 hour"
     ExpiresByType image/svg+xml "access plus 1 hour"
     ExpiresByType image/x-icon "access plus 1 hour"
-    
-    # Fonts - 1 day
     ExpiresByType font/ttf "access plus 1 day"
     ExpiresByType font/woff "access plus 1 day"
     ExpiresByType font/woff2 "access plus 1 day"
@@ -174,12 +135,10 @@ Header unset Server
     ExpiresByType application/font-woff2 "access plus 1 day"
 </IfModule>
 
-# Cache control for HTML/JSON
 <FilesMatch "\.(html|json)$">
     Header set Cache-Control "public, max-age=1800, must-revalidate"
 </FilesMatch>
 
-# Cache control for CSS/JS
 <FilesMatch "\.(css|js)$">
     Header set Cache-Control "public, max-age=1800, must-revalidate"
 </FilesMatch>

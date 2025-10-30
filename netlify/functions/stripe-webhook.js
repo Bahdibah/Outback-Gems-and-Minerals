@@ -3,6 +3,11 @@ const { Resend } = require('resend');
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+// Function to generate OGM order numbers
+function generateOGMOrderNumber() {
+  return 'OGM-' + Math.floor(100000 + Math.random() * 900000);
+}
+
 // In-memory store for processed sessions with timestamps (resets on function restart)
 // For production, consider using a database or external cache
 const processedSessions = new Map(); // Changed to Map to store timestamps
@@ -95,6 +100,7 @@ async function handleCheckoutSessionCompleted(session) {
     // Extract order information
     const orderData = {
       sessionId: session.id,
+      orderNumber: generateOGMOrderNumber(), // Add OGM order number
       paymentIntentId: session.payment_intent,
       customerEmail: customerDetails.email,
       customerName: customerDetails.name,
@@ -201,10 +207,11 @@ async function handleCheckoutSessionCompleted(session) {
     
     orderData.shippingMethod = shippingItem ? shippingItem.description : 'Standard Shipping';
 
-    // Send shipping notification email
+    // Send both internal shipping notification email and customer confirmation email
     await sendShippingNotificationEmail(orderData);
+    await sendCustomerConfirmationEmail(orderData);
 
-    console.log('🎉 STRIPE: Successfully processed order:', orderData.sessionId, '- Email sent, inventory updated');
+    console.log('🎉 STRIPE: Successfully processed order:', orderData.sessionId, '- Both emails sent, inventory updated');
 
   } catch (error) {
     console.error('💥 STRIPE: Error processing checkout session:', error);
@@ -374,7 +381,7 @@ async function sendShippingNotificationEmail(orderData) {
     const emailData = {
       from: 'Outback Gems <support@outbackgems.com.au>',
       to: 'support@outbackgems.com.au',
-      subject: `NEW STRIPE ORDER - $${orderData.orderTotal} AUD - SHIP NOW`,
+      subject: `NEW STRIPE ORDER ${orderData.orderNumber} - $${orderData.orderTotal} AUD - SHIP NOW`,
       html: htmlContent,
     };
 
@@ -383,6 +390,27 @@ async function sendShippingNotificationEmail(orderData) {
 
   } catch (error) {
     console.error('Failed to send shipping notification:', error);
+    throw error;
+  }
+}
+
+async function sendCustomerConfirmationEmail(orderData) {
+  try {
+    const htmlContent = generateCustomerConfirmationHTML(orderData);
+    
+    const emailData = {
+      from: 'Outback Gems <support@outbackgems.com.au>',
+      to: orderData.customerEmail,
+      bcc: 'support@outbackgems.com.au',
+      subject: 'Outback Gems and Minerals - Order Confirmation',
+      html: htmlContent,
+    };
+
+    const result = await resend.emails.send(emailData);
+    console.log('Customer confirmation email sent:', result.id);
+
+  } catch (error) {
+    console.error('Failed to send customer confirmation email:', error);
     throw error;
   }
 }
@@ -479,6 +507,96 @@ function generateShippingEmailHTML(orderData) {
           <p>This email was automatically generated when payment was confirmed via Stripe</p>
           <p>Questions? Contact: support@outbackgems.com.au</p>
         </div>
+      </div>
+    </body>
+    </html>
+  `;
+}
+
+function generateCustomerConfirmationHTML(orderData) {
+  const { shippingAddress } = orderData;
+  
+  const formatDate = (date) => {
+    return new Intl.DateTimeFormat('en-AU', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      timeZone: 'Australia/Sydney'
+    }).format(date);
+  };
+
+  // Extract first name from customer name
+  const firstName = orderData.customerName ? orderData.customerName.split(' ')[0] : 'there';
+
+  const orderItems = orderData.lineItems.map(item => `• ${item.name} - ${item.productId !== 'Unknown' ? item.productId : 'N/A'}
+    QTY: ${item.quantity}
+    $${item.totalPrice} AUD`).join('\n\n');
+
+  return `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="utf-8">
+      <title>Order Confirmation</title>
+    </head>
+    <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 20px; background-color: #f9f9f9;">
+      <div style="max-width: 600px; margin: 0 auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+        
+        <h1 style="color: #2c5530; margin-bottom: 20px; text-align: center; border-bottom: 2px solid #2c5530; padding-bottom: 15px;">
+          Outback Gems & Minerals
+        </h1>
+        
+        <h2 style="color: #555; margin-bottom: 20px;">Thank you for your order!</h2>
+        
+        <p>Hi ${firstName},</p>
+        
+        <p>We have received your order and payment has been successfully processed. Your order will be carefully packed and shipped on the next business day.</p>
+        
+        <div style="background-color: #f8f9fa; padding: 20px; border-radius: 5px; margin: 20px 0; border-left: 4px solid #2c5530;">
+          <h3 style="margin-top: 0; color: #2c5530;">Order Summary</h3>
+          <p><strong>Order Date:</strong> ${formatDate(orderData.createdAt)}</p>
+          <p><strong>Payment Method:</strong> Credit Card (Stripe)</p>
+          <p><strong>Total Amount:</strong> $${orderData.orderTotal} AUD</p>
+        </div>
+        
+        <h3>Items Ordered</h3>
+        <pre style="white-space: pre-wrap; font-family: Arial, sans-serif; margin: 20px 0; line-height: 1.5;">${orderItems}</pre>
+        
+        ${shippingAddress ? `
+        <h3>Shipping Information</h3>
+        <p><strong>Method:</strong> ${orderData.shippingMethod}</p>
+        <p><strong>Address:</strong><br>
+        ${shippingAddress.name}<br>
+        ${shippingAddress.line1}<br>
+        ${shippingAddress.line2 ? shippingAddress.line2 + '<br>' : ''}
+        ${shippingAddress.city}, ${shippingAddress.state} ${shippingAddress.postalCode}<br>
+        ${shippingAddress.country}</p>
+        <p>All orders are shipped via Australia Post. <a href="https://auspost.com.au/business/shipping/delivery-speeds-and-coverage" style="color: #2c5530;">View delivery times and coverage</a></p>
+        ` : ''}
+        
+        <div style="background-color: #e8f5e8; padding: 20px; border-radius: 5px; margin: 20px 0; border-left: 4px solid #4CAF50;">
+          <h3 style="margin-top: 0; color: #2c5530;">Next Steps</h3>
+          <p>• You will receive a tracking notification once your order has been dispatched</p>
+          <p>• If you have any questions about your order, please contact us</p>
+          <p>• Keep this email for your records and future reference</p>
+        </div>
+        
+        <div style="margin: 30px 0; padding: 20px; border-top: 1px solid #eee;">
+          <h3 style="color: #2c5530;">Important Information</h3>
+          <p><strong>Shipping Policy:</strong> <a href="https://outbackgems.com.au/shipping-policy" style="color: #2c5530;">View our shipping policy</a></p>
+          <p><strong>Returns Policy:</strong> <a href="https://outbackgems.com.au/returns-policy" style="color: #2c5530;">View our returns policy</a></p>
+          <p><strong>Questions?</strong> Contact us at support@outbackgems.com.au</p>
+        </div>
+        
+        <div style="border-top: 2px solid #2c5530; padding-top: 20px; text-align: center; color: #666; margin-top: 30px;">
+          <p><strong>Outback Gems & Minerals</strong></p>
+          <p>Email: support@outbackgems.com.au</p>
+          <p>Website: outbackgems.com.au</p>
+          <p style="font-size: 12px; margin-top: 15px;">This email was automatically generated to confirm your order.</p>
+        </div>
+        
       </div>
     </body>
     </html>

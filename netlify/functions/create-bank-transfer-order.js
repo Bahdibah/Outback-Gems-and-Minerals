@@ -66,7 +66,7 @@ exports.handler = async (event) => {
     const total = itemsTotal + validatedShippingCost;
 
     // Generate reference number
-    const reference = 'OGM-' + Math.floor(100000 + Math.random() * 900000); // 6 digits
+    const reference = 'OGM-' + Math.floor(100000 + Math.random() * 900000);
 
     // Compose order summary
     const orderSummary = [
@@ -153,7 +153,7 @@ Please use the reference number above when making your transfer.
     await resend.emails.send({
       from: 'Outback Gems <support@outbackgems.com.au>',
       to: 'support@outbackgems.com.au',
-      subject: 'NEW Bank Transfer Order Received',
+      subject: `NEW BANK TRANSFER ORDER ${reference} - $${total.toFixed(2)} AUD`,
       html: emailBodyHtml
     });
 
